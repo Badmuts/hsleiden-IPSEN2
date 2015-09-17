@@ -62,3 +62,22 @@ CREATE TABLE product (
 	land_id int NOT NULL REFERENCES land (id),
 	rang int  	
 );
+
+/**
+* Organisatie table
+*/
+CREATE TABLE organisatie (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	bedrijfsnaam VARCHAR NOT NULL,
+	adres VARCHAR NOT NULL,
+	woonplaats VARCHAR NOT NULL,
+	postcode VARCHAR NOT NULL,
+	email VARCHAR NOT NULL,
+	telefoon int,
+	kvk int NOT NULL,
+	btw_nummer VARCHAR NOT NULL,
+	iban VARCHAR NOT NULL,
+	bic VARCHAR NOT NULL,
+	land_id int NOT NULL REFERENCES land (id)
+);
