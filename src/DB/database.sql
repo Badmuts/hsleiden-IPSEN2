@@ -36,3 +36,48 @@ CREATE TABLE factuur (
 	status VARCHAR NOT NULL
 
 );
+
+/**
+* Order table
+*/
+CREATE TABLE order (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	factur_id int NOT NULL REFERENCES factuur (id),
+	aantal int NOT NULL,
+	product_id int NOT NULL REFERENCES product (id)
+);
+
+/**
+* Product table 
+*/
+CREATE TABLE product (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	productnummer int NOT NULL,
+	naam VARCHAR NOT NULL,
+	jaar int NOT NULL,
+	prijs DOUBLE NOT NULL,
+	type ENUM,
+	land_id int NOT NULL REFERENCES land (id),
+	rang int  	
+);
+
+/**
+* Organisatie table
+*/
+CREATE TABLE organisatie (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	bedrijfsnaam VARCHAR NOT NULL,
+	adres VARCHAR NOT NULL,
+	woonplaats VARCHAR NOT NULL,
+	postcode VARCHAR NOT NULL,
+	email VARCHAR NOT NULL,
+	telefoon int,
+	kvk int NOT NULL,
+	btw_nummer VARCHAR NOT NULL,
+	iban VARCHAR NOT NULL,
+	bic VARCHAR NOT NULL,
+	land_id int NOT NULL REFERENCES land (id)
+);
