@@ -37,52 +37,6 @@ CREATE TABLE factuur (
 
 );
 
-CREATE TABLE notitie (
-id INTEGER(11) NOT NULL PRIMARY KEY,
-titel VARCHAR(255) NOT NULL,
-notitie TEXT NOT NULL
-);
-
-CREATE TABLE mail (
-id INTEGER(11) NOT NULL PRIMARY KEY,
-debiteur_id INTEGER(11) NOT NULL FOREIGN KEY (debiteur_id) REFERENCES debiteur(id),
-factuur_id INTEGER(11) NOT NULL FOREIGN KEY (factuur_id) REFERENCES factuur(id),
-organisatie_id INTEGER(11) NOT NULL FOREIGN KEY (organisatie_id) REFERENCES organisatie(id),
-header VARCHAR(255) NOT NULL,
-body VARCHAR(255) NOT NULL,
-footer VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE opmerking (
-id INTEGER(255) NOT NULL PRIMARY KEY,
-opmerking TEXT NOT NULL
-);
-/**
-* Order table
-*/
-CREATE TABLE order (
-
-	id SERIAL NOT NULL PRIMARY KEY,
-	factur_id int NOT NULL REFERENCES factuur (id),
-	aantal int NOT NULL,
-	product_id int NOT NULL REFERENCES product (id)
-);
-
-/**
-* Product table 
-*/
-CREATE TABLE product (
-
-	id SERIAL NOT NULL PRIMARY KEY,
-	productnummer int NOT NULL,
-	naam VARCHAR NOT NULL,
-	jaar int NOT NULL,
-	prijs DOUBLE NOT NULL,
-	type ENUM,
-	land_id int NOT NULL REFERENCES land (id),
-	rang int  	
-);
-
 /**
 * Organisatie table
 */
@@ -100,4 +54,86 @@ CREATE TABLE organisatie (
 	iban VARCHAR NOT NULL,
 	bic VARCHAR NOT NULL,
 	land_id int NOT NULL REFERENCES land (id)
+);
+
+CREATE TABLE notitie (
+id int NOT NULL PRIMARY KEY,
+titel VARCHAR NOT NULL,
+notitie TEXT NOT NULL
+);
+
+CREATE TABLE mail (
+id int NOT NULL PRIMARY KEY,
+debiteur_id int NOT NULL REFERENCES debiteur (id),
+factuur_id int NOT NULL REFERENCES factuur (id),
+organisatie_id int NOT NULL REFERENCES organisatie (id),
+header VARCHAR NOT NULL,
+body VARCHAR NOT NULL,
+footer VARCHAR NOT NULL
+);
+
+CREATE TABLE opmerking (
+id int NOT NULL PRIMARY KEY,
+opmerking TEXT NOT NULL
+);
+
+/**
+* Product table 
+*/
+CREATE TABLE product (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	productnummer int NOT NULL,
+	naam VARCHAR NOT NULL,
+	jaar int NOT NULL,
+	prijs decimal NOT NULL,
+	type VARCHAR,
+	land_id int NOT NULL REFERENCES land (id),
+	rang int  	
+);
+
+/**
+* Order table
+*/
+CREATE TABLE tbl_order (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	factur_id int NOT NULL REFERENCES factuur (id),
+	aantal int NOT NULL,
+	product_id int NOT NULL REFERENCES product (id)
+);
+
+/**
+* Notitie to debiteur koppel tabel
+*/
+CREATE TABLE notitie_to_debiteur (
+	id SERIAL NOT NULL PRIMARY KEY,
+	notitie_id int NOT NULL REFERENCES notitie (id),
+	debiteur_id int NOT NULL REFERENCES debiteur (id)
+);
+
+/**
+* Notitie to factuur koppel tabel
+*/
+CREATE TABLE notitie_to_factuur (
+	id SERIAL NOT NULL PRIMARY KEY,
+	notitie_id int NOT NULL REFERENCES notitie (id),
+	factuur_id int NOT NULL REFERENCES factuur (id)
+);
+/**
+* Opmerking to debiteur koppel tabel
+*/
+CREATE TABLE opmerking_to_debiteur (
+	id SERIAL NOT NULL PRIMARY KEY,
+	opmerking_id int NOT NULL REFERENCES opmerking (id),
+	debiteur_id int NOT NULL REFERENCES debiteur (id)
+);
+
+/**
+* Opmerking to debiteur koppel tabel
+*/
+CREATE TABLE opmerking_to_factuur (
+	id SERIAL NOT NULL PRIMARY KEY,
+	opmerking_id int NOT NULL REFERENCES opmerking (id),
+	factuur_id int NOT NULL REFERENCES factuur (id)
 );
