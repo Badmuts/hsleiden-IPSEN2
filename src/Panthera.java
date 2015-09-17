@@ -14,6 +14,6 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setScene(new Scene(new TextField("Panthera")));
-        System.out.println("Panthera");
+        System.out.println("Panthera2");
     }
 }
