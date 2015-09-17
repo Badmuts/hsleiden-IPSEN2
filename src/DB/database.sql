@@ -36,3 +36,15 @@ CREATE TABLE factuur (
 	status VARCHAR NOT NULL
 
 );
+
+/**
+* Order table
+*/
+CREATE TABLE order (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	factur_id int NOT NULL REFERENCES factuur (id),
+	aantal int NOT NULL,
+	product_id int NOT NULL REFERENCES product (id)
+);
+
