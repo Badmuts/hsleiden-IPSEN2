@@ -48,3 +48,17 @@ CREATE TABLE order (
 	product_id int NOT NULL REFERENCES product (id)
 );
 
+/**
+* Product table 
+*/
+CREATE TABLE product (
+
+	id SERIAL NOT NULL PRIMARY KEY,
+	productnummer int NOT NULL,
+	naam VARCHAR NOT NULL,
+	jaar int NOT NULL,
+	prijs DOUBLE NOT NULL,
+	type ENUM,
+	land_id int NOT NULL REFERENCES land (id),
+	rang int  	
+);
