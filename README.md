@@ -1,6 +1,10 @@
 # IPSEN2
 Project Panthera, een ordersysteem voor het wijnfestijn van de Lions Club. Panthera is het Latijnse woord voor leeuw.
 
+Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: MVC, DAO en Services.
+
+![Applicatie structuur](https://www.dropbox.com/s/f3mrd5j1sl9qy3s/DAOModel.JPG?dl=1)
+
 ## Usecase diagram  
 ![Usecase diagram](https://www.dropbox.com/s/7fk0twahyy3isdz/usecasev0.2.png?dl=1)
 
