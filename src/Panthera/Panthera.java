@@ -1,6 +1,7 @@
+package Panthera;
+
+import Panthera.Controllers.MainMenuController;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Panthera extends Application {
@@ -29,8 +30,7 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
-        this.stage.setScene(new Scene(new TextField("Panthera")));
-        this.stage.show();
+        new MainMenuController();
     }
 
     /**
@@ -43,11 +43,11 @@ public class Panthera extends Application {
     }
 
     /**
-     * Returns the instance of this (Panthera) object (because it is a Singleton).
+     * Returns the instance of this (Panthera.Panthera) object (because it is a Singleton).
      *
-     * @return Panthera Singleton Panthera object.
+     * @return Panthera.Panthera Singleton Panthera.Panthera object.
      */
-    public Panthera getInstance() {
+    public static Panthera getInstance() {
         return uniqueInstance;
     }
 
