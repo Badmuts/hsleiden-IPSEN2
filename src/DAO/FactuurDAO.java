@@ -28,7 +28,6 @@ public class FactuurDAO {
 
     public void deleteFactuur(int id) {
         //query om een factuur te verwijderen
-
         try (Statement stmt = conn.createStatement()) {
             stmt.executeQuery("DELETE * FROM factuur WHERE factuur_id = " + id);
         }

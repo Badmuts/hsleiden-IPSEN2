@@ -19,7 +19,7 @@ public class Factuur {
     FactuurDAO factuurDAO;
 
     public Factuur() {
-        FactuurDAO factuurDAO = new FactuurDAO();
+        factuurDAO = new FactuurDAO();
     }
 
     public int getId() {
