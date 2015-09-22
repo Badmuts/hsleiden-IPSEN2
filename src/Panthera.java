@@ -21,15 +21,6 @@ public class Panthera extends Application {
     }
 
     /**
-     * Returns the instance of this (Panthera) object (because it is a Singleton).
-     *
-     * @return Panthera Singleton Panthera object.
-     */
-    public Panthera getInstance() {
-        return uniqueInstance;
-    }
-
-    /**
      * This method bootstraps the JavaFX application.
      *
      * @param primaryStage JavaFX stage.
@@ -49,5 +40,23 @@ public class Panthera extends Application {
      */
     public static void main(String args[]) {
         launch(args);
+    }
+
+    /**
+     * Returns the instance of this (Panthera) object (because it is a Singleton).
+     *
+     * @return Panthera Singleton Panthera object.
+     */
+    public Panthera getInstance() {
+        return uniqueInstance;
+    }
+
+    /**
+     * Returns the JavaFX stage.
+     *
+     * @return Stage The actual stage used.
+     */
+    public Stage getStage() {
+        return stage;
     }
 }
