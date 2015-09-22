@@ -1,5 +1,7 @@
 package Models;
 
+import DAO.FactuurDAO;
+
 import java.util.Calendar;
 
 /**
@@ -14,6 +16,7 @@ public class Factuur {
     private String opmerking;
     private String notitie;
     private Organisatie organisatie;
+    FactuurDAO factuurDAO;
 
     public Factuur() {
         FactuurDAO factuurDAO = new FactuurDAO();
