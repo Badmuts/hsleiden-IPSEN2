@@ -2,13 +2,11 @@ package Panthera.DAO;
 
 import Panthera.Models.Factuur;
 
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Calendar;
 import java.util.List;
 
-import static Panthera.Services.DatabaseService.*;
 
 /**
  * Created by Brandon on 22-Sep-15.
@@ -21,9 +19,11 @@ public class FactuurDAO extends DAO {
 
     public Factuur getFactuur(int id) throws SQLException {
         //query om een specifieke factuur op te halen
+        ResultSet query;
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("SELECT * FROM factuur WHERE factuur_id =" + id);
+            query = stmt.executeQuery("SELECT * FROM factuur WHERE factuur_id =" + id);
         }
+        return (Factuur) query;
     }
 
     public List<Factuur> getAllFacturen() throws SQLException {
@@ -31,6 +31,7 @@ public class FactuurDAO extends DAO {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeQuery("SELECT * FROM factuur");
         }
+        return null;
     }
 
     public void deleteFactuur(int id) throws SQLException {
