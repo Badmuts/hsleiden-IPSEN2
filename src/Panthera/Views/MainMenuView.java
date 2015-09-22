@@ -16,6 +16,9 @@ public class MainMenuView extends BorderPane {
     private Stage stage = Panthera.getInstance().getStage();
     private VBox menu;
 
+    /**
+     * Create main menu view, the first view the user will see.
+     */
     public MainMenuView() {
         super();
         this.createMenu();
@@ -25,7 +28,7 @@ public class MainMenuView extends BorderPane {
     }
 
     /**
-     *
+     * Creates menu buttons.
      */
     private void createMenu() {
         this.menu = new VBox(10);
@@ -35,8 +38,7 @@ public class MainMenuView extends BorderPane {
         buttons.add(new Button("Bestellijsten"));
         buttons.add(new Button("Debiteuren"));
         buttons.add(new Button("E-mail"));
-        for (Button button: buttons)
-            this.menu.getChildren().add(button);
+        this.menu.getChildren().addAll(buttons);
     }
 
 }
