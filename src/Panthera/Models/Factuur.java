@@ -1,6 +1,6 @@
-package Models;
+package Panthera.Models;
 
-import DAO.FactuurDAO;
+import Panthera.DAO.FactuurDAO;
 
 import java.util.Calendar;
 
