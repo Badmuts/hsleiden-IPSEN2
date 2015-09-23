@@ -7,7 +7,7 @@ import Panthera.Views.FacturenListView;
  */
 public class FacturenController extends Controller {
 
-    public FacturenController() {
+    public FacturenController()  {
         this.view = new FacturenListView(this);
     }
 }
