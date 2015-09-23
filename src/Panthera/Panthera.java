@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Panthera extends Application {
-
     private static Panthera uniqueInstance;
     private Stage stage;
 
@@ -32,7 +31,7 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
-        new MainMenuController();
+        new MainMenuController().show();
         FactuurDAO factuurDAO = new FactuurDAO();
         Factuur factuur = factuurDAO.getFactuur(1);
         System.out.print(factuur);
