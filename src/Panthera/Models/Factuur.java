@@ -2,6 +2,7 @@ package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 /**
@@ -9,72 +10,80 @@ import java.util.Calendar;
  */
 public class Factuur {
     private int id;
-    private Calendar factuurdatum;
-    private Calendar vervaldatum;
-    private Debiteur debiteur;
-    private OrderRegel orderRegel;
-    private String opmerking;
-    private String notitie;
-    private Organisatie organisatie;
-    FactuurDAO factuurDAO;
+    private Date factuurdatum;
+    private Date vervaldatum;
+    //private Debiteur debiteur;
+    //private OrderRegel orderRegel;
+    //private String opmerking;
+    //private String notitie;
+    //private Organisatie organisatie;
+    private String status;
+
+
+    public Factuur(int id, Date factuurdatum, Date vervaldatum, String status) {
+        this.id = id;
+        this.factuurdatum = factuurdatum;
+        this.vervaldatum = vervaldatum;
+        //this.debiteur = debiteur;
+        //this.orderRegel = orderRegel;
+       // this.opmerking = opmerking;
+       // this.notitie = notitie;
+        this.status = status;
+
+    }
 
     public Factuur() {
-        factuurDAO = new FactuurDAO();
+
     }
 
     public int getId() {
         return id;
     }
-    public Factuur getFactuurById() {
-        factuurDAO.getFactuur(getId());
-    }
-    public Factuur getAllFacturen() {
-        factuurDAO.getAllFacturen();
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Calendar getFactuurdatum() {
-        return factuurdatum;
+    public void setFactuurdatum(Date factuurdatum) {
+        this.factuurdatum = factuurdatum;
     }
 
-    public Calendar getVervaldatum() {
-        return vervaldatum;
+    public void setVervaldatum(Date vervaldatum) {
+        this.vervaldatum = vervaldatum;
     }
 
-    public Debiteur getDebiteur() {
-        return debiteur;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public OrderRegel getOrderRegel() {
-        return orderRegel;
-    }
+//    public OrderRegel getOrderRegel() {
+//        return orderRegel;
+//    }
+//
+//    public Organisatie getOrganisatie() {
+//        return organisatie;
+//    }
+//
+//    public String getOpmerking() {
+//        return opmerking;
+//    }
+//
+//    public String getNotitie() {
+//        return notitie;
+//    }
+//
+//    public void setOpmerking(String opmerking) {
+//        this.opmerking = opmerking;
+//    }
+//
+//    public void setNotitie(String notitie) {
+//        this.notitie = notitie;
+//    }
 
-    public Organisatie getOrganisatie() {
-        return organisatie;
-    }
+        public String toString() {
+            return "Factuur: " + this.id + " "  + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+        }
 
-    public String getOpmerking() {
-        return opmerking;
-    }
-
-    public String getNotitie() {
-        return notitie;
-    }
-
-    public void setOpmerking(String opmerking) {
-        this.opmerking = opmerking;
-    }
-
-    public void setNotitie(String notitie) {
-        this.notitie = notitie;
-    }
-
-    public void deleteFactuurFromDatabaseById() {
-        factuurDAO.deleteFactuur(getId());
-    }
-
-    public void addFactuurToDatabase() {
-        factuurDAO.saveFactuur(factuurdatum, vervaldatum, debiteur, orderRegel, opmerking, notitie, organisatie);
-    }
 }
 
 

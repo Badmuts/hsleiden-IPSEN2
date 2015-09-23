@@ -13,17 +13,23 @@ import java.util.List;
  */
 public class FactuurDAO extends DAO {
 
-    FactuurDAO() throws IllegalAccessException, SQLException, InstantiationException {
+    public FactuurDAO() throws IllegalAccessException, SQLException, InstantiationException {
         super();
     }
 
     public Factuur getFactuur(int id) throws SQLException {
         //query om een specifieke factuur op te halen
-        ResultSet query;
+        Factuur factuur = new Factuur();
         try (Statement stmt = conn.createStatement()) {
-            query = stmt.executeQuery("SELECT * FROM factuur WHERE factuur_id =" + id);
+            ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
+            while (result.next()) {
+                factuur.setId(result.getInt("id"));
+                factuur.setFactuurdatum(result.getDate("factuurdatum"));
+                factuur.setVervaldatum(result.getDate("vervaldatum"));
+                factuur.setStatus(result.getString("status"));
+            }
         }
-        return (Factuur) query;
+        return factuur;
     }
 
     public List<Factuur> getAllFacturen() throws SQLException {
