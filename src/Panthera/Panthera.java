@@ -36,7 +36,6 @@ public class Panthera extends Application {
         FactuurDAO factuurDAO = new FactuurDAO();
         Factuur factuur = factuurDAO.getFactuur(1);
         System.out.print(factuur);
-
     }
 
     /**
