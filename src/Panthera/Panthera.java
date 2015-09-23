@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Panthera extends Application {
-
     private static Panthera uniqueInstance;
     private Stage stage;
 
