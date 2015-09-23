@@ -16,3 +16,6 @@ Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: 
 
 ## Applicatiemodel
 ![Applicatiemodel](https://www.dropbox.com/s/rf6q8kofec5ujpj/ApplicatieModel1.2.jpg?dl=1)
+
+##[Download driver 4.2] (https://jdbc.postgresql.org/download.html)
+
