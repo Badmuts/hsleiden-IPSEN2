@@ -17,5 +17,8 @@ Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: 
 ## Applicatiemodel
 ![Applicatiemodel](https://www.dropbox.com/s/rf6q8kofec5ujpj/ApplicatieModel1.2.jpg?dl=1)
 
-##[Download driver 4.2] (https://jdbc.postgresql.org/download.html)
+## Download JDBC Postgres driver
+Om connectie met je database te maken moet je de [Postgres driver downloaden](https://jdbc.postgresql.org/download.html) en toevoegen aan je project. 
+
+Configuratie met de database staat in de `DatabaseService.java` class. Hierin moet je waarschijnlijk je login gegevens aanpassen.
 
