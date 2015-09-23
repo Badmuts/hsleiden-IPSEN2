@@ -5,12 +5,10 @@ import Panthera.Views.MainMenuView;
 /**
  * Created by Daan on 22-Sep-15.
  */
-public class MainMenuController {
-
-    private MainMenuView mainMenuView;
+public class MainMenuController extends Controller {
 
     public MainMenuController() {
-        this.mainMenuView = new MainMenuView();
+        this.view = new MainMenuView(this);
     }
 
 }

@@ -30,7 +30,7 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
-        new MainMenuController();
+        new MainMenuController().show();
     }
 
     /**
