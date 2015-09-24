@@ -31,6 +31,7 @@ CREATE TABLE factuur (
 
 	id SERIAL NOT NULL PRIMARY KEY,
 	debiteur_id int NOT NULL REFERENCES debiteur (id),
+	factuurnummer int NOT NULL,
 	factuurdatum DATE NOT NULL,
 	vervaldatum DATE NOT NULL,
 	status VARCHAR NOT NULL
