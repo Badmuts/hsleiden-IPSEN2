@@ -11,5 +11,9 @@ public class MainMenuController extends Controller {
         this.view = new MainMenuView(this);
     }
 
+    public Controller cmdCreateFacturenController() throws Exception {
+        return new FacturenController();
+    }
+
 }
 

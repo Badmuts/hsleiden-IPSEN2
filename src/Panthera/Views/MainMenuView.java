@@ -46,7 +46,7 @@ public class MainMenuView extends BorderPane implements Viewable {
      */
     private void createMenuButtons() {
         try {
-            buttons.add(createButton("Facturen", new FacturenController()));
+            buttons.add(createButton("Facturen", mainMenuController.cmdCreateFacturenController()));
         } catch (Exception e) {
             e.printStackTrace();
         }

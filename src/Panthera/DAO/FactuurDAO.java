@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -18,26 +17,26 @@ public class FactuurDAO extends DAO {
         super();
     }
 
-    public Factuur getFactuur(int id) throws SQLException {
-        //query om een specifieke factuur op te halen
-        Factuur factuur = new Factuur();
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
-            while (result.next()) {
-                //factuur.setId(result.getInt("id"));
-                factuur.setFactuurdatum(result.getDate("factuurdatum"));
-                factuur.setVervaldatum(result.getDate("vervaldatum"));
-                factuur.setStatus(result.getString("status"));
-            }
-        }
-        return factuur;
-    }
+//    public Factuur getFactuur(int id) throws SQLException {
+//        //query om een specifieke factuur op te halen
+//        Factuur factuur = new Factuur();
+//        try (Statement stmt = conn.createStatement()) {
+//            ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
+//            while (result.next()) {
+//                //factuur.setId(result.getInt("id"));
+//                factuur.setFactuurdatum(result.getString("factuurdatum"));
+//                factuur.setVervaldatum(result.getString("vervaldatum"));
+//                factuur.setStatus(result.getString("status"));
+//            }
+//        }
+//        return factuur;
+//    }
 
 
     /**
-     * Returns a list with Product models with a limit of 25.
+     * Returns a list with Factuur models with a limit of 25.
      *
-     * @return ArrayList<Product> List with product models.
+     * @return ArrayList<Factuur> List with product models.
      * @throws Exception
      */
     public ArrayList<Factuur> getAllFacturen() throws Exception {
@@ -47,19 +46,21 @@ public class FactuurDAO extends DAO {
         while (result.next()) {
             facturen.add(new Factuur(
                     result.getInt("factuurnummer"),
-                    result.getDate("factuurdatum"),
-                    result.getDate("vervaldatum"),
-                    result.getString("factuurnummer")));
+                    result.getString("factuurdatum"),
+                    result.getString("vervaldatum"),
+                    result.getString("status")));
+
         }
         return facturen;
     }
+}
+//
+//    public void deleteFactuur(int id) throws SQLException {
+//        //query om een factuur te verwijderen
+//        try (Statement stmt = conn.createStatement()) {
+//            stmt.executeQuery("DELETE * FROM factuur WHERE factuur_id = " + id);
+//        }
 
-    public void deleteFactuur(int id) throws SQLException {
-        //query om een factuur te verwijderen
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("DELETE * FROM factuur WHERE factuur_id = " + id);
-        }
-    }
 
    /* public void saveFactuur(Calendar factuurdatum, Calendar vervaldatum, Debiteur debiteur, OrderRegel orderRegel, String opmerking, String notitie, Organisatie organisatie) throws SQLException {
         //query om een factuur op te slaan
@@ -75,4 +76,4 @@ public class FactuurDAO extends DAO {
                             );
         }
     } */
-}
+
