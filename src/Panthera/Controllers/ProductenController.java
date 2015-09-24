@@ -3,26 +3,32 @@ package Panthera.Controllers;
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
 import Panthera.Views.ProductenListView;
+import Panthera.Views.Viewable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class ProductenController extends Controller {
 
     private ProductDAO dao;
 
     public ProductenController() throws Exception {
-        this.view = new ProductenListView(this);
-        this.dao = new ProductDAO();
+        dao = new ProductDAO();
+        view = new ProductenListView(this);
     }
 
-    public Collection<Product> cmdGetProducten() {
+    public ObservableList<Product> cmdGetProducten() {
         ArrayList<Product> products = new ArrayList<>();
         try {
             products.addAll(dao.all());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return products;
+        return FXCollections.observableArrayList(products);
+    }
+
+    public void setView(Viewable view) {
+        this.view = view;
     }
 }

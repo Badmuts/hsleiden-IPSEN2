@@ -54,4 +54,7 @@ public class ProductDAO extends DAO {
         return products;
     }
 
+    @Override public String toString() {
+        return "ProductDAO{}";
+    }
 }

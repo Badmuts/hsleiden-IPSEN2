@@ -3,7 +3,6 @@ package Panthera.Views;
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
 import Panthera.Panthera;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -19,17 +18,19 @@ public class ProductenListView extends BorderPane implements Viewable {
     private ProductenController productenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Product> table;
-    private ObservableList<Product> data;
+    private ObservableList<Product> products;
 
     public ProductenListView(ProductenController productenController) {
         this.productenController = productenController;
-        data = FXCollections.observableArrayList(productenController.cmdGetProducten());
+        this.products = productenController.cmdGetProducten();
         createTitle();
         createTableView();
+        table.setItems(products);
     }
 
     private void createTableView() {
         table = new TableView<>();
+        // TODO: Refactor this
         TableColumn productnummer = new TableColumn("Productnummer");
         productnummer.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productnummer"));
         TableColumn naam = new TableColumn("Naam");
