@@ -47,22 +47,30 @@ public class Factuur {
     }
 
     public int getFactuurnummer() {
-        return this.factuurnummer;
+        return factuurnummer;
     }
 
     public void setFactuurnummer(int factuurnummer) {
         this.factuurnummer = factuurnummer;
     }
 
-
+    public Date getFactuurdatum() {
+        return factuurdatum;
+    }
     public void setFactuurdatum(Date factuurdatum) {
         this.factuurdatum = factuurdatum;
     }
 
+    public Date getVervaldatum() {
+        return vervaldatum;
+    }
     public void setVervaldatum(Date vervaldatum) {
         this.vervaldatum = vervaldatum;
     }
 
+    public String getStatus() {
+        return status;
+    }
     public void setStatus(String status) {
         this.status = status;
     }

@@ -34,7 +34,4 @@ public class FacturenController extends Controller {
         return FXCollections.observableArrayList(facturen);
     }
 
-    public void setView(Viewable view) {
-        this.view = view;
-    }
 }
