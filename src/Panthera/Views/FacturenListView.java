@@ -3,9 +3,13 @@ import Panthera.Controllers.FacturenController;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 import java.util.Date;
@@ -27,6 +32,8 @@ public class FacturenListView extends BorderPane implements Viewable {
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
     private ObservableList<Factuur> facturen;
+    public final ObservableList<Long> checkedMessages = FXCollections
+            .observableArrayList(new Long(1));
     private HBox topContainer = new HBox(10);
 
 
@@ -59,7 +66,29 @@ public class FacturenListView extends BorderPane implements Viewable {
         factuurexpdate.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("vervaldatum"));
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
-        this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status);
+        TableColumn checked = new TableColumn("checked");
+
+        checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Factuur, CheckBox>, ObservableValue<CheckBox>>()
+        {
+
+            @Override
+            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> param) {
+
+                TableColumn.CellDataFeatures<Factuur, CheckBox> arg0) {
+                    Factuur factuur = arg0.getValue();
+                CheckBox checkBox = new CheckBox();
+                for (Long value : model.checkedMessages) {
+                    if(value.intValue() == Factuur.getId()) {
+                        //zet de checkbox value op true
+                        checkBox.selectedProperty().setValue(Boolean.TRUE);
+                    }
+                }
+                return new SimpleObjectProperty<CheckBox>(checkBox);
+            }
+        }
+        });
+
+        this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status, checked);
         setCenter(this.table);
 
     }
