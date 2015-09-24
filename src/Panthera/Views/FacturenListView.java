@@ -72,20 +72,12 @@ public class FacturenListView extends BorderPane implements Viewable {
         {
 
             @Override
-            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> param) {
-
-                TableColumn.CellDataFeatures<Factuur, CheckBox> arg0) {
-                    Factuur factuur = arg0.getValue();
+            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> arg0) {
                 CheckBox checkBox = new CheckBox();
-                for (Long value : model.checkedMessages) {
-                    if(value.intValue() == Factuur.getId()) {
-                        //zet de checkbox value op true
-                        checkBox.selectedProperty().setValue(Boolean.TRUE);
-                    }
-                }
+
                 return new SimpleObjectProperty<CheckBox>(checkBox);
             }
-        }
+
         });
 
         this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status, checked);
