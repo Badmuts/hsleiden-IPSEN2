@@ -9,10 +9,10 @@ import java.util.Calendar;
  * Created by Brandon on 22-Sep-15.
  */
 public class Factuur {
-
+    private int id;
     private int factuurnummer;
-    private String factuurdatum;
-    private String vervaldatum;
+    private Date factuurdatum;
+    private Date vervaldatum;
     private String status;
     //private Debiteur debiteur;
     //private OrderRegel orderRegel;
@@ -23,8 +23,8 @@ public class Factuur {
 
 
 
-    public Factuur(int factuurnummer, String factuurdatum, String vervaldatum, String status) {
-
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
+        this.id = id;
         this.factuurnummer = factuurnummer;
         this.factuurdatum = factuurdatum;
         this.vervaldatum = vervaldatum;
@@ -33,14 +33,18 @@ public class Factuur {
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
        // this.notitie = notitie;
-
-
-
     }
 
     public Factuur() {
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getFactuurnummer() {
         return this.factuurnummer;
@@ -51,11 +55,11 @@ public class Factuur {
     }
 
 
-    public void setFactuurdatum(String factuurdatum) {
+    public void setFactuurdatum(Date factuurdatum) {
         this.factuurdatum = factuurdatum;
     }
 
-    public void setVervaldatum(String vervaldatum) {
+    public void setVervaldatum(Date vervaldatum) {
         this.vervaldatum = vervaldatum;
     }
 
@@ -88,7 +92,7 @@ public class Factuur {
 //    }
 
         public String toString() {
-            return "Factuur: " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+            return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
         }
 
 }

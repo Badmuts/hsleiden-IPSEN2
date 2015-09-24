@@ -17,20 +17,20 @@ public class FactuurDAO extends DAO {
         super();
     }
 
-//    public Factuur getFactuur(int id) throws SQLException {
-//        //query om een specifieke factuur op te halen
-//        Factuur factuur = new Factuur();
-//        try (Statement stmt = conn.createStatement()) {
-//            ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
-//            while (result.next()) {
-//                //factuur.setId(result.getInt("id"));
-//                factuur.setFactuurdatum(result.getString("factuurdatum"));
-//                factuur.setVervaldatum(result.getString("vervaldatum"));
-//                factuur.setStatus(result.getString("status"));
-//            }
-//        }
-//        return factuur;
-//    }
+    public Factuur getFactuur(int id) throws SQLException {
+        //query om een specifieke factuur op te halen
+        Factuur factuur = new Factuur();
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
+            while (result.next()) {
+                factuur.setId(result.getInt("id"));
+                factuur.setFactuurdatum(result.getDate("factuurdatum"));
+                factuur.setVervaldatum(result.getDate("vervaldatum"));
+                factuur.setStatus(result.getString("status"));
+            }
+        }
+        return factuur;
+    }
 
 
     /**
@@ -42,12 +42,13 @@ public class FactuurDAO extends DAO {
     public ArrayList<Factuur> getAllFacturen() throws Exception {
         ArrayList<Factuur> facturen = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
         while (result.next()) {
             facturen.add(new Factuur(
+                    result.getInt("id"),
                     result.getInt("factuurnummer"),
-                    result.getString("factuurdatum"),
-                    result.getString("vervaldatum"),
+                    result.getDate("factuurdatum"),
+                    result.getDate("vervaldatum"),
                     result.getString("status")));
 
         }
