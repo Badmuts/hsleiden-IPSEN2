@@ -32,9 +32,7 @@ public class Panthera extends Application {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
         new MainMenuController().show();
-        FactuurDAO factuurDAO = new FactuurDAO();
-        Factuur factuur = factuurDAO.getFactuur(1);
-        System.out.print(factuur);
+
     }
 
     /**
