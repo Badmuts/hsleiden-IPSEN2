@@ -9,7 +9,7 @@ import java.util.Calendar;
  * Created by Brandon on 22-Sep-15.
  */
 public class Factuur {
-    private int id;
+    //private int id;
     private Date factuurdatum;
     private Date vervaldatum;
     //private Debiteur debiteur;
@@ -18,10 +18,12 @@ public class Factuur {
     //private String notitie;
     //private Organisatie organisatie;
     private String status;
+    private int factuurnummer;
 
 
-    public Factuur(int id, Date factuurdatum, Date vervaldatum, String status) {
-        this.id = id;
+    public Factuur(int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
+        //this.id = id;
+        this.factuurnummer = factuurnummer;
         this.factuurdatum = factuurdatum;
         this.vervaldatum = vervaldatum;
         //this.debiteur = debiteur;
@@ -30,19 +32,29 @@ public class Factuur {
        // this.notitie = notitie;
         this.status = status;
 
+
     }
 
     public Factuur() {
 
     }
 
-    public int getId() {
-        return id;
+//    public int getId() {
+//        return id;
+//    }
+
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+
+    public int getFactuurnummer() {
+        return this.factuurnummer;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFactuurnummer(int factuurnummer) {
+        this.factuurnummer = factuurnummer;
     }
+
 
     public void setFactuurdatum(Date factuurdatum) {
         this.factuurdatum = factuurdatum;
@@ -81,7 +93,7 @@ public class Factuur {
 //    }
 
         public String toString() {
-            return "Factuur: " + this.id + " "  + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+            return "Factuur: " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
         }
 
 }

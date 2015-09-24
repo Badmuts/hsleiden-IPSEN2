@@ -5,6 +5,7 @@ import Panthera.Models.Factuur;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class FactuurDAO extends DAO {
         try (Statement stmt = conn.createStatement()) {
             ResultSet result = stmt.executeQuery("SELECT * FROM factuur WHERE id =" + id);
             while (result.next()) {
-                factuur.setId(result.getInt("id"));
+                //factuur.setId(result.getInt("id"));
                 factuur.setFactuurdatum(result.getDate("factuurdatum"));
                 factuur.setVervaldatum(result.getDate("vervaldatum"));
                 factuur.setStatus(result.getString("status"));
@@ -32,12 +33,25 @@ public class FactuurDAO extends DAO {
         return factuur;
     }
 
-    public List<Factuur> getAllFacturen() throws SQLException {
-        //query om alle facturen op te halen
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("SELECT * FROM factuur");
+
+    /**
+     * Returns a list with Product models with a limit of 25.
+     *
+     * @return ArrayList<Product> List with product models.
+     * @throws Exception
+     */
+    public ArrayList<Factuur> getAllFacturen() throws Exception {
+        ArrayList<Factuur> facturen = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+        while (result.next()) {
+            facturen.add(new Factuur(
+                    result.getInt("factuurnummer"),
+                    result.getDate("factuurdatum"),
+                    result.getDate("vervaldatum"),
+                    result.getString("factuurnummer")));
         }
-        return null;
+        return facturen;
     }
 
     public void deleteFactuur(int id) throws SQLException {
