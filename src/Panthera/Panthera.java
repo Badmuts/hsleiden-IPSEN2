@@ -47,7 +47,7 @@ public class Panthera extends Application {
     }
 
     /**
-     * Returns the instance of this (Panthera.Panthera) object (because it is a Singleton).
+     * Returns the instance of this (Panthera) object (because it is a Singleton).
      *
      * @return Panthera.Panthera Singleton Panthera.Panthera object.
      */

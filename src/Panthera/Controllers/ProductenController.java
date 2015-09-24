@@ -17,6 +17,12 @@ public class ProductenController extends Controller {
         view = new ProductenListView(this);
     }
 
+    /**
+     * Get ObservableList with products for the view (max 25).
+     *
+     * @author Daan Rosbergen
+     * @return ObservableList<Product> Collection of Product models.
+     */
     public ObservableList<Product> cmdGetProducten() {
         ArrayList<Product> products = new ArrayList<>();
         try {

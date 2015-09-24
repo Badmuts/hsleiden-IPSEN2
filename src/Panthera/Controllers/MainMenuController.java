@@ -11,6 +11,13 @@ public class MainMenuController extends Controller {
         this.view = new MainMenuView(this);
     }
 
+    /**
+     * Returns a new ProductenController
+     *
+     * @author Daan Rosbergen
+     * @return ProductenController
+     * @throws Exception
+     */
     public Controller cmdCreateProductenController() throws Exception {
         return new ProductenController();
     }

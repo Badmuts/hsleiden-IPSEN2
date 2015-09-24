@@ -23,6 +23,8 @@ public class MainMenuView extends BorderPane implements Viewable {
 
     /**
      * Create main menu view, the first view the user will see.
+     *
+     * @author Daan Rosbergen
      */
     public MainMenuView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
@@ -32,6 +34,8 @@ public class MainMenuView extends BorderPane implements Viewable {
 
     /**
      * Creates menu container.
+     *
+     * @author Daan Rosbergen
      */
     private void createMenu() {
         this.menu = new VBox(10);
@@ -41,6 +45,8 @@ public class MainMenuView extends BorderPane implements Viewable {
 
     /**
      * Creates menu buttons
+     *
+     * @author Daan Rosbergen
      */
     private void createMenuButtons() {
         try {
@@ -54,6 +60,14 @@ public class MainMenuView extends BorderPane implements Viewable {
         }
     }
 
+    /**
+     * Helper function to create a button and map it to a controller.
+     *
+     * @author Daan Rosbergen
+     * @param name          Name of button.
+     * @param controller    Target controller.
+     * @return Button       The button.
+     */
     private Button createButton(String name, Controller controller) {
         Button button = new Button(name);
         button.setOnAction(event -> controller.show());
