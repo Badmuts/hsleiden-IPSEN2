@@ -22,7 +22,7 @@ public class ProductenListView extends BorderPane implements Viewable {
 
     public ProductenListView(ProductenController productenController) {
         this.productenController = productenController;
-        this.products = productenController.cmdGetProducten();
+        this.products = this.productenController.cmdGetProducten();
         createTitle();
         createTableView();
         table.setItems(products);
