@@ -2,13 +2,15 @@ package Panthera.Models;
 
 public class Product {
 
+    private int id;
     private int productnummer;
     private String naam;
     private int jaar;
     private double prijs;
     private String type;
 
-    public Product(int productnummer, String naam, int jaar, double prijs, String type) {
+    public Product(int id, int productnummer, String naam, int jaar, double prijs, String type) {
+        this.id = id;
         this.productnummer = productnummer;
         this.naam = naam;
         this.jaar = jaar;
@@ -18,6 +20,18 @@ public class Product {
 
     public Product() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+//
+//    public void setId() {
+//        this.id = id;
+//    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getProductnummer() {

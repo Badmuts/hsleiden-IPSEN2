@@ -42,9 +42,10 @@ public class ProductDAO extends DAO {
     public ArrayList<Product> all() throws Exception {
         ArrayList<Product> products = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT productnummer, naam, jaar, prijs, type FROM product LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT * FROM product LIMIT 25");
         while (result.next()) {
             products.add(new Product(
+                result.getInt("id"),
                 result.getInt("productnummer"),
                 result.getString("naam"),
                 result.getInt("jaar"),

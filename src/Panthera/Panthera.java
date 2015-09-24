@@ -2,7 +2,9 @@ package Panthera;
 
 import Panthera.Controllers.MainMenuController;
 import Panthera.DAO.FactuurDAO;
+import Panthera.DAO.ProductDAO;
 import Panthera.Models.Factuur;
+import Panthera.Models.Product;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -35,6 +37,10 @@ public class Panthera extends Application {
         FactuurDAO factuurDAO = new FactuurDAO();
         Factuur factuur = factuurDAO.getFactuur(1);
         System.out.print(factuur);
+
+        ProductDAO productDAO = new ProductDAO();
+        Product product = (Product) productDAO.find(1);
+        System.out.print(product);
     }
 
     /**
