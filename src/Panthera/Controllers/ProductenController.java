@@ -3,7 +3,6 @@ package Panthera.Controllers;
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
 import Panthera.Views.ProductenListView;
-import Panthera.Views.Viewable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,9 +25,5 @@ public class ProductenController extends Controller {
             e.printStackTrace();
         }
         return FXCollections.observableArrayList(products);
-    }
-
-    public void setView(Viewable view) {
-        this.view = view;
     }
 }
