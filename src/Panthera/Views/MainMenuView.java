@@ -1,6 +1,7 @@
 package Panthera.Views;
 
 import Panthera.Controllers.Controller;
+import Panthera.Controllers.FacturenController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.scene.Scene;
@@ -50,7 +51,7 @@ public class MainMenuView extends BorderPane implements Viewable {
      */
     private void createMenuButtons() {
         try {
-            buttons.add(new Button("Facturen"));
+            buttons.add(createButton("Facturen", mainMenuController.cmdCreateFacturenController()));
             buttons.add(createButton("Producten", mainMenuController.cmdCreateProductenController()));
             buttons.add(new Button("Bestellijsten"));
             buttons.add(new Button("Debiteuren"));
