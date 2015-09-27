@@ -43,7 +43,7 @@ public class DatabaseService {
     }
 
     public Connection getConnection() throws SQLException {
-        String URL = "jdbc:postgresql://localhost/panthera";
+        String URL = "jdbc:postgresql://localhost/Lions";
         Properties info = new Properties( );
 
         info.put( "user", "daanrosbergen" );

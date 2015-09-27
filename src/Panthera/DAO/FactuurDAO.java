@@ -54,14 +54,16 @@ public class FactuurDAO extends DAO {
         }
         return facturen;
     }
-}
-//
-//    public void deleteFactuur(int id) throws SQLException {
-//        //query om een factuur te verwijderen
-//        try (Statement stmt = conn.createStatement()) {
-//            stmt.executeQuery("DELETE * FROM factuur WHERE factuur_id = " + id);
-//        }
 
+
+    public void deleteFactuur(Factuur factuur) throws SQLException {
+        //query om een factuur te verwijderen
+       Statement stmt = conn.createStatement();
+        stmt.executeUpdate("DELETE FROM factuur " +
+                "WHERE id=" + factuur.getId());
+        }
+
+}
 
    /* public void saveFactuur(Calendar factuurdatum, Calendar vervaldatum, Debiteur debiteur, OrderRegel orderRegel, String opmerking, String notitie, Organisatie organisatie) throws SQLException {
         //query om een factuur op te slaan
