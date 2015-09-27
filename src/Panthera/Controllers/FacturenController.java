@@ -4,6 +4,7 @@ import Panthera.DAO.FactuurDAO;
 import Panthera.Models.Factuur;
 import Panthera.Views.FacturenListView;
 import Panthera.Views.Viewable;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,6 +33,21 @@ public class FacturenController extends Controller {
             e.printStackTrace();
         }
         return FXCollections.observableArrayList(facturen);
+    }
+
+    public void cmcDeleteFactuur(ObservableList<Factuur> facturen) {
+        try {
+            for(Factuur factuur: facturen) {
+                if(factuur.isChecked()) {
+                    dao.deleteFactuur(factuur);
+                    Platform.runLater(() -> {
+                        facturen.remove(factuur);
+                    });
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

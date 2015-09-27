@@ -16,7 +16,7 @@ public class Factuur {
     private Date factuurdatum;
     private Date vervaldatum;
     private String status;
-    private BooleanProperty checked;
+    private SimpleBooleanProperty checked;
 
 
     //private Debiteur debiteur;
@@ -81,7 +81,7 @@ public class Factuur {
         this.status = status;
     }
 
-    public BooleanProperty checkedProperty() {
+    public SimpleBooleanProperty checkedProperty() {
         return this.checked;
     }
 
