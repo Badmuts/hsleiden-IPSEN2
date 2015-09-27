@@ -3,6 +3,7 @@ package Panthera.Controllers;
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
 import Panthera.Views.ProductenListView;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,6 +39,21 @@ public class ProductenController extends Controller {
         try {
             dao.save(product);
             setView(new ProductenListView(this)).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cmdDeleteProduct(ObservableList<Product> products) {
+        try {
+            for(Product product: products) {
+                if (product.isActive()) {
+                    dao.delete(product);
+                    Platform.runLater(() -> {
+                        products.remove(product);
+                    });
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

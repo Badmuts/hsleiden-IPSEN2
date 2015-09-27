@@ -3,12 +3,11 @@ package Panthera.Views;
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
 import Panthera.Panthera;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -42,7 +41,14 @@ public class ProductenListView extends BorderPane implements Viewable {
     private void createHeader() {
         createTitle();
         createAddProductButton();
+        createRemoveProductButton();
         setTop(topContainer);
+    }
+
+    private void createRemoveProductButton() {
+        Button button = new Button("Product verwijderen");
+        button.setOnAction(event -> productenController.cmdDeleteProduct(products));
+        topContainer.getChildren().add(button);
     }
 
     /**
@@ -54,6 +60,12 @@ public class ProductenListView extends BorderPane implements Viewable {
      */
     private void createTableView() {
         table = new TableView();
+        TableColumn<Product, CheckBox> checkbox = new TableColumn(" ");
+        checkbox.setCellValueFactory(param -> {
+            CheckBox checkBox = new CheckBox();
+            Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().activeProperty());
+            return new SimpleObjectProperty<>(checkBox);
+        });
         TableColumn<Product, Integer> productnummer = new TableColumn("Productnummer");
         productnummer.setCellValueFactory(new PropertyValueFactory<>("productnummer"));
         TableColumn<Product, String> naam = new TableColumn("Naam");
@@ -65,7 +77,7 @@ public class ProductenListView extends BorderPane implements Viewable {
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         addClicklistener();
-        table.getColumns().addAll(productnummer, naam, jaar, prijs, type);
+        table.getColumns().addAll(checkbox, productnummer, naam, jaar, prijs, type);
         setCenter(table);
     }
 
