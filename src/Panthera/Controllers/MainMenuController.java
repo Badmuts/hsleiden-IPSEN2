@@ -25,6 +25,10 @@ public class MainMenuController extends Controller {
     public Controller cmdCreateFacturenController() throws Exception {
         return new FacturenController();
     }
+    
+    public Controller cmdCreateBestellijstenController() throws Exception {
+    	return new BestellijstenController();
+    }
 
 }
 
