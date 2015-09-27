@@ -1,5 +1,6 @@
 package Panthera.Views;
 import Panthera.Controllers.FacturenController;
+import Panthera.Factories.CheckBoxCellFactory;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 
@@ -7,11 +8,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -31,9 +35,8 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
+    private CheckBoxCellFactory checkBoxCellFactory;
     private ObservableList<Factuur> facturen;
-    public final ObservableList<Long> checkedMessages = FXCollections
-            .observableArrayList(new Long(1));
     private HBox topContainer = new HBox(10);
 
 
@@ -42,6 +45,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         this.facturenController = facturenController;
         this.facturen = this.facturenController.cmdGetFacturen();
+        this.checkBoxCellFactory = new CheckBoxCellFactory();
         createHeader();
         createTableView();
         table.setItems(facturen);
@@ -68,23 +72,35 @@ public class FacturenListView extends BorderPane implements Viewable {
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
         TableColumn checked = new TableColumn("checked");
         checked.setCellValueFactory(new PropertyValueFactory<Factuur, Boolean>("checked"));
-
-        checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Factuur, CheckBox>, ObservableValue<CheckBox>>()
-        {
-
-            @Override
-            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> arg0) {
-                CheckBox checkBox = new CheckBox();
-
-                return new SimpleObjectProperty<CheckBox>(checkBox);
-            }
-
-        });
+        //checked.setCellValueFactory(CheckBoxTableCell.forTableColumn(factuurnummer));
 
         this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status, checked);
         setCenter(this.table);
 
     }
+
+    // Code moet nog werkend gemaakt worden !!
+
+    /* final Button infoButton = new Button("Show details");
+    topContainer.getChildren().add(infoButton);
+    infoButton.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            for (Factuur f : table.getItems()) {
+                System.out.printf("%s %s (%svegetarian)%n", f.getId(),
+                        f.getFactuurnummer(), f.isChecked() ? "" : "not ");
+                System.out.println(table.getSelectionModel().getSelectedItems());
+
+            }
+            System.out.println();
+        }
+    });
+
+    public createGetFactuurDetailsButton() {
+        final Button infoButton = new Button("Show details");
+        infoButton.setOnAction(e -> ( for(Factuur f : table.getItems() ) ));
+    }
+   */
 
     private void createTitle() {
         Text title = new Text("Facturen");
