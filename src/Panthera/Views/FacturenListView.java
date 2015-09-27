@@ -67,6 +67,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
         TableColumn checked = new TableColumn("checked");
+        checked.setCellValueFactory(new PropertyValueFactory<Factuur, Boolean>("checked"));
 
         checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Factuur, CheckBox>, ObservableValue<CheckBox>>()
         {
