@@ -4,8 +4,10 @@ import Panthera.Panthera;
 import Panthera.Controllers.BestellijstenController;
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
+import Panthera.Services.PairedList;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,6 +36,10 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	private ObservableList<Product> producten;
 	private TableView<Product> table;
 	private HBox topContainer = new HBox(10);
+	public final ObservableList<Long> checkedMessages = FXCollections
+	            .observableArrayList(new Long(1));
+	
+	
 	
 	public BestellijstenAddView(BestellijstenController bestellijstenController, ProductenController productenController) {
 		this.stage = Panthera.getInstance().getStage();
@@ -82,26 +88,19 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	public void createTableView() {
 		this.table = new TableView<>();
 		TableColumn productnummer = new TableColumn("productnummer");
-		productnummer.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productnummer"));
-		
+		productnummer.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productnummer"));		
 		TableColumn naam = new TableColumn("naam");
-		naam.setCellValueFactory(new PropertyValueFactory<Product, String>("naam"));
-		
+		naam.setCellValueFactory(new PropertyValueFactory<Product, String>("naam"));		
 		TableColumn jaar = new TableColumn("jaar");
-		jaar.setCellValueFactory(new PropertyValueFactory<Product, Integer>("jaar"));
-		
+		jaar.setCellValueFactory(new PropertyValueFactory<Product, Integer>("jaar"));		
 		TableColumn prijs = new TableColumn("prijs");
-		prijs.setCellValueFactory(new PropertyValueFactory<Product, Double>("prijs"));
-		
+		prijs.setCellValueFactory(new PropertyValueFactory<Product, Double>("prijs"));		
 		TableColumn type = new TableColumn("type");
-		type.setCellValueFactory(new PropertyValueFactory<Product, String>("type"));
-		
+		type.setCellValueFactory(new PropertyValueFactory<Product, String>("type"));		
 		TableColumn land = new TableColumn("land");
-		land.setCellValueFactory(new PropertyValueFactory<Product, String>("land"));
-		
+		land.setCellValueFactory(new PropertyValueFactory<Product, String>("land"));		
 		TableColumn rang = new TableColumn("rang");
-		rang.setCellValueFactory(new PropertyValueFactory<Product, Integer>("rang"));
-		
+		rang.setCellValueFactory(new PropertyValueFactory<Product, Integer>("rang"));		
 		TableColumn checked = new TableColumn("checked");
 		
         checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Product, CheckBox>, ObservableValue<CheckBox>>()
@@ -110,7 +109,13 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
             @Override
             public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Product, CheckBox> arg0) {
                 CheckBox checkBox = new CheckBox();
-
+                Product product = arg0.getValue();
+                for(Long value : checkedMessages) {
+                	if(value.intValue() == product.getProductnummer()) {
+                		product.setSelected(true);
+                	}
+                }
+               
                 return new SimpleObjectProperty<CheckBox>(checkBox);
             }
 

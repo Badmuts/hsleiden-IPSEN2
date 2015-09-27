@@ -5,6 +5,7 @@ import java.util.List;
 import Panthera.Models.Product;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
+import javafx.collections.ObservableList;
 
 /**
  * Handles bestlijst logic.
@@ -34,7 +35,7 @@ public class BestellijstenController extends Controller {
 	
 	public void opslaanBestellijst(List<Product> producten) {
 		for(Product product : producten) {
-			System.out.println(product.getNaam());
+			System.out.println(product.getSelected());
 		}
 	}
 }
