@@ -7,6 +7,7 @@ public class Product {
     private int jaar;
     private double prijs;
     private String type;
+    private boolean selected = false;
 
     public Product(int productnummer, String naam, int jaar, double prijs, String type) {
         this.productnummer = productnummer;
@@ -58,6 +59,10 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public boolean getSelected() {
+    	return this.selected;
     }
 
     @Override public String toString() {

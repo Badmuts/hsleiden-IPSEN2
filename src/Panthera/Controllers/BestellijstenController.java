@@ -1,10 +1,13 @@
 package Panthera.Controllers;
 
+import java.util.List;
+
+import Panthera.Models.Product;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
 
 /**
- * 
+ * Handles bestlijst logic.
  * @author Roy
  *
  */
@@ -29,7 +32,9 @@ public class BestellijstenController extends Controller {
 		return new BestellijstenSummaryView(this);
 	}
 	
-	public void opslaanBestellijst() {
-		System.out.println("Opslaan");
+	public void opslaanBestellijst(List<Product> producten) {
+		for(Product product : producten) {
+			System.out.println(product.getNaam());
+		}
 	}
 }

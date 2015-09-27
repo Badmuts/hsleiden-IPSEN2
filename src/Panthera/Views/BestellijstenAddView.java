@@ -72,7 +72,7 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	
 	public void createOpslaanButton() {
 		Button button = new Button("Opslaan");
-		button.setOnAction(e -> this.bestellijstenController.opslaanBestellijst());
+		button.setOnAction(e -> this.bestellijstenController.opslaanBestellijst(producten));
 		topContainer.getChildren().add(button);
 	}
 	
