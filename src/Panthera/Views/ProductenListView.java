@@ -1,15 +1,11 @@
 package Panthera.Views;
 
 import Panthera.Controllers.ProductenController;
-import Panthera.Models.Land;
 import Panthera.Models.Product;
 import Panthera.Panthera;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ProductenListView extends BorderPane implements Viewable {
 
@@ -68,9 +63,7 @@ public class ProductenListView extends BorderPane implements Viewable {
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
-        TableColumn<Land, String> land = new TableColumn<>("Land");
-        land.setCellFactory(param -> SimpleStringProperty(param));
-        table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land);
+        table.getColumns().addAll(productnummer, naam, jaar, prijs, type);
         setCenter(table);
     }
 
