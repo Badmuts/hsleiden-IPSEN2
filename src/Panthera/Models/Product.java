@@ -64,6 +64,10 @@ public class Product {
     public boolean getSelected() {
     	return this.selected;
     }
+    
+    public void setSelected(boolean selected) {
+    	this.selected = selected;
+    }
 
     @Override public String toString() {
         return "Product: \n"
