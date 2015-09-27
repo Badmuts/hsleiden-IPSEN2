@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -63,8 +64,22 @@ public class ProductenListView extends BorderPane implements Viewable {
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        addClicklistener();
         table.getColumns().addAll(productnummer, naam, jaar, prijs, type);
         setCenter(table);
+    }
+
+    private void addClicklistener() {
+        table.setRowFactory( tv -> {
+            TableRow<Product> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Product rowData = row.getItem();
+                    productenController.setView(new ProductenAddView(productenController, rowData)).show();
+                }
+            });
+            return row ;
+        });
     }
 
     /**

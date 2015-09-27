@@ -127,4 +127,8 @@ public class Product {
             + "Prijs: " + prijs + "\n"
             + "Type: " + type;
     }
+
+    public boolean hasId() {
+        return (id.get() != 0);
+    }
 }

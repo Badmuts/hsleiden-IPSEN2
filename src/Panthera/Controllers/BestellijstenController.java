@@ -7,6 +7,6 @@ package Panthera.Controllers;
  */
 public class BestellijstenController extends Controller {
 	public BestellijstenController() {
-		this.view = new FacturenListView(this);
+//		this.view = new FacturenListView(this);
 	}
 }

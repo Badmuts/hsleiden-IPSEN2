@@ -60,16 +60,36 @@ public class ProductDAO extends DAO {
         return "ProductDAO{}";
     }
 
-    public int save(Product product) throws Exception {
-        Statement stmt = conn.createStatement();
-        return stmt.executeUpdate("" +
+    public void save(Product product) throws Exception {
+        if (product.hasId()) {
+            update(product);
+        } else {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("" +
                 "INSERT INTO product(productnummer, naam, jaar, prijs, type, land_id) " +
                 "VALUES(" +
-                    product.getProductnummer() + ", '" +
-                    product.getNaam() + "', " +
-                    product.getJaar() + ", " +
-                    product.getPrijs()+ ", '" +
-                    product.getType() + "'," +
-                    product.getLand().getId() +")");
+                product.getProductnummer() + ", '" +
+                product.getNaam() + "', " +
+                product.getJaar() + ", " +
+                product.getPrijs()+ ", '" +
+                product.getType() + "'," +
+                product.getLand().getId() +")");
+        }
+    }
+
+    public void update(Product product) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("UPDATE product " +
+                "SET productnummer=" + product.getProductnummer() + ", " +
+                "naam='" + product.getNaam() + "', " +
+                "jaar=" + product.getJaar() + ", " +
+                "prijs=" + product.getPrijs() + ", " +
+                "type='" + product.getType() + "', " +
+                "land_id=" + product.getLand().getId() + " " +
+                "WHERE id=" + product.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
