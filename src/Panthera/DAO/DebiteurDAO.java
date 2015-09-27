@@ -1,8 +1,20 @@
-public class DebiteurDAO extends DAO{
+package Panthera.DAO;
+
+
+import Panthera.Models.Debiteur;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+public class DebiteurDAO extends DAO {
 	
-	public DebiteurDAO throws IllegalAccessException, SQLException, InstantiationException{
+	public DebiteurDAO() throws IllegalAccessException, SQLException, InstantiationException {
 		super();
 	}
+
+
 	public Debiteur getDebiteur(int id) throws SQLException {
 		Debiteur debiteur = new Debiteur();
 		try (Statement stmt = conn.createStatement()) {
@@ -18,28 +30,30 @@ public class DebiteurDAO extends DAO{
 				debiteur.setPostcode(result.getString("postcode"));
 				debiteur.setEmail(result.getString("email"));
 				debiteur.setTelefoon(result.getInt("telefoon"));
-				debiteur.setLand(result.getString(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getString("id"));
+				debiteur.setLand(result.getString(String.valueOf(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getString("id")))));
 			}
 		}
+		return debiteur;
 	}
+
 	public List<Debiteur> getAllDebiteuren() throws SQLException {
-		try (Statement stmt = conn.createStatemant()) {
+		try (Statement stmt = conn.createStatement()) {
 			stmt.executeQuery("SELECT * FROM debiteur");
 		}
 		return null;
 	}
 	public void deleteDebiteur(int id) throws SQLException {
-		try (Statement stmt = conn.createStatemant()) {
+		try (Statement stmt = conn.createStatement()) {
 			stmt.executeQuery("DELETE * FROM debiteur WHERE id =" + id);
 		}
 	}
-	public void addDebiteur(Debiteur debiteur) {
-		try (Statement stmt = conn.createStatemant()) {
+	public void addDebiteur(Debiteur debiteur) throws SQLException {
+		try (Statement stmt = conn.createStatement()) {
 			stmt.executeQuery("INSERT INTO Debiteur VALUES(" + debiteur.getAanhef() + "," + 
-					debiteur.getVoornaam() + "," + debiteur.tussenvoegsel() + "," + 
+					debiteur.getVoornaam() + "," + debiteur.getTussenvoegsel() + "," +
 					debiteur.getNaam() + "," + debiteur.getAdres() + "," + debiteur.getWoonplaats() +
 					"," + debiteur.getPostcode() + "," + debiteur.getEmail() + "," + debiteur.getTelefoon() + 
-					"," + debiteur.getLand + ")");
+					"," + debiteur.getLand() + ")");
 					
 		}
 	}

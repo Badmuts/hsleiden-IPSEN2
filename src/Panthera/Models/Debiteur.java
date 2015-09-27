@@ -21,7 +21,7 @@ public class Debiteur {
 	DebiteurDAO debiteurDAO;
 
 	public Debiteur(int id, String aanhef, String voornaam, String tussenvoegsel, String naam, 
-					String adres, String woonplaats, String postcode String email, int telefoon, String land){
+					String adres, String woonplaats, String postcode, String email, int telefoon, String land){
 		this.id = id;
 		this.aanhef = aanhef;
 		this.voornaam = voornaam;
