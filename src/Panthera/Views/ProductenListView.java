@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -19,7 +20,7 @@ public class ProductenListView extends BorderPane implements Viewable {
 
     private ProductenController productenController;
     private Stage stage = Panthera.getInstance().getStage();
-    private TableView<Product> table;
+    private TableView table;
     private ObservableList<Product> products;
     private HBox topContainer = new HBox(10);
 
@@ -52,19 +53,33 @@ public class ProductenListView extends BorderPane implements Viewable {
      * @autor Daan Rosbergen
      */
     private void createTableView() {
-        table = new TableView<>();
-        TableColumn productnummer = new TableColumn("Productnummer");
-        productnummer.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productnummer"));
-        TableColumn naam = new TableColumn("Naam");
-        naam.setCellValueFactory(new PropertyValueFactory<Product, String>("naam"));
-        TableColumn jaar = new TableColumn("Jaar");
-        jaar.setCellValueFactory(new PropertyValueFactory<Product, Integer>("jaar"));
-        TableColumn prijs = new TableColumn("Prijs");
-        prijs.setCellValueFactory(new PropertyValueFactory<Product, Double>("prijs"));
-        TableColumn type = new TableColumn("Type");
-        type.setCellValueFactory(new PropertyValueFactory<Product, String>("type"));
+        table = new TableView();
+        TableColumn<Product, Integer> productnummer = new TableColumn("Productnummer");
+        productnummer.setCellValueFactory(new PropertyValueFactory<>("productnummer"));
+        TableColumn<Product, String> naam = new TableColumn("Naam");
+        naam.setCellValueFactory(new PropertyValueFactory<>("naam"));
+        TableColumn<Product, Integer> jaar = new TableColumn("Jaar");
+        jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
+        TableColumn<Product, Double> prijs = new TableColumn("Prijs");
+        prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
+        TableColumn<Product, String> type = new TableColumn("Type");
+        type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        addClicklistener();
         table.getColumns().addAll(productnummer, naam, jaar, prijs, type);
         setCenter(table);
+    }
+
+    private void addClicklistener() {
+        table.setRowFactory( tv -> {
+            TableRow<Product> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Product rowData = row.getItem();
+                    productenController.setView(new ProductenAddView(productenController, rowData)).show();
+                }
+            });
+            return row ;
+        });
     }
 
     /**
@@ -89,7 +104,7 @@ public class ProductenListView extends BorderPane implements Viewable {
      */
     private void createAddProductButton() {
         Button button = new Button("Product toevoegen");
-        button.setOnAction(e -> this.productenController.setView(new ProductenAddView()).show());
+        button.setOnAction(e -> this.productenController.setView(new ProductenAddView(this.productenController)).show());
         topContainer.getChildren().add(button);
     }
 

@@ -37,5 +37,6 @@ public class BestellijstenController extends Controller {
 		for(Product product : producten) {
 			System.out.println(product.getSelected());
 		}
+//		this.view = new FacturenListView(this);
 	}
 }

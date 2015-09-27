@@ -46,8 +46,8 @@ public class DatabaseService {
         String URL = "jdbc:postgresql://localhost/panthera";
         Properties info = new Properties( );
 
-        info.put( "user", "postgres" );
-        info.put( "password", "Welkom#1" );
+        info.put( "user", "daanrosbergen" );
+        info.put( "password", "" );
 
         Connection conn = DriverManager.getConnection(URL, info);
 

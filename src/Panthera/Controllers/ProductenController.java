@@ -21,7 +21,8 @@ public class ProductenController extends Controller {
      * Get ObservableList with products for the view (max 25).
      *
      * @author Daan Rosbergen
-     * @return ObservableList<Product> Collection of Product models.
+     * @return ObservableList<Product>
+     *     Collection of Product models.
      */
     public ObservableList<Product> cmdGetProducten() {
         ArrayList<Product> products = new ArrayList<>();
@@ -31,5 +32,14 @@ public class ProductenController extends Controller {
             e.printStackTrace();
         }
         return FXCollections.observableArrayList(products);
+    }
+
+    public void cmdSaveProduct(Product product) {
+        try {
+            dao.save(product);
+            setView(new ProductenListView(this)).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
