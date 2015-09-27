@@ -57,7 +57,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	 */
 	public void createAddBestellijstenButton() {
 		Button button = new Button("Bestellijst toevoegen");
-		button.setOnAction(e -> this.bestellijstenController.setView(new BestellijstenAddView(this.bestellijstenController)).show());
+		button.setOnAction(e -> this.bestellijstenController.setView(bestellijstenController.openBestellijstenAddView()).show());
 		topContainer.getChildren().add(button);
 	}
 
