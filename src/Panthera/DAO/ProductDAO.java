@@ -42,19 +42,34 @@ public class ProductDAO extends DAO {
     public ArrayList<Product> all() throws Exception {
         ArrayList<Product> products = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT productnummer, naam, jaar, prijs, type FROM product LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT * FROM product LIMIT 25");
         while (result.next()) {
             products.add(new Product(
+                result.getInt("id"),
                 result.getInt("productnummer"),
                 result.getString("naam"),
                 result.getInt("jaar"),
                 result.getDouble("prijs"),
-                result.getString("type")));
+                result.getString("type"),
+                new LandDAO().get(result.getInt("land_id"))));
         }
         return products;
     }
 
     @Override public String toString() {
         return "ProductDAO{}";
+    }
+
+    public int save(Product product) throws Exception {
+        Statement stmt = conn.createStatement();
+        return stmt.executeUpdate("" +
+                "INSERT INTO product(productnummer, naam, jaar, prijs, type, land_id) " +
+                "VALUES(" +
+                    product.getProductnummer() + ", '" +
+                    product.getNaam() + "', " +
+                    product.getJaar() + ", " +
+                    product.getPrijs()+ ", '" +
+                    product.getType() + "'," +
+                    product.getLand().getId() +")");
     }
 }
