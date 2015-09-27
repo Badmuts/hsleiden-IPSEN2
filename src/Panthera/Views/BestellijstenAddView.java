@@ -6,20 +6,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class BestellijstCreateView extends BorderPane implements Viewable{
-	private BestellijstenController bestellijstenController;
+public class BestellijstenAddView extends BorderPane implements Viewable {
+	
 	private Stage stage;
+	private BestellijstenController bestellijstenController;
 	
-	public BestellijstCreateView(BestellijstenController bestellijstenController) {
-		this.bestellijstenController = bestellijstenController;
+	public BestellijstenAddView(BestellijstenController bestellijstenController) {
 		this.stage = Panthera.getInstance().getStage();
+		this.bestellijstenController = bestellijstenController;
 	}
-	
 	@Override
 	public void show() {
 		this.stage.setScene(new Scene(this, 800, 600));
 		this.stage.show();
-		
 	}
 
 }

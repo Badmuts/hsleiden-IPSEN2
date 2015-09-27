@@ -1,6 +1,6 @@
 package Panthera.Controllers;
 
-import Panthera.Views.BestellijstCreateView;
+import Panthera.Views.BestellijstenSummaryView;
 
 /**
  * 
@@ -9,6 +9,8 @@ import Panthera.Views.BestellijstCreateView;
  */
 public class BestellijstenController extends Controller {
 	public BestellijstenController() {
-		this.view = new BestellijstCreateView(this);
+		this.view = new BestellijstenSummaryView(this);
 	}
+	
+	
 }
