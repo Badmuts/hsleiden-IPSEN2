@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
+import javax.swing.table.TableModel;
 import java.util.Date;
 
 /**
@@ -35,7 +37,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
-    private CheckBoxCellFactory checkBoxCellFactory;
+    public final ObservableList<Long> checkedMessages = FXCollections
+            .observableArrayList(new Long(1));
+
     private ObservableList<Factuur> facturen;
     private HBox topContainer = new HBox(10);
 
@@ -45,7 +49,6 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         this.facturenController = facturenController;
         this.facturen = this.facturenController.cmdGetFacturen();
-        this.checkBoxCellFactory = new CheckBoxCellFactory();
         createHeader();
         createTableView();
         table.setItems(facturen);
@@ -60,8 +63,8 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTableView() {
         this.table = new TableView<>();
-        TableColumn id = new TableColumn("ID");
-        id.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("id"));
+//        TableColumn id = new TableColumn("ID");
+//        id.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("id"));
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
         TableColumn factuurdatum = new TableColumn("Factuurdatum");
@@ -71,11 +74,40 @@ public class FacturenListView extends BorderPane implements Viewable {
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
         TableColumn checked = new TableColumn("checked");
-        checked.setCellValueFactory(new PropertyValueFactory<Factuur, Boolean>("checked"));
+        checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Factuur, CheckBox>, ObservableValue<CheckBox>>() {
+            @Override
+            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> param) {
+                CheckBox checkBox = new CheckBox();
+                Factuur factuur = param.getValue();
+
+                for (Long value : facturen.checkedMessages) {
+                    if(value.intValue()== factuur.getId() ){
+                        System.out.print("Test");
+                    }
+                        checkBox.selectedProperty().setValue(Boolean.TRUE);
+                    }
+
+                return new SimpleObjectProperty<CheckBox>(checkBox);
+            }
+        });
+                //checked.setCellValueFactory(new PropertyValueFactory<Factuur, Boolean>("checked"));
         //checked.setCellValueFactory(CheckBoxTableCell.forTableColumn(factuurnummer));
 
-        this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status, checked);
+        this.table.getColumns().addAll(factuurnummer, factuurdatum, factuurexpdate, status, checked);
         setCenter(this.table);
+
+        table.setOnMouseClicked(new EventHandler<MouseEvent>()
+
+            {
+
+                @Override
+            public void handle(MouseEvent event) {
+                Factuur factuur =   table.getSelectionModel().getSelectedItem();
+                System.out.println(factuur.toString());
+            }
+
+
+        });
 
     }
 
