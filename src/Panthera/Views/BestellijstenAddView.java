@@ -110,11 +110,6 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
             public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Product, CheckBox> arg0) {
                 CheckBox checkBox = new CheckBox();
                 Product product = arg0.getValue();
-                for(Long value : checkedMessages) {
-                	if(value.intValue() == product.getProductnummer()) {
-                		product.setSelected(true);
-                	}
-                }
                
                 return new SimpleObjectProperty<CheckBox>(checkBox);
             }

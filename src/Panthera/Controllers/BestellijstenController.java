@@ -34,9 +34,5 @@ public class BestellijstenController extends Controller {
 	}
 	
 	public void opslaanBestellijst(List<Product> producten) {
-		for(Product product : producten) {
-			System.out.println(product.getSelected());
-		}
-//		this.view = new FacturenListView(this);
 	}
 }
