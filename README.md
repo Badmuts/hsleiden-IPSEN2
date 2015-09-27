@@ -17,7 +17,7 @@ Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: 
 ![Applicatie structuur](https://www.dropbox.com/s/f3mrd5j1sl9qy3s/DAOModel.JPG?dl=1)
 
 ## Usecase diagram  
-![Usecase diagram](https://www.dropbox.com/s/7fk0twahyy3isdz/usecasev0.2.png?dl=1)
+![Usecase diagram](https://www.dropbox.com/home/IIPSEN2/Functioneel%20ontwerp?preview=Use+Case+diagram.png)
 
 ## ERD
 ![ERD](https://www.dropbox.com/s/9865z99tks0p5jv/erd-v0.3.png?dl=1)
