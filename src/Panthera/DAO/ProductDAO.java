@@ -92,4 +92,10 @@ public class ProductDAO extends DAO {
             e.printStackTrace();
         }
     }
+
+    public void delete(Product product) throws Exception {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("DELETE FROM product " +
+            "WHERE id=" + product.getId());
+    }
 }

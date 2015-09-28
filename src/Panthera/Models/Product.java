@@ -1,9 +1,6 @@
 package Panthera.Models;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 
 public class Product {
@@ -15,6 +12,7 @@ public class Product {
     private SimpleDoubleProperty prijs;
     private SimpleStringProperty type;
     private SimpleObjectProperty<Land> land;
+    private SimpleBooleanProperty active;
 
     public Product(int id, int productnummer, String naam, int jaar, double prijs, String type, Land land) {
         this.id = new SimpleIntegerProperty(id);
@@ -24,6 +22,7 @@ public class Product {
         this.prijs = new SimpleDoubleProperty(prijs);
         this.type = new SimpleStringProperty(type);
         this.land = new SimpleObjectProperty<>(land);
+        this.active = new SimpleBooleanProperty(false);
     }
 
     public Product() {
@@ -34,6 +33,7 @@ public class Product {
         this.prijs = new SimpleDoubleProperty();
         this.type = new SimpleStringProperty();
         this.land = new SimpleObjectProperty<>();
+        this.active = new SimpleBooleanProperty();
     }
 
     public int getProductnummer() {
@@ -131,5 +131,17 @@ public class Product {
 
     public boolean hasId() {
         return (id.get() != 0);
+    }
+
+    public boolean isActive() {
+        return active.get();
+    }
+
+    public SimpleBooleanProperty activeProperty() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active.set(active);
     }
 }

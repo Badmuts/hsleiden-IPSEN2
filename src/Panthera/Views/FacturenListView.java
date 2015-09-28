@@ -1,18 +1,24 @@
 package Panthera.Views;
 import Panthera.Controllers.FacturenController;
+import Panthera.Factories.CheckBoxCellFactory;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -21,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
+import javax.swing.table.TableModel;
 import java.util.Date;
 
 /**
@@ -31,9 +38,10 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
-    private ObservableList<Factuur> facturen;
     public final ObservableList<Long> checkedMessages = FXCollections
             .observableArrayList(new Long(1));
+
+    private ObservableList<Factuur> facturen;
     private HBox topContainer = new HBox(10);
 
 
@@ -51,13 +59,24 @@ public class FacturenListView extends BorderPane implements Viewable {
     private void createHeader() {
         createTitle();
         createAddFactuurButton();
+        createRemoveFactuurButton();
         setTop(topContainer);
+    }
+
+    private void createRemoveFactuurButton() {
+        Button button = new Button("Factuur verwijderen");
+        button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
+        topContainer.getChildren().add(button);
     }
 
     private void createTableView() {
         this.table = new TableView<>();
-        TableColumn id = new TableColumn("ID");
-        id.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("id"));
+        TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
+        checkbox.setCellValueFactory(param -> {
+                       CheckBox checkBox = new CheckBox();
+                        Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().checkedProperty());
+                        return new SimpleObjectProperty<>(checkBox);
+        });
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
         TableColumn factuurdatum = new TableColumn("Factuurdatum");
@@ -66,24 +85,13 @@ public class FacturenListView extends BorderPane implements Viewable {
         factuurexpdate.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("vervaldatum"));
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
-        TableColumn checked = new TableColumn("checked");
 
-        checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Factuur, CheckBox>, ObservableValue<CheckBox>>()
-        {
-
-            @Override
-            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Factuur, CheckBox> arg0) {
-                CheckBox checkBox = new CheckBox();
-
-                return new SimpleObjectProperty<CheckBox>(checkBox);
-            }
-
-        });
-
-        this.table.getColumns().addAll(id, factuurnummer, factuurdatum, factuurexpdate, status, checked);
+        this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, factuurexpdate, status);
         setCenter(this.table);
 
+
     }
+
 
     private void createTitle() {
         Text title = new Text("Facturen");
