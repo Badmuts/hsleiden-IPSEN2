@@ -3,8 +3,9 @@ package Panthera.Views;
 import Panthera.Panthera;
 import Panthera.Controllers.BestellijstenController;
 import Panthera.Controllers.ProductenController;
+import Panthera.Models.Factuur;
 import Panthera.Models.Product;
-import Panthera.Services.PairedList;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -87,6 +88,13 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	 */
 	public void createTableView() {
 		this.table = new TableView<>();
+		  TableColumn<Product, CheckBox> checkbox = new TableColumn(" ");
+	        checkbox.setCellValueFactory(param -> {
+	                       CheckBox checkBox = new CheckBox();
+	                        Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().activeProperty());
+	                        return new SimpleObjectProperty<>(checkBox);
+	        });
+		
 		TableColumn productnummer = new TableColumn("productnummer");
 		productnummer.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productnummer"));		
 		TableColumn naam = new TableColumn("naam");
@@ -100,23 +108,11 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 		TableColumn land = new TableColumn("land");
 		land.setCellValueFactory(new PropertyValueFactory<Product, String>("land"));		
 		TableColumn rang = new TableColumn("rang");
-		rang.setCellValueFactory(new PropertyValueFactory<Product, Integer>("rang"));		
-		TableColumn checked = new TableColumn("checked");
-		
-        checked.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Product, CheckBox>, ObservableValue<CheckBox>>()
-        {
-
-            @Override
-            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Product, CheckBox> arg0) {
-                CheckBox checkBox = new CheckBox();
-                Product product = arg0.getValue();
-               
-                return new SimpleObjectProperty<CheckBox>(checkBox);
-            }
-
-        });
+		rang.setCellValueFactory(new PropertyValueFactory<Product, Integer>("rang"));				
         
-        this.table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land, rang, checked);
+        
+        
+        this.table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land, rang, checkbox);
 		setCenter(this.table);
 	}
 	
