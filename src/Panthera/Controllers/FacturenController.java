@@ -1,6 +1,8 @@
 package Panthera.Controllers;
 
+import Panthera.DAO.BestellijstDAO;
 import Panthera.DAO.FactuurDAO;
+import Panthera.Models.Bestellijst;
 import Panthera.Models.Factuur;
 import Panthera.Views.FacturenAddView;
 import Panthera.Views.FacturenListView;
@@ -23,13 +25,18 @@ public class FacturenController extends Controller {
 
         this.dao = new FactuurDAO();
         this.view = new FacturenListView(this);
+
+        BestellijstDAO bDAO = new BestellijstDAO();
+        Bestellijst b = bDAO.get(4);
+        System.out.println(b);
+
     }
 
 
     public ObservableList<Factuur> cmdGetFacturen() {
         ArrayList<Factuur> facturen = new ArrayList<>();
         try {
-            facturen.addAll(dao.getAllFacturen());
+//            facturen.addAll(dao.getAllFacturen());
         } catch (Exception e) {
             e.printStackTrace();
         }

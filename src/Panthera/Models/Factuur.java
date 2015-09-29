@@ -16,6 +16,7 @@ public class Factuur {
     private SimpleObjectProperty<Date> vervaldatum;
     private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
+    private SimpleObjectProperty<Bestellijst> bestellijst;
 
 
     //private Debiteur debiteur;
@@ -27,13 +28,14 @@ public class Factuur {
 
 
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Bestellijst bestellijst) {
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
         this.factuurdatum = new SimpleObjectProperty<>(factuurdatum);
         this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
         this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
+        this.bestellijst = new SimpleObjectProperty<>(bestellijst);
         //this.debiteur = debiteur;
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
@@ -47,6 +49,7 @@ public class Factuur {
         this.vervaldatum = new SimpleObjectProperty<>();
         this.status = new SimpleStringProperty();
         this.checked = new SimpleBooleanProperty();
+        this.bestellijst = new SimpleObjectProperty<>();
     }
 
     //Getters
@@ -74,6 +77,10 @@ public class Factuur {
         return this.checked.get();
     }
 
+    public Bestellijst getBestellijst() {
+        return bestellijst.get();
+    }
+
     //Setters
     public void setId(int id) {
         this.id.set(id);
@@ -99,10 +106,15 @@ public class Factuur {
         this.checked.set(checked);
     }
 
+    public void setBestellijst(Bestellijst bestellijst) {
+        this.bestellijst.set(bestellijst);
+    }
+
     //Properties
     public SimpleIntegerProperty idProperty() {
         return id;
     }
+
     public SimpleIntegerProperty factuurnummerProperty() {
         return factuurnummer;
     }
@@ -118,8 +130,13 @@ public class Factuur {
     public SimpleStringProperty statusProperty() {
         return status;
     }
+
     public SimpleBooleanProperty checkedProperty() {
         return this.checked;
+    }
+
+    public SimpleObjectProperty bestellijstProperty() {
+        return this.bestellijst;
     }
 
 

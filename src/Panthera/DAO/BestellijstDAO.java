@@ -3,8 +3,10 @@ package Panthera.DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 import java.util.List;
 
+import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
 
 /**
@@ -18,7 +20,27 @@ public class BestellijstDAO extends DAO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	public Bestellijst get(int id) throws Exception {
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM bestellijst b, product_to_bestellijst pb, product p WHERE b.id=" + id + " AND pb.product_id=p.id");
+		Bestellijst bestellijst = new Bestellijst();
+		while(result.next()) {
+			System.out.println(result.getString("naam"));
+			bestellijst.setId(result.getInt("id"));
+			bestellijst.setDate(result.getDate("date"));
+			bestellijst.addProduct(new Product(
+					result.getInt("id"),
+					result.getInt("productnummer"),
+					result.getString("naam"),
+					result.getInt("jaar"),
+					result.getDouble("prijs"),
+					result.getString("type"),
+					new LandDAO().get(result.getInt("land_id"))));
+		}
+		return bestellijst;
+	}
+
 	public void saveNewBestellijst(List<Product> producten) {
 		try {
 			//Get the new bestellijst_id.

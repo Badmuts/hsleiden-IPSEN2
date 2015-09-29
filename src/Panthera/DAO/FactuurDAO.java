@@ -39,21 +39,21 @@ public class FactuurDAO extends DAO {
      * @return ArrayList<Factuur> List with product models.
      * @throws Exception
      */
-    public ArrayList<Factuur> getAllFacturen() throws Exception {
-        ArrayList<Factuur> facturen = new ArrayList<>();
-        Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
-        while (result.next()) {
-            facturen.add(new Factuur(
-                    result.getInt("id"),
-                    result.getInt("factuurnummer"),
-                    result.getDate("factuurdatum"),
-                    result.getDate("vervaldatum"),
-                    result.getString("status")));
-
-        }
-        return facturen;
-    }
+//    public ArrayList<Factuur> getAllFacturen() throws Exception {
+//        ArrayList<Factuur> facturen = new ArrayList<>();
+//        Statement stmt = conn.createStatement();
+//        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+//        while (result.next()) {
+//            facturen.add(new Factuur(
+//                    result.getInt("id"),
+//                    result.getInt("factuurnummer"),
+//                    result.getDate("factuurdatum"),
+//                    result.getDate("vervaldatum"),
+//                    result.getString("status")));
+//
+//        }
+//        return facturen;
+//    }
 
 
     public void deleteFactuur(Factuur factuur) throws SQLException {
