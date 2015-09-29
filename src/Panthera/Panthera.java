@@ -3,12 +3,14 @@ package Panthera;
 import Panthera.Controllers.MainMenuController;
 import Panthera.DAO.FactuurDAO;
 import Panthera.Models.Factuur;
+import Panthera.Models.Handleiding;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Panthera extends Application {
     private static Panthera uniqueInstance;
     private Stage stage;
+
 
     /**
      * JavaFX Singleton constructor.
@@ -35,6 +37,10 @@ public class Panthera extends Application {
         FactuurDAO factuurDAO = new FactuurDAO();
         Factuur factuur = factuurDAO.getFactuur(1);
         System.out.print(factuur);
+
+        // test only
+       Handleiding test = new Handleiding();
+        test.leesHandleidingTest();
     }
 
     /**
