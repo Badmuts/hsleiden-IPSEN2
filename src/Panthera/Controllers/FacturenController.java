@@ -36,7 +36,7 @@ public class FacturenController extends Controller {
     public ObservableList<Factuur> cmdGetFacturen() {
         ArrayList<Factuur> facturen = new ArrayList<>();
         try {
-//            facturen.addAll(dao.getAllFacturen());
+           facturen.addAll(dao.getAllFacturen());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,5 +66,7 @@ public class FacturenController extends Controller {
             e.printStackTrace();
         }
     }
+
+
 
 }
