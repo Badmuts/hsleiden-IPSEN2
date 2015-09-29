@@ -63,20 +63,18 @@ public class FactuurDAO extends DAO {
                 "WHERE id=" + factuur.getId());
         }
 
+    public void save(Factuur factuur) throws Exception {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("" +
+        "INSERT INTO factuur(factuurnummer, debiteur_id, factuurdatum, vervaldatum, status)" +
+        "VALUES(" +
+        factuur.getFactuurnummer() + ", " +
+        factuur.getFactuurdatum() + ", " +
+        factuur.getVervaldatum() + ", " +
+        factuur.getStatus() + ")");
+    }
+
 }
 
-   /* public void saveFactuur(Calendar factuurdatum, Calendar vervaldatum, Debiteur debiteur, OrderRegel orderRegel, String opmerking, String notitie, Organisatie organisatie) throws SQLException {
-        //query om een factuur op te slaan
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery( "INSERT INTO factuur VALUES(" +
-                            factuurdatum + "," +
-                            vervaldatum + "," +
-                            debiteur + "," +
-                            orderRegel + "," +
-                            opmerking + "," +
-                            notitie + "," +
-                            organisatie + ")"
-                            );
-        }
-    } */
+
 

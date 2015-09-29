@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -63,5 +64,11 @@ public class FacturenAddView extends BorderPane implements Viewable {
 
     private void createForm() {
         createField("Factuurnummer"), factuur.factuurnummerProperty(), new NumberStringConverter());
+        createComboBox("Debiteur");
+        createField("Factuurdatum", factuur.factuurdatumProperty(), new DateStringConverter());
+        createField("Vervaldatum", factuur.vervaldatumProperty(), new DateStringConverter());
+        createField("Status", factuur.statusProperty());
     }
+
+    private createComboBox(String )
 }

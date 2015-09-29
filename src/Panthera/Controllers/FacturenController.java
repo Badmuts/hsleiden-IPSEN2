@@ -2,6 +2,7 @@ package Panthera.Controllers;
 
 import Panthera.DAO.FactuurDAO;
 import Panthera.Models.Factuur;
+import Panthera.Views.FacturenAddView;
 import Panthera.Views.FacturenListView;
 import Panthera.Views.Viewable;
 import javafx.application.Platform;
@@ -46,6 +47,15 @@ public class FacturenController extends Controller {
                 }
             }
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cmdSaveFactuur(Factuur factuur) {
+        try {
+            dao.save(factuur);
+            setView(new FacturenAddView(this)).show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
