@@ -1,8 +1,7 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.*;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -11,11 +10,11 @@ import java.util.Calendar;
  * Created by Brandon on 22-Sep-15.
  */
 public class Factuur {
-    private int id;
-    private int factuurnummer;
-    private Date factuurdatum;
-    private Date vervaldatum;
-    private String status;
+    private SimpleIntegerProperty id;
+    private SimpleIntegerProperty factuurnummer;
+    private SimpleObjectProperty<Date> factuurdatum;
+    private SimpleObjectProperty<Date> vervaldatum;
+    private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
 
 
@@ -29,11 +28,11 @@ public class Factuur {
 
 
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
-        this.id = id;
-        this.factuurnummer = factuurnummer;
-        this.factuurdatum = factuurdatum;
-        this.vervaldatum = vervaldatum;
-        this.status = status;
+        this.id = new SimpleIntegerProperty(id);
+        this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
+        this.factuurdatum = new SimpleObjectProperty<>(factuurdatum);
+        this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
+        this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
         //this.debiteur = debiteur;
         //this.orderRegel = orderRegel;
@@ -42,56 +41,90 @@ public class Factuur {
     }
 
     public Factuur() {
+        this.id = new SimpleIntegerProperty();
+        this.factuurnummer = new SimpleIntegerProperty();
+        this.factuurdatum = new SimpleObjectProperty<>();
+        this.vervaldatum = new SimpleObjectProperty<>();
+        this.status = new SimpleStringProperty();
+        this.checked = new SimpleBooleanProperty();
     }
 
+    //Getters
     public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        return id.get();
     }
 
     public int getFactuurnummer() {
-        return factuurnummer;
-    }
-
-    public void setFactuurnummer(int factuurnummer) {
-        this.factuurnummer = factuurnummer;
+        return factuurnummer.get();
     }
 
     public Date getFactuurdatum() {
-        return factuurdatum;
-    }
-    public void setFactuurdatum(Date factuurdatum) {
-        this.factuurdatum = factuurdatum;
+        return factuurdatum.get();
     }
 
     public Date getVervaldatum() {
-        return vervaldatum;
-    }
-    public void setVervaldatum(Date vervaldatum) {
-        this.vervaldatum = vervaldatum;
+        return vervaldatum.get();
     }
 
     public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public SimpleBooleanProperty checkedProperty() {
-        return this.checked;
+        return status.get();
     }
 
     public Boolean isChecked() {
         return this.checked.get();
     }
 
+    //Setters
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public void setFactuurnummer(int factuurnummer) {
+        this.factuurnummer.set(factuurnummer);
+    }
+
+    public void setFactuurdatum(Date factuurdatum) {
+        this.factuurdatum.set(factuurdatum);
+    }
+
+    public void setVervaldatum(Date vervaldatum) {
+        this.vervaldatum.set(vervaldatum);
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
+    }
+
     public void setChecked(Boolean checked) {
         this.checked.set(checked);
     }
+
+    //Properties
+    public SimpleIntegerProperty idProperty() {
+        return id;
+    }
+    public SimpleIntegerProperty factuurnummerProperty() {
+        return factuurnummer;
+    }
+
+    public SimpleObjectProperty factuurdatumProperty() {
+        return factuurdatum;
+    }
+
+    public SimpleObjectProperty vervaldatumProperty() {
+        return vervaldatum;
+    }
+
+    public SimpleStringProperty statusProperty() {
+        return status;
+    }
+    public SimpleBooleanProperty checkedProperty() {
+        return this.checked;
+    }
+
+
+
+
 
 //    public OrderRegel getOrderRegel() {
 //        return orderRegel;
