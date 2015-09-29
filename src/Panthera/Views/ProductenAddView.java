@@ -21,6 +21,8 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+import java.util.ArrayList;
+
 public class ProductenAddView extends GridPane implements Viewable {
 
     private ProductenController productenController;
@@ -79,11 +81,18 @@ public class ProductenAddView extends GridPane implements Viewable {
     private void createComboBox(String name) {
         try {
             Label label = new Label(name);
-            ChoiceBox<Land> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(new LandDAO().all()));
+            ArrayList<Land> landen = new LandDAO().all();
+            ChoiceBox<Land> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(landen));
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 product.setLand(newValue);
             });
-            choiceBox.getSelectionModel().select(product.getLand());
+            // TODO: Better fix this.
+            int i = 0;
+            for (Land land: landen) {
+                if (land.getId() == product.getLand().getId())
+                    choiceBox.getSelectionModel().select(i);
+                i++;
+            }
             add(label, 0, currentRow);
             add(choiceBox, 1, currentRow);
             currentRow++;
