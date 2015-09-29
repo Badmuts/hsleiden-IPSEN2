@@ -50,7 +50,6 @@ public class BestellijstDAO extends DAO {
 					bestellijst_id + ", " +
 					product.getId() +
 					")");
-			System.out.println(query);
 			stmt.executeUpdate(query);
 		}
 	}
@@ -63,7 +62,7 @@ public class BestellijstDAO extends DAO {
 			id = result.getInt("id");
 		}
 		//id never is 0, means it's not set.
-		if(id < 1) {
+		if(id < 0) {
 			throw new Exception();
 		}
 		//New bestellijst_id should be one higher than the current max id.

@@ -3,10 +3,12 @@ package Panthera.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import Panthera.Panthera;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.Models.Product;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
+import javafx.stage.Stage;
 
 /**
  * Handles bestelijst logic.
@@ -16,9 +18,11 @@ import Panthera.Views.BestellijstenSummaryView;
 public class BestellijstenController extends Controller {
 	private ProductenController productenController;
 	private BestellijstDAO dao;
+	private Stage stage;
 	
 	public BestellijstenController() {
 		this.view = new BestellijstenSummaryView(this);
+		this.stage = Panthera.getInstance().getStage();
 		try {
 			this.productenController = new ProductenController();
 			this.dao = new BestellijstDAO();
@@ -39,6 +43,7 @@ public class BestellijstenController extends Controller {
 	public void opslaanBestellijst(List<Product> producten) {
 		producten = filterUnselected(producten);
 		dao.saveNewBestellijst(producten);
+		setView(new BestellijstenSummaryView(this)).show();
 	}
 	
 	/**

@@ -2,8 +2,10 @@ package Panthera.Views;
 
 import Panthera.Panthera;
 import Panthera.Controllers.BestellijstenController;
+import Panthera.Models.Bestellijst;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -20,6 +22,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	private BestellijstenController bestellijstenController;
 	private Stage stage;
 	private HBox topContainer = new HBox(10);
+	private TableView<Bestellijst> table;
 	
 	public BestellijstenSummaryView(BestellijstenController bestellijstenController) {
 		this.bestellijstenController = bestellijstenController;
@@ -31,7 +34,13 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void show() {
 		this.stage.setScene(new Scene(this, 800, 600));
 		this.stage.show();
-		
+	}
+	
+	/**
+	 * Create bestellijst table.
+	 */
+	public void createTableView() {
+		this.table = new TableView();
 	}
 	
 	/**
