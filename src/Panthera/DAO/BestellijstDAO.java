@@ -3,8 +3,10 @@ package Panthera.DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
 
 /**
@@ -54,6 +56,12 @@ public class BestellijstDAO extends DAO {
 		}
 	}
 	
+	/**
+	 * Get a new free bestellijst_id to use.
+	 * @return int bestellijst_id
+	 * @throws SQLException
+	 * @throws Exception
+	 */
 	public int getNewBestellijstId() throws SQLException, Exception {
 		int id = 1;
 		Statement stmt = conn.createStatement();
@@ -68,6 +76,24 @@ public class BestellijstDAO extends DAO {
 		//New bestellijst_id should be one higher than the current max id.
 		id += 1;
 		return id;
+	}
+	
+	public List<Bestellijst> all() throws Exception {
+		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+		Statement stmt = conn.createStatement();
+		String query = "SELECT DISTINCT(bestellijst_id), date FROM bestellijst";
+		ResultSet result = stmt.executeQuery(query);
+		while(result.next()) {
+			bestellijsten.add(new Bestellijst(
+					result.getInt("bestellijst_id"),
+					result.getDate("date")
+					));
+		}
+		return bestellijsten;
+	}
+	
+	public void test() {
+		System.out.println("test");
 	}
 
 }

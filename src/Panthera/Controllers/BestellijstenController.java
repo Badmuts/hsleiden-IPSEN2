@@ -5,9 +5,12 @@ import java.util.List;
 
 import Panthera.Panthera;
 import Panthera.DAO.BestellijstDAO;
+import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
@@ -21,11 +24,11 @@ public class BestellijstenController extends Controller {
 	private Stage stage;
 	
 	public BestellijstenController() {
-		this.view = new BestellijstenSummaryView(this);
-		this.stage = Panthera.getInstance().getStage();
 		try {
-			this.productenController = new ProductenController();
 			this.dao = new BestellijstDAO();
+			this.productenController = new ProductenController();
+			this.view = new BestellijstenSummaryView(this);
+			this.stage = Panthera.getInstance().getStage();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,5 +60,15 @@ public class BestellijstenController extends Controller {
 				filteredList.add(product);
 		}
 		return filteredList;
+	}
+	
+	public ObservableList<Bestellijst> cmdGetBestellijsten() {
+		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+		try {
+			bestellijsten = (ArrayList<Bestellijst>) dao.all();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return FXCollections.observableArrayList(bestellijsten);
 	}
 }
