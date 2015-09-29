@@ -5,7 +5,9 @@ import Panthera.Controllers.BestellijstenController;
 import Panthera.Models.Bestellijst;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -39,9 +41,11 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	/**
 	 * Create bestellijst table.
 	 */
-	public void createTableView() {
+	/*public void createTableView() {
 		this.table = new TableView();
-	}
+		TableColumn bestellijst_id = new TableColumn("bestellijst_id");
+		bestellijst_id.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>);
+	}*/
 	
 	/**
 	 * Create the header.
