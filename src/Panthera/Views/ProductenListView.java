@@ -5,6 +5,7 @@ import Panthera.Models.Product;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -76,8 +77,10 @@ public class ProductenListView extends BorderPane implements Viewable {
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        TableColumn<Product, String> land = new TableColumn("Land");
+        land.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLand().getNaam()));
         addClicklistener();
-        table.getColumns().addAll(checkbox, productnummer, naam, jaar, prijs, type);
+        table.getColumns().addAll(checkbox, productnummer, naam, jaar, prijs, type, land);
         setCenter(table);
     }
 

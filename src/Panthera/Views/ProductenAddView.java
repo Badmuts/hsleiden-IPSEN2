@@ -2,21 +2,17 @@ package Panthera.Views;
 
 import Panthera.Controllers.ProductenController;
 import Panthera.DAO.LandDAO;
-import Panthera.DAO.ProductDAO;
 import Panthera.Models.Land;
 import Panthera.Models.Product;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,7 +22,6 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class ProductenAddView extends GridPane implements Viewable {
 
@@ -86,11 +81,18 @@ public class ProductenAddView extends GridPane implements Viewable {
     private void createComboBox(String name) {
         try {
             Label label = new Label(name);
-            ChoiceBox<Land> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(new LandDAO().all()));
+            ArrayList<Land> landen = new LandDAO().all();
+            ChoiceBox<Land> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(landen));
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 product.setLand(newValue);
             });
-            choiceBox.getSelectionModel().select(0);
+            // TODO: Better fix this.
+            int i = 0;
+            for (Land land: landen) {
+                if (land.getId() == product.getLand().getId())
+                    choiceBox.getSelectionModel().select(i);
+                i++;
+            }
             add(label, 0, currentRow);
             add(choiceBox, 1, currentRow);
             currentRow++;
