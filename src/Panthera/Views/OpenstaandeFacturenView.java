@@ -1,40 +1,29 @@
 package Panthera.Views;
-import Panthera.Controllers.FacturenController;
-import Panthera.Factories.CheckBoxCellFactory;
-import Panthera.Models.Factuur;
 import Panthera.Panthera;
-
+import Panthera.Controllers.FacturenController;
+import Panthera.Models.Factuur;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-
-import javax.swing.table.TableModel;
-import java.util.Date;
+import java.sql.Date;
 
 /**
- * Created by Brandon on 23-Sep-15.
+ * Created by Brandon on 30-Sep-15.
  */
-public class FacturenListView extends BorderPane implements Viewable {
+public class OpenstaandeFacturenView extends BorderPane implements Viewable {
 
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
@@ -43,26 +32,21 @@ public class FacturenListView extends BorderPane implements Viewable {
             .observableArrayList(new Long(1));
 
     private ObservableList<Factuur> facturen;
-    private FilteredList<Factuur> filteredFacturen;
     private HBox topContainer = new HBox(10);
 
-
-
-    public FacturenListView(FacturenController facturenController)  {
+    public OpenstaandeFacturenView(FacturenController facturenController)  {
 
         this.facturenController = facturenController;
-        this.facturen = this.facturenController.cmdGetFacturen();
+        this.facturen = this.facturenController.cmdGetOpenstaandeFacturen();
         createHeader();
         createTableView();
         table.setItems(facturen);
-
     }
+
 
     private void createHeader() {
         createTitle();
-        createAddFactuurButton();
         createRemoveFactuurButton();
-        createOpenstaandeFacturenButton();
         setTop(topContainer);
     }
 
@@ -76,9 +60,9 @@ public class FacturenListView extends BorderPane implements Viewable {
         this.table = new TableView<>();
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
-                       CheckBox checkBox = new CheckBox();
-                        Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().checkedProperty());
-                        return new SimpleObjectProperty<>(checkBox);
+            CheckBox checkBox = new CheckBox();
+            Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().checkedProperty());
+            return new SimpleObjectProperty<>(checkBox);
         });
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
@@ -95,44 +79,19 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     }
 
-
     private void createTitle() {
         Text title = new Text("Facturen");
         title.setFont(Font.font(22));
         topContainer.getChildren().add(title);
     }
 
-    private void createAddFactuurButton() {
-        Button button = new Button("Factuur toevoegen");
-        button.setOnAction(e -> this.facturenController.setView(new FacturenAddView()).show());
-        topContainer.getChildren().add(button);
-    }
 
-    private void createOpenstaandeFacturenButton() {
-        Button button = new Button("Openstaande facturen");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-               @Override
-               public void handle(ActionEvent event) {
-                   for (Factuur factuur : facturen) {
 
-                       if (!factuur.getStatus().equals("Lopend")) {
-                           System.out.println(factuur.getStatus());
-                       } else {
-                           System.out.println(factuur.getStatus());
-                           filteredFacturen.add(factuur);
-                       }
-                   }
-                   table.setItems(filteredFacturen);
-               }
-           });
 
-                topContainer.getChildren().add(button);
-    }
 
 
     @Override
     public void show() {
-
         this.stage.setScene(new Scene(this, 800, 600));
         this.stage.show();
     }
