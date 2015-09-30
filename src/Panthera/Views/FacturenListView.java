@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -42,6 +43,7 @@ public class FacturenListView extends BorderPane implements Viewable {
             .observableArrayList(new Long(1));
 
     private ObservableList<Factuur> facturen;
+    private ObservableList<Factuur> filteredFacturen;
     private HBox topContainer = new HBox(10);
 
 
@@ -108,8 +110,23 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createOpenstaandeFacturenButton() {
         Button button = new Button("Openstaande facturen");
-        button.setOnAction(e -> this.facturenController.setView(new OpenstaandeFacturenView(this.facturenController)).show());
-        topContainer.getChildren().add(button);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+               @Override
+               public void handle(ActionEvent event) {
+                   for (Factuur factuur : facturen) {
+
+                       if (!factuur.getStatus().equals("Lopend")) {
+                           System.out.println(factuur.getStatus());
+                       } else {
+                           System.out.println(factuur.getStatus());
+                           filteredFacturen.add(factuur);
+                       }
+                   }
+                   table.setItems(filteredFacturen);
+               }
+           });
+
+                topContainer.getChildren().add(button);
     }
 
 
