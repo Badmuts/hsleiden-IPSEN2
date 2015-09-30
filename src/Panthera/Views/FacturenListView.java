@@ -60,6 +60,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         createTitle();
         createAddFactuurButton();
         createRemoveFactuurButton();
+        createOpenstaandeFacturenButton();
         setTop(topContainer);
     }
 
