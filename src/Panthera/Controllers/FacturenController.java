@@ -25,11 +25,6 @@ public class FacturenController extends Controller {
 
         this.dao = new FactuurDAO();
         this.view = new FacturenListView(this);
-
-        BestellijstDAO bDAO = new BestellijstDAO();
-        Bestellijst b = bDAO.get(4);
-        System.out.println(b);
-
     }
 
 

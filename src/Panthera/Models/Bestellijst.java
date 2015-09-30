@@ -75,6 +75,6 @@ public class Bestellijst {
 
 	@Override
 	public String toString() {
-		return name + " (" + date + ")";
+		return this.name + " (" + date + ")";
 	}
 }

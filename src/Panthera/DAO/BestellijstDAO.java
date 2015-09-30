@@ -26,6 +26,7 @@ public class BestellijstDAO extends DAO {
 		while(result.next()) {
 			bestellijst.setId(result.getInt("id"));
 			bestellijst.setDate(result.getDate("date"));
+            bestellijst.setName(result.getString("name"));
 			bestellijst.addProduct(new Product(
 					result.getInt("id"),
 					result.getInt("productnummer"),
@@ -68,7 +69,7 @@ public class BestellijstDAO extends DAO {
             lastId = result.getInt("bid");
 
 		}
-        System.out.println(bestellijsten);
+        bestellijsten.add(bestellijst);
 		return bestellijsten;
 	}
 

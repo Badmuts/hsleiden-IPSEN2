@@ -127,7 +127,7 @@ public class FacturenAddView extends GridPane implements Viewable {
             ChoiceBox<Bestellijst> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(bestellijsten));
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 bestellijst = newValue;
-                System.out.println(bestellijst.getProducten());
+                //System.out.println(bestellijst.getProducten());
                 producten.setAll(FXCollections.observableArrayList(newValue.getProducten()));
             });
 
