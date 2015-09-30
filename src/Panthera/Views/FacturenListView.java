@@ -115,7 +115,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     @Override
     public void show() {
 
-        this.stage.setScene(new Scene(this, 800, 600));
+        this.stage.setScene(new Scene(this, 1024, 768));
         this.stage.show();
     }
 }

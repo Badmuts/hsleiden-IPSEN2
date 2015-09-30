@@ -8,20 +8,20 @@ import Panthera.Models.Product;
 import Panthera.Panthera;
 import com.oracle.webservices.internal.api.message.PropertySet;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,6 +29,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+import javax.security.auth.callback.Callback;
 import java.util.ArrayList;
 
 /**
@@ -53,6 +54,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         createTableView();
         createSaveButton();
         this.table.setItems(producten);
+        table.setEditable(true);
     }
 
     public FacturenAddView(FacturenController facturenController, Factuur factuur) {
@@ -83,7 +85,7 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     @Override
     public void show() {
-        this.stage.setScene(new Scene(this));
+        this.stage.setScene(new Scene(this, 1024, 768));
         this.stage.show();
     }
 
@@ -162,8 +164,25 @@ public class FacturenAddView extends GridPane implements Viewable {
         TableColumn<Product, String> land = new TableColumn("Land");
         land.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLand().getNaam()));
 //        addClicklistener();
-        table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land);
-        add(table, 0, currentRow);
+        TableColumn<Product, String> aantal = new TableColumn("Aantal");
+
+        aantal.setCellFactory(TextFieldTableCell.forTableColumn());
+        aantal.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Product, String>>() {
+                    public void handle(TableColumn.CellEditEvent<Product, String> t) {
+                        ((Product) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setAantal(t.getNewValue());
+                    }
+                }
+        );
+
+
+
+
+        table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land, aantal);
+
+        add(table, 1, currentRow);
         currentRow++;
     }
 
@@ -187,3 +206,4 @@ public class FacturenAddView extends GridPane implements Viewable {
         currentRow++;
     }
 }
+
