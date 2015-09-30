@@ -14,6 +14,7 @@ public class Bestellijst {
 	private int id;
 	private Date date;
 	List<Product> producten = new ArrayList<>();
+	private String name;
 
 	public Bestellijst(int bestellijst_id, Date date, List<Product> producten) {
 		this.id = bestellijst_id;
@@ -23,6 +24,12 @@ public class Bestellijst {
 
 	public Bestellijst() {
 
+	}
+
+	public Bestellijst(int bestellijst_id, Date date, String name) {
+		this.id = bestellijst_id;
+		this.date = date;
+		this.name = name;
 	}
 
 	public int getBestellijdtId() {
@@ -45,6 +52,14 @@ public class Bestellijst {
 		this.date = date;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public List<Product> getProducten() {
 		return producten;
 	}
@@ -60,10 +75,6 @@ public class Bestellijst {
 
 	@Override
 	public String toString() {
-		return "Bestellijst{" +
-				"id=" + id +
-				", date=" + date +
-				", producten=" + producten +
-				'}';
+		return name + " (" + date + ")";
 	}
 }

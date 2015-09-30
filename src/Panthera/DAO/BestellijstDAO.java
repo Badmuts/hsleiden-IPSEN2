@@ -1,9 +1,7 @@
 package Panthera.DAO;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Date;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import Panthera.Models.Bestellijst;
@@ -26,7 +24,6 @@ public class BestellijstDAO extends DAO {
 		ResultSet result = stmt.executeQuery("SELECT * FROM bestellijst b, product_to_bestellijst pb, product p WHERE b.id=" + id + " AND pb.product_id=p.id");
 		Bestellijst bestellijst = new Bestellijst();
 		while(result.next()) {
-			System.out.println(result.getString("naam"));
 			bestellijst.setId(result.getInt("id"));
 			bestellijst.setDate(result.getDate("date"));
 			bestellijst.addProduct(new Product(
@@ -39,6 +36,40 @@ public class BestellijstDAO extends DAO {
 					new LandDAO().get(result.getInt("land_id"))));
 		}
 		return bestellijst;
+	}
+
+	public ArrayList<Bestellijst> all() throws Exception {
+		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT b.id AS bid, b.date, b.name, p.id AS pid, p.productnummer, p.naam, p.jaar, p.prijs, p.type, p.land_id FROM bestellijst b, product_to_bestellijst pb, product p WHERE pb.bestellijst_id=b.id AND pb.product_id=p.id");
+        int lastId = 0;
+        Bestellijst bestellijst = new Bestellijst();
+		while(result.next()) {
+
+            // Als het laatste id niet gelijk is aan het huidige id
+            // leeg dan het bestellijst object.
+            // Anders, blijf het bestellijst object vullen met producten.
+            if (lastId != result.getInt("bid") && lastId != 0) {
+                bestellijsten.add(bestellijst);
+                bestellijst = new Bestellijst();
+            }
+
+            bestellijst.setId(result.getInt("bid"));
+            bestellijst.setDate(result.getDate("date"));
+            bestellijst.setName(result.getString("name"));
+            bestellijst.addProduct(new Product(
+                    result.getInt("pid"),
+                    result.getInt("productnummer"),
+                    result.getString("naam"),
+                    result.getInt("jaar"),
+                    result.getDouble("prijs"),
+                    result.getString("type"),
+                    new LandDAO().get(result.getInt("land_id"))));
+            lastId = result.getInt("bid");
+
+		}
+        System.out.println(bestellijsten);
+		return bestellijsten;
 	}
 
 	public void saveNewBestellijst(List<Product> producten) {
