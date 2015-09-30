@@ -35,6 +35,16 @@ public class FacturenController extends Controller {
         return FXCollections.observableArrayList(facturen);
     }
 
+    public ObservableList<Factuur> cmdGetOpenstaandeFacturen() {
+        ArrayList<Factuur> openstaandeFacturen = new ArrayList<>();
+        try {
+            openstaandeFacturen.addAll(dao.getAllOpenstaandeFacturen());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return FXCollections.observableArrayList(openstaandeFacturen);
+    }
+
     public void cmcDeleteFactuur(ObservableList<Factuur> facturen) {
         try {
             for(Factuur factuur: facturen) {
