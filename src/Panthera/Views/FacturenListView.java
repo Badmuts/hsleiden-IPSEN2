@@ -43,7 +43,7 @@ public class FacturenListView extends BorderPane implements Viewable {
             .observableArrayList(new Long(1));
 
     private ObservableList<Factuur> facturen;
-    private ObservableList<Factuur> filteredFacturen;
+    private FilteredList<Factuur> filteredFacturen;
     private HBox topContainer = new HBox(10);
 
 
