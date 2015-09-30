@@ -2,6 +2,7 @@ package Panthera.Views;
 
 import Panthera.Controllers.Controller;
 import Panthera.Controllers.FacturenController;
+import Panthera.Controllers.MailController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.scene.Scene;
@@ -56,7 +57,7 @@ public class MainMenuView extends BorderPane implements Viewable {
             //buttons.add(new Button("Bestellijsten"));
             buttons.add(createButton("Bestellijsten", mainMenuController.cmdCreateBestellijstenController()));
             buttons.add(new Button("Debiteuren"));
-            buttons.add(new Button("E-mail"));
+            buttons.add(createButton("E-mail", new MailController()));
         } catch (Exception e) {
             e.printStackTrace();
         }
