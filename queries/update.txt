@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS bestellijst
+(
+	id SERIAL PRIMARY KEY,
+	naam varchar NOT NULL,
+	bestellijst_set integer,
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS bestellijst_set
+(
+	id SERIAL PRIMARY KEY,
+	bestellijst_id integer REFERENCES bestellijst (id),
+	product_id integer REFERENCES product (id)
+);
