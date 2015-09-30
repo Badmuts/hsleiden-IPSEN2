@@ -38,8 +38,8 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		this.stage = Panthera.getInstance().getStage();
 		this.bestellijsten = bestellijstenController.cmdGetBestellijsten();
 		createHeader();
-		createTableView();
-		table.setItems(bestellijsten);
+		//createTableView();
+		//table.setItems(bestellijsten);
 	}
 	
 	@Override
@@ -60,12 +60,12 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	                        return new SimpleObjectProperty<>(checkBox);
 	        });
 		
-		TableColumn bestellijst_id = new TableColumn("bestellijst_id");
-		bestellijst_id.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("bestellijst"));
+		TableColumn id = new TableColumn("id");
+		id.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("bestellijst"));
 		TableColumn date = new TableColumn("date");
 		date.setCellValueFactory(new PropertyValueFactory<Bestellijst, Date>("date"));
 		
-		this.table.getColumns().addAll(bestellijst_id, date, checkbox);
+		this.table.getColumns().addAll(id, date, checkbox);
 		setCenter(this.table);
 	}
 	

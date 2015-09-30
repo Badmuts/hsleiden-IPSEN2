@@ -65,7 +65,7 @@ public class BestellijstDAO extends DAO {
 	public int getNewBestellijstId() throws SQLException, Exception {
 		int id = 1;
 		Statement stmt = conn.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT MAX(bestellijst_id) AS id FROM bestellijst");
+		ResultSet result = stmt.executeQuery("SELECT MAX(id) AS id FROM bestellijst");
 		while(result.next()) {
 			id = result.getInt("id");
 		}
@@ -81,11 +81,11 @@ public class BestellijstDAO extends DAO {
 	public List<Bestellijst> all() throws Exception {
 		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
 		Statement stmt = conn.createStatement();
-		String query = "SELECT DISTINCT(bestellijst_id), date FROM bestellijst";
+		String query = "SELECT DISTINCT(id), date FROM bestellijst";
 		ResultSet result = stmt.executeQuery(query);
 		while(result.next()) {
 			bestellijsten.add(new Bestellijst(
-					result.getInt("bestellijst_id"),
+					result.getInt("id"),
 					result.getDate("date")
 					));
 		}
