@@ -47,11 +47,11 @@ public class BestellijstDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		for(Product product : producten) {
 			String query = (
-					"INSERT INTO bestellijst(bestellijst_id, product_id)" +
+					"INSERT INTO bestellijst(naam)" +
 					"VALUES(" +
-					bestellijst_id + ", " +
-					product.getId() +
+					"'bestellijst_" + bestellijst_id + "'" +
 					")");
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		}
 	}
