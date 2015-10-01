@@ -1,6 +1,7 @@
 package Panthera.Views;
 import Panthera.Controllers.FacturenController;
 import Panthera.Factories.CheckBoxCellFactory;
+import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 
@@ -104,6 +105,12 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
+        TableColumn<Factuur, String> voornaam = new TableColumn("Voornaam");
+        voornaam.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getVoornaam()));
+        TableColumn<Factuur, String> tussenvoegsel = new TableColumn("Tussenvoegsel");
+        tussenvoegsel.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getTussenvoegsel()));
+        TableColumn<Factuur, String> achternaam = new TableColumn("Achternaam");
+        achternaam.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getNaam()));
         TableColumn factuurdatum = new TableColumn("Factuurdatum");
         factuurdatum.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("factuurdatum"));
         TableColumn factuurexpdate = new TableColumn("Vervaldatum");
@@ -113,7 +120,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
 
 
-        this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, factuurexpdate, status);
+        this.table.getColumns().addAll(checkbox, factuurnummer, voornaam, tussenvoegsel, achternaam, factuurdatum, factuurexpdate, status);
 
 
 

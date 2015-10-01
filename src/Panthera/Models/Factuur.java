@@ -18,15 +18,14 @@ public class Factuur extends Model {
     private SimpleObjectProperty<Date> vervaldatum;
     private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
-
-    //private Debiteur debiteur;
+    private SimpleObjectProperty<Debiteur> debiteur;
     //private OrderRegel orderRegel;
     //private String opmerking;
     //private String notitie;
     //private Organisatie organisatie;
 
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur) {
 
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
@@ -34,7 +33,7 @@ public class Factuur extends Model {
         this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
         this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
-        //this.debiteur = debiteur;
+        this.debiteur = new SimpleObjectProperty<>(debiteur);
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
        // this.notitie = notitie;
@@ -47,6 +46,7 @@ public class Factuur extends Model {
         this.vervaldatum = new SimpleObjectProperty<>();
         this.status = new SimpleStringProperty();
         this.checked = new SimpleBooleanProperty();
+        this.debiteur = new SimpleObjectProperty<>();
     }
 
     //Getters
@@ -72,6 +72,10 @@ public class Factuur extends Model {
 
     public Boolean isChecked() {
         return this.checked.get();
+    }
+
+    public Debiteur getDebiteur() {
+        return debiteur.get();
     }
 
 
@@ -102,6 +106,8 @@ public class Factuur extends Model {
         this.checked.set(checked);
     }
 
+    public void setDebiteur(Debiteur debiteur) { this.debiteur.set(debiteur);}
+
 
     //Properties
     public SimpleIntegerProperty idProperty() {
@@ -127,6 +133,8 @@ public class Factuur extends Model {
     public SimpleBooleanProperty checkedProperty() {
         return this.checked;
     }
+
+    public SimpleObjectProperty debiteurProperty() { return this.debiteur; }
 
 
 
