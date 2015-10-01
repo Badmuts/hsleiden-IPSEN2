@@ -18,10 +18,14 @@ public class DebiteurenController extends Controller {
 	
 	private DebiteurDAO dao;
 	
-	public DebiteurenController() throws Exception {
-		
-		this.dao = new DebiteurDAO();
-		this.view = new DebiteurenListView(this);
+	public DebiteurenController() {
+
+      try {
+          this.dao = new DebiteurDAO();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      this.view = new DebiteurenListView(this);
 	}
 	
 	public ObservableList<Debiteur> cmdGetDebiteuren() {
