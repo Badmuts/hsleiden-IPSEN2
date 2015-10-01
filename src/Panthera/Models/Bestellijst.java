@@ -9,7 +9,7 @@ import java.util.List;
  * @author Roy
  *
  */
-public class Bestellijst {
+public class Bestellijst extends Model {
 	private int bestellijst_id;
 	private Date date;
 	List<Product> producten = new ArrayList<>();

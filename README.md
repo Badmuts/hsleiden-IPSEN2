@@ -11,6 +11,28 @@ In het mapje `DB` staat een sql bestand: `database.sql`. Importeer deze in een n
 ### Connectie gegevens aanpassen
 Configuratie met de database staat in de `DatabaseService.java` class. Hierin moet je je login gegevens aanpassen. Vergeet ook niet de databasenaam aan te passsen. Gegevens staan nu in de `getConnection()` method. 
 
+## Mailservice
+Het sturen van een mail is gelukkig erg makkelijk door de `MailService` class. De `MailService` class heeft een simpele methode `send` die een `Email` model verwacht. Ik heb hier wat voorbeeldcode.
+
+Maak een `MailService` object:
+```java
+MailService mailService = new MailService();
+// of
+MailService mailService = new MailService(new SendGrid());
+```
+Maak een nieuw `Email` object en voeg gegevens toe
+```java
+Email email = new Email();
+email.setTo("d.rosbergen@gmail.com");
+email.setFrom("daan@daanrosbergen.nl");
+email.setSubject("Java mail test");
+email.setText("Hoi dit is Daan!");
+email.addAttachment("daan.test", "daantestattachment.txt");
+```
+Verstuur je `Email` via de `MailService`.
+```java
+mailService.send(email);
+```
 ## Structuur
 Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: MVC, DAO en Services.
 

@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * Created by Daan on 27-Sep-15.
  */
-public class Land {
+public class Land extends Model {
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty naam;

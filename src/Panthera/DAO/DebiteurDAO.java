@@ -51,7 +51,7 @@ public class DebiteurDAO extends DAO {
 					result.getInt("id"),
 					result.getString("aanhef"),
 					result.getString("voornaam"),
-					result.getString("tussenvoegesel"),
+					result.getString("tussenvoegsel"),
 					result.getString("naam"),
 					result.getString("adres"),
 					result.getString("woonplaats"),
