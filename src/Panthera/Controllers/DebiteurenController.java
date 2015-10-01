@@ -42,7 +42,7 @@ public class DebiteurenController extends Controller {
 		try {
 			for(Debiteur debiteur: debiteuren) {
 				if(debiteur.isActive()) {
-					dao.deleteDebiteur(debiteur.getId());
+					dao.deleteDebiteur(debiteur);
 					Platform.runLater(() -> {
 						debiteuren.remove(debiteur);
 					});
