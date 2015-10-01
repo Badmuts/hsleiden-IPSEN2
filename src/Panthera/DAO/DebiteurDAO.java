@@ -23,8 +23,8 @@ public class DebiteurDAO extends DAO {
 
 	public Debiteur getDebiteur(int id) throws Exception {
 		Debiteur debiteur = new Debiteur();
-		try (Statement stmt = conn.createStatement()) {
-			ResultSet result = stmt.executeQuery("SELECT * FROM debiteur WHERE id = " + id);
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM debiteur WHERE id = " + id);
 			while (result.next()) {
 				debiteur.setId(result.getInt("id"));
 				debiteur.setAanhef(result.getString("aanhef"));
@@ -36,9 +36,8 @@ public class DebiteurDAO extends DAO {
 				debiteur.setPostcode(result.getString("postcode"));
 				debiteur.setEmail(result.getString("email"));
 				debiteur.setTelefoon(result.getString("telefoon"));
-				//debiteur.setLand(result.getInt(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getInt("id"))));
 			}
-		}
+
 		return debiteur;
 	}
 
