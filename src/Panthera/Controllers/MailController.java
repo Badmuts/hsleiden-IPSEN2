@@ -40,5 +40,7 @@ public class MailController extends Controller {
                 email.addTo(debiteur.getEmail());
         }
         mailService.send(email);
+        this.view = new MailListView(this);
+        show();
     }
 }
