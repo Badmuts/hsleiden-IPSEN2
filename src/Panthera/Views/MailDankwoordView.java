@@ -1,6 +1,5 @@
 package Panthera.Views;
 
-import Panthera.Controllers.Controller;
 import Panthera.Controllers.MailController;
 import Panthera.DAO.MailTemplatesDAO;
 import Panthera.Models.MailTemplate;
@@ -8,9 +7,14 @@ import Panthera.Panthera;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -27,9 +31,14 @@ public class MailDankwoordView extends GridPane implements Viewable {
     private int currentRow = 0;
     private TextArea bericht;
 
+    /**
+     *
+     * @param mailController
+     */
     public MailDankwoordView(MailController mailController) {
         this.mailController = mailController;
         createForm();
+        setPadding();
     }
 
     /**
@@ -42,14 +51,26 @@ public class MailDankwoordView extends GridPane implements Viewable {
             createChoiceBox("Template", new MailTemplatesDAO().all(),
                 (observable, oldValue, newValue) -> updateBericht(observable, oldValue, newValue));
             createTextAreaField("Bericht");
-            createButton("Ontvangers selecteren", mailController.cmdSelectRecipients());
+            createButton("Ontvangers selecteren", event -> mailController.cmdShowSelectRecipients());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * This method creates a Label and a ChoiceBox.
+     * Sets padding to view and its rows.
+     *
+     * @author Daan Rosbergen
+     */
+    private void setPadding() {
+        setHgap(5);
+        setVgap(5);
+        setPadding(new Insets(10));
+    }
+
+    /**
+     * This method creates a Label and a ChoiceBox and adds a
+     * ChangeListener to itself.
      *
      * @author Daan Rosbergen
      * @param name              Label name.
@@ -60,6 +81,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
         ChangeListener<MailTemplate> changeListener) {
         Label label = new Label(name);
         ChoiceBox<MailTemplate> box = new ChoiceBox<>(FXCollections.observableArrayList(mails));
+        // Bind changelistener
         box.getSelectionModel().selectedItemProperty().addListener(changeListener);
         addToForm(label, box);
     }
@@ -93,16 +115,16 @@ public class MailDankwoordView extends GridPane implements Viewable {
      * Creates a Button and binds it to a method in the Controller.
      *
      * @param name          Name of the button.
-     * @param controller    Controller action.
+     * @param eventhandler  EventHandler for button action.
      */
-    private void createButton(String name, Controller controller) {
+    private void createButton(String name, EventHandler eventhandler) {
         Button button = new Button(name);
-        button.setOnAction(event -> controller.show());
+        button.setOnAction(eventhandler);
         addToForm(button);
     }
 
     /**
-     * Adds 2 nodes to the view.
+     * Adds 2 nodes to the view in the same row.
      *
      * @param label
      * @param textArea

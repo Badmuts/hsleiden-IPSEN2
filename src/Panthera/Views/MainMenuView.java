@@ -1,10 +1,10 @@
 package Panthera.Views;
 
 import Panthera.Controllers.Controller;
-import Panthera.Controllers.FacturenController;
 import Panthera.Controllers.MailController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +32,7 @@ public class MainMenuView extends BorderPane implements Viewable {
         this.mainMenuController = mainMenuController;
         this.createMenu();
         setCenter(menu);
+        setPadding(new Insets(10));
     }
 
     /**

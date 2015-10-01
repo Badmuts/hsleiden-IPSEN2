@@ -2,6 +2,7 @@ package Panthera.Views;
 
 import Panthera.Controllers.MailController;
 import Panthera.Panthera;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -17,8 +18,9 @@ public class MailListView extends BorderPane implements Viewable {
     public MailListView(MailController mailController) {
         this.mailController = mailController;
         Button button = new Button("Verstuur dankwoord");
-        button.setOnAction(event -> mailController.cmdShowDankwoordView());
+        button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
         setCenter(button);
+        setPadding(new Insets(10));
     }
 
     @Override
