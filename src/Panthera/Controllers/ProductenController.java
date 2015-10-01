@@ -49,9 +49,7 @@ public class ProductenController extends Controller {
             for(Product product: products) {
                 if (product.isActive()) {
                     dao.delete(product);
-                    Platform.runLater(() -> {
-                        products.remove(product);
-                    });
+                    Platform.runLater(() -> products.remove(product));
                 }
             }
         } catch (Exception e) {

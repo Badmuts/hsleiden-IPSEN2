@@ -49,4 +49,24 @@ public class Land {
     public String toString() {
         return naam.get();
     }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Land land = (Land) o;
+
+        if (id != null ? !id.equals(land.id) : land.id != null)
+            return false;
+        return !(naam != null ? !naam.equals(land.naam) : land.naam != null);
+
+    }
+
+    @Override public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (naam != null ? naam.hashCode() : 0);
+        return result;
+    }
 }

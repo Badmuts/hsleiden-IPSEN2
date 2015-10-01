@@ -2,6 +2,7 @@ package Panthera.Models;
 
 import javafx.beans.property.*;
 
+
 public class Product {
 
     private SimpleIntegerProperty id;
@@ -118,7 +119,7 @@ public class Product {
     public void setLand(Land land) {
         this.land.set(land);
     }
-
+    
     @Override public String toString() {
         return "Product: \n"
             + "Nummer: " + productnummer + "\n"
