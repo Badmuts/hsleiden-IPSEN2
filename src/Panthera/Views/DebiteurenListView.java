@@ -1,5 +1,6 @@
 package Panthera.Views;
 
+import Panthera.Models.Factuur;
 import Panthera.Panthera;
 
 import Panthera.Models.Debiteur;
@@ -8,7 +9,10 @@ import Panthera.Views.Viewable;
 import Panthera.Controllers.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,7 +27,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private DebiteurenController debiteurenController;
 	private Stage stage = Panthera.getInstance().getStage();
 	private TableView<Debiteur> table;
-	private ObservableList<Debiteur> debiteuren;
+	private ObservableList<Debiteur> debiteuren = FXCollections.observableArrayList();
+	private FilteredList<Debiteur> filteredData;
+	private TextField filterField;
 	private HBox topContainer = new HBox(10);
 
 	public DebiteurenListView(DebiteurenController debiteurenController){
@@ -33,12 +39,47 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		createHeader();
 		createTableView();
 		table.setItems(debiteuren);
+		filterDebiteuren();
+	}
+
+	private void filterDebiteuren() {
+
+		this.filteredData = new FilteredList<Debiteur>(this.debiteuren, p -> true);
+		this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			this.filteredData.setPredicate(debiteur -> {
+				if(newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				String lowerCaseFilter = newValue.toLowerCase();
+				if(debiteur.getVoornaam().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				} else if(debiteur.getNaam().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				} else if(debiteur.getWoonplaats().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		SortedList<Debiteur> sortedData = new SortedList<>(this.filteredData);
+		sortedData.comparatorProperty().bind(this.table.comparatorProperty());
+
+		this.table.setItems(sortedData);
+	}
+
+
+	private void createFilterField() {
+		this.filterField = new TextField();
+		topContainer.getChildren().add(this.filterField);
+
 	}
 
 	public void createHeader() {
 		createTitle();
 		addDebiteurButton();
 		removeDebiteurButton();
+		createFilterField();
 		setTop(topContainer);
 	}
 
@@ -70,7 +111,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		voornaam.setCellValueFactory(new PropertyValueFactory<>("voornaam"));
 		TableColumn<Debiteur, String> tussenvoegsel = new TableColumn("Tussenvoegsel");
 		tussenvoegsel.setCellValueFactory(new PropertyValueFactory<>("tussenvoegsel"));
-		TableColumn<Debiteur, String> naam = new TableColumn("Naam");
+		TableColumn<Debiteur, String> naam = new TableColumn("Achternaam");
 		naam.setCellValueFactory(new PropertyValueFactory<>("naam"));
 		TableColumn<Debiteur, String> adres = new TableColumn("Adres");
 		adres.setCellValueFactory(new PropertyValueFactory<>("adres"));
