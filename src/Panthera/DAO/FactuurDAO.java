@@ -5,7 +5,7 @@ import Panthera.Models.Factuur;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -32,20 +32,38 @@ public class FactuurDAO extends DAO {
         return factuur;
     }
 
-    public List<Factuur> getAllFacturen() throws SQLException {
-        //query om alle facturen op te halen
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("SELECT * FROM factuur");
+
+    /**
+     * Returns a list with Factuur models with a limit of 25.
+     *
+     * @return ArrayList<Factuur> List with product models.
+     * @throws Exception
+     */
+    public ArrayList<Factuur> getAllFacturen() throws Exception {
+        ArrayList<Factuur> facturen = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+        while (result.next()) {
+            facturen.add(new Factuur(
+                    result.getInt("id"),
+                    result.getInt("factuurnummer"),
+                    result.getDate("factuurdatum"),
+                    result.getDate("vervaldatum"),
+                    result.getString("status")));
+
         }
-        return null;
+        return facturen;
     }
 
-    public void deleteFactuur(int id) throws SQLException {
+
+    public void deleteFactuur(Factuur factuur) throws SQLException {
         //query om een factuur te verwijderen
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("DELETE * FROM factuur WHERE factuur_id = " + id);
+       Statement stmt = conn.createStatement();
+        stmt.executeUpdate("DELETE FROM factuur " +
+                "WHERE id=" + factuur.getId());
         }
-    }
+
+}
 
    /* public void saveFactuur(Calendar factuurdatum, Calendar vervaldatum, Debiteur debiteur, OrderRegel orderRegel, String opmerking, String notitie, Organisatie organisatie) throws SQLException {
         //query om een factuur op te slaan
@@ -61,4 +79,4 @@ public class FactuurDAO extends DAO {
                             );
         }
     } */
-}
+

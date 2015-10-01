@@ -1,6 +1,8 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -10,50 +12,85 @@ import java.util.Calendar;
  */
 public class Factuur {
     private int id;
+    private int factuurnummer;
     private Date factuurdatum;
     private Date vervaldatum;
+    private String status;
+    private SimpleBooleanProperty checked;
+
+
     //private Debiteur debiteur;
     //private OrderRegel orderRegel;
     //private String opmerking;
     //private String notitie;
     //private Organisatie organisatie;
-    private String status;
 
 
-    public Factuur(int id, Date factuurdatum, Date vervaldatum, String status) {
+
+
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
         this.id = id;
+        this.factuurnummer = factuurnummer;
         this.factuurdatum = factuurdatum;
         this.vervaldatum = vervaldatum;
+        this.status = status;
+        this.checked = new SimpleBooleanProperty(false);
         //this.debiteur = debiteur;
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
        // this.notitie = notitie;
-        this.status = status;
-
     }
 
     public Factuur() {
-
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public int getFactuurnummer() {
+        return factuurnummer;
+    }
+
+    public void setFactuurnummer(int factuurnummer) {
+        this.factuurnummer = factuurnummer;
+    }
+
+    public Date getFactuurdatum() {
+        return factuurdatum;
+    }
     public void setFactuurdatum(Date factuurdatum) {
         this.factuurdatum = factuurdatum;
     }
 
+    public Date getVervaldatum() {
+        return vervaldatum;
+    }
     public void setVervaldatum(Date vervaldatum) {
         this.vervaldatum = vervaldatum;
     }
 
+    public String getStatus() {
+        return status;
+    }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public SimpleBooleanProperty checkedProperty() {
+        return this.checked;
+    }
+
+    public Boolean isChecked() {
+        return this.checked.get();
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked.set(checked);
     }
 
 //    public OrderRegel getOrderRegel() {
@@ -81,7 +118,7 @@ public class Factuur {
 //    }
 
         public String toString() {
-            return "Factuur: " + this.id + " "  + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+            return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
         }
 
 }

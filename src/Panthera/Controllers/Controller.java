@@ -8,13 +8,25 @@ import Panthera.Views.Viewable;
  */
 public class Controller {
 
-    Viewable view;
+    protected Viewable view;
 
     /**
      * Calls the show method on a Viewable.
      */
     public void show() {
         this.view.show();
+    }
+
+    /**
+     * Set view and return itself for method chaning.
+     *
+     * @author  Daan Rosbergen
+     * @param   view        new view.
+     * @return  Controller  return self.
+     */
+    public Controller setView(Viewable view) {
+        this.view = view;
+        return this;
     }
 
 }

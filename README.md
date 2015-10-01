@@ -1,17 +1,23 @@
 # IPSEN2
 Project Panthera.Panthera, een ordersysteem voor het wijnfestijn van de Lions Club. Panthera.Panthera is het Latijnse woord voor leeuw.
 
+## Setup database
+### Download JDBC driver
+Om connectie met je database te maken moet je de [Postgres driver downloaden](https://jdbc.postgresql.org/download.html) en toevoegen aan je project. Met InteliJ kun je dit doen door op naar File -> Project Structure -> Global Libraries te gaan en daar de jar file toe te voegen.
+
+### Import database
+In het mapje `DB` staat een sql bestand: `database.sql`. Importeer deze in een nieuwe database.
+
+### Connectie gegevens aanpassen
+Configuratie met de database staat in de `DatabaseService.java` class. Hierin moet je je login gegevens aanpassen. Vergeet ook niet de databasenaam aan te passsen. Gegevens staan nu in de `getConnection()` method. 
+
+## Structuur
 Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: MVC, DAO en Services.
 
 ![Applicatie structuur](https://www.dropbox.com/s/f3mrd5j1sl9qy3s/DAOModel.JPG?dl=1)
 
-## Download JDBC Postgres driver
-Om connectie met je database te maken moet je de [Postgres driver downloaden](https://jdbc.postgresql.org/download.html) en toevoegen aan je project. 
-
-Configuratie met de database staat in de `DatabaseService.java` class. Hierin moet je waarschijnlijk je login gegevens aanpassen.
-
 ## Usecase diagram  
-![Usecase diagram](https://www.dropbox.com/s/7fk0twahyy3isdz/usecasev0.2.png?dl=1)
+![Usecase diagram](https://photos-1.dropbox.com/t/2/AABCAudwgquWRLV6g3YeCCwPYnaSmgeI6Qo-ixNv5brilQ/12/48853717/png/32x32/1/_/1/2/Use%20Case%20diagram.png/EOjciuADGOoEIAEgBygH/CEP3V1-43diNiUGqvM6LWnEnuhHZ18BvWkXMsltkQU0?size=1024x768&size_mode=2)
 
 ## ERD
 ![ERD](https://www.dropbox.com/s/9865z99tks0p5jv/erd-v0.3.png?dl=1)

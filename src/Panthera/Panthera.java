@@ -3,7 +3,11 @@ package Panthera;
 import Panthera.Controllers.MainMenuController;
 import Panthera.DAO.FactuurDAO;
 import Panthera.Models.Factuur;
+
 import Panthera.Models.Handleiding;
+
+import Panthera.Services.QueryUpdater;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -34,6 +38,7 @@ public class Panthera extends Application {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
         new MainMenuController().show();
+
         FactuurDAO factuurDAO = new FactuurDAO();
         Factuur factuur = factuurDAO.getFactuur(1);
         System.out.print(factuur);
@@ -41,6 +46,9 @@ public class Panthera extends Application {
         // test only
        Handleiding test = new Handleiding();
         test.leesHandleidingTest();
+
+        new QueryUpdater().update();
+
     }
 
     /**
@@ -53,7 +61,7 @@ public class Panthera extends Application {
     }
 
     /**
-     * Returns the instance of this (Panthera.Panthera) object (because it is a Singleton).
+     * Returns the instance of this (Panthera) object (because it is a Singleton).
      *
      * @return Panthera.Panthera Singleton Panthera.Panthera object.
      */

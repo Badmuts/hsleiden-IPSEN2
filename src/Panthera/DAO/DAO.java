@@ -14,6 +14,5 @@ public class DAO {
 
     public DAO() throws IllegalAccessException, InstantiationException, SQLException {
             this.conn = DatabaseService.getInstance().getConnection();
-
     }
 }
