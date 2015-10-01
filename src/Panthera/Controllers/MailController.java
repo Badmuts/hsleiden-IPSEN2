@@ -38,7 +38,6 @@ public class MailController extends Controller {
             email.setText(parser.parse(bericht, debiteur));
             if (debiteur.isActive())
                 email.addTo(debiteur.getEmail());
-
         }
         mailService.send(email);
     }
