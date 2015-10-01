@@ -22,13 +22,13 @@ public class Debiteur {
 	private SimpleStringProperty woonplaats;
 	private SimpleStringProperty postcode;
 	private SimpleStringProperty email;
-	private SimpleIntegerProperty telefoon;
+	private SimpleStringProperty telefoon;
 	private SimpleObjectProperty<Land> land;
 	private SimpleBooleanProperty active;
-	private DebiteurDAO debiteurDAO;
+
 
 	public Debiteur(int id, String aanhef, String voornaam, String tussenvoegsel, String naam, 
-					String adres, String woonplaats, String postcode, String email, int telefoon, Land land){
+					String adres, String woonplaats, String postcode, String email, String telefoon, Land land){
 		this.id = new SimpleIntegerProperty(id);
 		this.aanhef = new SimpleStringProperty(aanhef);
 		this.voornaam = new SimpleStringProperty(voornaam);
@@ -38,7 +38,7 @@ public class Debiteur {
 		this.woonplaats = new SimpleStringProperty(woonplaats);
 		this.postcode = new SimpleStringProperty(postcode);
 		this.email = new SimpleStringProperty(email);
-		this.telefoon = new SimpleIntegerProperty(telefoon);
+		this.telefoon = new SimpleStringProperty(telefoon);
 		this.land = new SimpleObjectProperty<>(land);
 		this.active = new SimpleBooleanProperty(false);
 	}
@@ -58,7 +58,7 @@ public class Debiteur {
 		this.woonplaats = new SimpleStringProperty();
 		this.postcode = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
-		this.telefoon = new SimpleIntegerProperty();
+		this.telefoon = new SimpleStringProperty();
 		this.land = new SimpleObjectProperty<>();
 		this.active = new SimpleBooleanProperty();
 
@@ -91,7 +91,7 @@ public class Debiteur {
 	public String getEmail(){
 		return this.email.get();
 	}
-	public int getTelefoon(){
+	public String getTelefoon(){
 		return this.telefoon.get();
 	}
 	public Land getLand(){
@@ -99,6 +99,9 @@ public class Debiteur {
 	}
 	public boolean isActive() {
 		return active.get();
+	}
+	public boolean hasId() {
+		return (id.get() != 0);
 	}
 
 	//setters
@@ -129,7 +132,7 @@ public class Debiteur {
 	public void setEmail(String email){
 		this.email.set(email);
 	}
-	public void setTelefoon(int telefoon){
+	public void setTelefoon(String telefoon){
 		this.telefoon.set(telefoon);
 	}
 	public void setLand(Land land){
@@ -175,7 +178,7 @@ public class Debiteur {
 		return email;
 	}
 
-	public SimpleIntegerProperty telefoonProperty() {
+	public SimpleStringProperty telefoonProperty() {
 		return telefoon;
 	}
 
