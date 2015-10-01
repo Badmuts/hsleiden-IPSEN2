@@ -43,6 +43,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     public ProductenAddView(ProductenController productenController, Product product) {
         this.productenController = productenController;
         this.product = product;
+        setPadding(new Insets(10));
         createTitle();
         createForm();
         createSaveButton();
