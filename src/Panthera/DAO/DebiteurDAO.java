@@ -3,6 +3,7 @@ package Panthera.DAO;
 
 import Panthera.Models.Debiteur;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -63,10 +64,10 @@ public class DebiteurDAO extends DAO {
 			return debiteuren;
 
 	}
-	public void deleteDebiteur(int id) throws SQLException {
-		try (Statement stmt = conn.createStatement()) {
-			stmt.executeQuery("DELETE * FROM debiteur WHERE id =" + id);
-		}
+	public void deleteDebiteur(Debiteur debiteur) throws Exception {
+		Statement stmt = conn.createStatement();
+		stmt.executeUpdate("DELETE FROM debiteur " +
+			"WHERE id=" + debiteur.getId());
 	}
 	public void addDebiteur(Debiteur debiteur) throws SQLException {
 		try (Statement stmt = conn.createStatement()) {
