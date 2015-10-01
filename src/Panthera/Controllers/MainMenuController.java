@@ -30,5 +30,8 @@ public class MainMenuController extends Controller {
     	return new BestellijstenController();
     }
 
+    public Controller cmdCreateDebiteurenController() {
+        return new DebiteurenController();
+    }
 }
 

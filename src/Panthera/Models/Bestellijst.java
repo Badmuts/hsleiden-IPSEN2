@@ -8,10 +8,14 @@ import java.util.List;
 /**
  * Bestellijst represents a bestellijst.
  * @author Roy
- *
  */
-public class Bestellijst {
+
+
+
+public class Bestellijst extends Model {
 	private int id;
+	private int bestellijst_id;
+
 	private Date date;
 	List<Product> producten = new ArrayList<>();
 	private String name;

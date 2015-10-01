@@ -1,6 +1,11 @@
 package Panthera.DAO;
 
+
 import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +82,8 @@ public class BestellijstDAO extends DAO {
 		try {
 			//Get the new bestellijst_id.
 			int bestellijst_id = getNewBestellijstId();
-			
+			//Insert new bestellijst.
+			insertBestellijst(bestellijst_id);
 			//Now add each product to this bestellijst_id in bestellijst table.
 			insertBestellijstRecords(bestellijst_id, producten);
 			
@@ -90,6 +96,17 @@ public class BestellijstDAO extends DAO {
 	}
 	
 	/**
+	 * Insert new bestellijst.
+	 * @throws SQLException 
+	 */
+	public void insertBestellijst(int bestellijst_id) throws SQLException {
+		Statement stmt = conn.createStatement();
+		String query = "INSERT INTO bestellijst(naam)" +
+				" VALUES(bestellijst_" + bestellijst_id + ")";
+		stmt.executeQuery(query);
+	}
+	
+	/**
 	 * Insert each product in bestellijst table with given bestellijst_id.
 	 * @param bestellijst_id
 	 * @param producten
@@ -99,19 +116,25 @@ public class BestellijstDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		for(Product product : producten) {
 			String query = (
-					"INSERT INTO bestellijst(bestellijst_id, product_id)" +
+					"INSERT INTO bestellijst_set()" +
 					"VALUES(" +
-					bestellijst_id + ", " +
-					product.getId() +
+					"'bestellijst_" + bestellijst_id + "'" +
 					")");
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		}
 	}
 	
+	/**
+	 * Get a new free bestellijst_id to use.
+	 * @return int bestellijst_id
+	 * @throws SQLException
+	 * @throws Exception
+	 */
 	public int getNewBestellijstId() throws SQLException, Exception {
 		int id = 1;
 		Statement stmt = conn.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT MAX(bestellijst_id) AS id FROM bestellijst");
+		ResultSet result = stmt.executeQuery("SELECT MAX(id) AS id FROM bestellijst");
 		while(result.next()) {
 			id = result.getInt("id");
 		}
@@ -122,6 +145,21 @@ public class BestellijstDAO extends DAO {
 		//New bestellijst_id should be one higher than the current max id.
 		id += 1;
 		return id;
+	}
+	
+//	public List<Bestellijst> all() throws Exception {
+//		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+//		Statement stmt = conn.createStatement();
+//		String query = "SELECT DISTINCT(id), date FROM bestellijst";
+//		ResultSet result = stmt.executeQuery(query);
+//		while(result.next()) {
+//			bestellijsten.add(new Bestellijst());
+//		}
+//		return bestellijsten;
+//	}
+	
+	public void test() {
+		System.out.println("test");
 	}
 
 }

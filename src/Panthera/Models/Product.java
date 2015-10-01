@@ -3,7 +3,7 @@ package Panthera.Models;
 import javafx.beans.property.*;
 
 
-public class Product {
+public class Product extends Model {
 
     private SimpleIntegerProperty id;
     private SimpleIntegerProperty productnummer;
