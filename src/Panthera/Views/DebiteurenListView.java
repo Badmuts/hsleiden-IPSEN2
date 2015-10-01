@@ -1,18 +1,17 @@
 package Panthera.Views;
 
-import Panthera.Panthera;
-
+import Panthera.Controllers.DebiteurenController;
 import Panthera.Models.Debiteur;
-import Panthera.Views.DebiteurenAddView;
-import Panthera.Views.Viewable;
-import Panthera.Controllers.*;
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,6 +26,8 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 
 	public DebiteurenListView(DebiteurenController debiteurenController){
+      setPadding(new Insets(10));
+      topContainer.setPadding(new Insets(0, 0, 10, 0));
 		this.debiteurenController = debiteurenController;
 		this.debiteuren = this.debiteurenController.cmdGetDebiteuren();
 
