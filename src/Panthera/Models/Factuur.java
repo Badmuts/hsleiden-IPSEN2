@@ -1,17 +1,14 @@
 package Panthera.Models;
 
-import Panthera.DAO.FactuurDAO;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.Date;
-import java.util.Calendar;
 
 /**
  * Created by Brandon on 22-Sep-15.
  */
-public class Factuur {
+public class Factuur extends Model {
     private int id;
     private int factuurnummer;
     private Date factuurdatum;

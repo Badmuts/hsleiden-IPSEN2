@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Victor
  * Created on 24-Sep-15.
  */
-public class Debiteur {
+public class Debiteur extends Model {
 
 
 	private SimpleIntegerProperty id;
