@@ -6,6 +6,7 @@ import Panthera.Models.Debiteur;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 
@@ -34,17 +35,33 @@ public class DebiteurDAO extends DAO {
 				debiteur.setPostcode(result.getString("postcode"));
 				debiteur.setEmail(result.getString("email"));
 				debiteur.setTelefoon(result.getInt("telefoon"));
-				debiteur.setLand(result.getString(String.valueOf(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getString("id")))));
+				//debiteur.setLand(result.getInt(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getInt("id"))));
 			}
 		}
 		return debiteur;
 	}
 
-	public List<Debiteur> getAllDebiteuren() throws SQLException {
-		try (Statement stmt = conn.createStatement()) {
-			stmt.executeQuery("SELECT * FROM debiteur");
+	public ArrayList<Debiteur> getAllDebiteuren() throws Exception {
+		ArrayList<Debiteur> debiteuren = new ArrayList<>();
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM debiteur LIMIT 25");
+
+		while(result.next()) {
+			debiteuren.add(new Debiteur(
+					result.getInt("id"),
+					result.getString("aanhef"),
+					result.getString("voornaam"),
+					result.getString("tussenvoegesel"),
+					result.getString("naam"),
+					result.getString("adres"),
+					result.getString("woonplaats"),
+					result.getString("postcode"),
+					result.getString("email"),
+					result.getInt("telefoon"),
+					new LandDAO().get(result.getInt("land_id"))));
 		}
-		return null;
+			return debiteuren;
+
 	}
 	public void deleteDebiteur(int id) throws SQLException {
 		try (Statement stmt = conn.createStatement()) {
@@ -74,7 +91,7 @@ public class DebiteurDAO extends DAO {
 					",telefoon = " + debiteur.getTelefoon() + 
 					",land = " + debiteur.getLand() + 
 					" WHERE id = " + debiteur.getId());
-					)
+
 		}
 	}
 }
