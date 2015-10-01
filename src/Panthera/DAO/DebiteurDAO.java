@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-
+/**
+ * 
+ * @author Victor
+ *
+ */
 public class DebiteurDAO extends DAO {
 	
 	public DebiteurDAO() throws IllegalAccessException, SQLException, InstantiationException {
@@ -55,6 +59,22 @@ public class DebiteurDAO extends DAO {
 					"," + debiteur.getPostcode() + "," + debiteur.getEmail() + "," + debiteur.getTelefoon() + 
 					"," + debiteur.getLand() + ")");
 					
+		}
+	}
+	public void updateDebiteur(Debiteur debiteur) throws SQLException {
+		try (Statement stmt = conn.createStatement()) {
+			stmt.executeQuery("UPDATE debiteur SET aanhef= " + debiteur.getAanhef() + 
+					",voornaam = " + debiteur.getVoornaam() +
+					",tussenvoegsel = " + debiteur.getTussenvoegsel() + 
+					",naam = " + debiteur.getNaam() + 
+					",adres = " + debiteur.getAdres() + 
+					",woonplaats = " + debiteur.getWoonplaats() + 
+					",postcode = " + debiteur.getPostcode() + 
+					",email = " + debiteur.getEmail() + 
+					",telefoon = " + debiteur.getTelefoon() + 
+					",land = " + debiteur.getLand() + 
+					" WHERE id = " + debiteur.getId());
+					)
 		}
 	}
 }

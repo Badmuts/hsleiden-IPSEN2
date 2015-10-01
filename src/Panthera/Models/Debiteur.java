@@ -3,7 +3,8 @@ package Panthera.Models;
 import Panthera.DAO.DebiteurDAO;
 
 /**
- * Created by Victor on 24-Sep-15.
+ * @author Victor
+ * Created on 24-Sep-15.
  */
 public class Debiteur {
 
@@ -17,11 +18,11 @@ public class Debiteur {
 	private String postcode;
 	private String email;
 	private int telefoon;
-	private String land;
-	DebiteurDAO debiteurDAO;
+	private Land land;
+	private DebiteurDAO debiteurDAO;
 
 	public Debiteur(int id, String aanhef, String voornaam, String tussenvoegsel, String naam, 
-					String adres, String woonplaats, String postcode, String email, int telefoon, String land){
+					String adres, String woonplaats, String postcode, String email, int telefoon, Land land){
 		this.id = id;
 		this.aanhef = aanhef;
 		this.voornaam = voornaam;
@@ -69,7 +70,7 @@ public class Debiteur {
 	public int getTelefoon(){
 		return this.telefoon;
 	}
-	public String getLand(){
+	public Land getLand(){
 		return this.land;
 	}
 	//setters
@@ -103,7 +104,7 @@ public class Debiteur {
 	public void setTelefoon(int telefoon){
 		this.telefoon = telefoon;
 	}
-	public void setLand(String land){
+	public void setLand(Land land){
 		this.land = land;
 	}
 }
