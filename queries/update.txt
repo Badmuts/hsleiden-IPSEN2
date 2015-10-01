@@ -1,8 +1,12 @@
+--	Put your database updates here.
+--  Updates executed on application launch.
+--	Don't drop tables in here(Los of data).
+--	Creator Roy Touw.
+
 CREATE TABLE IF NOT EXISTS bestellijst
 (
 	id SERIAL PRIMARY KEY,
 	naam varchar NOT NULL,
-	bestellijst_set integer,
 	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
