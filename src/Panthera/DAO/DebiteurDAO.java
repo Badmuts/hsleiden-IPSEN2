@@ -80,19 +80,22 @@ public class DebiteurDAO extends DAO {
 		}
 	}
 	public void updateDebiteur(Debiteur debiteur) throws SQLException {
-		try (Statement stmt = conn.createStatement()) {
-			stmt.executeQuery("UPDATE debiteur SET aanhef= " + debiteur.getAanhef() + 
-					",voornaam = " + debiteur.getVoornaam() +
-					",tussenvoegsel = " + debiteur.getTussenvoegsel() + 
-					",naam = " + debiteur.getNaam() + 
-					",adres = " + debiteur.getAdres() + 
-					",woonplaats = " + debiteur.getWoonplaats() + 
-					",postcode = " + debiteur.getPostcode() + 
-					",email = " + debiteur.getEmail() + 
-					",telefoon = " + debiteur.getTelefoon() + 
-					",land = " + debiteur.getLand() + 
-					" WHERE id = " + debiteur.getId());
-
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("UPDATE debiteur" +
+				"SET aanhef= " + debiteur.getAanhef() + ", " +
+					"voornaam = " + debiteur.getVoornaam() + ", " +
+					"tussenvoegsel = " + debiteur.getTussenvoegsel() + ", " +
+					"naam = " + debiteur.getNaam() + ", " +
+					"adres = " + debiteur.getAdres() + ", " +
+					"woonplaats = " + debiteur.getWoonplaats() + ", " +
+					"postcode = " + debiteur.getPostcode() + ", " +
+					"email = " + debiteur.getEmail() + ", " +
+					"telefoon = " + debiteur.getTelefoon() + ", " +
+					"land = " + debiteur.getLand() + ", " +
+					"WHERE id = " + debiteur.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
