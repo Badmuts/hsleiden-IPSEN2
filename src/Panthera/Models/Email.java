@@ -1,18 +1,8 @@
 package Panthera.Models;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
 
-public class Email {
+public class Email extends Model {
 
     private ArrayList<String> recipients;
     private String from;

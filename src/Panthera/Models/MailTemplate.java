@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class MailTemplate {
+public class MailTemplate extends Model {
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
