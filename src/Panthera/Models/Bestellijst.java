@@ -89,11 +89,6 @@ public class Bestellijst extends Model {
 		this.producten.add(product);
 	}
 
-	@Override
-	public String toString() {
-		return this.name + " (" + date + ")";
-
-
 	
 	public String getNaam() {
 		return this.name;
@@ -106,5 +101,11 @@ public class Bestellijst extends Model {
 	
 	public SimpleBooleanProperty activeProperty() {
 		return active;
+	}
+
+	@Override
+	public String toString() {
+		return this.name + " (" + date + ")";
+
 	}
 }

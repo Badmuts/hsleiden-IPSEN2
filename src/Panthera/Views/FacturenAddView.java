@@ -124,7 +124,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         private void createComboBoxBestellijst(String name) {
         try {
             Label label = new Label(name);
-            ArrayList<Bestellijst> bestellijsten = new BestellijstDAO().all();
+            ArrayList<Bestellijst> bestellijsten = new BestellijstDAO().allWithProducten();
             System.out.println("Bestelijlijsten aantal: " + bestellijsten.size());
             ChoiceBox<Bestellijst> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(bestellijsten));
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
