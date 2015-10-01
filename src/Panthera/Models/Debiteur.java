@@ -1,6 +1,10 @@
 package Panthera.Models;
 
 import Panthera.DAO.DebiteurDAO;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * @author Victor
@@ -8,103 +12,178 @@ import Panthera.DAO.DebiteurDAO;
  */
 public class Debiteur {
 
-	private int id;
-	private String aanhef;
-	private String voornaam;
-	private String tussenvoegsel;
-	private String naam;
-	private String adres;
-	private String woonplaats;
-	private String postcode;
-	private String email;
-	private int telefoon;
-	private Land land;
+
+	private SimpleIntegerProperty id;
+	private SimpleStringProperty aanhef;
+	private SimpleStringProperty voornaam;
+	private SimpleStringProperty tussenvoegsel;
+	private SimpleStringProperty naam;
+	private SimpleStringProperty adres;
+	private SimpleStringProperty woonplaats;
+	private SimpleStringProperty postcode;
+	private SimpleStringProperty email;
+	private SimpleIntegerProperty telefoon;
+	private SimpleObjectProperty<Land> land;
+	private SimpleBooleanProperty active;
 	private DebiteurDAO debiteurDAO;
 
 	public Debiteur(int id, String aanhef, String voornaam, String tussenvoegsel, String naam, 
 					String adres, String woonplaats, String postcode, String email, int telefoon, Land land){
-		this.id = id;
-		this.aanhef = aanhef;
-		this.voornaam = voornaam;
-		this.tussenvoegsel = tussenvoegsel;
-		this.naam = naam;
-		this.adres = adres;
-		this.woonplaats = woonplaats;
-		this.postcode = postcode;
-		this.email = email;
-		this.telefoon = telefoon;
-		this.land = land;
+		this.id = new SimpleIntegerProperty(id);
+		this.aanhef = new SimpleStringProperty(aanhef);
+		this.voornaam = new SimpleStringProperty(voornaam);
+		this.tussenvoegsel = new SimpleStringProperty(tussenvoegsel);
+		this.naam = new SimpleStringProperty(naam);
+		this.adres = new SimpleStringProperty(adres);
+		this.woonplaats = new SimpleStringProperty(woonplaats);
+		this.postcode = new SimpleStringProperty(postcode);
+		this.email = new SimpleStringProperty(email);
+		this.telefoon = new SimpleIntegerProperty(telefoon);
+		this.land = new SimpleObjectProperty<>(land);
+		this.active = new SimpleBooleanProperty(false);
 	}
-	
+
+
+
+
+
 	public Debiteur(){
-	
+
+		this.id = new SimpleIntegerProperty();
+		this.aanhef = new SimpleStringProperty();
+		this.voornaam = new SimpleStringProperty();
+		this.tussenvoegsel = new SimpleStringProperty();
+		this.naam = new SimpleStringProperty();
+		this.adres = new SimpleStringProperty();
+		this.woonplaats = new SimpleStringProperty();
+		this.postcode = new SimpleStringProperty();
+		this.email = new SimpleStringProperty();
+		this.telefoon = new SimpleIntegerProperty();
+		this.land = new SimpleObjectProperty<>();
+		this.active = new SimpleBooleanProperty();
+
 	}
 	//getters
 	public int getId(){
-		return this.id;
+		return this.id.get();
 	}
 	public String getAanhef(){
-		return this.aanhef;
+		return this.aanhef.get();
 	}
 	public String getVoornaam(){
-		return this.voornaam;
+		return this.voornaam.get();
 	}
 	public String getTussenvoegsel(){
-		return this.tussenvoegsel;
+		return this.tussenvoegsel.get();
 	}
 	public String getNaam(){
-		return this.naam;
+		return this.naam.get();
 	}
 	public String getAdres(){
-		return this.adres;
+		return this.adres.get();
 	}
 	public String getWoonplaats(){
-		return this.woonplaats;
+		return this.woonplaats.get();
 	}
 	public String getPostcode(){
-		return this.postcode;
+		return this.postcode.get();
 	}
 	public String getEmail(){
-		return this.email;
+		return this.email.get();
 	}
 	public int getTelefoon(){
-		return this.telefoon;
+		return this.telefoon.get();
 	}
 	public Land getLand(){
-		return this.land;
+		return this.land.get();
 	}
+	public boolean isActive() {
+		return active.get();
+	}
+
 	//setters
 	public void setId(int id){
-		this.id = id;
+		this.id.set(id);
 	}
 	public void setAanhef(String aanhef){
-		this.aanhef = aanhef;
+		this.aanhef.set(aanhef);
 	}
 	public void setVoornaam(String voornaam){
-		this.voornaam = voornaam;
+		this.voornaam.set(voornaam);
 	}
 	public void setTussenvoegsel(String tussenvoegsel){
-		this.tussenvoegsel = tussenvoegsel;
+		this.tussenvoegsel.set(tussenvoegsel);
 	}
 	public void setNaam(String naam){
-		this.naam = naam;
+		this.naam.set(naam);
 	}
 	public void setAdres(String adres){
-		this.adres = adres;
+		this.adres.set(adres);
 	}
 	public void setWoonplaats(String woonplaats){
-		this.woonplaats = woonplaats;
+		this.woonplaats.set(woonplaats);
 	}
 	public void setPostcode(String postcode){
-		this.postcode = postcode;
+		this.postcode.set(postcode);
 	}
 	public void setEmail(String email){
-		this.email = email;
+		this.email.set(email);
 	}
 	public void setTelefoon(int telefoon){
-		this.telefoon = telefoon;
+		this.telefoon.set(telefoon);
 	}
 	public void setLand(Land land){
-		this.land = land;
+		this.land.set(land);
+	}
+	public void setActive(boolean active) { this.active.set(active); }
+
+	//properties
+
+	public SimpleIntegerProperty idProperty() {
+		return id;
+	}
+
+	public SimpleStringProperty aanhefProperty() {
+		return aanhef;
+	}
+
+	public SimpleStringProperty voornaamProperty() {
+		return voornaam;
+	}
+
+	public SimpleStringProperty tussenvoegselProperty() {
+		return tussenvoegsel;
+	}
+
+	public SimpleStringProperty naamProperty() {
+		return naam;
+	}
+
+	public SimpleStringProperty adresProperty() {
+		return adres;
+	}
+
+	public SimpleStringProperty woonplaatsProperty() {
+		return woonplaats;
+	}
+
+	public SimpleStringProperty postcodeProperty() {
+		return postcode;
+	}
+
+	public SimpleStringProperty emailProperty() {
+		return email;
+	}
+
+	public SimpleIntegerProperty telefoonProperty() {
+		return telefoon;
+	}
+
+	public SimpleObjectProperty<Land> landProperty() {
+		return land;
+	}
+
+	public SimpleBooleanProperty activeProperty() {
+		return active;
 	}
 }

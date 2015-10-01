@@ -1,19 +1,27 @@
 package Panthera.Controllers;
 
 import Panthera.DAO.DebiteurDAO;
+import Panthera.Models.Debiteur;
+import Panthera.Views.DebiteurenListView;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+
 /**
  * 
  * @author Victor
  *
  */
-public class DebiteurenController {
+public class DebiteurenController extends Controller {
 	
 	private DebiteurDAO dao;
 	
 	public DebiteurenController() throws Exception {
 		
 		this.dao = new DebiteurDAO();
-		this.view = new DebiteurListView();
+		this.view = new DebiteurenListView(this);
 	}
 	
 	public ObservableList<Debiteur> cmdGetDebiteuren() {
@@ -29,8 +37,8 @@ public class DebiteurenController {
 	public void cmdDeleteDebiteur(ObservableList<Debiteur> debiteuren) {
 		try {
 			for(Debiteur debiteur: debiteuren) {
-				if(debiteur.isChecked()) {
-					dao.deleteDebiteur(debiteur.getId);
+				if(debiteur.isActive()) {
+					dao.deleteDebiteur(debiteur.getId());
 					Platform.runLater(() -> {
 						debiteuren.remove(debiteur);
 					});
@@ -45,7 +53,7 @@ public class DebiteurenController {
 			dao.addDebiteur(debiteur);
 			setView(new DebiteurenListView(this)).show();
 		} catch (Exception e){
-			e.printStackTrace;
+			e.printStackTrace();
 		}
 	}
 
