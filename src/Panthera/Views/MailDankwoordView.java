@@ -2,6 +2,7 @@ package Panthera.Views;
 
 import Panthera.Controllers.MailController;
 import Panthera.DAO.MailTemplatesDAO;
+import Panthera.Models.Email;
 import Panthera.Models.MailTemplate;
 import Panthera.Panthera;
 import javafx.beans.value.ChangeListener;
@@ -11,10 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -30,6 +28,8 @@ public class MailDankwoordView extends GridPane implements Viewable {
     private Stage stage = Panthera.getInstance().getStage();
     private int currentRow = 0;
     private TextArea bericht;
+    private Email email;
+    private TextField onderwerp;
 
     /**
      *
@@ -37,6 +37,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
      */
     public MailDankwoordView(MailController mailController) {
         this.mailController = mailController;
+        this.email = new Email();
         createForm();
         setPadding();
     }
@@ -48,13 +49,23 @@ public class MailDankwoordView extends GridPane implements Viewable {
      */
     private void createForm() {
         try {
+            createField("Onderwerp");
             createChoiceBox("Template", new MailTemplatesDAO().all(),
                 (observable, oldValue, newValue) -> updateBericht(observable, oldValue, newValue));
             createTextAreaField("Bericht");
-            createButton("Ontvangers selecteren", event -> mailController.cmdShowSelectRecipients());
+            createButton("Ontvangers selecteren", event -> mailController.cmdShowSelectRecipients(onderwerp.getText(), bericht.getText()));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void createField(String name) {
+        Label label = new Label(name);
+        onderwerp = new TextField();
+        onderwerp.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.email.setSubject(newValue);
+        });
+        addToForm(label, onderwerp);
     }
 
     /**
@@ -97,6 +108,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     private void updateBericht(ObservableValue<? extends MailTemplate> observable,
         MailTemplate oldValue, MailTemplate newValue) {
         this.bericht.setText(newValue.getContent());
+        this.email.setText(this.bericht.getText());
     }
 
     /**
