@@ -30,16 +30,16 @@ public class MailController extends Controller {
     }
 
     public void cmdSendDankwoord(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
-        Email email = new Email();
-        email.setSubject(onderwerp);
-        email.setFrom("d.rosbergen@gmail.com");
         for (Debiteur debiteur: debiteuren) {
+            Email email = new Email();
+            email.setSubject(onderwerp);
+            email.setFrom("d.rosbergen@gmail.com");
             Parser parser = new DebiteurParser(debiteur);
             email.setText(parser.parse(bericht, debiteur));
             if (debiteur.isActive())
                 email.addTo(debiteur.getEmail());
+            mailService.send(email);
         }
-        mailService.send(email);
         this.view = new MailListView(this);
         show();
     }
