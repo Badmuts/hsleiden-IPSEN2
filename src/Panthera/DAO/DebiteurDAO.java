@@ -73,17 +73,17 @@ public class DebiteurDAO extends DAO {
 			updateDebiteur(debiteur);
 		} else {
 			Statement stmt = conn.createStatement(); {
-			stmt.executeQuery("INSERT INTO debiteur(aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, email, telefoon, land_id) " +
-					"VALUES(" +
-					debiteur.getAanhef() + "," +
-					debiteur.getVoornaam() + "," +
-					debiteur.getTussenvoegsel() + "," +
-					debiteur.getNaam() + "," +
-					debiteur.getAdres() + "," +
-					debiteur.getWoonplaats() + "," +
-					debiteur.getPostcode() + "," +
-					debiteur.getEmail() + "," +
-					debiteur.getTelefoon() + "," +
+			stmt.executeUpdate("" + "INSERT INTO debiteur(aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, email, telefoon, land_id) " +
+					"VALUES(" + "'" +
+					debiteur.getAanhef() + "','" +
+					debiteur.getVoornaam() + "','" +
+					debiteur.getTussenvoegsel() + "','" +
+					debiteur.getNaam() + "','" +
+					debiteur.getAdres() + "','" +
+					debiteur.getWoonplaats() + "','" +
+					debiteur.getPostcode() + "','" +
+					debiteur.getEmail() + "','" +
+					debiteur.getTelefoon() + "'," +
 					debiteur.getLand().getId() + ")");
 			}
 		}

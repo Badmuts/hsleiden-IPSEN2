@@ -92,12 +92,9 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 				debiteur.setLand(newValue);
 			});
 			// TODO: Better fix this.
-			int i = 0;
+
 			for (Land land: landen) {
-				if (land.getId() == debiteur.getLand().getId()) {
-					choiceBox.getSelectionModel().select(i);
-				}
-				i++;
+					choiceBox.getSelectionModel().select(land);
 			}
 			add(label, 0, row);
 			add(choiceBox, 1, row);
