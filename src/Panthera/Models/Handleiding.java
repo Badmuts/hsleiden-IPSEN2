@@ -10,7 +10,20 @@ import static java.nio.file.Paths.*;
  */
 public class Handleiding {
 
+    String inhoud;
+
     Path dir = Paths.get("src/Panthera/resources");
+
+    public Handleiding(String handleidingNaam) throws IOException {
+        // Set inhoud van handleindg file in inhoud var (LEES BESTAND UIT)
+
+        BufferedReader br = new BufferedReader(new FileReader("src/resources"));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+            handleiding.setInhoud(inhoud);
+        }
+    }
 
     public void leesHandleidingTest() {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
@@ -23,11 +36,15 @@ public class Handleiding {
             System.err.println(x);
         }
     }
-   // public void getFactuurHandleiding(){
 
-   // }
-    public void setFactuurHandleiding(File inhoud) {this.inhoud = inhoud;}
-
+    public String getInhoud(String handleiding) throws IOException() {
+        BufferedReader br = new BufferedReader(new FileR/eader("src/resources/email_handleiding"));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+            handleiding.setInhoud(inhoud);
+    }
+    }
 
 
 

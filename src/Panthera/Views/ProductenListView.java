@@ -27,4 +27,12 @@ public class ProductenListView extends BorderPane implements Viewable {
         this.stage.setScene(new Scene(this));
         this.stage.show();
     }
+
+    // TODO
+    // Maak een handleiding knop
+    // Als je op de knop drukt maakt deze een nieuwe handleiding controller
+    // Handleiding controller krijgt een handleiding model mee
+    // roep setView aan op HandledidingController
+    // roep show aan op HandledingController
+
 }

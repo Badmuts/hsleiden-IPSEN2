@@ -1,6 +1,7 @@
 package Panthera.Views;
 
 import Panthera.Controllers.HandleidingController;
+import Panthera.Models.Handleiding;
 import Panthera.Panthera;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -14,19 +15,12 @@ public class HandleidingView extends BorderPane implements Viewable {
     private HandleidingController handleidingController;
     private Stage stage = Panthera.getInstance().getStage();
 
-    // TODO: handleiding model toevoegen
-
-
-
-    // TODO: handleiding text tonen
-    public void showHandleiding() {
-        //TODO: print handleiding uit textfile
-    }
-
-    public HandleidingView(HandleidingController handleidingController) {
+    public HandleidingView(HandleidingController handleidingController, Handleiding handleiding) {
         this.handleidingController = handleidingController;
         Text title = new Text("Handleiding");
         setTop(title);
+        getInhoud();
+        this.stage.add(inhoud);
     }
 
     @Override
