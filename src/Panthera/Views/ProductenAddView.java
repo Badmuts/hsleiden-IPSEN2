@@ -8,6 +8,7 @@ import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -33,6 +34,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     public ProductenAddView(ProductenController productenController) {
         this.productenController = productenController;
         this.product = new Product();
+        setPadding(new Insets(10));
         createTitle();
         createForm();
         createSaveButton();

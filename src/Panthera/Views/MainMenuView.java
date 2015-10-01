@@ -8,7 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class MainMenuView extends BorderPane implements Viewable {
 
     private MainMenuController mainMenuController;
     private Stage stage = Panthera.getInstance().getStage();
-    private VBox menu;
+    private HBox menu;
     private ArrayList<Button> buttons = new ArrayList<>();
 
     /**
@@ -31,7 +31,7 @@ public class MainMenuView extends BorderPane implements Viewable {
     public MainMenuView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
         this.createMenu();
-        setCenter(menu);
+        setTop(menu);
         setPadding(new Insets(10));
     }
 
@@ -41,7 +41,7 @@ public class MainMenuView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createMenu() {
-        this.menu = new VBox(10);
+        this.menu = new HBox(10);
         createMenuButtons(); // Temp solution for button list.
         this.menu.getChildren().addAll(buttons);
     }
