@@ -84,13 +84,13 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	}
 
 	private void removeDebiteurButton() {
-		Button button = new Button("Klant verwijderen");
+		Button button = new Button("Lid verwijderen");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
 		topContainer.getChildren().add(button);
 	}
 
 	public void addDebiteurButton(){
-		Button button = new Button("Nieuwe Klant");
+		Button button = new Button("Nieuw Lid");
 		button.setOnAction(e -> this.debiteurenController.setView(new DebiteurenAddView(this.debiteurenController)).show());
 		topContainer.getChildren().add(button);
 	}
@@ -143,7 +143,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
     }
 
 	private void createTitle() {
-		Text title = new Text("Klanten");
+		Text title = new Text("Leden");
 		title.setFont(Font.font(22));
 		topContainer.getChildren().add(title);
 	}
