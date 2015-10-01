@@ -55,7 +55,6 @@ public class FactuurDAO extends DAO {
         return facturen;
     }
 
-
     public void deleteFactuur(Factuur factuur) throws SQLException {
         //query om een factuur te verwijderen
        Statement stmt = conn.createStatement();

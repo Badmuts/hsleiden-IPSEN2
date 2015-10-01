@@ -11,8 +11,13 @@ import javafx.beans.property.SimpleBooleanProperty;
  * @author Roy
  *
  */
-public class Bestellijst {
+
+
+
+public class Bestellijst extends Model {
+
 	private int id;
+	private int bestellijst_id;
 	private Date date;
 	private String name;
 	List<Product> producten = new ArrayList<>();

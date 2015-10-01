@@ -1,21 +1,19 @@
 package Panthera.Models;
 
-import Panthera.DAO.FactuurDAO;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.Date;
-import java.util.Calendar;
 
 /**
  * Created by Brandon on 22-Sep-15.
  */
-public class Factuur {
+public class Factuur extends Model {
     private int id;
     private int factuurnummer;
     private Date factuurdatum;
     private Date vervaldatum;
-    private String status;
+    private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
 
 
@@ -33,7 +31,7 @@ public class Factuur {
         this.factuurnummer = factuurnummer;
         this.factuurdatum = factuurdatum;
         this.vervaldatum = vervaldatum;
-        this.status = status;
+        this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
         //this.debiteur = debiteur;
         //this.orderRegel = orderRegel;
@@ -75,10 +73,14 @@ public class Factuur {
     }
 
     public String getStatus() {
-        return status;
+        return status.get();
     }
     public void setStatus(String status) {
-        this.status = status;
+        this.status.set(status);
+    }
+
+    public SimpleStringProperty statusProperty() {
+        return this.status;
     }
 
     public SimpleBooleanProperty checkedProperty() {
