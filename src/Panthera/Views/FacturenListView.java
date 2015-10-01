@@ -6,17 +6,16 @@ import Panthera.Panthera;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -39,11 +38,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
-    public final ObservableList<Long> checkedMessages = FXCollections
-            .observableArrayList(new Long(1));
-
-    private ObservableList<Factuur> facturen;
-    private FilteredList<Factuur> filteredFacturen;
+    private ObservableList<Factuur> facturen = FXCollections.observableArrayList();
+    private FilteredList<Factuur> filteredData;
+    private TextField filterField;
     private HBox topContainer = new HBox(10);
 
 
@@ -55,14 +52,37 @@ public class FacturenListView extends BorderPane implements Viewable {
         createHeader();
         createTableView();
         table.setItems(facturen);
+        FilterFacturen();
 
+    }
+
+    private void FilterFacturen() {
+        this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
+
+        this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.filteredData.setPredicate(factuur -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if(factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<Factuur> sortedData = new SortedList<>(this.filteredData);
+        sortedData.comparatorProperty().bind(this.table.comparatorProperty());
+
+        this.table.setItems(sortedData);
     }
 
     private void createHeader() {
         createTitle();
         createAddFactuurButton();
         createRemoveFactuurButton();
-        createOpenstaandeFacturenButton();
+        createTextField();
         setTop(topContainer);
     }
 
@@ -74,12 +94,14 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTableView() {
         this.table = new TableView<>();
+
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
                        CheckBox checkBox = new CheckBox();
                         Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().checkedProperty());
                         return new SimpleObjectProperty<>(checkBox);
         });
+
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
         TableColumn factuurdatum = new TableColumn("Factuurdatum");
@@ -89,13 +111,23 @@ public class FacturenListView extends BorderPane implements Viewable {
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 
+
+
         this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, factuurexpdate, status);
+
+
+
+
         setCenter(this.table);
 
 
     }
 
+    private void createTextField() {
+        this.filterField = new TextField();
+        topContainer.getChildren().add(this.filterField);
 
+    }
     private void createTitle() {
         Text title = new Text("Facturen");
         title.setFont(Font.font(22));
@@ -106,27 +138,6 @@ public class FacturenListView extends BorderPane implements Viewable {
         Button button = new Button("Factuur toevoegen");
         button.setOnAction(e -> this.facturenController.setView(new FacturenAddView()).show());
         topContainer.getChildren().add(button);
-    }
-
-    private void createOpenstaandeFacturenButton() {
-        Button button = new Button("Openstaande facturen");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-               @Override
-               public void handle(ActionEvent event) {
-                   for (Factuur factuur : facturen) {
-
-                       if (!factuur.getStatus().equals("Lopend")) {
-                           System.out.println(factuur.getStatus());
-                       } else {
-                           System.out.println(factuur.getStatus());
-                           filteredFacturen.add(factuur);
-                       }
-                   }
-                   table.setItems(filteredFacturen);
-               }
-           });
-
-                topContainer.getChildren().add(button);
     }
 
 

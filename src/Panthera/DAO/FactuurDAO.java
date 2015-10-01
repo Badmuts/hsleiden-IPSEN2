@@ -55,23 +55,6 @@ public class FactuurDAO extends DAO {
         return facturen;
     }
 
-    public ArrayList<Factuur> getAllOpenstaandeFacturen() throws Exception {
-        ArrayList<Factuur> openstaandeFacturen = new ArrayList<>();
-        Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur WHERE status = 'Lopend' LIMIT 25");
-        while (result.next()) {
-            openstaandeFacturen.add(new Factuur(
-                    result.getInt("id"),
-                    result.getInt("factuurnummer"),
-                    result.getDate("factuurdatum"),
-                    result.getDate("vervaldatum"),
-                    result.getString("status")));
-
-        }
-        return openstaandeFacturen;
-    }
-
-
     public void deleteFactuur(Factuur factuur) throws SQLException {
         //query om een factuur te verwijderen
        Statement stmt = conn.createStatement();
