@@ -29,6 +29,9 @@ public class MainMenuController extends Controller {
     public Controller cmdCreateBestellijstenController() throws Exception {
     	return new BestellijstenController();
     }
+    public Controller cmdCreateDebiteurenController() throws Exception {
+    	return new DebiteurenController();
+    }
 
 }
 
