@@ -29,6 +29,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	public DebiteurenListView(DebiteurenController debiteurenController){
 		this.debiteurenController = debiteurenController;
 		this.debiteuren = this.debiteurenController.cmdGetDebiteuren();
+
 		createHeader();
 		createTableView();
 		table.setItems(debiteuren);
@@ -40,21 +41,20 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		removeDebiteurButton();
 		setTop(topContainer);
 	}
-	public void addDebiteurButton(){
-		Button button = new Button("Nieuwe Klant");
-		button.setOnAction(e -> this.debiteurenController.setView(new DebiteurenAddView(this.debiteurenController)).show());
-		topContainer.getChildren().add(button);
-	}
+
 	private void removeDebiteurButton() {
 		Button button = new Button("Klant verwijderen");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
 		topContainer.getChildren().add(button);
 	}
-	private void createTitle() {
-		Text title = new Text("Klanten");
-		title.setFont(Font.font(22));
-		topContainer.getChildren().add(title);
+
+	public void addDebiteurButton(){
+		Button button = new Button("Nieuwe Klant");
+		button.setOnAction(e -> this.debiteurenController.setView(new DebiteurenAddView(this.debiteurenController)).show());
+		topContainer.getChildren().add(button);
 	}
+
+
 
 	private void createTableView() {
 		table = new TableView();
@@ -82,6 +82,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		telefoon.setCellValueFactory(new PropertyValueFactory<>("telefoon"));
 		TableColumn<Debiteur, String> land = new TableColumn("Land");
 		land.setCellValueFactory(new PropertyValueFactory<>("land"));
+
 		addClicklistener();
 		table.getColumns().addAll(checkbox, aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, telefoon, land);
 		setCenter(table);
@@ -99,6 +100,13 @@ public class DebiteurenListView extends BorderPane implements Viewable {
             return row ;
         });
     }
+
+	private void createTitle() {
+		Text title = new Text("Klanten");
+		title.setFont(Font.font(22));
+		topContainer.getChildren().add(title);
+	}
+
     public void show() {
         this.stage.setScene(new Scene(this, 800, 600));
         this.stage.show();
