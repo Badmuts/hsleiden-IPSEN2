@@ -53,20 +53,26 @@ public class FacturenListView extends BorderPane implements Viewable {
         createHeader();
         createTableView();
         table.setItems(facturen);
-        FilterFacturen();
+        filterFacturen();
 
     }
 
-    private void FilterFacturen() {
+    private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
 
         this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             this.filteredData.setPredicate(factuur -> {
-                if(newValue == null || newValue.isEmpty()) {
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if(factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                if (factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (factuur.getDebiteur().getVoornaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (factuur.getDebiteur().getNaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (Integer.toString(factuur.getFactuurnummer()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
