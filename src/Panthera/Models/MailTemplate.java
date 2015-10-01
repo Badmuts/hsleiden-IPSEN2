@@ -73,4 +73,8 @@ public class MailTemplate {
     public void setActive(boolean active) {
         this.active.set(active);
     }
+
+    @Override public String toString() {
+        return name.get();
+    }
 }
