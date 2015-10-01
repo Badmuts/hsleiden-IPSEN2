@@ -79,7 +79,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		createField("Woonplaats", debiteur.woonplaatsProperty());
 		createField("Postcode", debiteur.postcodeProperty());
 		createField("Email", debiteur.emailProperty());
-		createField("Telefoon", debiteur.telefoonProperty(), new NumberStringConverter());
+		createField("Telefoon", debiteur.telefoonProperty());
 		createComboBox("Land");
 	}
 
@@ -106,15 +106,15 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		}
 	}
 
-	private void createField(String name, Property property, StringConverter converter) {
-		Label label = new Label(name);
-		TextField textField = new TextField(name);
-		Bindings.bindBidirectional(textField.textProperty(), property, converter);
-
-		add(label, 0,row);
-		add(textField, 1, row);
-		row++;
-	}
+//	private void createField(String name, Property property, StringConverter converter) {
+//		Label label = new Label(name);
+//		TextField textField = new TextField(name);
+//		Bindings.bindBidirectional(textField.textProperty(), property, converter);
+//
+//		add(label, 0,row);
+//		add(textField, 1, row);
+//		row++;
+//	}
 
 	private void createField(String name, Property property) {
 		Label label = new Label(name);

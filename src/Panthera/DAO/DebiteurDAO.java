@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class DebiteurDAO extends DAO {
 	
-	public DebiteurDAO() throws IllegalAccessException, SQLException, InstantiationException {
+	public DebiteurDAO() throws Exception {
 		super();
 	}
 
 
-	public Debiteur getDebiteur(int id) throws SQLException {
+	public Debiteur getDebiteur(int id) throws Exception {
 		Debiteur debiteur = new Debiteur();
 		try (Statement stmt = conn.createStatement()) {
 			ResultSet result = stmt.executeQuery("SELECT * FROM debiteur WHERE id = " + id);
@@ -35,7 +35,7 @@ public class DebiteurDAO extends DAO {
 				debiteur.setWoonplaats(result.getString("woonplaats"));
 				debiteur.setPostcode(result.getString("postcode"));
 				debiteur.setEmail(result.getString("email"));
-				debiteur.setTelefoon(result.getInt("telefoon"));
+				debiteur.setTelefoon(result.getString("telefoon"));
 				//debiteur.setLand(result.getInt(stmt.executeQuery("SELECT land FROM land WHERE id =" + result.getInt("id"))));
 			}
 		}
@@ -52,13 +52,13 @@ public class DebiteurDAO extends DAO {
 					result.getInt("id"),
 					result.getString("aanhef"),
 					result.getString("voornaam"),
-					result.getString("tussenvoegesel"),
+					result.getString("tussenvoegsel"),
 					result.getString("naam"),
 					result.getString("adres"),
 					result.getString("woonplaats"),
 					result.getString("postcode"),
 					result.getString("email"),
-					result.getInt("telefoon"),
+					result.getString("telefoon"),
 					new LandDAO().get(result.getInt("land_id"))));
 		}
 			return debiteuren;
@@ -69,31 +69,41 @@ public class DebiteurDAO extends DAO {
 		stmt.executeUpdate("DELETE FROM debiteur " +
 			"WHERE id=" + debiteur.getId());
 	}
-	public void addDebiteur(Debiteur debiteur) throws SQLException {
-		try (Statement stmt = conn.createStatement()) {
-			stmt.executeQuery("INSERT INTO Debiteur VALUES(" + debiteur.getAanhef() + "," + 
-					debiteur.getVoornaam() + "," + debiteur.getTussenvoegsel() + "," +
-					debiteur.getNaam() + "," + debiteur.getAdres() + "," + debiteur.getWoonplaats() +
-					"," + debiteur.getPostcode() + "," + debiteur.getEmail() + "," + debiteur.getTelefoon() + 
-					"," + debiteur.getLand() + ")");
-					
+	public void addDebiteur(Debiteur debiteur) throws Exception {
+		if(debiteur.hasId()) {
+			updateDebiteur(debiteur);
+		} else {
+			Statement stmt = conn.createStatement(); {
+			stmt.executeQuery("INSERT INTO debiteur(aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, email, telefoon, land_id) " +
+					"VALUES(" +
+					debiteur.getAanhef() + "," +
+					debiteur.getVoornaam() + "," +
+					debiteur.getTussenvoegsel() + "," +
+					debiteur.getNaam() + "," +
+					debiteur.getAdres() + "," +
+					debiteur.getWoonplaats() + "," +
+					debiteur.getPostcode() + "," +
+					debiteur.getEmail() + "," +
+					debiteur.getTelefoon() + "," +
+					debiteur.getLand().getId() + ")");
+			}
 		}
 	}
-	public void updateDebiteur(Debiteur debiteur) throws SQLException {
+	public void updateDebiteur(Debiteur debiteur)  {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("UPDATE debiteur" +
-				"SET aanhef= " + debiteur.getAanhef() + ", " +
-					"voornaam = " + debiteur.getVoornaam() + ", " +
-					"tussenvoegsel = " + debiteur.getTussenvoegsel() + ", " +
-					"naam = " + debiteur.getNaam() + ", " +
-					"adres = " + debiteur.getAdres() + ", " +
-					"woonplaats = " + debiteur.getWoonplaats() + ", " +
-					"postcode = " + debiteur.getPostcode() + ", " +
-					"email = " + debiteur.getEmail() + ", " +
-					"telefoon = " + debiteur.getTelefoon() + ", " +
-					"land = " + debiteur.getLand() + ", " +
-					"WHERE id = " + debiteur.getId());
+			stmt.executeUpdate("UPDATE debiteur " +
+				"SET aanhef='" + debiteur.getAanhef() + "', " +
+					"voornaam='" + debiteur.getVoornaam() + "', " +
+					"tussenvoegsel ='" + debiteur.getTussenvoegsel() + "', " +
+					"naam='" + debiteur.getNaam() + "', " +
+					"adres='" + debiteur.getAdres() + "', " +
+					"woonplaats='" + debiteur.getWoonplaats() + "', " +
+					"postcode='" + debiteur.getPostcode() + "', " +
+					"email='" + debiteur.getEmail() + "', " +
+					"telefoon='" + debiteur.getTelefoon() + "', " +
+					"land_id=" + debiteur.getLand().getId() + " " +
+					"WHERE id=" + debiteur.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
