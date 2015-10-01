@@ -1,5 +1,6 @@
 package Panthera.DAO;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +25,9 @@ public class BestellijstDAO extends DAO {
 	public void saveNewBestellijst(List<Product> producten) {
 		try {
 			//Get the new bestellijst_id.
-			int bestellijst_id = getNewBestellijstId();
+			final int bestellijst_id = getNewBestellijstId();
+			//Create new bestellijst record.
+			newBestellijst(bestellijst_id);
 			
 			//Now add each product to this bestellijst_id in bestellijst table.
 			insertBestellijstRecords(bestellijst_id, producten);
@@ -38,6 +41,19 @@ public class BestellijstDAO extends DAO {
 	}
 	
 	/**
+	 * Create a new bestellijst record in database.
+	 * @param bestellijst_id
+	 * @throws SQLException 
+	 */
+	public void newBestellijst(int bestellijst_id) throws SQLException {
+		Statement stmt = conn.createStatement();
+		String query = ("INSERT INTO bestellijst(naam) VALUES(" +
+				"'bestellijst_" + bestellijst_id + "')");
+		System.out.println(query);
+		stmt.executeUpdate(query);
+	}
+	
+	/**
 	 * Insert each product in bestellijst table with given bestellijst_id.
 	 * @param bestellijst_id
 	 * @param producten
@@ -47,9 +63,10 @@ public class BestellijstDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		for(Product product : producten) {
 			String query = (
-					"INSERT INTO bestellijst(naam)" +
+					"INSERT INTO bestellijst_set(bestellijst_id, product_id)" +
 					"VALUES(" +
-					"'bestellijst_" + bestellijst_id + "'" +
+						"'" + bestellijst_id + "', " +
+						"'" + product.getId() + "'" +
 					")");
 			System.out.println(query);
 			stmt.executeUpdate(query);
@@ -81,19 +98,24 @@ public class BestellijstDAO extends DAO {
 	public List<Bestellijst> all() throws Exception {
 		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
 		Statement stmt = conn.createStatement();
-		String query = "SELECT DISTINCT(id), date FROM bestellijst";
+		String query = ("SELECT * FROM bestellijst");
 		ResultSet result = stmt.executeQuery(query);
 		while(result.next()) {
-			bestellijsten.add(new Bestellijst(
-					result.getInt("id"),
-					result.getDate("date")
-					));
+			bestellijsten.add(new Bestellijst(result.getInt("id"), result.getString("naam"), result.getDate("date")));
 		}
 		return bestellijsten;
 	}
 	
-	public void test() {
-		System.out.println("test");
+	public void deleteBestellijsten(List<Bestellijst> bestellijsten) throws SQLException {
+		Statement stmt = conn.createStatement();
+		for(Bestellijst bestellijst : bestellijsten) {
+			String query = ("DELETE FROM bestellijst_set WHERE "
+					+ "bestellijst_id = " + bestellijst.getId() + "\n;");
+			query += ("DELETE FROM bestellijst WHERE "
+					+ "id = " +bestellijst.getId() + ";");
+			stmt.execute(query);
+			
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 package Panthera.Models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,19 +12,33 @@ import javafx.beans.property.SimpleBooleanProperty;
  *
  */
 public class Bestellijst {
-	private int bestellijst_id;
+	private int id;
 	private Date date;
+	private String name;
 	List<Product> producten = new ArrayList<>();
 	private SimpleBooleanProperty active;
 	
-	public Bestellijst(int bestellijst_id, Date date) {
-		this.bestellijst_id = bestellijst_id;
+	public Bestellijst(int bestellijst_id, String name, Date date) {
+		this.id = bestellijst_id;
+		this.name = name;
 		this.date = date;
 		this.active = new SimpleBooleanProperty(false);
 	}
 	
-	public int getBestellijstId() {
-		return this.bestellijst_id;
+	public String getNaam() {
+		return this.name;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+	
+	public Date getDate() {
+		return this.date;
+	}
+	
+	public boolean isActive() {
+		return active.get();
 	}
 	
 	public SimpleBooleanProperty activeProperty() {

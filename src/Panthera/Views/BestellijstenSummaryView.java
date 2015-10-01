@@ -38,8 +38,8 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		this.stage = Panthera.getInstance().getStage();
 		this.bestellijsten = bestellijstenController.cmdGetBestellijsten();
 		createHeader();
-		//createTableView();
-		//table.setItems(bestellijsten);
+		createTableView();
+		table.setItems(bestellijsten);
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		this.stage.setScene(new Scene(this, 800, 600));
 		this.stage.show();
 	}
-	
+		
 	/**
 	 * Create bestellijst table.
 	 */
@@ -61,11 +61,13 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	        });
 		
 		TableColumn id = new TableColumn("id");
-		id.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("bestellijst"));
+		id.setCellValueFactory(new PropertyValueFactory<Bestellijst, Integer>("id"));
+		TableColumn name = new TableColumn("name");
+		name.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("naam"));
 		TableColumn date = new TableColumn("date");
 		date.setCellValueFactory(new PropertyValueFactory<Bestellijst, Date>("date"));
 		
-		this.table.getColumns().addAll(id, date, checkbox);
+		this.table.getColumns().addAll(id, name, date, checkbox);
 		setCenter(this.table);
 	}
 	
@@ -75,7 +77,9 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void createHeader() {
 		createTile();
 		setTop(topContainer);
+		createTerugButton();
 		createAddBestellijstenButton();
+		createVerwijderButton();
 	}
 	
 	/**
@@ -85,6 +89,24 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		Text title = new Text("Bestellijsten overzicht");
 		title.setFont(Font.font(22));
 		topContainer.getChildren().add(title);
+	}
+	
+	public void createPrintButton() {
+		Button button = new Button("Print");
+		button.setOnAction(e -> this.bestellijstenController.print(bestellijsten));
+		topContainer.getChildren().add(button);
+	}
+	
+	public void createVerwijderButton() {
+		Button button = new Button("Verwijder");
+		button.setOnAction(e -> this.bestellijstenController.verwijder(bestellijsten));
+		topContainer.getChildren().add(button);
+	}
+	
+	public void createTerugButton() {
+		Button button = new Button("Terug");
+		button.setOnAction(e -> this.bestellijstenController.mainMenu());
+		topContainer.getChildren().add(button);
 	}
 	
 	/**
