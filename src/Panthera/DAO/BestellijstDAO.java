@@ -48,7 +48,7 @@ public class BestellijstDAO extends DAO {
 	 */
 	public void newBestellijst(int bestellijst_id) throws SQLException {
 		Statement stmt = conn.createStatement();
-		String query = ("INSERT INTO bestellijst(naam) VALUES(" +
+		String query = ("INSERT INTO bestellijst(name) VALUES(" +
 				"'bestellijst_" + bestellijst_id + "')");
 		System.out.println(query);
 		stmt.executeUpdate(query);
@@ -61,7 +61,7 @@ public class BestellijstDAO extends DAO {
 	 */
 	public void insertBestellijst(int bestellijst_id) throws SQLException {
 		Statement stmt = conn.createStatement();
-		String query = "INSERT INTO bestellijst(naam)" +
+		String query = "INSERT INTO bestellijst(name)" +
 				" VALUES(bestellijst_" + bestellijst_id + ")";
 		stmt.executeQuery(query);
 
@@ -119,7 +119,7 @@ public class BestellijstDAO extends DAO {
 		String query = ("SELECT * FROM bestellijst");
 		ResultSet result = stmt.executeQuery(query);
 		while (result.next()) {
-			bestellijsten.add(new Bestellijst(result.getInt("id"), result.getString("naam"), result.getDate("date")));
+			bestellijsten.add(new Bestellijst(result.getInt("id"), result.getString("name"), result.getDate("date")));
 
 		}
 		return bestellijsten;

@@ -6,6 +6,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -14,19 +17,37 @@ import javafx.stage.Stage;
 public class MailListView extends BorderPane implements Viewable {
     private final Stage stage = Panthera.getInstance().getStage();
     private final MailController mailController;
+    private VBox topContainer = new VBox(10);
 
     public MailListView(MailController mailController) {
         this.mailController = mailController;
-        Button button = new Button("Verstuur dankwoord");
-        button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
-        setCenter(button);
+
         setPadding(new Insets(10));
+        createHeader();
     }
 
+    private void createHeader() {
+        createTitle();
+        createDankwoordButton();
+        createUitnodigingButton();
+        setTop(topContainer);
+    }
+
+    private void createTitle() {
+        Text title = new Text("Email");
+        title.setFont(Font.font(22));
+        topContainer.getChildren().add(title);
+    }
     private void createUitnodigingButton() {
-        Button button = new Button("Verstuur Uitnodiging");
+        Button button = new Button("Verstuur uitnodiging");
         button.setOnAction(event -> this.mailController.cmdShowUitnodigingView());
-        setCenter(button);
+        topContainer.getChildren().add(button);
+    }
+
+    private void createDankwoordButton() {
+        Button button = new Button("Verstuur dankwoord");
+        button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
+        topContainer.getChildren().add(button);
     }
 
     @Override
