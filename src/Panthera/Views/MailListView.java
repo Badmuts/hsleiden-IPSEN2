@@ -23,6 +23,12 @@ public class MailListView extends BorderPane implements Viewable {
         setPadding(new Insets(10));
     }
 
+    private void createUitnodigingButton() {
+        Button button = new Button("Verstuur Uitnodiging");
+        button.setOnAction(event -> this.mailController.cmdShowUitnodigingView());
+        setCenter(button);
+    }
+
     @Override
     public void show() {
         this.stage.setScene(new Scene(this));
