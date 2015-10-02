@@ -6,6 +6,8 @@ import Panthera.Models.Debiteur;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MailSelectRecipientsView extends BorderPane implements Viewable {
@@ -25,6 +28,7 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
     private MailController mailController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView table;
+    private VBox topContainer = new VBox(10);
 
     public MailSelectRecipientsView(MailController mailController, String onderwerp, String bericht) {
         this.mailController = mailController;
@@ -35,11 +39,13 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         createTableView();
+
         setPadding(new Insets(10));
 
         createButton("Verstuur", event -> mailController.cmdSendDankwoord(debiteuren, onderwerp, bericht));
-
+        setTop(topContainer);
         table.setItems(debiteuren);
 
         for (Debiteur debiteur: debiteuren) {
@@ -87,8 +93,33 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         telefoon.setCellValueFactory(new PropertyValueFactory<>("telefoon"));
         TableColumn<Debiteur, String> land = new TableColumn("Land");
         land.setCellValueFactory(new PropertyValueFactory<>("land"));
+
+        createSelectAllButton();
+
         table.getColumns().addAll(checkbox, aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, telefoon, land);
         setCenter(table);
+
+    }
+    public void createSelectAllButton() {
+
+        CheckBox cb = new CheckBox("Select all");
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if (new_val) {
+                    for (Debiteur d : debiteuren) {
+                        d.activeProperty().set(new_val);
+                    }
+                }
+                else {
+                    for (Debiteur d : debiteuren) {
+                        d.activeProperty().set(false);
+                    }
+                }
+            }
+        });
+
+        topContainer.getChildren().add(cb);
     }
 
     /**
