@@ -7,8 +7,10 @@ import Panthera.Models.Factuur;
 import Panthera.Models.Product;
 import Panthera.Panthera;
 import com.oracle.webservices.internal.api.message.PropertySet;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -165,22 +167,11 @@ public class FacturenAddView extends GridPane implements Viewable {
         land.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLand().getNaam()));
 //        addClicklistener();
         TableColumn<Product, String> aantal = new TableColumn("Aantal");
+        TextField aantalProducten = new TextField();
 
-        aantal.setCellFactory(TextFieldTableCell.forTableColumn());
-        aantal.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Product, String>>() {
-                    public void handle(TableColumn.CellEditEvent<Product, String> t) {
-                        ((Product) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).setAantal(t.getNewValue());
-                    }
-                }
-        );
-
-
-
-
-        table.getColumns().addAll(productnummer, naam, jaar, prijs, type, land, aantal);
+       /*
+        * TODO: TextField/InputField zichtbaar maken in de tableview en aantal koppelen aan het product
+        */
 
         add(table, 1, currentRow);
         currentRow++;
