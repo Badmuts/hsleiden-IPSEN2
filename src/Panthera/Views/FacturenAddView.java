@@ -2,10 +2,8 @@ package Panthera.Views;
 
 import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
-import Panthera.Models.Bestellijst;
-import Panthera.Models.Factuur;
-import Panthera.Models.Factuurregel;
-import Panthera.Models.Product;
+import Panthera.DAO.DebiteurDAO;
+import Panthera.Models.*;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
@@ -21,9 +19,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -83,38 +81,47 @@ public class FacturenAddView extends GridPane implements Viewable {
         this.stage.setScene(new Scene(this, 1024, 768));
         this.stage.show();
     }
+    private void createDateField(String name, Property property) {
+        Label label = new Label(name);
+        DatePicker datePicker = new DatePicker(LocalDate.now());
+        datePicker.setOnAction(event -> {
+            property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
+        });
 
+        add(label, 0, currentRow);
+        add(datePicker, 1, currentRow);
+        currentRow++;
+
+    }
     private void createForm() {
         createField("Factuurnummer", factuur.factuurnummerProperty(), new NumberStringConverter());
-//        createComboBox("Debiteur");
-        createField("Factuurdatum", factuur.factuurdatumProperty(), new DateStringConverter());
-        createField("Vervaldatum", factuur.vervaldatumProperty(), new DateStringConverter());
-        createField("Status", factuur.statusProperty());
+        createComboBox("Debiteur");
+        createDateField("Factuurdatum", factuur.factuurdatumProperty());
+        createDateField("Vervaldatum", factuur.vervaldatumProperty());
         createComboBoxBestellijst("Bestellijst");
     }
 
-//    private void createComboBox(String name) {
-//        try {
-//            Label label = new Label(name);
-//            ArrayList<Debiteur> debiteuren = new DebiteurDAO.all();
-//            ChoiceBox<Debiteur> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(debiteuren));
-//            choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, NewValue) -> {
-//                factuur.setDebiteur(newValue);
-//            });
-//
-//            int i = 0;
-//            for (Debitteur debiteur: debiteuren) {
+    private void createComboBox(String name) {
+        try {
+            Label label = new Label(name);
+            ArrayList<Debiteur> debiteuren = new DebiteurDAO().getAllDebiteuren();
+            ChoiceBox<Debiteur> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(debiteuren));
+            choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                factuur.setDebiteur(newValue);
+            });
+
+            int i = 0;
+            for (Debiteur debiteur: debiteuren) {
 //                if(debiteur.getId() == factuur.getDebiteur().getId())
-//                    choiceBox.getSelectionModel().select(i);
-//                i++;
-//            }
-//            add(label, 0, currentRow);
-//            add(choiceBox, 1, currentRow);
-//            currentRow++;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+                choiceBox.getSelectionModel().select(debiteur);
+            }
+            add(label, 0, currentRow);
+            add(choiceBox, 1, currentRow);
+            currentRow++;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
         private void createComboBoxBestellijst(String name) {
         try {
@@ -172,8 +179,8 @@ public class FacturenAddView extends GridPane implements Viewable {
             aantal.setCellValueFactory(param -> new SimpleStringProperty(String.valueOf(aantalProducten)));
         });
 
-        aantal.setOnEditStart(event -> System.out.println("On edit start"));
-        aantal.setOnEditCancel(event -> System.out.println("On edit cancel"));
+//        aantal.setOnEditStart(event -> System.out.println("On edit start"));
+//        aantal.setOnEditCancel(event -> System.out.println("On edit cancel"));
 
         TextField aantalProducten = new TextField();
         table.getColumns().addAll(aantal, productnummer, naam, jaar, prijs, type, land);

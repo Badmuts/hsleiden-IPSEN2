@@ -17,7 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.Date;
+import java.sql.Date;
+
+
 
 /**
  * Created by Brandon on 23-Sep-15.

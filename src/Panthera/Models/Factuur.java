@@ -62,7 +62,7 @@ public class Factuur extends Model {
         this.factuurnummer = new SimpleIntegerProperty();
         this.factuurdatum = new SimpleObjectProperty<>();
         this.vervaldatum = new SimpleObjectProperty<>();
-        this.status = new SimpleStringProperty();
+        this.status = new SimpleStringProperty("");
         this.checked = new SimpleBooleanProperty();
         this.debiteur = new SimpleObjectProperty<>();
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());

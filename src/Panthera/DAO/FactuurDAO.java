@@ -1,12 +1,12 @@
 package Panthera.DAO;
 
 import Panthera.Models.Factuur;
+import Panthera.Models.Factuurregel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Date;
 
 
 /**
@@ -68,12 +68,36 @@ public class FactuurDAO extends DAO {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("" +
         "INSERT INTO factuur(factuurnummer, debiteur_id, factuurdatum, vervaldatum, status)" +
-        "VALUES(" +
-        factuur.getFactuurnummer() + ", " +
-        factuur.getDebiteur().getId() + ", " +
-        factuur.getFactuurdatum() + ", " +
-        factuur.getVervaldatum() + ", " +
-        factuur.getStatus() + ")");
+            "VALUES(" +
+            factuur.getFactuurnummer() + ", " +
+            factuur.getDebiteur().getId() + ", '" +
+            factuur.getFactuurdatum() + "', '" +
+            factuur.getVervaldatum() + "',' " +
+            factuur.getStatus() + "')");
+        saveFactuurregels(factuur);
+    }
+
+    private void saveFactuurregels(Factuur factuur) throws Exception {
+        int factuurId = getLastFactuurId();
+        for (Factuurregel factuurregel: factuur.getFactuurregels()) {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(""
+                + "INSERT INTO factuurregel (factuur_id, aantal, product_id)"
+                + "VALUES (" +
+                + factuurId + ", " +
+                + factuurregel.getAantal() + ", " +
+                + factuurregel.getProduct().getId() + ")");
+        }
+    }
+
+    public int getLastFactuurId() throws Exception {
+        int id = 0;
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT MAX(id) AS id FROM factuur");
+        while (result.next()) {
+            id = result.getInt("id");
+        }
+        return id++;
     }
 
 }
