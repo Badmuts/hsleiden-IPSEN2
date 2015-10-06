@@ -4,26 +4,19 @@ import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.Models.Bestellijst;
 import Panthera.Models.Factuur;
+import Panthera.Models.Factuurregel;
 import Panthera.Models.Product;
 import Panthera.Panthera;
-import com.oracle.webservices.internal.api.message.PropertySet;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,7 +24,6 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
-import javax.security.auth.callback.Callback;
 import java.util.ArrayList;
 
 /**
@@ -50,21 +42,22 @@ public class FacturenAddView extends GridPane implements Viewable {
     public FacturenAddView(FacturenController facturenController) throws Exception {
         this.facturenController = facturenController;
         this.factuur = new Factuur();
-//        this.producten = FXCollections.observableArrayList(new BestellijstDAO().all().get(0).getProducten());
-        createTitle();
-        createForm();
-        createTableView();
-        createSaveButton();
-        this.table.setItems(producten);
-        table.setEditable(true);
+        setupView();
     }
 
     public FacturenAddView(FacturenController facturenController, Factuur factuur) {
         this.facturenController = facturenController;
         this.factuur = factuur;
+        setupView();
+    }
+
+    private void setupView() {
         createTitle();
         createForm();
+        createTableView();
         createSaveButton();
+        table.setItems(producten);
+        table.setEditable(true);
     }
 
     private void createSaveButton() {
@@ -133,9 +126,10 @@ public class FacturenAddView extends GridPane implements Viewable {
                 bestellijst = newValue;
                 //System.out.println(bestellijst.getProducten());
                 producten.setAll(FXCollections.observableArrayList(newValue.getProducten()));
+                table.setItems(producten);
             });
 
-            choiceBox.getSelectionModel().select(0);
+//            choiceBox.getSelectionModel().select(0);
 
             add(label, 0, currentRow);
             add(choiceBox, 1, currentRow);
@@ -167,7 +161,22 @@ public class FacturenAddView extends GridPane implements Viewable {
         land.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLand().getNaam()));
 //        addClicklistener();
         TableColumn<Product, String> aantal = new TableColumn("Aantal");
+        aantal.setCellFactory(TextFieldTableCell.forTableColumn());
+        aantal.setCellValueFactory(param -> new SimpleStringProperty("0"));
+
+        aantal.setOnEditCommit(event -> {
+            int aantalProducten = Integer.parseInt(event.getNewValue());
+            Product product = event.getRowValue();
+            Factuurregel factuurregel = new Factuurregel(aantalProducten, product);
+            factuur.addFactuurregel(factuurregel);
+            aantal.setCellValueFactory(param -> new SimpleStringProperty(String.valueOf(aantalProducten)));
+        });
+
+        aantal.setOnEditStart(event -> System.out.println("On edit start"));
+        aantal.setOnEditCancel(event -> System.out.println("On edit cancel"));
+
         TextField aantalProducten = new TextField();
+        table.getColumns().addAll(aantal, productnummer, naam, jaar, prijs, type, land);
 
        /*
         * TODO: TextField/InputField zichtbaar maken in de tableview en aantal koppelen aan het product
