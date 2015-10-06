@@ -1,5 +1,6 @@
 package Panthera.Models;
 
+import Panthera.DAO.FactuurDAO;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -57,9 +58,9 @@ public class Factuur extends Model {
        // this.notitie = notitie;
     }
 
-    public Factuur() {
+    public Factuur() throws Exception {
         this.id = new SimpleIntegerProperty();
-        this.factuurnummer = new SimpleIntegerProperty();
+        this.factuurnummer = new SimpleIntegerProperty(new FactuurDAO().getLastFactuurNummer());
         this.factuurdatum = new SimpleObjectProperty<>();
         this.vervaldatum = new SimpleObjectProperty<>();
         this.status = new SimpleStringProperty("");

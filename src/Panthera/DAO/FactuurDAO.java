@@ -18,7 +18,7 @@ public class FactuurDAO extends DAO {
         super();
     }
 
-    public Factuur getFactuur(int id) throws SQLException {
+    public Factuur getFactuur(int id) throws Exception {
         //query om een specifieke factuur op te halen
         Factuur factuur = new Factuur();
         try (Statement stmt = conn.createStatement()) {
@@ -98,6 +98,17 @@ public class FactuurDAO extends DAO {
             id = result.getInt("id");
         }
         return id++;
+    }
+
+    public int getLastFactuurNummer() throws Exception {
+        int factuurnummer = 0;
+
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT MAX(factuurnummer) AS factuurnummer FROM factuur");
+        while(result.next()) {
+            factuurnummer = result.getInt("factuurnummer");
+        }
+        return factuurnummer += 1;
     }
 
 }

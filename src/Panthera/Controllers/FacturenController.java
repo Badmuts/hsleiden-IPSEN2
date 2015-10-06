@@ -74,7 +74,7 @@ public class FacturenController extends Controller {
         }
     }
 
-    public void cmdShowFactuurAddView() {
+    public void cmdShowFactuurAddView() throws Exception{
         this.view = new FacturenAddView(this, new Factuur());
         show();
     }
