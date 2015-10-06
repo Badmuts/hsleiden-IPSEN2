@@ -1,5 +1,6 @@
 package Panthera.Controllers;
 
+import Panthera.Models.Factuur;
 import Panthera.Views.MainMenuView;
 
 /**
@@ -23,7 +24,7 @@ public class MainMenuController extends Controller {
     }
 
     public Controller cmdCreateFacturenController() throws Exception {
-        return new FacturenController();
+        return new FacturenController(new Factuur());
     }
     
     public Controller cmdCreateBestellijstenController() throws Exception {
