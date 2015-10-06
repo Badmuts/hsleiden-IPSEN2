@@ -111,6 +111,8 @@ public class FacturenListView extends BorderPane implements Viewable {
         factuurdatum.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("factuurdatum"));
         TableColumn factuurexpdate = new TableColumn("Vervaldatum");
         factuurexpdate.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("vervaldatum"));
+        TableColumn<Factuur, Double> bedrag = new TableColumn("Bedrag");
+        bedrag.setCellValueFactory(new PropertyValueFactory<Factuur, Double>(""));
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 

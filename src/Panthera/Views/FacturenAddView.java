@@ -165,6 +165,14 @@ public class FacturenAddView extends GridPane implements Viewable {
         jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
         TableColumn<Product, Double> prijs = new TableColumn("Prijs");
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
+
+        /*
+        * TODO: aantal producten * prijs laten zien
+        */
+        TableColumn<Factuurregel, Double> totaal = new TableColumn("Totaal");
+        totaal.setCellValueFactory(new PropertyValueFactory<Factuurregel, Double>("subtotaal"));
+
+
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         TableColumn<Product, String> land = new TableColumn("Land");
@@ -174,7 +182,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         aantal.setCellFactory(TextFieldTableCell.forTableColumn());
         aantal.setCellValueFactory(param -> new SimpleStringProperty("0"));
 
-        aantal.setOnEditCommit(event -> {
+        aantal.setOnEditCancel(event -> {
             int aantalProducten = Integer.parseInt(event.getNewValue());
             Product product = event.getRowValue();
             Factuurregel factuurregel = new Factuurregel(aantalProducten, product);
@@ -182,15 +190,8 @@ public class FacturenAddView extends GridPane implements Viewable {
             aantal.setCellValueFactory(param -> new SimpleStringProperty(String.valueOf(aantalProducten)));
         });
 
-//        aantal.setOnEditStart(event -> System.out.println("On edit start"));
-//        aantal.setOnEditCancel(event -> System.out.println("On edit cancel"));
-
         TextField aantalProducten = new TextField();
         table.getColumns().addAll(aantal, productnummer, naam, jaar, prijs, type, land);
-
-       /*
-        * TODO: TextField/InputField zichtbaar maken in de tableview en aantal koppelen aan het product
-        */
 
         add(table, 1, currentRow);
         currentRow++;

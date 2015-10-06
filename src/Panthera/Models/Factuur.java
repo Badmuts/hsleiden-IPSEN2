@@ -1,10 +1,7 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -23,6 +20,7 @@ public class Factuur extends Model {
     private SimpleObjectProperty<Debiteur> debiteur;
     private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
     private SimpleStringProperty opmerking;
+    private SimpleDoubleProperty bedrag;
     //private String notitie;
     //private Organisatie organisatie;
 
@@ -52,6 +50,7 @@ public class Factuur extends Model {
         this.debiteur = new SimpleObjectProperty<>(debiteur);
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<>());
         this.opmerking = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
        // this.notitie = notitie;
     }
 
@@ -65,6 +64,7 @@ public class Factuur extends Model {
         this.debiteur = new SimpleObjectProperty<>();
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());
         this.opmerking = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
     }
 
     //Getters
@@ -100,12 +100,13 @@ public class Factuur extends Model {
         return opmerking.get();
     }
 
+    public Double getBedrag() { return bedrag.get(); }
+
 
     //Setters
     public void setId(int id) {
         this.id.set(id);
     }
-
 
     public void setFactuurnummer(int factuurnummer) {
         this.factuurnummer.set(factuurnummer);
@@ -133,6 +134,17 @@ public class Factuur extends Model {
     public void setOpmerking(String opmerking) {
         this.opmerking.set(opmerking);
     }
+
+    /*
+    * TODO: bedrag setten vanit factuurregel
+        public void setBedrag() {
+            for(Factuurregel factuurregel: factuurregels) {
+                if(null == null) {
+                    this.bedrag.set(factuurregel.getTotaal());
+                }
+            }
+        }
+    */
 
     //Properties
     public SimpleIntegerProperty idProperty() {

@@ -16,7 +16,9 @@ public class Factuurregel extends Model {
 
     private SimpleIntegerProperty aantal;
     private SimpleObjectProperty<Product> product;
-    private SimpleDoubleProperty subtotaal;
+    private SimpleDoubleProperty subtotaal = new SimpleDoubleProperty(0.0);
+    private int btwPercentage = 121;
+    private double totaalprijs;
     private SimpleDoubleProperty btw;
 
     public Factuurregel() {
@@ -29,6 +31,20 @@ public class Factuurregel extends Model {
         this.product = new SimpleObjectProperty<>(product);
     }
 
+    public void berekenSubtotaal() {
+        this.totaalprijs = getAantal() * getProduct().getPrijs();
+        setSubtotaal(totaalprijs / getBtw() * 100);
+    }
+
+    public void berekenBTW() {
+        setBtw((this.totaalprijs / getBtwPercentage()) * 21);
+    }
+    public double getTotaal() {
+        return this.totaalprijs;
+    }
+    public int getBtwPercentage() {
+        return this.btwPercentage;
+    }
     public int getAantal() {
         return aantal.get();
     }
