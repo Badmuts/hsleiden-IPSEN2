@@ -1,11 +1,12 @@
 package Panthera.Models;
 
-import Panthera.DAO.FactuurDAO;
-import javafx.beans.property.*;
-
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Brandon on 22-Sep-15.
@@ -19,11 +20,27 @@ public class Factuur extends Model {
     private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
     private SimpleObjectProperty<Debiteur> debiteur;
+    private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
     //private OrderRegel orderRegel;
     //private String opmerking;
     //private String notitie;
     //private Organisatie organisatie;
 
+
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur, ArrayList<Factuurregel> factuurregels) {
+
+        this.id = new SimpleIntegerProperty(id);
+        this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
+        this.factuurdatum = new SimpleObjectProperty<>(factuurdatum);
+        this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
+        this.status = new SimpleStringProperty(status);
+        this.checked = new SimpleBooleanProperty(false);
+        this.debiteur = new SimpleObjectProperty<>(debiteur);
+        this.factuurregels = new SimpleObjectProperty<>(factuurregels);
+        //this.orderRegel = orderRegel;
+       // this.opmerking = opmerking;
+       // this.notitie = notitie;
+    }
 
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur) {
 
@@ -34,6 +51,7 @@ public class Factuur extends Model {
         this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
         this.debiteur = new SimpleObjectProperty<>(debiteur);
+        this.factuurregels = new SimpleObjectProperty<>(new ArrayList<>());
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
        // this.notitie = notitie;
@@ -47,6 +65,7 @@ public class Factuur extends Model {
         this.status = new SimpleStringProperty();
         this.checked = new SimpleBooleanProperty();
         this.debiteur = new SimpleObjectProperty<>();
+        this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());
     }
 
     //Getters
@@ -169,6 +188,21 @@ public class Factuur extends Model {
             return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
         }
 
+    public ArrayList<Factuurregel> getFactuurregels() {
+        return factuurregels.get();
+    }
+
+    public SimpleObjectProperty<ArrayList<Factuurregel>> factuurregelsProperty() {
+        return factuurregels;
+    }
+
+    public void setFactuurregels(ArrayList<Factuurregel> factuurregels) {
+        this.factuurregels.set(factuurregels);
+    }
+
+    public void addFactuurregel(Factuurregel factuurregel) {
+        this.factuurregels.get().add(factuurregel);
+    }
 }
 
 
