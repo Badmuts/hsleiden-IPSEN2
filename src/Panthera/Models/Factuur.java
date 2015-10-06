@@ -22,13 +22,12 @@ public class Factuur extends Model {
     private SimpleBooleanProperty checked;
     private SimpleObjectProperty<Debiteur> debiteur;
     private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
-    //private OrderRegel orderRegel;
-    //private String opmerking;
+    private SimpleStringProperty opmerking;
     //private String notitie;
     //private Organisatie organisatie;
 
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur, ArrayList<Factuurregel> factuurregels) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur, ArrayList<Factuurregel> factuurregels, String opmerking) {
 
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
@@ -38,8 +37,7 @@ public class Factuur extends Model {
         this.checked = new SimpleBooleanProperty(false);
         this.debiteur = new SimpleObjectProperty<>(debiteur);
         this.factuurregels = new SimpleObjectProperty<>(factuurregels);
-        //this.orderRegel = orderRegel;
-       // this.opmerking = opmerking;
+        this.opmerking = new SimpleStringProperty(opmerking);
        // this.notitie = notitie;
     }
 
@@ -53,8 +51,7 @@ public class Factuur extends Model {
         this.checked = new SimpleBooleanProperty(false);
         this.debiteur = new SimpleObjectProperty<>(debiteur);
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<>());
-        //this.orderRegel = orderRegel;
-       // this.opmerking = opmerking;
+        this.opmerking = new SimpleStringProperty();
        // this.notitie = notitie;
     }
 
@@ -67,6 +64,7 @@ public class Factuur extends Model {
         this.checked = new SimpleBooleanProperty();
         this.debiteur = new SimpleObjectProperty<>();
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());
+        this.opmerking = new SimpleStringProperty();
     }
 
     //Getters
@@ -96,6 +94,10 @@ public class Factuur extends Model {
 
     public Debiteur getDebiteur() {
         return debiteur.get();
+    }
+
+    public String getOpmerking() {
+        return opmerking.get();
     }
 
 
@@ -128,6 +130,9 @@ public class Factuur extends Model {
 
     public void setDebiteur(Debiteur debiteur) { this.debiteur.set(debiteur);}
 
+    public void setOpmerking(String opmerking) {
+        this.opmerking.set(opmerking);
+    }
 
     //Properties
     public SimpleIntegerProperty idProperty() {
@@ -156,31 +161,13 @@ public class Factuur extends Model {
 
     public SimpleObjectProperty debiteurProperty() { return this.debiteur; }
 
+    public SimpleStringProperty opmerkingProperty() { return this.opmerking; }
 
 
-
-
-
-//    public OrderRegel getOrderRegel() {
-//        return orderRegel;
-//    }
-//
-//    public Organisatie getOrganisatie() {
-//        return organisatie;
-//    }
-//
-//    public String getOpmerking() {
-//        return opmerking;
-//    }
-//
 //    public String getNotitie() {
 //        return notitie;
 //    }
-//
-//    public void setOpmerking(String opmerking) {
-//        this.opmerking = opmerking;
-//    }
-//
+
 //    public void setNotitie(String notitie) {
 //        this.notitie = notitie;
 //    }

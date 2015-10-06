@@ -20,7 +20,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
+import javafx.util.converter.PercentageStringConverter;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -98,6 +100,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         createComboBox("Debiteur");
         createDateField("Factuurdatum", factuur.factuurdatumProperty());
         createDateField("Vervaldatum", factuur.vervaldatumProperty());
+        createTextArea("Opmerking", factuur.opmerkingProperty());
         createComboBoxBestellijst("Bestellijst");
     }
 
@@ -200,6 +203,19 @@ public class FacturenAddView extends GridPane implements Viewable {
 
         add(label, 0, currentRow);
         add(textField, 1, currentRow);
+        currentRow++;
+    }
+
+    public void createTextArea(String name, Property property) {
+        Label label = new Label(name);
+        TextArea textArea = new TextArea(name);
+        textArea.setMinWidth(50);
+        textArea.setPrefWidth(50);
+        textArea.setMaxWidth(400);
+        Bindings.bindBidirectional(textArea.textProperty(), property);
+
+        add(label, 0, currentRow);
+        add(textArea, 1, currentRow);
         currentRow++;
     }
 
