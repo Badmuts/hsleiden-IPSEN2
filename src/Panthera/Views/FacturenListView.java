@@ -1,34 +1,22 @@
 package Panthera.Views;
 import Panthera.Controllers.FacturenController;
-import Panthera.Factories.CheckBoxCellFactory;
-import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-
-import javax.swing.table.TableModel;
 import java.util.Date;
 
 /**
@@ -151,7 +139,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         Button button = new Button("Factuur toevoegen");
         button.setOnAction(event -> {
             try {
-                this.facturenController.setView(new FacturenAddView(this.facturenController)).show();
+                this.facturenController.cmdShowFactuurAddView();
             } catch (Exception e) {
                 e.printStackTrace();
             }
