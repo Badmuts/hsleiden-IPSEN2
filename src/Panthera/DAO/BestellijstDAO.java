@@ -1,15 +1,14 @@
 package Panthera.DAO;
 
 
-import java.sql.*;
-import java.sql.Date;
+import Panthera.Models.Bestellijst;
+import Panthera.Models.Product;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import Panthera.Models.Bestellijst;
-import Panthera.Models.Product;
 
 /**
  * 
@@ -133,7 +132,7 @@ public class BestellijstDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		for (Product product : producten) {
 			String query = (
-					"INSERT INTO bestellijst_set(bestellijst_id, product_id)" +
+					"INSERT INTO product_to_bestellijst(bestellijst_id, product_id)" +
 							"VALUES(" +
 							"'" + bestellijst_id + "', " +
 							"'" + product.getId() + "'" +
