@@ -32,6 +32,11 @@ public class FactuurDAO extends DAO {
         return factuur;
     }
 
+        public void updateStatus(Factuur factuur) throws Exception {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("UPDATE factuur " +
+                    "SET status='Betaald' WHERE id=" + factuur.getId());
+        }
 
     /**
      * Returns a list with Factuur models with a limit of 25.

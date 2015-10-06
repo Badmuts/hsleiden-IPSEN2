@@ -50,4 +50,17 @@ public class FacturenController extends Controller {
         }
     }
 
+    public void cmdUpdateStatus(ObservableList<Factuur> facturen) {
+        try {
+            for(Factuur factuur: facturen) {
+                if(factuur.isBetaald()) {
+                    dao.updateStatus(factuur);
+                    setView(new FacturenListView(this)).show();
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
