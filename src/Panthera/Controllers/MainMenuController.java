@@ -1,6 +1,6 @@
 package Panthera.Controllers;
 
-import Panthera.Views.MainMenuView;
+import Panthera.Views.MainView;
 
 /**
  * Created by Daan on 22-Sep-15.
@@ -8,7 +8,7 @@ import Panthera.Views.MainMenuView;
 public class MainMenuController extends Controller {
 
     public MainMenuController() {
-        this.view = new MainMenuView(this);
+        this.view = new MainView(this);
     }
 
     /**

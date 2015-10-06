@@ -1,0 +1,37 @@
+.root {
+    -fx-background-color: #F4F4F4;
+    /*-fx-font-family: 'Avenir Next';*/
+    -fx-font-size: 14;
+}
+
+.header-background {
+    -fx-fill: #004A95;
+}
+
+.btn {
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, #003061, 0, 0.0, 0, 2);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+}
+
+.btn-menu {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.btn-menu.active {
+    -fx-background-color: #003C7B;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.subview-container {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #DBD3D3;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-max-width: 856;
+    -fx-min-height: 200;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 2);
+}

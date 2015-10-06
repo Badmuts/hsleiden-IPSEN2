@@ -1,10 +1,9 @@
 package Panthera;
 
 import Panthera.Controllers.MainMenuController;
-import Panthera.DAO.FactuurDAO;
-import Panthera.Models.Factuur;
 import Panthera.Services.QueryUpdater;
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Panthera extends Application {
@@ -32,8 +31,13 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
+        loadFont();
         new MainMenuController().show();
         new QueryUpdater().update();
+    }
+
+    private void loadFont() {
+        Font.loadFont(getClass().getResourceAsStream("Panthera/Resources/avenir-next.ttc"), 12);
     }
 
     /**

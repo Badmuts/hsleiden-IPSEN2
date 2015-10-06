@@ -5,6 +5,7 @@ import Panthera.Controllers.MailController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -42,6 +43,7 @@ public class MainMenuView extends BorderPane implements Viewable {
      */
     private void createMenu() {
         this.menu = new HBox(10);
+        this.menu.setAlignment(Pos.CENTER_RIGHT);
         createMenuButtons(); // Temp solution for button list.
         this.menu.getChildren().addAll(buttons);
     }
@@ -58,6 +60,7 @@ public class MainMenuView extends BorderPane implements Viewable {
             buttons.add(createButton("Bestellijsten", mainMenuController.cmdCreateBestellijstenController()));
             buttons.add(createButton("E-mail", new MailController()));
             buttons.add(createButton("Leden", mainMenuController.cmdCreateDebiteurenController()));
+            buttons.get(0).getStyleClass().add("active");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,6 +77,8 @@ public class MainMenuView extends BorderPane implements Viewable {
     private Button createButton(String name, Controller controller) {
         Button button = new Button(name);
         button.setOnAction(event -> controller.show());
+        button.getStyleClass().add("btn");
+        button.getStyleClass().add("btn-menu");
         return button;
     }
 
