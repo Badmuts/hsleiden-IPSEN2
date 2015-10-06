@@ -4,6 +4,7 @@ import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.*;
+import Panthera.PDF.FirstPDF;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
@@ -62,13 +63,20 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void createSaveButton() {
         Button button = new Button("Opslaan");
-        button.setOnAction(event -> saveFactuur());
+        button.setOnAction(event -> {
+            try {
+                saveFactuur();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         add(button, 0, currentRow);
         currentRow++;
     }
 
-    private void saveFactuur() {
+    private void saveFactuur() throws Exception {
         facturenController.cmdSaveFactuur(factuur);
+        new FirstPDF(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
     }
 
     private void createTitle() {
