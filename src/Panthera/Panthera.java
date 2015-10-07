@@ -31,6 +31,8 @@ public class Panthera extends Application {
     @Override public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
+        this.stage.setMinWidth(800);
+        this.stage.setMinHeight(600);
         loadFont();
         new MainController().show();
         new QueryUpdater().update();
