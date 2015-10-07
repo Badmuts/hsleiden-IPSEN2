@@ -8,6 +8,7 @@ import Panthera.Services.MailService;
 import Panthera.Views.MailDankwoordView;
 import Panthera.Views.MailListView;
 import Panthera.Views.MailSelectRecipientsView;
+import Panthera.Views.MailUitnodigingView;
 import javafx.collections.ObservableList;
 
 public class MailController extends Controller {
@@ -24,6 +25,11 @@ public class MailController extends Controller {
         show();
     }
 
+    public void cmdShowUitnodigingView() {
+        this.view = new MailUitnodigingView(this);
+        show();
+    }
+
     public void cmdShowSelectRecipients(String onderwerp, String bericht) {
         this.view = new MailSelectRecipientsView(this, onderwerp, bericht);
         show();
@@ -34,6 +40,21 @@ public class MailController extends Controller {
             Email email = new Email();
             email.setSubject(onderwerp);
             email.setFrom("d.rosbergen@gmail.com");
+            Parser parser = new DebiteurParser(debiteur);
+            email.setText(parser.parse(bericht, debiteur));
+            if (debiteur.isActive())
+                email.addTo(debiteur.getEmail());
+            mailService.send(email);
+        }
+        this.view = new MailListView(this);
+        show();
+    }
+
+    public void cmdSendUitnodiging(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
+        for (Debiteur debiteur: debiteuren) {
+            Email email = new Email();
+            email.setSubject(onderwerp);
+            email.setFrom("brandonvanwijk@gmail.com");
             Parser parser = new DebiteurParser(debiteur);
             email.setText(parser.parse(bericht, debiteur));
             if (debiteur.isActive())

@@ -1,9 +1,17 @@
 package Panthera.Views;
 import Panthera.Controllers.FacturenController;
+
+import Panthera.Factories.CheckBoxCellFactory;
+import Panthera.Models.Debiteur;
+
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -122,10 +130,32 @@ public class FacturenListView extends BorderPane implements Viewable {
 
 
 
-
+        createSelectAllButton();
         setCenter(this.table);
 
 
+    }
+
+    public void createSelectAllButton() {
+
+        CheckBox cb = new CheckBox("Select all");
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if (new_val) {
+                    for (Factuur factuur : facturen) {
+                        factuur.checkedProperty().set(new_val);
+                    }
+                }
+                else {
+                    for (Factuur factuur : facturen) {
+                        factuur.checkedProperty().set(false);
+                    }
+                }
+            }
+        });
+
+        topContainer.getChildren().add(cb);
     }
 
     private void createTextField() {
