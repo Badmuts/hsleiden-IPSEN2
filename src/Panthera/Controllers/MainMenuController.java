@@ -30,11 +30,15 @@ public class MainMenuController extends Controller {
     }
     
     public Controller cmdCreateBestellijstenController() throws Exception {
-    	return new BestellijstenController();
+    	return new BestellijstenController(this.mainController);
     }
 
     public Controller cmdCreateDebiteurenController() {
-        return new DebiteurenController();
+        return new DebiteurenController(this.mainController);
+    }
+
+    public Controller cmdCreateMailController() {
+        return new MailController(this.mainController);
     }
 }
 

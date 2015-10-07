@@ -14,10 +14,11 @@ import javafx.collections.ObservableList;
 public class MailController extends Controller {
 
     private final MailService mailService;
+    private final MainController mainController;
 
-    public MailController() {
+    public MailController(MainController mainController) {
+        this.mainController = mainController;
         this.mailService = new MailService();
-        this.view = new MailListView(this);
     }
 
     public void cmdShowDankwoordView() {
@@ -63,5 +64,10 @@ public class MailController extends Controller {
         }
         this.view = new MailListView(this);
         show();
+    }
+
+    @Override
+    public void show() {
+        this.mainController.setSubview(new MailListView(this));
     }
 }

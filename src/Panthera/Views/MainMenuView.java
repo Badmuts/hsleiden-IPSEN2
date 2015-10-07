@@ -58,9 +58,9 @@ public class MainMenuView extends BorderPane implements Viewable {
             buttons.add(createButton("Facturen", mainMenuController.cmdCreateFacturenController()));
             buttons.add(createButton("Wijnen", mainMenuController.cmdCreateProductenController()));
             buttons.add(createButton("Bestellijsten", mainMenuController.cmdCreateBestellijstenController()));
-            buttons.add(createButton("E-mail", new MailController()));
+            buttons.add(createButton("E-mail", mainMenuController.cmdCreateMailController()));
             buttons.add(createButton("Leden", mainMenuController.cmdCreateDebiteurenController()));
-            buttons.get(0).getStyleClass().add("active");
+//            buttons.get(0).getStyleClass().add("active"); // temp
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,7 +76,13 @@ public class MainMenuView extends BorderPane implements Viewable {
      */
     private Button createButton(String name, Controller controller) {
         Button button = new Button(name);
-        button.setOnAction(event -> controller.show());
+        button.setOnAction(event -> {
+            controller.show();
+            for (Button btn: buttons) {
+                btn.getStyleClass().remove("active");
+            }
+            button.getStyleClass().add("active");
+        });
         button.getStyleClass().add("btn");
         button.getStyleClass().add("btn-menu");
         return button;

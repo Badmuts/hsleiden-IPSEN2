@@ -6,6 +6,7 @@ import Panthera.Models.Product;
 import Panthera.Panthera;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
+import Panthera.Views.FacturenListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -20,16 +21,16 @@ import java.util.List;
  *
  */
 public class BestellijstenController extends Controller {
+	private MainController mainController;
 	private ProductenController productenController;
 	private BestellijstDAO dao;
 	private Stage stage;
 	
-	public BestellijstenController() {
+	public BestellijstenController(MainController mainController) {
 		try {
+			this.mainController = mainController;
 			this.dao = new BestellijstDAO();
-//			this.productenController = new ProductenController();
-			this.view = new BestellijstenSummaryView(this);
-			this.stage = Panthera.getInstance().getStage();
+			this.productenController = new ProductenController(this.mainController);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,5 +116,10 @@ public class BestellijstenController extends Controller {
 			ex.printStackTrace();
 		}
 		return FXCollections.observableArrayList(bestellijsten);
+	}
+
+	@Override
+	public void show() {
+		this.mainController.setSubview(new BestellijstenSummaryView(this));
 	}
 }

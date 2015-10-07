@@ -8,6 +8,7 @@ import Panthera.Models.Bestellijst;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -40,6 +41,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		createHeader();
 		createTableView();
 		table.setItems(bestellijsten);
+		setPadding(new Insets(22));
 	}
 	
 	@Override

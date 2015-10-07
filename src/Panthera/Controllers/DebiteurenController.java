@@ -6,6 +6,7 @@ import Panthera.Views.DebiteurenListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sun.applet.Main;
 
 import java.util.ArrayList;
 
@@ -15,17 +16,18 @@ import java.util.ArrayList;
  *
  */
 public class DebiteurenController extends Controller {
-	
+
+	private final MainController mainController;
 	private DebiteurDAO dao;
 	
-	public DebiteurenController() {
+	public DebiteurenController(MainController mainController) {
+		this.mainController = mainController;
 
       try {
           this.dao = new DebiteurDAO();
       } catch (Exception e) {
           e.printStackTrace();
       }
-      this.view = new DebiteurenListView(this);
 	}
 	
 	public ObservableList<Debiteur> cmdGetDebiteuren() {
@@ -61,4 +63,8 @@ public class DebiteurenController extends Controller {
 		}
 	}
 
+	@Override
+	public void show() {
+		this.mainController.setSubview(new DebiteurenListView(this));
+	}
 }
