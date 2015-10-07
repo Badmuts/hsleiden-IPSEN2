@@ -28,6 +28,7 @@ public class FactuurDAO extends DAO {
                 factuur.setFactuurdatum(result.getDate("factuurdatum"));
                 factuur.setVervaldatum(result.getDate("vervaldatum"));
                 factuur.setStatus(result.getString("status"));
+                factuur.setOpmerking(result.getString("opmerking"));
             }
         }
         return factuur;
@@ -43,7 +44,7 @@ public class FactuurDAO extends DAO {
     public ArrayList<Factuur> getAllFacturen() throws Exception {
         ArrayList<Factuur> facturen = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, debiteur_id, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, debiteur_id, factuurdatum, vervaldatum, status, opmerking FROM factuur LIMIT 25");
         while (result.next()) {
             facturen.add(new Factuur(
                     result.getInt("id"),

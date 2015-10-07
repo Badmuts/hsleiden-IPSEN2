@@ -29,6 +29,9 @@ public class Factuurregel extends Model {
         super();
         this.aantal = new SimpleIntegerProperty(aantal);
         this.product = new SimpleObjectProperty<>(product);
+        this.btw = new SimpleDoubleProperty();
+        berekenSubtotaal();
+        berekenBTW();
     }
 
     public void berekenSubtotaal() {

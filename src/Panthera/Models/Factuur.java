@@ -2,8 +2,10 @@ package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
 import javafx.beans.property.*;
+import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**

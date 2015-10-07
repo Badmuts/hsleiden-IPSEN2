@@ -24,6 +24,7 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.PercentageStringConverter;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -190,7 +191,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         aantal.setCellFactory(TextFieldTableCell.forTableColumn());
         aantal.setCellValueFactory(param -> new SimpleStringProperty("0"));
 
-        aantal.setOnEditCancel(event -> {
+        aantal.setOnEditCommit(event -> {
             int aantalProducten = Integer.parseInt(event.getNewValue());
             Product product = event.getRowValue();
             Factuurregel factuurregel = new Factuurregel(aantalProducten, product);
