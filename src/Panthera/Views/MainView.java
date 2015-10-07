@@ -17,6 +17,7 @@ public class MainView extends BorderPane implements Viewable {
     private Stage stage = Panthera.getInstance().getStage();
     private MainMenuController mainMenuController;
     private StackPane headerContainer = new StackPane();
+    private StackPane subviewContainer;
 
     public MainView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
@@ -32,11 +33,11 @@ public class MainView extends BorderPane implements Viewable {
     }
 
     private void createSubviewContainer() {
-        StackPane subviewContainer = new StackPane();
+        subviewContainer = new StackPane();
         subviewContainer.getStyleClass().add("subview-container");
         headerContainer.getChildren().add(subviewContainer);
         StackPane.setAlignment(subviewContainer, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(subviewContainer, new Insets(128, 0, 0, 0));
+        StackPane.setMargin(subviewContainer, new Insets(128, 0, 20, 0));
         try {
             subviewContainer.getChildren().add(new FacturenListView(new FacturenController()));
         } catch (Exception e) {
@@ -64,6 +65,10 @@ public class MainView extends BorderPane implements Viewable {
         rectangle.getStyleClass().add("header-background");
         headerContainer.getChildren().addAll(rectangle);
         StackPane.setAlignment(rectangle, Pos.TOP_CENTER);
+    }
+
+    public StackPane getSubviewContainer() {
+        return subviewContainer;
     }
 
     @Override public void show() {

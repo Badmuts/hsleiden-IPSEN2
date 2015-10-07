@@ -12,12 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -39,7 +39,8 @@ public class FacturenListView extends BorderPane implements Viewable {
 
 
     public FacturenListView(FacturenController facturenController)  {
-        setPadding(new Insets(10));
+        setPadding(new Insets(22));
+        topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
         this.facturen = this.facturenController.cmdGetFacturen();
         createHeader();
@@ -73,15 +74,16 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createHeader() {
         createTitle();
+        createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
-        createTextField();
         setTop(topContainer);
     }
 
     private void createRemoveFactuurButton() {
         Button button = new Button("Factuur verwijderen");
         button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
+        button.getStyleClass().addAll("btn", "btn-danger");
         topContainer.getChildren().add(button);
     }
 
@@ -140,18 +142,21 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTextField() {
         this.filterField = new TextField();
+        filterField.promptTextProperty().setValue("Zoeken...");
         topContainer.getChildren().add(this.filterField);
-
+        setAlignment(filterField, Pos.CENTER_RIGHT);
     }
     private void createTitle() {
         Text title = new Text("Facturen");
-        title.setFont(Font.font(22));
+        title.getStyleClass().add("h1");
         topContainer.getChildren().add(title);
+        topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
     private void createAddFactuurButton() {
         Button button = new Button("Factuur toevoegen");
         button.setOnAction(e -> this.facturenController.setView(new FacturenAddView()).show());
+        button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
 

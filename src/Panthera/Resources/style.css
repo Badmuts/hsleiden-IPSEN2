@@ -14,15 +14,44 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-padding: 8 10;
+    -fx-cursor: hand;
 }
 
 .btn-menu {
     -fx-text-fill: rgba(255, 255, 255, 0.9);
 }
 
+.btn-menu:hover {
+    -fx-background-color: #004585;
+    -fx-effect: dropshadow(three-pass-box, transparent, 0, 0, 0, 0);
+}
+
 .btn-menu.active {
     -fx-background-color: #003C7B;
     -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.btn-menu.active:hover {
+    -fx-background-color: #003970;
+    -fx-effect: dropshadow(gaussian, #003061, 0, 0.0, 0, 2);
+}
+
+.btn-primary {
+    -fx-border-width: 2;
+    -fx-border-color: #FFD000;
+    /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
+    -fx-effect: null;
+    -fx-background-color: #FFFCF1;
+    -fx-text-fill: #D6AE00;
+}
+
+.btn-danger {
+    -fx-border-width: 2;
+    -fx-border-color: #D2000D;
+    /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
+    -fx-effect: null;
+    -fx-background-color: #FCF2F3;
+    -fx-text-fill: #AF000A;
 }
 
 .subview-container {
@@ -34,4 +63,18 @@
     -fx-max-width: 856;
     -fx-min-height: 200;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0.0, 0, 2);
+}
+
+.h1 {
+    -fx-font-size: 28;
+    -fx-fill: #004A95;
+}
+
+.text-field {
+    -fx-padding: 8 10;
+    -fx-border-width: 1;
+    -fx-border-color: #EEEEEE;
+    -fx-border-radius: 4;
+    -fx-effect: null;
+    -fx-min-width: 216;
 }
