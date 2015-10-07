@@ -7,8 +7,11 @@ import Panthera.Views.MainView;
  */
 public class MainMenuController extends Controller {
 
-    public MainMenuController() {
-        this.view = new MainView(this);
+    private MainController mainController;
+
+    public MainMenuController(MainController mainController) {
+        this.mainController = mainController;
+        mainController.setSubview(new MainView(this));
     }
 
     /**
@@ -23,7 +26,7 @@ public class MainMenuController extends Controller {
     }
 
     public Controller cmdCreateFacturenController() throws Exception {
-        return new FacturenController();
+        return new FacturenController(this.mainController);
     }
     
     public Controller cmdCreateBestellijstenController() throws Exception {

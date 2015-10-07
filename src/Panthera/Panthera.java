@@ -1,6 +1,6 @@
 package Panthera;
 
-import Panthera.Controllers.MainMenuController;
+import Panthera.Controllers.MainController;
 import Panthera.Services.QueryUpdater;
 import javafx.application.Application;
 import javafx.scene.text.Font;
@@ -32,7 +32,7 @@ public class Panthera extends Application {
         this.stage = primaryStage;
         this.stage.setTitle("Panthera");
         loadFont();
-        new MainMenuController().show();
+        new MainController().show();
         new QueryUpdater().update();
     }
 

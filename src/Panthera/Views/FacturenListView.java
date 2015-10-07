@@ -89,7 +89,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTableView() {
         this.table = new TableView<>();
-
+//        this.table.setColumnResizePolicy(param -> true);
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
                        CheckBox checkBox = new CheckBox();
@@ -164,7 +164,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     @Override
     public void show() {
 
-        this.stage.setScene(new Scene(this, 800, 600));
-        this.stage.show();
+//        this.stage.setScene(new Scene(this, 800, 600));
+//        this.stage.show();
     }
 }

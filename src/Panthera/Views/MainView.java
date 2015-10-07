@@ -1,6 +1,5 @@
 package Panthera.Views;
 
-import Panthera.Controllers.FacturenController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.geometry.Insets;
@@ -17,7 +16,7 @@ public class MainView extends BorderPane implements Viewable {
     private Stage stage = Panthera.getInstance().getStage();
     private MainMenuController mainMenuController;
     private StackPane headerContainer = new StackPane();
-    private StackPane subviewContainer;
+    private StackPane subviewContainer = new StackPane();
 
     public MainView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
@@ -26,10 +25,14 @@ public class MainView extends BorderPane implements Viewable {
 
     private void setupView() {
         createBackground();
+        createSubviewContainer();
+        createHeader();
+        setTop(headerContainer);
+    }
+
+    private void createHeader() {
         addMenu();
         addLogo();
-        createSubviewContainer();
-        setTop(headerContainer);
     }
 
     private void createSubviewContainer() {
@@ -37,9 +40,8 @@ public class MainView extends BorderPane implements Viewable {
         subviewContainer.getStyleClass().add("subview-container");
         headerContainer.getChildren().add(subviewContainer);
         StackPane.setAlignment(subviewContainer, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(subviewContainer, new Insets(128, 0, 20, 0));
+        StackPane.setMargin(subviewContainer, new Insets(128, 84, 20, 84));
         try {
-            subviewContainer.getChildren().add(new FacturenListView(new FacturenController()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,17 +53,20 @@ public class MainView extends BorderPane implements Viewable {
         logo.setPreserveRatio(true);
         headerContainer.getChildren().add(logo);
         StackPane.setAlignment(logo, Pos.TOP_LEFT);
-        StackPane.setMargin(logo, new Insets(16, 10, 22, 79));
+        StackPane.setMargin(logo, new Insets(16, 10, 22, 84));
     }
 
     private void addMenu() {
         MainMenuView mainMenuView = new MainMenuView(this.mainMenuController);
         headerContainer.getChildren().addAll(mainMenuView);
-        StackPane.setMargin(mainMenuView, new Insets(25, 0, 0, 0));
+        StackPane.setMargin(mainMenuView, new Insets(25, 84, 0, 0));
     }
 
     private void createBackground() {
-        Rectangle rectangle = new Rectangle(1024, 200);
+        Rectangle rectangle = new Rectangle(stage.widthProperty().get(), 200);
+        stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            rectangle.setWidth(newValue.doubleValue());
+        });
         rectangle.getStyleClass().add("header-background");
         headerContainer.getChildren().addAll(rectangle);
         StackPane.setAlignment(rectangle, Pos.TOP_CENTER);
@@ -72,8 +77,10 @@ public class MainView extends BorderPane implements Viewable {
     }
 
     @Override public void show() {
-        this.stage.setScene(new Scene(this));
+        Scene scene = new Scene(this);
+        this.stage.setScene(scene);
         this.stage.getScene().getStylesheets().add("Panthera/Resources/style.css");
         this.stage.show();
     }
+
 }

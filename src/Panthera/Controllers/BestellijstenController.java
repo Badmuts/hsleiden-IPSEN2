@@ -1,19 +1,18 @@
 package Panthera.Controllers;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import Panthera.Panthera;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
+import Panthera.Panthera;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
-import Panthera.Views.MainMenuView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles bestelijst logic.
@@ -41,7 +40,7 @@ public class BestellijstenController extends Controller {
 	 * Open the main menu.
 	 */
 	public void mainMenu() {
-		setView(new MainMenuView(new MainMenuController()));
+//		setView(new MainMenuView(new MainMenuController()));
 	}
 	
 	public BestellijstenAddView openBestellijstenAddView() {
