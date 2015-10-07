@@ -68,14 +68,15 @@ public class FactuurDAO extends DAO {
     public void save(Factuur factuur) throws Exception {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("" +
-        "INSERT INTO factuur(factuurnummer, debiteur_id, factuurdatum, vervaldatum, opmerking, status)" +
+        "INSERT INTO factuur(factuurnummer, debiteur_id, factuurdatum, vervaldatum, opmerking, status, pdfpath)" +
             "VALUES(" +
             factuur.getFactuurnummer() + ", " +
             factuur.getDebiteur().getId() + ", '" +
             factuur.getFactuurdatum() + "', '" +
             factuur.getVervaldatum() + "',' " +
             factuur.getOpmerking() + "',' " +
-            factuur.getStatus() + "')");
+            factuur.getStatus() + "','" +
+            factuur.getPdfPath() + "')");
         saveFactuurregels(factuur);
     }
 

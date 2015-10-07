@@ -76,8 +76,8 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     private void saveFactuur() throws Exception {
-        facturenController.cmdSaveFactuur(factuur);
         new FirstPDF(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
+        facturenController.cmdSaveFactuur(factuur);
     }
 
     private void createTitle() {

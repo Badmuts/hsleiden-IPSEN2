@@ -1,6 +1,8 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
+import Panthera.PDF.FirstPDF;
+import com.itextpdf.text.pdf.PdfObject;
 import javafx.beans.property.*;
 import javafx.scene.control.DatePicker;
 
@@ -23,6 +25,8 @@ public class Factuur extends Model {
     private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
     private SimpleStringProperty opmerking;
     private SimpleDoubleProperty bedrag;
+    private SimpleObjectProperty<FirstPDF> pdf;
+    private SimpleStringProperty pdfPath;
     //private String notitie;
     //private Organisatie organisatie;
 
@@ -38,6 +42,8 @@ public class Factuur extends Model {
         this.debiteur = new SimpleObjectProperty<>(debiteur);
         this.factuurregels = new SimpleObjectProperty<>(factuurregels);
         this.opmerking = new SimpleStringProperty(opmerking);
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty();
        // this.notitie = notitie;
     }
 
@@ -53,6 +59,8 @@ public class Factuur extends Model {
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<>());
         this.opmerking = new SimpleStringProperty();
         this.bedrag = new SimpleDoubleProperty();
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty();
        // this.notitie = notitie;
     }
 
@@ -67,6 +75,9 @@ public class Factuur extends Model {
         this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());
         this.opmerking = new SimpleStringProperty();
         this.bedrag = new SimpleDoubleProperty();
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty();
+
     }
 
     //Getters
@@ -104,6 +115,14 @@ public class Factuur extends Model {
 
     public Double getBedrag() { return bedrag.get(); }
 
+    public FirstPDF getPDF() {
+        return this.pdf.get();
+    }
+
+    public String getPdfPath() {
+        return this.pdfPath.get();
+    }
+
 
     //Setters
     public void setId(int id) {
@@ -135,6 +154,14 @@ public class Factuur extends Model {
 
     public void setOpmerking(String opmerking) {
         this.opmerking.set(opmerking);
+    }
+
+    public void setPDF(FirstPDF pdf) {
+        this.pdf.set(pdf);
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath.set(pdfPath);
     }
 
     /*
@@ -177,6 +204,8 @@ public class Factuur extends Model {
 
     public SimpleStringProperty opmerkingProperty() { return this.opmerking; }
 
+    public SimpleObjectProperty pdfProperty() { return this.pdf; }
+
 
 //    public String getNotitie() {
 //        return notitie;
@@ -205,6 +234,8 @@ public class Factuur extends Model {
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
     }
+
+
 }
 
 

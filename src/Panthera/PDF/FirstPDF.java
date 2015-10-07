@@ -46,6 +46,7 @@ public class FirstPDF {
     private Document document;
     private Paragraph preface;
     private Double totaalbedrag = 0.0;
+    private String FILE;
 
     public FirstPDF(Factuur factuur, ArrayList<Factuurregel> factuurregels, Debiteur debiteur) {
         this.factuur = factuur;
@@ -53,7 +54,9 @@ public class FirstPDF {
         this.debiteur = debiteur;
 
         try {
-            String FILE = "src/Panthera/PDF/PdfFiles/" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
+             FILE = "src/Panthera/PDF/PdfFiles/" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
+             factuur.setPDF(this);
+            factuur.setPdfPath(FILE);
              this.document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
