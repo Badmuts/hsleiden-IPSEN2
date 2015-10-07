@@ -31,7 +31,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 
 	public DebiteurenListView(DebiteurenController debiteurenController){
-      setPadding(new Insets(10));
+      setPadding(new Insets(22));
       topContainer.setPadding(new Insets(0, 0, 10, 0));
 		this.debiteurenController = debiteurenController;
 		this.debiteuren = this.debiteurenController.cmdGetDebiteuren();

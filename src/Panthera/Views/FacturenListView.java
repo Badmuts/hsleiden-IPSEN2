@@ -13,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -36,8 +35,6 @@ public class FacturenListView extends BorderPane implements Viewable {
     private TextField filterField;
     private HBox topContainer = new HBox(10);
 
-
-
     public FacturenListView(FacturenController facturenController)  {
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 22, 0));
@@ -45,10 +42,10 @@ public class FacturenListView extends BorderPane implements Viewable {
         createHeader();
         createTableView();
 
-//        new Thread(() -> {
-//        }).start();
-        this.facturen = this.facturenController.cmdGetFacturen();
-        table.setItems(facturen);
+        new Thread(() -> {
+            this.facturen = this.facturenController.cmdGetFacturen();
+            table.setItems(facturen);
+        }).start();
 
         FilterFacturen();
     }

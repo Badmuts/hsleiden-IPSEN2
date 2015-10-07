@@ -3,7 +3,6 @@ package Panthera.Views;
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
 import Panthera.Panthera;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,7 +36,7 @@ public class ProductenListView extends BorderPane implements Viewable {
             table.setItems(products);
         }).start();
 
-        setPadding(new Insets(10));
+        setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 10, 0));
     }
 
@@ -56,8 +55,9 @@ public class ProductenListView extends BorderPane implements Viewable {
     }
 
     private void createRemoveProductButton() {
-        Button button = new Button("Product verwijderen");
+        Button button = new Button("Wijnen verwijderen");
         button.setOnAction(event -> productenController.cmdDeleteProduct(products));
+        button.getStyleClass().addAll("btn", "btn-danger");
         topContainer.getChildren().add(button);
     }
 
@@ -114,8 +114,9 @@ public class ProductenListView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createTitle() {
-        Text title = new Text("Producten");
-        title.setFont(Font.font(22));
+        Text title = new Text("Wijnen");
+        title.setFont(Font.font(28));
+        title.getStyleClass().addAll("h1");
         topContainer.getChildren().add(title);
     }
 
@@ -127,8 +128,9 @@ public class ProductenListView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createAddProductButton() {
-        Button button = new Button("Product toevoegen");
+        Button button = new Button("Nieuwe wijn");
         button.setOnAction(e -> this.productenController.setView(new ProductenAddView(this.productenController)).show());
+        button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
 

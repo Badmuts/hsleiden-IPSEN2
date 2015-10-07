@@ -22,7 +22,7 @@ public class MailListView extends BorderPane implements Viewable {
     public MailListView(MailController mailController) {
         this.mailController = mailController;
 
-        setPadding(new Insets(10));
+        setPadding(new Insets(22));
         createHeader();
     }
 
