@@ -15,11 +15,13 @@ public class MainView extends BorderPane implements Viewable {
 
     private Stage stage = Panthera.getInstance().getStage();
     private MainMenuController mainMenuController;
-    private StackPane headerContainer = new StackPane();
-    private StackPane subviewContainer = new StackPane();
+    private StackPane headerContainer;
+    private StackPane subviewContainer;
 
     public MainView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
+        headerContainer = new StackPane();
+        subviewContainer = new StackPane();
         setupView();
     }
 

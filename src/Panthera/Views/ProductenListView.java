@@ -3,6 +3,7 @@ package Panthera.Views;
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
 import Panthera.Panthera;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,10 +28,15 @@ public class ProductenListView extends BorderPane implements Viewable {
 
     public ProductenListView(ProductenController productenController) {
         this.productenController = productenController;
-        this.products = this.productenController.cmdGetProducten();
         createHeader();
         createTableView();
-        table.setItems(products);
+
+        // Threads are really easy :O
+        new Thread(() -> {
+            this.products = this.productenController.cmdGetProducten();
+            table.setItems(products);
+        }).start();
+
         setPadding(new Insets(10));
         topContainer.setPadding(new Insets(0, 0, 10, 0));
     }

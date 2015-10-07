@@ -11,7 +11,7 @@ public class MainMenuController extends Controller {
 
     public MainMenuController(MainController mainController) {
         this.mainController = mainController;
-        mainController.setSubview(new MainView(this));
+//        mainController.setSubview(new MainView(this));
     }
 
     /**
@@ -22,7 +22,7 @@ public class MainMenuController extends Controller {
      * @throws Exception
      */
     public Controller cmdCreateProductenController() throws Exception {
-        return new ProductenController();
+        return new ProductenController(this.mainController);
     }
 
     public Controller cmdCreateFacturenController() throws Exception {

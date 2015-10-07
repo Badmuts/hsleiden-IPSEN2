@@ -21,7 +21,6 @@ public class FacturenController extends Controller {
     public FacturenController(MainController mainController) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
-        this.mainController.setSubview(new FacturenListView(this));
     }
 
 
@@ -50,4 +49,8 @@ public class FacturenController extends Controller {
         }
     }
 
+    @Override
+    public void show() {
+        this.mainController.setSubview(new FacturenListView(this));
+    }
 }

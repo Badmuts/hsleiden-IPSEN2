@@ -27,7 +27,7 @@ public class BestellijstenController extends Controller {
 	public BestellijstenController() {
 		try {
 			this.dao = new BestellijstDAO();
-			this.productenController = new ProductenController();
+//			this.productenController = new ProductenController();
 			this.view = new BestellijstenSummaryView(this);
 			this.stage = Panthera.getInstance().getStage();
 		} catch (Exception e) {

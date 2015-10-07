@@ -42,12 +42,15 @@ public class FacturenListView extends BorderPane implements Viewable {
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
-        this.facturen = this.facturenController.cmdGetFacturen();
         createHeader();
         createTableView();
-        table.setItems(facturen);
-        FilterFacturen();
 
+//        new Thread(() -> {
+//        }).start();
+        this.facturen = this.facturenController.cmdGetFacturen();
+        table.setItems(facturen);
+
+        FilterFacturen();
     }
 
     private void FilterFacturen() {
