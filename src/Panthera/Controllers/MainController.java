@@ -15,10 +15,10 @@ public class MainController extends Controller {
         this.subview = mainView.getSubviewContainer();
     }
 
-    public void setSubview(Node subview) {
+    public void setSubview(Node newView) {
         Platform.runLater(() -> {
-            this.subview.getChildren().clear();
-            this.subview.getChildren().addAll(subview);
+            subview.getChildren().clear();
+            subview.getChildren().addAll(newView);
         });
     }
 }
