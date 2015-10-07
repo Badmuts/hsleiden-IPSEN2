@@ -30,6 +30,7 @@
 .btn-menu.active {
     -fx-background-color: #003C7B;
     -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-effect: dropshadow(gaussian, #003061, 0, 0.0, 0, 2);
 }
 
 .btn-menu.active:hover {
