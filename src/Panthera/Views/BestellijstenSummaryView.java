@@ -4,6 +4,7 @@ import java.util.Date;
 
 import Panthera.Panthera;
 import Panthera.Controllers.BestellijstenController;
+import Panthera.Controllers.PrintController;
 import Panthera.Models.Bestellijst;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
  */
 public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	private BestellijstenController bestellijstenController;
+	private PrintController printController;
 	private Stage stage;
 	private HBox topContainer = new HBox(10);
 	private TableView<Bestellijst> table;
@@ -35,6 +37,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	
 	public BestellijstenSummaryView(BestellijstenController bestellijstenController) {
 		this.bestellijstenController = bestellijstenController;
+		this.printController = new PrintController();
 		this.stage = Panthera.getInstance().getStage();
 		this.bestellijsten = bestellijstenController.cmdGetBestellijsten();
 		createHeader();
@@ -80,6 +83,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		createTerugButton();
 		createAddBestellijstenButton();
 		createVerwijderButton();
+		createPrintButton();
 	}
 	
 	/**
@@ -93,7 +97,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	
 	public void createPrintButton() {
 		Button button = new Button("Print");
-		button.setOnAction(e -> this.bestellijstenController.print(bestellijsten));
+		button.setOnAction(e -> this.printController.print(bestellijsten));
 		topContainer.getChildren().add(button);
 	}
 	

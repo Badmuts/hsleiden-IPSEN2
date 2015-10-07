@@ -1,13 +1,15 @@
 package Panthera.Controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Panthera.DAO.DebiteurDAO;
+import Panthera.Models.AttributeCompare;
 import Panthera.Models.Debiteur;
 import Panthera.Views.DebiteurenListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 /**
  * 
@@ -59,6 +61,21 @@ public class DebiteurenController extends Controller {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Delete unselected,
+	 * return lexicographically.
+	 */
+	public List<Debiteur> filterUnselected(List<Debiteur> debiteuren) {
+		List<Debiteur> filtered = new ArrayList<>();
+		for(Debiteur debiteur : debiteuren) {
+			if(debiteur.isActive()) {
+				filtered.add(debiteur);
+			}
+		}
+		filtered.sort(new AttributeCompare());
+		return filtered;
 	}
 
 }
