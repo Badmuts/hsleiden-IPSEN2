@@ -129,7 +129,7 @@ public class ProductenListView extends BorderPane implements Viewable {
      */
     private void createAddProductButton() {
         Button button = new Button("Nieuwe wijn");
-        button.setOnAction(e -> this.productenController.setView(new ProductenAddView(this.productenController)).show());
+        button.setOnAction(e -> this.productenController.getMainController().setSubview(new ProductenAddView(this.productenController)));
         button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
