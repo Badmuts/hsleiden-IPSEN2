@@ -45,9 +45,9 @@ public class FacturenListView extends BorderPane implements Viewable {
         new Thread(() -> {
             this.facturen = this.facturenController.cmdGetFacturen();
             table.setItems(facturen);
+            FilterFacturen();
         }).start();
 
-        FilterFacturen();
     }
 
     private void FilterFacturen() {
