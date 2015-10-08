@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.PercentageStringConverter;
 
@@ -121,8 +122,8 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     }
     private void createForm() {
-        createField("Factuurnummer", factuur.factuurnummerProperty(), new NumberStringConverter());
-        createComboBox("Debiteur");
+        createField("Factuurnummer", factuur.factuurnummerProperty(), new IntegerStringConverter());
+        createComboBox("Lid");
         createDateField("Factuurdatum", factuur.factuurdatumProperty());
         createDateFieldVervalDatum("Vervaldatum", factuur.vervaldatumProperty());
         createTextArea("Opmerking", factuur.opmerkingProperty());

@@ -47,7 +47,7 @@ public class Factuur extends Model {
        // this.notitie = notitie;
     }
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
 
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
@@ -60,7 +60,7 @@ public class Factuur extends Model {
         this.opmerking = new SimpleStringProperty();
         this.bedrag = new SimpleDoubleProperty();
         this.pdf = new SimpleObjectProperty<>();
-        this.pdfPath = new SimpleStringProperty();
+        this.pdfPath = new SimpleStringProperty(pdfpath);
        // this.notitie = notitie;
     }
 
@@ -79,6 +79,7 @@ public class Factuur extends Model {
         this.pdfPath = new SimpleStringProperty();
 
     }
+
 
     //Getters
     public int getId() {

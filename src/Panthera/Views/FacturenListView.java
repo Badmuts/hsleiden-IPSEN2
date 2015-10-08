@@ -6,6 +6,7 @@ import Panthera.Factories.CheckBoxCellFactory;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
+import com.itextpdf.text.pdf.PdfDocument;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -25,7 +26,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
+import java.util.Properties;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -54,6 +58,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         }).start();
 
     }
+
 
     private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
@@ -88,6 +93,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
+        CreateVerzendFactuurButton();
         setTop(topContainer);
     }
 
@@ -95,6 +101,12 @@ public class FacturenListView extends BorderPane implements Viewable {
         Button button = new Button("Factuur verwijderen");
         button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
         button.getStyleClass().addAll("btn", "btn-danger");
+        topContainer.getChildren().add(button);
+    }
+
+    private void CreateVerzendFactuurButton() {
+        Button button = new Button("Verzend factuur");
+        button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
         topContainer.getChildren().add(button);
     }
 
@@ -126,7 +138,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 
 
-
+        addClicklistener();
         this.table.getColumns().addAll(checkbox, factuurnummer, voornaam, tussenvoegsel, achternaam, factuurdatum, factuurexpdate, status);
 
 
@@ -135,6 +147,39 @@ public class FacturenListView extends BorderPane implements Viewable {
         setCenter(this.table);
 
 
+    }
+
+    private void addClicklistener() {
+        table.setRowFactory( tv -> {
+            TableRow<Factuur> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Factuur rowData = row.getItem();
+
+                    for (int i= 1; i < facturen.size(); i++) {
+                        if (rowData.getId() == facturen.get(i).getId()) {
+                            System.out.println(rowData.getId() + "    " + facturen.get(i).getId());
+                           String pdfFile = facturen.get(i).getPdfPath();
+                            System.out.println(facturen.get(i).getPdfPath());
+
+                            //String pdfFile = "C:\\Users\\Brandon\\Desktop\\20151025-Wijk.pdf";
+
+
+                            System.out.println("pdfpath " + pdfFile);
+                            if (pdfFile.toString().endsWith(".pdf")) {
+                                try {
+                                    Runtime.getRuntime().exec(new String[] {"rundll32", "url.dll,FileProtocolHandler",  pdfFile});
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            i++;
+                        }
+                    }
+                }
+            });
+            return row ;
+        });
     }
 
     public void createSelectAllButton() {
