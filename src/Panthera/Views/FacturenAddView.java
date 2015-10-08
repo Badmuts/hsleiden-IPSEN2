@@ -55,9 +55,9 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void setupView() {
         createTitle();
-        createSaveButton();
         createForm();
         createTableView();
+        createSaveButton();
         table.setItems(producten);
         table.setEditable(true);
     }
@@ -96,6 +96,21 @@ public class FacturenAddView extends GridPane implements Viewable {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now());
         factuur.setFactuurdatum(java.sql.Date.valueOf(datePicker.getValue()));
+
+        datePicker.setOnAction(event -> {
+            property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
+        });
+
+        add(label, 0, currentRow);
+        add(datePicker, 1, currentRow);
+        currentRow++;
+
+    }
+    private void createDateFieldVervalDatum(String name, Property property) {
+        Label label = new Label(name);
+        DatePicker datePicker = new DatePicker(LocalDate.now().plusDays(30));
+        factuur.setVervaldatum(java.sql.Date.valueOf(datePicker.getValue()));
+
         datePicker.setOnAction(event -> {
             property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
         });
@@ -109,7 +124,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         createField("Factuurnummer", factuur.factuurnummerProperty(), new NumberStringConverter());
         createComboBox("Debiteur");
         createDateField("Factuurdatum", factuur.factuurdatumProperty());
-        createDateField("Vervaldatum", factuur.vervaldatumProperty());
+        createDateFieldVervalDatum("Vervaldatum", factuur.vervaldatumProperty());
         createTextArea("Opmerking", factuur.opmerkingProperty());
         createComboBoxBestellijst("Bestellijst");
     }
