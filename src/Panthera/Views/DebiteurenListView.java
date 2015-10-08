@@ -91,7 +91,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	public void addDebiteurButton(){
 		Button button = new Button("Nieuw Lid");
-		button.setOnAction(e -> this.debiteurenController.setView(new DebiteurenAddView(this.debiteurenController)).show());
+		button.setOnAction(e -> this.debiteurenController.getMainController().setSubview((new DebiteurenAddView(this.debiteurenController))));
 		topContainer.getChildren().add(button);
 	}
 
