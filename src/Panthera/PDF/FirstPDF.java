@@ -56,6 +56,8 @@ public class FirstPDF {
         try {
              FILE = "src/Panthera/PDF/PdfFiles/" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
              factuur.setPDF(this);
+            String pdfPath = FILE;
+            
             factuur.setPdfPath(FILE);
              this.document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));

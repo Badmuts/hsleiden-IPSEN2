@@ -95,6 +95,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createDateField(String name, Property property) {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now());
+        factuur.setFactuurdatum(java.sql.Date.valueOf(datePicker.getValue()));
         datePicker.setOnAction(event -> {
             property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
         });
