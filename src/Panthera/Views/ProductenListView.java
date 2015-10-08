@@ -7,6 +7,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,10 +27,17 @@ public class ProductenListView extends BorderPane implements Viewable {
 
     public ProductenListView(ProductenController productenController) {
         this.productenController = productenController;
-        this.products = this.productenController.cmdGetProducten();
         createHeader();
         createTableView();
-        table.setItems(products);
+
+        // Threads are really easy :O
+        new Thread(() -> {
+            this.products = this.productenController.cmdGetProducten();
+            table.setItems(products);
+        }).start();
+
+        setPadding(new Insets(22));
+        topContainer.setPadding(new Insets(0, 0, 10, 0));
     }
 
     /**
@@ -47,8 +55,9 @@ public class ProductenListView extends BorderPane implements Viewable {
     }
 
     private void createRemoveProductButton() {
-        Button button = new Button("Product verwijderen");
+        Button button = new Button("Wijnen verwijderen");
         button.setOnAction(event -> productenController.cmdDeleteProduct(products));
+        button.getStyleClass().addAll("btn", "btn-danger");
         topContainer.getChildren().add(button);
     }
 
@@ -90,7 +99,7 @@ public class ProductenListView extends BorderPane implements Viewable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Product rowData = row.getItem();
-                    productenController.setView(new ProductenAddView(productenController, rowData)).show();
+                    productenController.getMainController().setSubview(new ProductenAddView(productenController, rowData));
                 }
             });
             return row ;
@@ -105,8 +114,9 @@ public class ProductenListView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createTitle() {
-        Text title = new Text("Producten");
-        title.setFont(Font.font(22));
+        Text title = new Text("Wijnen");
+        title.setFont(Font.font(28));
+        title.getStyleClass().addAll("h1");
         topContainer.getChildren().add(title);
     }
 
@@ -118,8 +128,9 @@ public class ProductenListView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createAddProductButton() {
-        Button button = new Button("Product toevoegen");
-        button.setOnAction(e -> this.productenController.setView(new ProductenAddView(this.productenController)).show());
+        Button button = new Button("Nieuwe wijn");
+        button.setOnAction(e -> this.productenController.getMainController().setSubview(new ProductenAddView(this.productenController)));
+        button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
 

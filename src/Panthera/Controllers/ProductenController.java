@@ -11,11 +11,12 @@ import java.util.ArrayList;
 
 public class ProductenController extends Controller {
 
+    private final MainController mainController;
     private ProductDAO dao;
 
-    public ProductenController() throws Exception {
+    public ProductenController(MainController mainController) throws Exception {
         dao = new ProductDAO();
-        view = new ProductenListView(this);
+        this.mainController = mainController;
     }
 
     /**
@@ -38,7 +39,7 @@ public class ProductenController extends Controller {
     public void cmdSaveProduct(Product product) {
         try {
             dao.save(product);
-            setView(new ProductenListView(this)).show();
+            mainController.setSubview(new ProductenListView(this));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,5 +56,14 @@ public class ProductenController extends Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void show() {
+        this.mainController.setSubview(new ProductenListView(this));
+    }
+
+    public MainController getMainController() {
+        return mainController;
     }
 }

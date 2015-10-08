@@ -17,25 +17,29 @@ import java.util.ArrayList;
  */
 public class FacturenController extends Controller {
 
+    private MainController mainController;
     private ArrayList<Factuur> facturen;
     private FactuurDAO dao;
 
-    public FacturenController() throws Exception  {
+    public FacturenController(MainController mainController) throws Exception  {
+        this.mainController = mainController;
         this.dao = new FactuurDAO();
-        this.view = new FacturenListView(this);
+//        this.view = new FacturenListView(this);
         this.facturen = dao.getAllFacturen();
     }
 
-    public FacturenController(Factuur factuur) throws Exception  {
+    public FacturenController(MainController mainController, Factuur factuur) throws Exception  {
+        this.mainController = mainController;
         this.dao = new FactuurDAO();
-        this.view = new FacturenListView(this);
+//        this.view = new FacturenListView(this);
         this.facturen = new ArrayList<>();
         this.facturen.add(factuur);
     }
 
-    public FacturenController(ArrayList<Factuur> facturen) throws Exception  {
+    public FacturenController(MainController mainController, ArrayList<Factuur> facturen) throws Exception  {
+        this.mainController = mainController;
         this.dao = new FactuurDAO();
-        this.view = new FacturenListView(this);
+//        this.view = new FacturenListView(this);
         this.facturen = facturen;
     }
 
@@ -75,17 +79,23 @@ public class FacturenController extends Controller {
     }
 
     public void cmdShowFactuurAddView() throws Exception{
-        this.view = new FacturenAddView(this, new Factuur());
-        show();
+        mainController.setSubview(new FacturenAddView(this, new Factuur()));
     }
 
     public void cmdShowFactuurAddView(Factuur factuur) {
-        this.view = new FacturenAddView(this, factuur);
-        show();
+        mainController.setSubview(new FacturenAddView(this, factuur));
     }
 
     public void cmdAddFactuurregel(Factuurregel factuurregel) {
 
     }
 
+    @Override
+    public void show() {
+        this.mainController.setSubview(new FacturenListView(this));
+    }
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

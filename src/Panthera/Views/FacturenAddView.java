@@ -55,9 +55,9 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void setupView() {
         createTitle();
+        createSaveButton();
         createForm();
         createTableView();
-        createSaveButton();
         table.setItems(producten);
         table.setEditable(true);
     }

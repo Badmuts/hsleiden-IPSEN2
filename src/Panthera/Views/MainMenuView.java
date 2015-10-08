@@ -5,10 +5,11 @@ import Panthera.Controllers.MailController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MainMenuView extends BorderPane implements Viewable {
 
     private MainMenuController mainMenuController;
     private Stage stage = Panthera.getInstance().getStage();
-    private VBox menu;
+    private HBox menu;
     private ArrayList<Button> buttons = new ArrayList<>();
 
     /**
@@ -31,7 +32,7 @@ public class MainMenuView extends BorderPane implements Viewable {
     public MainMenuView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
         this.createMenu();
-        setCenter(menu);
+        setTop(menu);
         setPadding(new Insets(10));
     }
 
@@ -41,7 +42,8 @@ public class MainMenuView extends BorderPane implements Viewable {
      * @author Daan Rosbergen
      */
     private void createMenu() {
-        this.menu = new VBox(10);
+        this.menu = new HBox(10);
+        this.menu.setAlignment(Pos.CENTER_RIGHT);
         createMenuButtons(); // Temp solution for button list.
         this.menu.getChildren().addAll(buttons);
     }
@@ -54,10 +56,11 @@ public class MainMenuView extends BorderPane implements Viewable {
     private void createMenuButtons() {
         try {
             buttons.add(createButton("Facturen", mainMenuController.cmdCreateFacturenController()));
-            buttons.add(createButton("Producten", mainMenuController.cmdCreateProductenController()));
+            buttons.add(createButton("Wijnen", mainMenuController.cmdCreateProductenController()));
             buttons.add(createButton("Bestellijsten", mainMenuController.cmdCreateBestellijstenController()));
-            buttons.add(createButton("E-mail", new MailController()));
+            buttons.add(createButton("E-mail", mainMenuController.cmdCreateMailController()));
             buttons.add(createButton("Leden", mainMenuController.cmdCreateDebiteurenController()));
+//            buttons.get(0).getStyleClass().add("active"); // temp
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,7 +76,15 @@ public class MainMenuView extends BorderPane implements Viewable {
      */
     private Button createButton(String name, Controller controller) {
         Button button = new Button(name);
-        button.setOnAction(event -> controller.show());
+        button.setOnAction(event -> {
+            controller.show();
+            for (Button btn: buttons) {
+                btn.getStyleClass().remove("active");
+            }
+            button.getStyleClass().add("active");
+        });
+        button.getStyleClass().add("btn");
+        button.getStyleClass().add("btn-menu");
         return button;
     }
 
