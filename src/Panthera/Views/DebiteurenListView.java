@@ -135,7 +135,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Debiteur rowData = row.getItem();
-					debiteurenController.setView(new DebiteurenAddView(debiteurenController, rowData)).show();
+                    debiteurenController.getMainController().setSubview(new DebiteurenAddView(debiteurenController, rowData));
                 }
             });
             return row ;

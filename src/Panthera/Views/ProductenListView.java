@@ -99,7 +99,7 @@ public class ProductenListView extends BorderPane implements Viewable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Product rowData = row.getItem();
-                    productenController.setView(new ProductenAddView(productenController, rowData)).show();
+                    productenController.getMainController().setSubview(new ProductenAddView(productenController, rowData));
                 }
             });
             return row ;
