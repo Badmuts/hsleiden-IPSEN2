@@ -53,4 +53,8 @@ public class FacturenController extends Controller {
     public void show() {
         this.mainController.setSubview(new FacturenListView(this));
     }
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

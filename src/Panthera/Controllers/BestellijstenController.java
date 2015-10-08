@@ -3,10 +3,8 @@ package Panthera.Controllers;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
-import Panthera.Panthera;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
-import Panthera.Views.FacturenListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -78,7 +76,7 @@ public class BestellijstenController extends Controller {
 	public void opslaanBestellijst(List<Product> producten) {
 		producten = filterUnselected(producten);
 		dao.saveNewBestellijst(producten);
-		setView(new BestellijstenSummaryView(this)).show();
+		mainController.setSubview(new BestellijstenSummaryView(this));
 	}
 	
 	/**
@@ -122,4 +120,8 @@ public class BestellijstenController extends Controller {
 	public void show() {
 		this.mainController.setSubview(new BestellijstenSummaryView(this));
 	}
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

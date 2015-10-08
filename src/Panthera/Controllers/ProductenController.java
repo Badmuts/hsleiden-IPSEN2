@@ -2,7 +2,6 @@ package Panthera.Controllers;
 
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
-import Panthera.Views.FacturenListView;
 import Panthera.Views.ProductenListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -40,7 +39,7 @@ public class ProductenController extends Controller {
     public void cmdSaveProduct(Product product) {
         try {
             dao.save(product);
-            setView(new ProductenListView(this)).show();
+            mainController.setSubview(new ProductenListView(this));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,5 +61,9 @@ public class ProductenController extends Controller {
     @Override
     public void show() {
         this.mainController.setSubview(new ProductenListView(this));
+    }
+
+    public MainController getMainController() {
+        return mainController;
     }
 }

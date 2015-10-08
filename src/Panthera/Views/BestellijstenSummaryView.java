@@ -1,10 +1,8 @@
 package Panthera.Views;
 
-import java.util.Date;
-
-import Panthera.Panthera;
 import Panthera.Controllers.BestellijstenController;
 import Panthera.Models.Bestellijst;
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -20,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.Date;
 
 /**
  * Bestellijst view,
@@ -116,7 +116,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	 */
 	public void createAddBestellijstenButton() {
 		Button button = new Button("Bestellijst toevoegen");
-		button.setOnAction(e -> this.bestellijstenController.setView(bestellijstenController.openBestellijstenAddView()).show());
+		button.setOnAction(e -> this.bestellijstenController.getMainController().setSubview(bestellijstenController.openBestellijstenAddView()));
 		topContainer.getChildren().add(button);
 	}
 

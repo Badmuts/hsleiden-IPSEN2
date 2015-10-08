@@ -155,7 +155,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createAddFactuurButton() {
         Button button = new Button("Factuur toevoegen");
-        button.setOnAction(e -> this.facturenController.setView(new FacturenAddView()).show());
+        button.setOnAction(e -> this.facturenController.getMainController().setSubview(new FacturenAddView()));
         button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
