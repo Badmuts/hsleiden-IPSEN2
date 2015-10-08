@@ -19,6 +19,7 @@ public class MainController extends Controller {
         Platform.runLater(() -> {
             subview.getChildren().clear();
             subview.getChildren().addAll(newView);
+            subview.toFront();
         });
     }
 }
