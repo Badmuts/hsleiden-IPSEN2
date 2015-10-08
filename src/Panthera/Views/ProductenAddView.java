@@ -90,12 +90,13 @@ public class ProductenAddView extends GridPane implements Viewable {
                 product.setLand(newValue);
             });
             // TODO: Better fix this.
-            int i = 0;
+//            int i = 0;
             for (Land land: landen) {
-                if (land.getId() == product.getLand().getId())
-                    choiceBox.getSelectionModel().select(i);
-                i++;
-            }
+//                if (land.getId() == product.getLand().getId())
+                  choiceBox.getSelectionModel().select(land);
+//                i++;
+                }
+
             add(label, 0, currentRow);
             add(choiceBox, 1, currentRow);
             currentRow++;
