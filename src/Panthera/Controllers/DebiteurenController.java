@@ -69,6 +69,7 @@ public class DebiteurenController extends Controller {
 	}
 	
 	/**
+	 * Use setPresent method now.
 	 * @deprecated
 	 * @param debiteuren
 	 */
@@ -102,6 +103,36 @@ public class DebiteurenController extends Controller {
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public void setPresent(Debiteur debiteur) {
+		try {
+			Event event = eventDao.getLastEvent();
+			eventDao.setEvent(debiteur, event);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void setNotPresent(Debiteur debiteur) {
+		Event event;
+		try {
+			event = eventDao.getLastEvent();
+			eventDao.unsetEvent(debiteur, event);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Undo setting a Debiteur as Present at last event.
+	 * @param debiteuren
+	 */
+	public void setNotPresent(List<Debiteur> debiteuren) {
+		debiteuren = filterPresent(debiteuren);
 	}
 	
 	/**

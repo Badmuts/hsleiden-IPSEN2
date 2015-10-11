@@ -1,8 +1,8 @@
 package Panthera.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-import javafx.beans.property.SimpleBooleanProperty;
+import java.util.List;
 
 /**
  * Event represents a wine event.
@@ -11,9 +11,8 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class Event {
 	private int id;
-	private String name;
 	private Date date;
-	private SimpleBooleanProperty active;
+	private List<Debiteur> aanwezigen = new ArrayList<>();
 	
 	public Event() {
 	}
@@ -26,17 +25,8 @@ public class Event {
 		this.id = id;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	public SimpleBooleanProperty activeProperty() {
-		return this.active;
-	}
-	
-	
+		
 }

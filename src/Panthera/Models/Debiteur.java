@@ -131,6 +131,9 @@ public class Debiteur extends Model {
 	public void setPostcode(String postcode){
 		this.postcode.set(postcode);
 	}
+	public void setPresent(SimpleBooleanProperty present) {
+		this.present = present;
+	}
 	public void setEmail(String email){
 		this.email.set(email);
 	}
