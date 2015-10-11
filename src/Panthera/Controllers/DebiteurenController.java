@@ -20,11 +20,13 @@ import javafx.collections.ObservableList;
  *
  */
 public class DebiteurenController extends Controller {
-	
+
+	private final MainController mainController;
 	private DebiteurDAO dao;
 	private EventDAO eventDao;
 	
-	public DebiteurenController() {
+	public DebiteurenController(MainController mainController) {
+		this.mainController = mainController;
 
       try {
           this.dao = new DebiteurDAO();
@@ -32,7 +34,6 @@ public class DebiteurenController extends Controller {
       } catch (Exception e) {
           e.printStackTrace();
       }
-      this.view = new DebiteurenListView(this);
 	}
 	
 	public ObservableList<Debiteur> cmdGetDebiteuren() {
@@ -62,7 +63,7 @@ public class DebiteurenController extends Controller {
 	public void cmdAddDebiteur(Debiteur debiteur) {
 		try {
 			dao.addDebiteur(debiteur);
-			setView(new DebiteurenListView(this)).show();
+			mainController.setSubview(new DebiteurenListView(this));
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -152,4 +153,12 @@ public class DebiteurenController extends Controller {
 		System.out.println("test");
 	}
 
+	@Override
+	public void show() {
+		this.mainController.setSubview(new DebiteurenListView(this));
+	}
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

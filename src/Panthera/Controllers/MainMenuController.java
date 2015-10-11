@@ -1,14 +1,17 @@
 package Panthera.Controllers;
 
-import Panthera.Views.MainMenuView;
+import Panthera.Views.MainView;
 
 /**
  * Created by Daan on 22-Sep-15.
  */
 public class MainMenuController extends Controller {
 
-    public MainMenuController() {
-        this.view = new MainMenuView(this);
+    private MainController mainController;
+
+    public MainMenuController(MainController mainController) {
+        this.mainController = mainController;
+//        mainController.setSubview(new MainView(this));
     }
 
     /**
@@ -19,19 +22,23 @@ public class MainMenuController extends Controller {
      * @throws Exception
      */
     public Controller cmdCreateProductenController() throws Exception {
-        return new ProductenController();
+        return new ProductenController(this.mainController);
     }
 
     public Controller cmdCreateFacturenController() throws Exception {
-        return new FacturenController();
+        return new FacturenController(this.mainController);
     }
     
     public Controller cmdCreateBestellijstenController() throws Exception {
-    	return new BestellijstenController();
+    	return new BestellijstenController(this.mainController);
     }
 
     public Controller cmdCreateDebiteurenController() {
-        return new DebiteurenController();
+        return new DebiteurenController(this.mainController);
+    }
+
+    public Controller cmdCreateMailController() {
+        return new MailController(this.mainController);
     }
 }
 

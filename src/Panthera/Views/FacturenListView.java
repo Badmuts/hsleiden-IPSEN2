@@ -1,35 +1,25 @@
 package Panthera.Views;
+
 import Panthera.Controllers.FacturenController;
-import Panthera.Factories.CheckBoxCellFactory;
-import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-
-import javax.swing.table.TableModel;
 import java.util.Date;
 
 /**
@@ -45,16 +35,18 @@ public class FacturenListView extends BorderPane implements Viewable {
     private TextField filterField;
     private HBox topContainer = new HBox(10);
 
-
-
     public FacturenListView(FacturenController facturenController)  {
-
+        setPadding(new Insets(22));
+        topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
-        this.facturen = this.facturenController.cmdGetFacturen();
         createHeader();
         createTableView();
-        table.setItems(facturen);
-        FilterFacturen();
+
+        new Thread(() -> {
+            this.facturen = this.facturenController.cmdGetFacturen();
+            table.setItems(facturen);
+            FilterFacturen();
+        }).start();
 
     }
 
@@ -63,11 +55,11 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             this.filteredData.setPredicate(factuur -> {
-                if(newValue == null || newValue.isEmpty()) {
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if(factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                if (factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
@@ -82,21 +74,22 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createHeader() {
         createTitle();
+        createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
-        createTextField();
         setTop(topContainer);
     }
 
     private void createRemoveFactuurButton() {
         Button button = new Button("Factuur verwijderen");
         button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
+        button.getStyleClass().addAll("btn", "btn-danger");
         topContainer.getChildren().add(button);
     }
 
     private void createTableView() {
         this.table = new TableView<>();
-
+//        this.table.setColumnResizePolicy(param -> true);
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
                        CheckBox checkBox = new CheckBox();
@@ -149,18 +142,21 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTextField() {
         this.filterField = new TextField();
+        filterField.promptTextProperty().setValue("Zoeken...");
         topContainer.getChildren().add(this.filterField);
-
+        setAlignment(filterField, Pos.CENTER_RIGHT);
     }
     private void createTitle() {
         Text title = new Text("Facturen");
-        title.setFont(Font.font(22));
+        title.getStyleClass().add("h1");
         topContainer.getChildren().add(title);
+        topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
     private void createAddFactuurButton() {
         Button button = new Button("Factuur toevoegen");
-        button.setOnAction(e -> this.facturenController.setView(new FacturenAddView()).show());
+        button.setOnAction(e -> this.facturenController.getMainController().setSubview(new FacturenAddView()));
+        button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
 
@@ -168,7 +164,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     @Override
     public void show() {
 
-        this.stage.setScene(new Scene(this, 800, 600));
-        this.stage.show();
+//        this.stage.setScene(new Scene(this, 800, 600));
+//        this.stage.show();
     }
 }

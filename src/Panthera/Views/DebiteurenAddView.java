@@ -8,6 +8,7 @@ import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -17,8 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
 
 import java.util.ArrayList;
 
@@ -36,6 +35,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 
 	
 	public DebiteurenAddView(DebiteurenController debiteurenController){
+      setPadding(new Insets(10));
 		this.debiteurenController = debiteurenController;
 		this.debiteur = new Debiteur();
 		createTitle();
