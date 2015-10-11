@@ -8,19 +8,8 @@ import java.util.Date;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Models.Factuurregel;
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -47,6 +36,8 @@ public class FirstPDF {
     private Paragraph preface;
     private Double totaalbedrag = 0.0;
     private String FILE;
+    private PdfWriter writer;
+    private Rectangle rect;
 
     public FirstPDF(Factuur factuur, ArrayList<Factuurregel> factuurregels, Debiteur debiteur) {
         this.factuur = factuur;
@@ -54,13 +45,16 @@ public class FirstPDF {
         this.debiteur = debiteur;
 
         try {
+
              FILE = "C:\\Users\\Brandon\\Desktop\\LionsPdfFiles\\" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
              factuur.setPDF(this);
             String pdfPath = FILE;
             
             factuur.setPdfPath(FILE);
              this.document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            this.writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            rect = new Rectangle(30, 30, 550, 800);
+            writer.setBoxSize("art", rect);
             document.open();
             addMetaData(document);
             addTitlePage(document);
@@ -102,6 +96,7 @@ public class FirstPDF {
         preface.add(new Paragraph("Totaal:"  + this.totaalbedrag));
         document.add(preface);
         createTable();
+        onEndPage();
 
     }
 
@@ -156,6 +151,15 @@ public class FirstPDF {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void onEndPage() {
+        rect = writer.getBoxSize("art");
+        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Lionsclun Oestgeest/Warmond"), rect.getLeft(), rect.getBottom() - 15, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Bankrekening IBAN-nummer"), rect.getLeft(), rect.getBottom() - 30, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("KVK: "), rect.getLeft(), rect.getBottom() - 45, 0);
+
 
     }
 
