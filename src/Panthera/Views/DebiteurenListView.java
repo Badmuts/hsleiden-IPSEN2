@@ -1,12 +1,8 @@
 package Panthera.Views;
 
-import Panthera.Models.Factuur;
 import Panthera.Panthera;
-
+import Panthera.Controllers.DebiteurenController;
 import Panthera.Models.Debiteur;
-import Panthera.Views.DebiteurenAddView;
-import Panthera.Views.Viewable;
-import Panthera.Controllers.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -14,9 +10,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -77,10 +79,23 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	public void createHeader() {
 		createTitle();
+		addAanwezigButton();
 		addDebiteurButton();
 		removeDebiteurButton();
 		createFilterField();
 		setTop(topContainer);
+	}
+	
+	/**
+	 * Register who's present at event.
+	 * @author Roy
+	 */
+	private void addAanwezigButton() {
+		Button button = new Button("Aanwezig");
+		button.setOnAction(e -> {
+			debiteurenController.registerEvent(debiteuren);
+		});
+		topContainer.getChildren().add(button);
 	}
 
 	private void removeDebiteurButton() {
@@ -105,6 +120,17 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 			Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().activeProperty());
 			return new SimpleObjectProperty<>(checkBox);
 		});
+		TableColumn<Debiteur, CheckBox> checkbox2 = new TableColumn("Aanwezig");
+		checkbox2.setCellValueFactory(param -> {
+			CheckBox checkBox = new CheckBox();
+			checkBox.setOnAction(e -> {
+				debiteurenController.setPresent(debiteuren);
+				//debiteurenController.test();				
+			});
+			Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().isPresent());
+			return new SimpleObjectProperty<>(checkBox);
+		});
+		
 		TableColumn<Debiteur, String> aanhef = new TableColumn("Aanhef");
 		aanhef.setCellValueFactory(new PropertyValueFactory<>("aanhef"));
 		TableColumn<Debiteur, String> voornaam = new TableColumn("Voornaam");
@@ -125,7 +151,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		land.setCellValueFactory(new PropertyValueFactory<>("land"));
 
 		addClicklistener();
-		table.getColumns().addAll(checkbox, aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, telefoon, land);
+		table.getColumns().addAll(checkbox, aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, telefoon, land, checkbox2);
 		setCenter(table);
 	}
 
