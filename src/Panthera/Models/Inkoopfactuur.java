@@ -7,6 +7,7 @@ public class Inkoopfactuur {
 	private int factuurnummer;
 	private Date factuurdatum;
 	private Date vervaldatum;
+	private String status;
 	
 	public Inkoopfactuur() {
 		
@@ -26,6 +27,12 @@ public class Inkoopfactuur {
 	}
 	public Date getFactuurdatum() {
 		return factuurdatum;
+	}
+	public String getStatus() {
+		return this.status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public void setFactuurdatum(Date factuurdatum) {
 		this.factuurdatum = factuurdatum;

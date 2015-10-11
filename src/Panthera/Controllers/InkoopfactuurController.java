@@ -20,6 +20,10 @@ public class InkoopfactuurController extends Controller {
 	}
 	
 	public void generateInkoopfactuur(List<Factuur> facturen) {
-		inkoopfactuur = dao.createInkoopfactuur();
+		try {
+			inkoopfactuur = dao.createInkoopfactuur();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
