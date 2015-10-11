@@ -94,29 +94,13 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	}
 
 	public void createHeader() {
-		createTitle();
-		addAanwezigButton();
+		createTitle();;
 		addDebiteurButton();
 		removeDebiteurButton();
 		createFilterField();
 		setTop(topContainer);
 	}
 	
-	/**
-	 * TODO remove complete aanwezigButton.
-	 * Using checkbox eventHandler now
-	 * @deprecated
-	 * Register who's present at event.
-	 * @author Roy
-	 */
-	private void addAanwezigButton() {
-		Button button = new Button("Aanwezig");
-		button.setOnAction(e -> {
-			debiteurenController.setPresent(debiteuren);
-		});
-		topContainer.getChildren().add(button);
-	}
-
 	private void removeDebiteurButton() {
 		Button button = new Button("Lid verwijderen");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
