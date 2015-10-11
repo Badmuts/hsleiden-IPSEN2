@@ -29,4 +29,8 @@ public class Controller {
         return this;
     }
 
+    public Viewable getView() {
+        return this.view;
+    }
+
 }

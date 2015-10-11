@@ -1,22 +1,20 @@
 package Panthera.Views;
 
-import Panthera.Models.Factuur;
-import Panthera.Panthera;
-
+import Panthera.Controllers.DebiteurenController;
 import Panthera.Models.Debiteur;
-import Panthera.Views.DebiteurenAddView;
-import Panthera.Views.Viewable;
-import Panthera.Controllers.*;
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,6 +31,8 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 
 	public DebiteurenListView(DebiteurenController debiteurenController){
+      setPadding(new Insets(22));
+      topContainer.setPadding(new Insets(0, 0, 10, 0));
 		this.debiteurenController = debiteurenController;
 		this.debiteuren = this.debiteurenController.cmdGetDebiteuren();
 
@@ -91,7 +91,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	public void addDebiteurButton(){
 		Button button = new Button("Nieuw Lid");
-		button.setOnAction(e -> this.debiteurenController.setView(new DebiteurenAddView(this.debiteurenController)).show());
+		button.setOnAction(e -> this.debiteurenController.getMainController().setSubview((new DebiteurenAddView(this.debiteurenController))));
 		topContainer.getChildren().add(button);
 	}
 
@@ -135,7 +135,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Debiteur rowData = row.getItem();
-					debiteurenController.setView(new DebiteurenAddView(debiteurenController, rowData)).show();
+                    debiteurenController.getMainController().setSubview(new DebiteurenAddView(debiteurenController, rowData));
                 }
             });
             return row ;
