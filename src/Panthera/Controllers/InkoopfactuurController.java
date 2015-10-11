@@ -19,9 +19,14 @@ public class InkoopfactuurController extends Controller {
 		}
 	}
 	
+	/**
+	 * Create new inkoopfactuur and link products in inkoopproduct table.
+	 * @param facturen
+	 */
 	public void generateInkoopfactuur(List<Factuur> facturen) {
 		try {
 			inkoopfactuur = dao.createInkoopfactuur();
+			dao.linkProducts(inkoopfactuur, facturen);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
