@@ -1,7 +1,7 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
-import Panthera.PDF.FactuurPdf;
+import Panthera.PDFModels.FactuurPdf;
 import javafx.beans.property.*;
 
 import java.sql.Date;

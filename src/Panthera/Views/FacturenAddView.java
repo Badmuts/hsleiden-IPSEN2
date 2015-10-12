@@ -4,7 +4,7 @@ import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.*;
-import Panthera.PDF.FactuurPdf;
+import Panthera.PDFModels.FactuurPdf;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
