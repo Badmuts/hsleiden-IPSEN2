@@ -105,7 +105,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         CreateVerzendFactuurButton();
         createUpdateFactuurButton();
         createGenerateInkoopfactuurButton();
-        createTextField();
+        //createTextField();
 
         setTop(topContainer);
     }
@@ -135,6 +135,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     private void CreateVerzendFactuurButton() {
         Button button = new Button("Verzend factuur");
         button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
+        topContainer.getChildren().add(button);
     }
 
     private void createUpdateFactuurButton() {

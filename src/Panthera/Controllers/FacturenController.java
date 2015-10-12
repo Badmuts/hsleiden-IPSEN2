@@ -87,7 +87,7 @@ public class FacturenController extends Controller {
     public void cmdUpdateStatus(ObservableList<Factuur> facturen, String status) {
         try {
             for (Factuur factuur : facturen) {
-                if (factuur.isBetaald()) {
+                if (factuur.isChecked()) {
                     dao.updateStatus(factuur, status);
                     setView(new FacturenListView(this)).show();
                 }
@@ -129,6 +129,8 @@ public class FacturenController extends Controller {
                 email.addAttachment(factuur.getPdfPath(), factuur.getPdfPath());
                 mailService.send(email);
             }
+            cmdUpdateStatus(facturen, "Openstaand");
+            setView(new FacturenListView(this)).show();
         }
     }
 
