@@ -3,7 +3,6 @@ package Panthera.Controllers;
 import Panthera.DAO.FactuurDAO;
 import Panthera.Models.Factuur;
 import Panthera.Views.FacturenListView;
-import Panthera.Views.Viewable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +15,12 @@ import java.util.ArrayList;
  */
 public class FacturenController extends Controller {
 
+    private MainController mainController;
     private FactuurDAO dao;
 
-    public FacturenController() throws Exception  {
-
+    public FacturenController(MainController mainController) throws Exception  {
+        this.mainController = mainController;
         this.dao = new FactuurDAO();
-        this.view = new FacturenListView(this);
     }
 
 
@@ -63,4 +62,13 @@ public class FacturenController extends Controller {
         }
     }
 
+
+    @Override
+    public void show() {
+        this.mainController.setSubview(new FacturenListView(this));
+    }
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

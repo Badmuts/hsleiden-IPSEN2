@@ -1,19 +1,17 @@
 package Panthera.Controllers;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import Panthera.Panthera;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.Models.Bestellijst;
 import Panthera.Models.Product;
 import Panthera.Views.BestellijstenAddView;
 import Panthera.Views.BestellijstenSummaryView;
-import Panthera.Views.MainMenuView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles bestelijst logic.
@@ -21,16 +19,16 @@ import javafx.stage.Stage;
  *
  */
 public class BestellijstenController extends Controller {
+	private MainController mainController;
 	private ProductenController productenController;
 	private BestellijstDAO dao;
 	private Stage stage;
 	
-	public BestellijstenController() {
+	public BestellijstenController(MainController mainController) {
 		try {
+			this.mainController = mainController;
 			this.dao = new BestellijstDAO();
-			this.productenController = new ProductenController();
-			this.view = new BestellijstenSummaryView(this);
-			this.stage = Panthera.getInstance().getStage();
+			this.productenController = new ProductenController(this.mainController);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +39,7 @@ public class BestellijstenController extends Controller {
 	 * Open the main menu.
 	 */
 	public void mainMenu() {
-		setView(new MainMenuView(new MainMenuController()));
+//		setView(new MainMenuView(new MainMenuController()));
 	}
 	
 	public BestellijstenAddView openBestellijstenAddView() {
@@ -78,7 +76,7 @@ public class BestellijstenController extends Controller {
 	public void opslaanBestellijst(List<Product> producten) {
 		producten = filterUnselected(producten);
 		dao.saveNewBestellijst(producten);
-		setView(new BestellijstenSummaryView(this)).show();
+		mainController.setSubview(new BestellijstenSummaryView(this));
 	}
 	
 	/**
@@ -117,4 +115,13 @@ public class BestellijstenController extends Controller {
 		}
 		return FXCollections.observableArrayList(bestellijsten);
 	}
+
+	@Override
+	public void show() {
+		this.mainController.setSubview(new BestellijstenSummaryView(this));
+	}
+
+    public MainController getMainController() {
+        return mainController;
+    }
 }

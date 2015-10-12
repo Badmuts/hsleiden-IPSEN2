@@ -14,25 +14,23 @@ import javafx.collections.ObservableList;
 public class MailController extends Controller {
 
     private final MailService mailService;
+    private final MainController mainController;
 
-    public MailController() {
+    public MailController(MainController mainController) {
+        this.mainController = mainController;
         this.mailService = new MailService();
-        this.view = new MailListView(this);
     }
 
     public void cmdShowDankwoordView() {
-        this.view = new MailDankwoordView(this);
-        show();
+        this.mainController.setSubview(new MailDankwoordView(this));
     }
 
     public void cmdShowUitnodigingView() {
-        this.view = new MailUitnodigingView(this);
-        show();
+        this.mainController.setSubview(new MailUitnodigingView(this));
     }
 
     public void cmdShowSelectRecipients(String onderwerp, String bericht) {
-        this.view = new MailSelectRecipientsView(this, onderwerp, bericht);
-        show();
+        this.mainController.setSubview(new MailSelectRecipientsView(this, onderwerp, bericht));
     }
 
     public void cmdSendDankwoord(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
@@ -46,8 +44,7 @@ public class MailController extends Controller {
                 email.addTo(debiteur.getEmail());
             mailService.send(email);
         }
-        this.view = new MailListView(this);
-        show();
+        this.mainController.setSubview(new MailListView(this));
     }
 
     public void cmdSendUitnodiging(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
@@ -61,7 +58,15 @@ public class MailController extends Controller {
                 email.addTo(debiteur.getEmail());
             mailService.send(email);
         }
-        this.view = new MailListView(this);
-        show();
+        this.mainController.setSubview(new MailListView(this));
+    }
+
+    @Override
+    public void show() {
+        this.mainController.setSubview(new MailListView(this));
+    }
+
+    public MainController getMainController() {
+        return mainController;
     }
 }

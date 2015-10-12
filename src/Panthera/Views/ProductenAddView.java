@@ -8,6 +8,7 @@ import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -33,6 +34,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     public ProductenAddView(ProductenController productenController) {
         this.productenController = productenController;
         this.product = new Product();
+        setPadding(new Insets(10));
         createTitle();
         createForm();
         createSaveButton();
@@ -41,6 +43,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     public ProductenAddView(ProductenController productenController, Product product) {
         this.productenController = productenController;
         this.product = product;
+        setPadding(new Insets(10));
         createTitle();
         createForm();
         createSaveButton();
@@ -87,12 +90,13 @@ public class ProductenAddView extends GridPane implements Viewable {
                 product.setLand(newValue);
             });
             // TODO: Better fix this.
-            int i = 0;
+//            int i = 0;
             for (Land land: landen) {
-                if (land.getId() == product.getLand().getId())
-                    choiceBox.getSelectionModel().select(i);
-                i++;
-            }
+//                if (land.getId() == product.getLand().getId())
+                  choiceBox.getSelectionModel().select(land);
+//                i++;
+                }
+
             add(label, 0, currentRow);
             add(choiceBox, 1, currentRow);
             currentRow++;
