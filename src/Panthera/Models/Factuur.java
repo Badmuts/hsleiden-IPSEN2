@@ -1,13 +1,10 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
-import Panthera.PDF.FirstPDF;
-import com.itextpdf.text.pdf.PdfObject;
+import Panthera.PDF.FactuurPdf;
 import javafx.beans.property.*;
-import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +22,7 @@ public class Factuur extends Model {
     private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
     private SimpleStringProperty opmerking;
     private SimpleDoubleProperty bedrag;
-    private SimpleObjectProperty<FirstPDF> pdf;
+    private SimpleObjectProperty<FactuurPdf> pdf;
     private SimpleStringProperty pdfPath;
     //private String notitie;
     //private Organisatie organisatie;
@@ -116,7 +113,7 @@ public class Factuur extends Model {
 
     public Double getBedrag() { return bedrag.get(); }
 
-    public FirstPDF getPDF() {
+    public FactuurPdf getPDF() {
         return this.pdf.get();
     }
 
@@ -157,7 +154,7 @@ public class Factuur extends Model {
         this.opmerking.set(opmerking);
     }
 
-    public void setPDF(FirstPDF pdf) {
+    public void setPDF(FactuurPdf pdf) {
         this.pdf.set(pdf);
     }
 

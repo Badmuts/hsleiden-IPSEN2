@@ -39,6 +39,9 @@ public class Factuurregel extends Model {
         setSubtotaal(totaalprijs / getBtw() * 100);
     }
 
+    public double getPrijs() {
+        return getProduct().getPrijs();
+    }
     public void berekenBTW() {
         setBtw((this.totaalprijs / getBtwPercentage()) * 21);
     }

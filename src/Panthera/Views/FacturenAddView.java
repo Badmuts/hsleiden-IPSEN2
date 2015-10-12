@@ -4,7 +4,7 @@ import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.*;
-import Panthera.PDF.FirstPDF;
+import Panthera.PDF.FactuurPdf;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
@@ -21,11 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.NumberStringConverter;
-import javafx.util.converter.PercentageStringConverter;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -77,7 +73,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     private void saveFactuur() throws Exception {
-        new FirstPDF(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
+        new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
         facturenController.cmdSaveFactuur(factuur);
     }
 
