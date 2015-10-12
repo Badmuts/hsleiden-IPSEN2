@@ -47,7 +47,7 @@ public class DatabaseService {
         Properties info = new Properties( );
 
         info.put( "user", "postgres" );
-        info.put( "password", "Welkom#1" );
+        info.put( "password", "" );
 
         Connection conn = DriverManager.getConnection(URL, info);
 

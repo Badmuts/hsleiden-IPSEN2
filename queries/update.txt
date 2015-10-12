@@ -16,3 +16,17 @@ CREATE TABLE IF NOT EXISTS bestellijst_set
 	bestellijst_id integer REFERENCES bestellijst (id),
 	product_id integer REFERENCES product (id)
 );
+
+CREATE TABLE If NOT EXISTS settings
+(
+  id serial NOT NULL,
+  bedrijfsnaam character varying(255) NOT NULL,
+  adres character varying(255) NOT NULL,
+  telefoon numeric(11,0) NOT NULL,
+  mailadres character varying(255) NOT NULL,
+  kvk numeric(25,0),
+  btwnummer numeric(25,0),
+  iban character varying(255) NOT NULL,
+  bic character varying(255) NOT NULL,
+  CONSTRAINT settings_pkey PRIMARY KEY (id)
+);
