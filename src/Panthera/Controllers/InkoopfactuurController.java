@@ -2,7 +2,10 @@ package Panthera.Controllers;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import com.itextpdf.text.DocumentException;
 
@@ -48,6 +51,19 @@ public class InkoopfactuurController extends Controller {
 		try {
 			new InkoopfactuurPdf().create(inkoopfactuurRegels);
 		} catch (FileNotFoundException | DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInkoopfactuur(MailController mailController) {
+		List<Factuur> facturen = new ArrayList<>();
+		try {
+			this.inkoopfactuur = dao.createInkoopfactuur();
+			facturen = dao.fetchConceptFacturen();
+			this.inkoopfactuurRegels = dao.linkProducts(inkoopfactuur, facturen);
+			mailController.cmdSendInkoopfactuur(inkoopfactuurRegels);
+		} catch (SQLException | MessagingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
