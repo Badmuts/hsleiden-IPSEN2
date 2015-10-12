@@ -1,11 +1,8 @@
 package Panthera.Views;
 
-import java.util.Date;
-
-import Panthera.Panthera;
 import Panthera.Controllers.FacturenController;
-import Panthera.Controllers.InkoopfactuurController;
 import Panthera.Models.Factuur;
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -16,16 +13,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.Date;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -39,13 +34,11 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FilteredList<Factuur> filteredData;
     private TextField filterField;
     private HBox topContainer = new HBox(10);
-    private InkoopfactuurController inkoopfactuurController;
 
     public FacturenListView(FacturenController facturenController)  {
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
-        this.inkoopfactuurController = new InkoopfactuurController();
         createHeader();
         createTableView();
 
@@ -84,22 +77,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
-        createGenerateInkoopfactuurButton();
         setTop(topContainer);
-    }
-    
-    /**
-     * Creates the button to generate an inkoopfactuur.
-     * bit of a long name.
-     * @author Roy
-     */
-    private void createGenerateInkoopfactuurButton() {
-    	System.out.println("test");
-    	Button button = new Button("Inkoopfactuur Opstellen");
-    	button.setOnAction(e -> {
-    		inkoopfactuurController.generateInkoopfactuur(facturen);
-    	});
-    	topContainer.getChildren().add(button);
     }
 
     private void createRemoveFactuurButton() {
