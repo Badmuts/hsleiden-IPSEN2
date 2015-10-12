@@ -24,7 +24,8 @@ public class Factuur extends Model {
     private SimpleDoubleProperty bedrag;
     private SimpleObjectProperty<FactuurPdf> pdf;
     private SimpleStringProperty pdfPath;
-    //private String notitie;
+    private SimpleBooleanProperty betaald;
+
     //private Organisatie organisatie;
 
 
@@ -41,7 +42,6 @@ public class Factuur extends Model {
         this.opmerking = new SimpleStringProperty(opmerking);
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty();
-       // this.notitie = notitie;
     }
 
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
@@ -58,7 +58,7 @@ public class Factuur extends Model {
         this.bedrag = new SimpleDoubleProperty();
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty(pdfpath);
-       // this.notitie = notitie;
+        this.betaald = new SimpleBooleanProperty(false);
     }
 
     public Factuur() throws Exception {
@@ -190,6 +190,18 @@ public class Factuur extends Model {
         return vervaldatum;
     }
 
+    public void setBetaald(Boolean betaald) {
+        this.betaald.set(betaald);
+    }
+
+    public Boolean isBetaald() {
+        return this.betaald.get();
+    }
+
+    public SimpleBooleanProperty betaaldProperty() {
+        return this.betaald;
+    }
+
     public SimpleStringProperty statusProperty() {
         return status;
     }
@@ -205,17 +217,9 @@ public class Factuur extends Model {
     public SimpleObjectProperty pdfProperty() { return this.pdf; }
 
 
-//    public String getNotitie() {
-//        return notitie;
-//    }
-
-//    public void setNotitie(String notitie) {
-//        this.notitie = notitie;
-//    }
-
-        public String toString() {
-            return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
-        }
+    public String toString() {
+        return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+    }
 
     public ArrayList<Factuurregel> getFactuurregels() {
         return factuurregels.get();
@@ -232,7 +236,6 @@ public class Factuur extends Model {
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
     }
-
 
 }
 

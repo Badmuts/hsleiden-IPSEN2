@@ -72,13 +72,26 @@ public class FacturenController extends Controller {
         }
     }
 
+
     public void cmdSaveFactuur(Factuur factuur) {
-        if(factuur.getStatus().equals("")) {
+        if (factuur.getStatus().equals("")) {
             factuur.setStatus("Concept");
         }
         try {
             dao.save(factuur);
             setView(new FacturenListView(this)).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void cmdUpdateStatus(ObservableList<Factuur> facturen, String status) {
+        try {
+            for (Factuur factuur : facturen) {
+                if (factuur.isBetaald()) {
+                    dao.updateStatus(factuur, status);
+                    setView(new FacturenListView(this)).show();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

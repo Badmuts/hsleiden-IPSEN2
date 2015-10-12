@@ -103,7 +103,9 @@ public class FacturenListView extends BorderPane implements Viewable {
         createAddFactuurButton();
         createRemoveFactuurButton();
         CreateVerzendFactuurButton();
+        createUpdateFactuurButton();
         createGenerateInkoopfactuurButton();
+        createTextField();
 
         setTop(topContainer);
     }
@@ -129,9 +131,15 @@ public class FacturenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
+
     private void CreateVerzendFactuurButton() {
         Button button = new Button("Verzend factuur");
         button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
+    }
+
+    private void createUpdateFactuurButton() {
+        Button button = new Button("Update factuur");
+        button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
     }
 
@@ -162,12 +170,15 @@ public class FacturenListView extends BorderPane implements Viewable {
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 
+        TableColumn<Factuur, CheckBox> checkboxBetaald = new TableColumn("Betaald");
+        checkboxBetaald.setCellValueFactory(param -> {
+            CheckBox checkBox = new CheckBox();
+            Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().betaaldProperty());
+            return new SimpleObjectProperty<>(checkBox);
+        });
 
         addClicklistener();
         this.table.getColumns().addAll(checkbox, factuurnummer, voornaam, tussenvoegsel, achternaam, factuurdatum, factuurexpdate, status);
-
-
-
         createSelectAllButton();
         setCenter(this.table);
 
