@@ -13,7 +13,7 @@ public class Product extends Model {
     private SimpleStringProperty type;
     private SimpleObjectProperty<Land> land;
     private SimpleBooleanProperty active;
-    
+
     public Product(int id, int productnummer, String naam, int jaar, double prijs, String type, Land land) {
         this.id = new SimpleIntegerProperty(id);
         this.productnummer = new SimpleIntegerProperty(productnummer);
