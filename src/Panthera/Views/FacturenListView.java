@@ -97,7 +97,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createUpdateFactuurButton() {
         Button button = new Button("Update factuur");
-        button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen));
+        button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
     }
 

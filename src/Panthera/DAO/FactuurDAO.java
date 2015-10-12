@@ -32,10 +32,10 @@ public class FactuurDAO extends DAO {
         return factuur;
     }
 
-        public void updateStatus(Factuur factuur) throws Exception {
+        public void updateStatus(Factuur factuur , String status) throws Exception {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("UPDATE factuur " +
-                    "SET status='Betaald' WHERE id=" + factuur.getId());
+                    "SET status='"+ status +"' WHERE id=" + factuur.getId());
         }
 
     /**
