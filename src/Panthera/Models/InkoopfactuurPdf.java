@@ -15,8 +15,9 @@ import com.itextpdf.text.pdf.PdfWriter;
  *
  */
 public class InkoopfactuurPdf {
+	
 	public void create(List<InkoopfactuurRegel> regels) throws FileNotFoundException, DocumentException {
-		final String result = "pdf/hello4.pdf";
+		final String result = "pdf/inkoopfactuur.pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(result));
 		document.open();
@@ -33,6 +34,7 @@ public class InkoopfactuurPdf {
 			table.addCell(String.valueOf(regel.getAantal()));
 			table.addCell(String.valueOf(calculatePrice(regel)));
 		}
+		createFooter(table, regels);
 		return table;
 	}
 	
@@ -43,9 +45,25 @@ public class InkoopfactuurPdf {
 		table.addCell("Prijs");
 	}
 	
+	public void createFooter(PdfPTable table, List<InkoopfactuurRegel> regels) {
+		table.addCell("");
+		table.addCell("");
+		table.addCell("");
+		table.addCell(String.valueOf(calculateTotalPrice(regels)));
+	}
+	
 	public double calculatePrice(InkoopfactuurRegel regel) {
 		double prijs;
 		prijs = regel.getAantal() * regel.getPrijs();
+		return prijs;
+	}
+	
+	public double calculateTotalPrice(List<InkoopfactuurRegel> regels) {
+		double prijs = 0.0;
+		for(InkoopfactuurRegel regel : regels) {
+			prijs += regel.getPrijs() * regel.getAantal();
+		}
+		
 		return prijs;
 	}
 
