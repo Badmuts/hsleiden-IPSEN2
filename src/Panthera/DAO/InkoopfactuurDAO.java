@@ -23,6 +23,7 @@ public class InkoopfactuurDAO extends DAO {
 	private PreparedStatement linkProduct;
 	private PreparedStatement getPendingProducts;
 	private PreparedStatement getInkoopfactuurRegels;
+	private PreparedStatement getConceptFacturen;
 	
 	public InkoopfactuurDAO() throws IllegalAccessException, InstantiationException, SQLException {
 		super();
@@ -35,10 +36,10 @@ public class InkoopfactuurDAO extends DAO {
 			newInkoopfactuur = conn.prepareStatement("INSERT INTO inkoopfactuur(factuurnummer, vervaldatum, status) VALUES(?,?,?);");
 			getInkoopfactuur = conn.prepareStatement("SELECT * FROM inkoopfactuur WHERE id = ( SELECT MAX(id) AS id FROM inkoopfactuur );");
 			linkProduct = conn.prepareStatement("INSERT INTO inkoopproduct (factuur_id, product_id, aantal) VALUES(?, ?, ?);");
-			getPendingProducts = conn.prepareStatement("SELECT product.naam, product.id, SUM(aantal) AS aantal FROM tbl_order, product, factuur WHERE product.id = tbl_order.product_id AND factuur.id = tbl_order.factuur_id AND factuur.status = 'pending' GROUP BY product.naam, product.id;");
+			getPendingProducts = conn.prepareStatement("SELECT product.naam, product.id, SUM(aantal) AS aantal FROM tbl_order, product, factuur WHERE product.id = tbl_order.product_id AND factuur.id = tbl_order.factuur_id AND factuur.status = 'concept' GROUP BY product.naam, product.id;");
 			getInkoopfactuurRegels = conn.prepareStatement("SELECT inkoopfactuur.id AS factuur_id, product.id AS product_id, product.naam, inkoopproduct.aantal, product.prijs FROM inkoopproduct, product, inkoopfactuur WHERE inkoopproduct.product_id = product.id AND inkoopfactuur.id = inkoopproduct.factuur_id AND inkoopfactuur.id = ( SELECT MAX(id) FROM inkoopfactuur );");
+			getConceptFacturen = conn.prepareStatement("SELECT * FROM factuur WHERE status = 'concept';");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -117,5 +118,24 @@ public class InkoopfactuurDAO extends DAO {
 		}
 		return regels;
 	}
-
+	
+	/**
+	 * Get all factuur records with status concept.
+	 * @return ArrayList<Factuur>
+	 * @throws SQLException 
+	 */
+	public List<Factuur> fetchConceptFacturen() throws SQLException {
+		List<Factuur> facturen = new ArrayList<>();
+		ResultSet result = getConceptFacturen.executeQuery();
+		while(result.next()) {
+			Factuur factuur = new Factuur();
+			factuur.setId(result.getInt("id"));
+			factuur.setFactuurnummer(result.getInt("factuurnummer"));
+			factuur.setFactuurdatum(result.getDate("factuurdatum"));
+			factuur.setVervaldatum(result.getDate("vervaldatum"));
+			//factuur.setStatus("concept");
+			facturen.add(factuur);
+		}
+		return facturen;
+	}
 }

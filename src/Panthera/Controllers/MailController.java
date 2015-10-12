@@ -1,10 +1,15 @@
 package Panthera.Controllers;
 
+import java.util.List;
+
+import javax.mail.MessagingException;
+
 import Panthera.Models.Debiteur;
 import Panthera.Models.Email;
+import Panthera.Models.InkoopfactuurRegel;
+import Panthera.Services.MailService;
 import Panthera.Services.Decorators.DebiteurParser;
 import Panthera.Services.Decorators.Parser;
-import Panthera.Services.MailService;
 import Panthera.Views.MailDankwoordView;
 import Panthera.Views.MailListView;
 import Panthera.Views.MailSelectRecipientsView;
@@ -59,6 +64,50 @@ public class MailController extends Controller {
             mailService.send(email);
         }
         this.mainController.setSubview(new MailListView(this));
+    }
+    
+    /**
+     * Send inkoopfactuur to given email.
+     * @throws MessagingException 
+     */
+    public void cmdSendInkoopfactuur(List<InkoopfactuurRegel> inkoopfactuurRegels) throws MessagingException {
+    	Email email = new Email();
+    	email.setSubject("Inkoopfactuur");
+    	email.setFrom("roytouw@hotmail.com");
+    	email.addTo("brandonvanwijk@gmail.com");
+    	email.setContent(createTable(inkoopfactuurRegels), "text/html");
+    	mailService.send(email);
+    }
+    
+    public String createTable(List<InkoopfactuurRegel> regels) {
+    	String table = "<table>";
+    	table += createHeader();
+    	for(InkoopfactuurRegel regel : regels) {
+    		table += (""
+    				+ "<tr>"
+    				+ "<td>" + regel.getProduct_id() + "</td>"
+    				+ "<td>" + regel.getProductnaam() + "</td>"
+    				+ "<td>" + regel.getAantal() + "</td>"
+    				+ "<td>" + regel.getPrijs() + "</td>"
+    				+ "</tr>"
+    				+ "");
+    	}
+    	table += "</table>";
+    	return table;
+    }
+    
+    /**
+     * create Inkoopfactuur table header in html format.
+     * @return String header.
+     */
+    public String createHeader() {
+    	String header = ("<tr>"
+    			+ "<th>product_id</th>"
+    			+ "<th>product_naam</th>"
+    			+ "<th>aantal</th>"
+    			+ "<th>prijs</th>"
+    			+ "<tr>");
+    	return header;
     }
 
     @Override

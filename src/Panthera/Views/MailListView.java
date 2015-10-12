@@ -1,7 +1,8 @@
 package Panthera.Views;
 
-import Panthera.Controllers.MailController;
 import Panthera.Panthera;
+import Panthera.Controllers.InkoopfactuurController;
+import Panthera.Controllers.MailController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ public class MailListView extends BorderPane implements Viewable {
     private final Stage stage = Panthera.getInstance().getStage();
     private final MailController mailController;
     private VBox topContainer = new VBox(10);
+    private InkoopfactuurController inkoopfactuurController = new InkoopfactuurController();
 
     public MailListView(MailController mailController) {
         this.mailController = mailController;
@@ -30,6 +32,7 @@ public class MailListView extends BorderPane implements Viewable {
         createTitle();
         createDankwoordButton();
         createUitnodigingButton();
+        createVerzendInkoopfactuurButton();
         setTop(topContainer);
     }
 
@@ -48,6 +51,19 @@ public class MailListView extends BorderPane implements Viewable {
         Button button = new Button("Verstuur dankwoord");
         button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
         topContainer.getChildren().add(button);
+    }
+    
+    public void createVerzendInkoopfactuurButton() {
+    	Button button = new Button("Verstuur inkoopfactuur");
+    	button.setOnAction(e -> {
+    		try {
+				inkoopfactuurController.sendInkoopfactuur(mailController);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    	});
+    	topContainer.getChildren().add(button);
     }
 
     @Override
