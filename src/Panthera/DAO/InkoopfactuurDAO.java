@@ -9,7 +9,7 @@ import java.util.List;
 
 import Panthera.Models.Factuur;
 import Panthera.Models.Inkoopfactuur;
-import Panthera.Models.Product;
+import Panthera.Models.InkoopfactuurRegel;
 
 /**
  * 
@@ -22,6 +22,7 @@ public class InkoopfactuurDAO extends DAO {
 	private PreparedStatement getInkoopfactuur;
 	private PreparedStatement linkProduct;
 	private PreparedStatement getPendingProducts;
+	private PreparedStatement getInkoopfactuurRegels;
 	
 	public InkoopfactuurDAO() throws IllegalAccessException, InstantiationException, SQLException {
 		super();
@@ -35,6 +36,7 @@ public class InkoopfactuurDAO extends DAO {
 			getInkoopfactuur = conn.prepareStatement("SELECT * FROM inkoopfactuur WHERE id = ( SELECT MAX(id) AS id FROM inkoopfactuur );");
 			linkProduct = conn.prepareStatement("INSERT INTO inkoopproduct (factuur_id, product_id, aantal) VALUES(?, ?, ?);");
 			getPendingProducts = conn.prepareStatement("SELECT product.naam, product.id, SUM(aantal) AS aantal FROM tbl_order, product, factuur WHERE product.id = tbl_order.product_id AND factuur.id = tbl_order.factuur_id AND factuur.status = 'pending' GROUP BY product.naam, product.id;");
+			getInkoopfactuurRegels = conn.prepareStatement("SELECT inkoopfactuur.id AS factuur_id, product.id AS product_id, product.naam, inkoopproduct.aantal, product.prijs FROM inkoopproduct, product, inkoopfactuur WHERE inkoopproduct.product_id = product.id AND inkoopfactuur.id = inkoopproduct.factuur_id AND inkoopfactuur.id = ( SELECT MAX(id) FROM inkoopfactuur );");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,13 +97,25 @@ public class InkoopfactuurDAO extends DAO {
 	 * @param facturen
 	 * @throws SQLException 
 	 */
-	public void linkProducts(Inkoopfactuur inkoopfactuur, List<Factuur> facturen) throws SQLException {
+	public List<InkoopfactuurRegel> linkProducts(Inkoopfactuur inkoopfactuur, List<Factuur> facturen) throws SQLException {
+		List<InkoopfactuurRegel> regels = new ArrayList<>();
 		ResultSet result = getPendingProducts.executeQuery();
 		System.out.println(inkoopfactuur.getId());
 		while(result.next()) {
 			setLinkProductStatement(inkoopfactuur.getId(), result.getInt("id"), result.getInt("aantal"));
 			linkProduct.executeUpdate();
 		}
+		ResultSet regelResult = getInkoopfactuurRegels.executeQuery();
+		while(regelResult.next()) {
+			InkoopfactuurRegel inkoopfactuurRegel = new InkoopfactuurRegel();
+			inkoopfactuurRegel.setFactuur_id(regelResult.getInt("factuur_id"));
+			inkoopfactuurRegel.setProduct_id(regelResult.getInt("product_id"));
+			inkoopfactuurRegel.setProductnaam(regelResult.getString("naam"));
+			inkoopfactuurRegel.setAantal(regelResult.getInt("aantal"));
+			inkoopfactuurRegel.setPrijs(regelResult.getDouble("prijs"));
+			regels.add(inkoopfactuurRegel);
+		}
+		return regels;
 	}
 
 }

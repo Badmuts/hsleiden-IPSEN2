@@ -1,17 +1,26 @@
 package Panthera.Controllers;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import com.itextpdf.text.DocumentException;
 
 import Panthera.DAO.InkoopfactuurDAO;
 import Panthera.Models.Factuur;
 import Panthera.Models.Inkoopfactuur;
-import Panthera.Models.Product;
+import Panthera.Models.InkoopfactuurPdf;
+import Panthera.Models.InkoopfactuurRegel;
 
+/**
+ * 
+ * @author Roy
+ *
+ */
 public class InkoopfactuurController extends Controller {
 	private InkoopfactuurDAO dao;
 	private Inkoopfactuur inkoopfactuur;
+	private List<InkoopfactuurRegel> inkoopfactuurRegels;
 	
 	public InkoopfactuurController() {
 		try {
@@ -28,8 +37,17 @@ public class InkoopfactuurController extends Controller {
 	public void generateInkoopfactuur(List<Factuur> facturen) {
 		try {
 			this.inkoopfactuur = dao.createInkoopfactuur();
-			dao.linkProducts(inkoopfactuur, facturen);
+			this.inkoopfactuurRegels = dao.linkProducts(inkoopfactuur, facturen);
+			generatePDF(inkoopfactuurRegels);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void generatePDF(List<InkoopfactuurRegel> inkoopfactuurRegels) {
+		try {
+			new InkoopfactuurPdf().create(inkoopfactuurRegels);
+		} catch (FileNotFoundException | DocumentException e) {
 			e.printStackTrace();
 		}
 	}
