@@ -1,12 +1,20 @@
 package Panthera.Views;
 
+import java.util.Date;
+
+import Panthera.Panthera;
 import Panthera.Controllers.FacturenController;
+
 
 import Panthera.Factories.CheckBoxCellFactory;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 import com.itextpdf.text.pdf.PdfDocument;
+
+import Panthera.Controllers.InkoopfactuurController;
+import Panthera.Models.Factuur;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -28,7 +36,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.Properties;
 
 /**
@@ -43,11 +50,13 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FilteredList<Factuur> filteredData;
     private TextField filterField;
     private HBox topContainer = new HBox(10);
+    private InkoopfactuurController inkoopfactuurController;
 
     public FacturenListView(FacturenController facturenController)  {
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
+        this.inkoopfactuurController = new InkoopfactuurController();
         createHeader();
         createTableView();
 
@@ -94,7 +103,23 @@ public class FacturenListView extends BorderPane implements Viewable {
         createAddFactuurButton();
         createRemoveFactuurButton();
         CreateVerzendFactuurButton();
+        createGenerateInkoopfactuurButton();
+
         setTop(topContainer);
+    }
+    
+    /**
+     * Creates the button to generate an inkoopfactuur.
+     * bit of a long name.
+     * @author Roy
+     */
+    private void createGenerateInkoopfactuurButton() {
+    	System.out.println("test");
+    	Button button = new Button("Inkoopfactuur Opstellen");
+    	button.setOnAction(e -> {
+            inkoopfactuurController.generateInkoopfactuur(facturen);
+        });
+    	topContainer.getChildren().add(button);
     }
 
     private void createRemoveFactuurButton() {

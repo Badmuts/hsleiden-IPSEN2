@@ -186,7 +186,7 @@ public class BestellijstDAO extends DAO {
 		String query = ("SELECT * FROM bestellijst");
 		ResultSet result = stmt.executeQuery(query);
 		while (result.next()) {
-			bestellijsten.add(new Bestellijst(result.getInt("id"), result.getString("name"), result.getDate("date")));
+			bestellijsten.add(new Bestellijst(result.getInt("id"), result.getString("naam"), result.getDate("date")));
 
 		}
 		return bestellijsten;
