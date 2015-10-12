@@ -81,6 +81,9 @@ public class Settings {
 	public String getAdres() {
 		return this.adres.get();
 	}
+	public boolean hasId(){
+		return (id.get() != 0);
+	}
 
 	// setters
 	public void setId(int id) {
@@ -95,16 +98,16 @@ public class Settings {
 		this.mailadres.set(mailadres);
 	}
 
-	public void setTelefoon(String telefoon) {
-		this.telefoon.set(telefoon);
+	public void setTelefoon(String string) {
+		this.telefoon.set(string);
 	}
 
-	public void setKvk(String kvk) {
-		this.kvk.set(kvk);
+	public void setKvk(String string) {
+		this.kvk.set(string);
 	}
 
-	public void setBTWNummer(String BTWNummer) {
-		this.BTWNummer.set(BTWNummer);
+	public void setBTWNummer(String string) {
+		this.BTWNummer.set(string);
 	}
 
 	public void setIban(String iBan) {

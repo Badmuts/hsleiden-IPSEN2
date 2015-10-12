@@ -27,7 +27,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		this.settings = new Settings();
 		createTitle();
 		createForm();
-		updateButton();
+		saveButton();
 	}
 
 	public SettingsAddView(SettingsController settingsController, Settings settings) {
@@ -35,18 +35,18 @@ public class SettingsAddView extends GridPane implements Viewable {
 		this.settings = settings;
 		createTitle();
 		createForm();
-		updateButton();
+		saveButton();
 	}
 
-	public void updateButton() {
+	public void saveButton() {
 		Button button = new Button("Opslaan");
-		button.setOnAction(event -> updateSettings());
+		button.setOnAction(event -> saveSettings());
 		add(button, 0, row);
 		row++;
 	}
 
-	public void updateSettings() {
-		settingsController.cmdUpdateSettings(settings);
+	public void saveSettings() {
+		settingsController.cmdSaveSettings(settings);
 	}
 
 	private void createTitle() {

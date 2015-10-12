@@ -1,8 +1,12 @@
 package Panthera.DAO;
 
+import Panthera.Controllers.MainController;
+import Panthera.Controllers.SettingsController;
 import Panthera.Models.Settings;
+import Panthera.Views.SettingsListView;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -35,11 +39,34 @@ public class SettingsDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		ResultSet result = stmt.executeQuery("SELECT * FROM settings");
 		while (result.next()) {
-			settings.add(new Settings(result.getInt("id"), result.getString("bedrijfsnaam"), result.getString("adres"),
-					result.getString("telefoon"), result.getString("mailadres"), result.getString("kvk"),
-					result.getString("btwnummer"), result.getString("iban"), result.getString("bic")));
+			settings.add(new Settings(result.getInt("id"),
+					result.getString("bedrijfsnaam"),
+					result.getString("adres"),
+					result.getString("telefoon"),
+					result.getString("mailadres"),
+					result.getString("kvk"),
+					result.getString("btwnummer"),
+					result.getString("iban"),
+					result.getString("bic")));
 		}
 		return settings;
+	}
+	public void saveSettings(Settings settings) throws Exception{
+		if (settings.hasId()) {
+			updateSettings(settings);
+		}else {
+			Statement stmt = conn.createStatement();
+			stmt.executeQuery("INSERT INTO settings(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic) " +
+			"VALUES('" + settings.getBedrijfsnaam() + "', '" +
+					settings.getAdres() + "', '" +
+					settings.getTelefoon() + "', '" +
+					settings.getMailadres() + "', '" +
+					settings.getKvK() + "', '" +
+					settings.getBTWNummer() + "', '" +
+					settings.getIban() + "', '" +
+					settings.getBIC() +"')");
+			
+		}
 	}
 
 	public void updateSettings(Settings settings) {

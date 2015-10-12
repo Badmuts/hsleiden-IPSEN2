@@ -37,9 +37,9 @@ public class SettingsController extends Controller {
 		return FXCollections.observableArrayList(settings);
 	}
 
-	public void cmdUpdateSettings(Settings settings) {
+	public void cmdSaveSettings(Settings settings) {
 		try {
-			dao.updateSettings(settings);
+			dao.saveSettings(settings);
 			mainController.setSubview(new SettingsListView(this));
 		} catch (Exception e) {
 			e.printStackTrace();

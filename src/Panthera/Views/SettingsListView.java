@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -45,6 +46,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 
 	public void createHeader() {
 		createTitle();
+		updateButton();
 		setTop(topContainer);
 
 	}
@@ -90,6 +92,12 @@ public class SettingsListView extends BorderPane implements Viewable {
 			});
 			return row;
 		});
+	}
+	
+	private void updateButton(){
+		Button button = new Button("Nieuw");
+		button.setOnAction(e -> this.settingsController.getMainController().setSubview(new SettingsAddView(settingsController)));
+		topContainer.getChildren().add(button);
 	}
 
 	public void show() {
