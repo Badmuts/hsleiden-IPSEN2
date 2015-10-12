@@ -1,11 +1,13 @@
 package Panthera.Controllers;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Panthera.DAO.InkoopfactuurDAO;
 import Panthera.Models.Factuur;
 import Panthera.Models.Inkoopfactuur;
+import Panthera.Models.Product;
 
 public class InkoopfactuurController extends Controller {
 	private InkoopfactuurDAO dao;
@@ -25,10 +27,14 @@ public class InkoopfactuurController extends Controller {
 	 */
 	public void generateInkoopfactuur(List<Factuur> facturen) {
 		try {
-			inkoopfactuur = dao.createInkoopfactuur();
+			this.inkoopfactuur = dao.createInkoopfactuur();
 			dao.linkProducts(inkoopfactuur, facturen);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setProducten(List<Product> producten) {
+		this.producten = producten;
 	}
 }
