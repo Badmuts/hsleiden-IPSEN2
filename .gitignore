@@ -16,6 +16,7 @@ hs_err_pid*
 *.pdf
 bin/
 out/
+*.pdf
 
 *.project
 .classpath
