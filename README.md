@@ -1,12 +1,6 @@
 # IPSEN2
 Project Panthera.Panthera, een ordersysteem voor het wijnfestijn van de Lions Club. Panthera.Panthera is het Latijnse woord voor leeuw.
 
-## Dependencies
-- [Javax Mail](http://java.net/projects/javamail/downloads/download/javax.mail.jar)
-- [Sendgrid Java](https://sendgrid-open-source.s3.amazonaws.com/sendgrid-java/sendgrid-java.jar)
-- [Postgresql JDBC Driver](https://jdbc.postgresql.org/download/postgresql-9.4-1203.jdbc42.jar)
-- [iTextPdf java](https://github.com/itext/itextpdf/releases/download/5.5.7/itext-5.5.7.zip)
-
 ## Setup database
 ### Download JDBC driver
 Om connectie met je database te maken moet je de [Postgres driver downloaden](https://jdbc.postgresql.org/download.html) en toevoegen aan je project. Met InteliJ kun je dit doen door op naar File -> Project Structure -> Global Libraries te gaan en daar de jar file toe te voegen.
@@ -45,14 +39,14 @@ Tijdens dit project willen wij de volgende applicatie structuur gaan gebruiken: 
 ![Applicatie structuur](https://www.dropbox.com/s/f3mrd5j1sl9qy3s/DAOModel.JPG?dl=1)
 
 ## Usecase diagram  
-![Usecase diagram](https://www.dropbox.com/s/swxcdw0eajtb75e/Use%20Case%20diagram.png?dl=1)
+![Usecase diagram](https://photos-1.dropbox.com/t/2/AABCAudwgquWRLV6g3YeCCwPYnaSmgeI6Qo-ixNv5brilQ/12/48853717/png/32x32/1/_/1/2/Use%20Case%20diagram.png/EOjciuADGOoEIAEgBygH/CEP3V1-43diNiUGqvM6LWnEnuhHZ18BvWkXMsltkQU0?size=1024x768&size_mode=2)
 
 ## ERD
-![ERD](https://www.dropbox.com/s/tjxgd0txqe551ez/erd-v0.4.png?dl=1)
+![ERD](https://www.dropbox.com/s/9865z99tks0p5jv/erd-v0.3.png?dl=1)
 
 ## Domeinmodel
-![Domeinmodel](https://www.dropbox.com/s/9z55r00agb9x3yo/DomeinModel.jpg?dl=1)
+![Domeinmodel](https://www.dropbox.com/s/rz546a32v9jvamb/DomeinModel.jpg?dl=1)
 
 ## Applicatiemodel
-![Applicatiemodel](https://www.dropbox.com/s/6c2jk1xglo09m23/ApplicatieModel1.2.jpg?dl=1)
+![Applicatiemodel](https://www.dropbox.com/s/rf6q8kofec5ujpj/ApplicatieModel1.2.jpg?dl=1)
 
