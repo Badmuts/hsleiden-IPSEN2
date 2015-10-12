@@ -33,8 +33,5 @@ public class InkoopfactuurController extends Controller {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setProducten(List<Product> producten) {
-		this.producten = producten;
-	}
+
 }

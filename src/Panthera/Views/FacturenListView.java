@@ -94,6 +94,7 @@ public class FacturenListView extends BorderPane implements Viewable {
      * @author Roy
      */
     private void createGenerateInkoopfactuurButton() {
+    	System.out.println("test");
     	Button button = new Button("Inkoopfactuur Opstellen");
     	button.setOnAction(e -> {
     		inkoopfactuurController.generateInkoopfactuur(facturen);
