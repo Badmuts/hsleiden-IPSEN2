@@ -1,21 +1,16 @@
 package Panthera.Views;
 
 import Panthera.Controllers.FacturenController;
-
-import Panthera.Factories.CheckBoxCellFactory;
-import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.scene.Scene;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -25,7 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -100,7 +95,6 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createTableView() {
         this.table = new TableView<>();
-//        this.table.setColumnResizePolicy(param -> true);
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
                        CheckBox checkBox = new CheckBox();
@@ -110,31 +104,35 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
-        TableColumn<Factuur, String> voornaam = new TableColumn("Voornaam");
-        voornaam.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getVoornaam()));
-        TableColumn<Factuur, String> tussenvoegsel = new TableColumn("Tussenvoegsel");
-        tussenvoegsel.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getTussenvoegsel()));
-        TableColumn<Factuur, String> achternaam = new TableColumn("Achternaam");
-        achternaam.setCellValueFactory(param -> new SimpleObjectProperty(param.getValue().getDebiteur().getNaam()));
-        TableColumn factuurdatum = new TableColumn("Factuurdatum");
-        factuurdatum.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("factuurdatum"));
-        TableColumn factuurexpdate = new TableColumn("Vervaldatum");
-        factuurexpdate.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("vervaldatum"));
+
+        TableColumn<Factuur, String> naam = new TableColumn<>("Naam");
+        naam.setCellValueFactory(param -> {
+            String fullName = param.getValue().getDebiteur().getVoornaam()
+                + " " + param.getValue().getDebiteur().getTussenvoegsel()
+                + " " + param.getValue().getDebiteur().getNaam();
+            return new SimpleObjectProperty<String>(fullName);
+        });
+        naam.getStyleClass().add("table-strong");
+
+        TableColumn<Factuur, String> factuurdatum = new TableColumn("Factuurdatum");
+        factuurdatum.setCellValueFactory(param -> {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM y");
+            java.util.Date date = new java.util.Date(param.getValue().getFactuurdatum().getTime());
+            String finalDate = dateFormat.format(date);
+            return new SimpleObjectProperty<String>(finalDate);
+        });
+
         TableColumn<Factuur, Double> bedrag = new TableColumn("Bedrag");
-        bedrag.setCellValueFactory(new PropertyValueFactory<Factuur, Double>(""));
+        bedrag.setCellValueFactory(new PropertyValueFactory<Factuur, Double>("bedrag"));
+        bedrag.getStyleClass().addAll("table-strong", "table-text-right");
+
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 
-
-
-        this.table.getColumns().addAll(checkbox, factuurnummer, voornaam, tussenvoegsel, achternaam, factuurdatum, factuurexpdate, status);
-
-
+        this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, naam, bedrag, status);
 
         createSelectAllButton();
         setCenter(this.table);
-
-
     }
 
     public void createSelectAllButton() {

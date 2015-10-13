@@ -11,20 +11,17 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
-import javafx.util.converter.PercentageStringConverter;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -44,6 +41,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     public FacturenAddView(FacturenController facturenController) throws Exception {
         this.facturenController = facturenController;
         this.factuur = new Factuur();
+        setPadding(new Insets(22));
         setupView();
     }
 
@@ -82,7 +80,7 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void createTitle() {
         Text title = new Text("Factuur toevoegen");
-        title.setFont(Font.font(20));
+        title.getStyleClass().addAll("h1");
         add(title, 0, currentRow);
         currentRow++;
     }
