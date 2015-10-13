@@ -1,7 +1,7 @@
 --	Put your database updates here.
 --  Updates executed on application launch.
 --	Don't drop tables in here(Los of data).
---	Creator Roy Touw.
+--	Author Roy Touw.
 
 CREATE TABLE IF NOT EXISTS bestellijst
 (
@@ -16,3 +16,37 @@ CREATE TABLE IF NOT EXISTS bestellijst_set
 	bestellijst_id integer REFERENCES bestellijst (id),
 	product_id integer REFERENCES product (id)
 );
+
+--Event table, for a wine event.
+CREATE TABLE IF NOT EXISTS event
+(
+	id SERIAL PRIMARY KEY,
+	naam varchar UNIQUE,
+	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--Aanwezig table, koppel tabel event -> debiteur.
+CREATE TABLE IF NOT EXISTS aanwezig
+(
+	event_id integer REFERENCES event (id),
+	debiteur_id integer REFERENCES debiteur (id)
+);
+
+--Inkoopdactuur table.
+CREATE TABLE IF NOT EXISTS inkoopfactuur
+(
+	id SERIAL PRIMARY KEY,
+	factuurnummer integer UNIQUE NOT NULL,
+	factuurdatum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	vervaldatum TIMESTAMP NOT NULL,
+	status varchar NOT NULL
+);
+
+--Inkoopproduct table, koppel tabel inkoopfactuur -> product.
+CREATE TABLE IF NOT EXISTS inkoopproduct
+(
+	factuur_id integer REFERENCES inkoopfactuur (id),
+	product_id integer REFERENCES product (id),
+	aantal integer NOT NULL
+);
+

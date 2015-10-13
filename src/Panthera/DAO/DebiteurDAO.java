@@ -1,14 +1,12 @@
 package Panthera.DAO;
 
 
-import Panthera.Models.Debiteur;
-
-import javax.swing.plaf.nimbus.State;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+
+import Panthera.Models.Debiteur;
+import Panthera.Models.Event;
 /**
  * 
  * @author Victor
@@ -107,4 +105,5 @@ public class DebiteurDAO extends DAO {
 			e.printStackTrace();
 		}
 	}
+
 }

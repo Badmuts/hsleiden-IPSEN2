@@ -25,6 +25,7 @@ public class Debiteur extends Model {
 	private SimpleStringProperty telefoon;
 	private SimpleObjectProperty<Land> land;
 	private SimpleBooleanProperty active;
+	private SimpleBooleanProperty present;
 
 
 	public Debiteur(int id, String aanhef, String voornaam, String tussenvoegsel, String naam, 
@@ -41,6 +42,7 @@ public class Debiteur extends Model {
 		this.telefoon = new SimpleStringProperty(telefoon);
 		this.land = new SimpleObjectProperty<>(land);
 		this.active = new SimpleBooleanProperty(false);
+		this.present = new SimpleBooleanProperty(false);
 	}
 
 
@@ -129,6 +131,9 @@ public class Debiteur extends Model {
 	public void setPostcode(String postcode){
 		this.postcode.set(postcode);
 	}
+	public void setPresent(SimpleBooleanProperty present) {
+		this.present = present;
+	}
 	public void setEmail(String email){
 		this.email.set(email);
 	}
@@ -188,5 +193,14 @@ public class Debiteur extends Model {
 
 	public SimpleBooleanProperty activeProperty() {
 		return active;
+	}
+	
+	public SimpleBooleanProperty isPresent() {
+		return present;
+	}
+	
+	public boolean isPresentBool() {
+		boolean p = present.getValue();
+		return p;
 	}
 }
