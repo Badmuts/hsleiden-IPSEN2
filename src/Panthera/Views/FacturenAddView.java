@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -57,6 +58,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         setPadding(new Insets(22));
         setHgap(10);
         setVgap(10);
+        getStyleClass().addAll("factuur-gridpane");
     }
 
     private void setupView() {
@@ -70,6 +72,7 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void createSaveButton() {
         Button button = new Button("Opslaan");
+        button.getStyleClass().addAll("btn", "btn-primary");
         button.setOnAction(event -> {
             try {
                 saveFactuur();
@@ -89,7 +92,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createTitle() {
         Text title = new Text("Nieuwe Factuur");
         title.getStyleClass().addAll("h1");
-        add(title, 0, currentRow);
+        add(title, 0, currentRow, 2, 1);
     }
 
     @Override
@@ -100,6 +103,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createDateField(String name, Property property) {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now());
+        setHgrow(datePicker, Priority.ALWAYS);
         factuur.setFactuurdatum(java.sql.Date.valueOf(datePicker.getValue()));
 
         datePicker.setOnAction(event -> {
@@ -113,6 +117,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createDateFieldVervalDatum(String name, Property property) {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now().plusDays(30));
+        setHgrow(datePicker, Priority.ALWAYS);
         factuur.setVervaldatum(java.sql.Date.valueOf(datePicker.getValue()));
 
         datePicker.setOnAction(event -> {
@@ -151,6 +156,7 @@ public class FacturenAddView extends GridPane implements Viewable {
             Label label = new Label(name);
             ArrayList<Debiteur> debiteuren = new DebiteurDAO().getAllDebiteuren();
             ChoiceBox<Debiteur> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(debiteuren));
+            setHgrow(choiceBox, Priority.ALWAYS);
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 factuur.setDebiteur(newValue);
             });
@@ -174,6 +180,7 @@ public class FacturenAddView extends GridPane implements Viewable {
             Label label = new Label(name);
             ArrayList<Bestellijst> bestellijsten = new BestellijstDAO().allWithProducten();
             ChoiceBox<Bestellijst> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(bestellijsten));
+            setHgrow(choiceBox, Priority.ALWAYS);
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 bestellijst = newValue;
                 //System.out.println(bestellijst.getProducten());
@@ -236,13 +243,14 @@ public class FacturenAddView extends GridPane implements Viewable {
         TextField aantalProducten = new TextField();
         table.getColumns().addAll(aantal, productnummer, naam, jaar, prijs, type, land);
 
-        add(table, 2, 8);
-//        currentRow++;
+        add(table, 0, currentRow+2, 3, 1);
+        currentRow++;
     }
 
     private void createField(String name, Property property, StringConverter stringConverter) {
         Label label = new Label(name);
         TextField textField = new TextField(name);
+        setHgrow(textField, Priority.ALWAYS);
         Bindings.bindBidirectional(textField.textProperty(), property, stringConverter);
 
         ArrayList<Node> fields = new ArrayList<>();
@@ -254,8 +262,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     public void createTextArea(String name, Property property) {
         Label label = new Label(name);
         TextArea textArea = new TextArea(name);
+        setHgrow(textArea, Priority.ALWAYS);
         textArea.setMinWidth(50);
-        textArea.setMinHeight(15);
+        textArea.setMaxHeight(30);
         textArea.setPrefWidth(50);
         textArea.setMaxWidth(400);
         Bindings.bindBidirectional(textArea.textProperty(), property);
