@@ -6,14 +6,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Panthera.DAO.SettingsDAO;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Models.Factuurregel;
+import Panthera.Models.Settings;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import org.omg.IOP.Encoding;
 
 
 public class FactuurPdf {
@@ -27,6 +31,7 @@ public class FactuurPdf {
     private String FILE;
     private PdfWriter writer;
     private Rectangle rect;
+    private ArrayList<Settings> settings = new ArrayList<>();
 
     public FactuurPdf(Factuur factuur, ArrayList<Factuurregel> factuurregels, Debiteur debiteur) {
         this.factuur = factuur;
@@ -64,7 +69,7 @@ public class FactuurPdf {
         preface.add(new Paragraph(String.valueOf("Lidnnummer: " + debiteur.getId())));
         addEmptyLine(preface, 3);
         preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 22 september 2013"));
-        addEmptyLine(preface, 1);
+        addEmptyLine(preface, 2);
         document.add(preface);
         createTable();
         showOpmerking();
@@ -81,52 +86,65 @@ public class FactuurPdf {
     private void createTable() throws Exception {
         PdfPTable table = new PdfPTable(4);
         createHeader(table);
-
+        char symbol = '€';
         for(Factuurregel factuurregel: factuurregels) {
             DecimalFormat df = new DecimalFormat("0.00");
+            table.addCell(String.valueOf(factuurregel.getProduct().getProductnummer()));
             table.addCell(factuurregel.getProduct().getNaam());
             table.addCell(String.valueOf(factuurregel.getAantal()));
-            table.addCell(String.valueOf(df.format(factuurregel.getBtw())));
-            table.addCell(String.valueOf(df.format(calculatePrice(factuurregel))));
+            table.addCell(symbol +""+String.valueOf(df.format(calculatePrice(factuurregel))));
         }
+        table.setWidthPercentage(100);
         createFooter(table, this.factuurregels);
         document.add(table);
     }
 
     public void createFooter(PdfPTable table, ArrayList<Factuurregel> factuurregels) {
+        char symbol = '€';
         table.addCell("");
         table.addCell("");
         table.addCell("");
-        table.addCell(String.valueOf(calculateTotalPrice(factuurregels)));
+        table.addCell(symbol +""+String.valueOf(calculateTotalPrice(factuurregels)));
     }
 
     public double calculatePrice(Factuurregel regel) {
         double prijs;
         prijs = regel.getAantal() * regel.getPrijs();
+        DecimalFormat df = new DecimalFormat("0.00");
+        df.format(prijs);
         return  prijs;
     }
 
     public double calculateTotalPrice(ArrayList<Factuurregel> factuurregels) {
-        double prijs = 0.0;
         DecimalFormat df = new DecimalFormat("0.00");
+        double prijs = 0.0;
             for(Factuurregel factuurregel: factuurregels) {
-                df.format(prijs += factuurregel.getPrijs() * factuurregel .getAantal());
+                prijs += factuurregel.getPrijs() * factuurregel .getAantal();
             }
+        df.format(prijs);
         return prijs;
     }
 
     public void createHeader(PdfPTable table) {
+        table.addCell("Productnummer");
         table.addCell("Product");
         table.addCell("Aantal");
-        table.addCell("BTW Prijs");
         table.addCell("Prijs");
     }
 
-    public void onEndPage() {
+    public void onEndPage() throws Exception {
+        this.settings = new SettingsDAO().getAllSettings();
+        LineSeparator ls = new LineSeparator();
+        document.add(new Chunk(ls));
         rect = writer.getBoxSize("art");
-        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Lionsclun Oestgeest/Warmond"), rect.getLeft(), rect.getBottom() - 15, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Bankrekening IBAN-nummer"), rect.getLeft(), rect.getBottom() - 30, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("KVK: "), rect.getLeft(), rect.getBottom() - 45, 0);
+        for (Settings setting : settings) {
+            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase(setting.getBedrijfsnaam()),
+                    document.leftMargin() - 1, document.bottom() + 90, 0);
+            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Bankrekening "+setting.getIban()),
+                    document.leftMargin() - 1, document.bottom() + 70, 0);
+            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Inschrijfnummer KvK Rijnland: "+setting.getKvK()),
+                    document.leftMargin() - 1, document.bottom() + 50, 0);
+        }
     }
 
     private void addEmptyLine(Paragraph paragraph, int number) {

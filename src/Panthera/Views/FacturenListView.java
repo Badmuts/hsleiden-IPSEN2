@@ -181,7 +181,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
-
+        addClicklistener();
         this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, naam, bedrag, status);
 
         createSelectAllButton();

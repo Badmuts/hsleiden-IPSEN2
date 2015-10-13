@@ -80,7 +80,7 @@ public class SettingsDAO extends DAO {
 					+ "adres='" + settings.getAdres() + "', " + "telefoon='" + settings.getTelefoon() + "', "
 					+ "mailadres='" + settings.getMailadres() + "', " + "kvk='" + settings.getKvK() + "',"
 					+ "btwnummer='" + settings.getBTWNummer() + "', " + "iban='" + settings.getIban() + "', " 
-					+ "bic='" + settings.getBIC() + "' " + "wachtwoord='" + settings.getPassword() + "', " 
+					+ "bic='" + settings.getBIC() + "', " + "wachtwoord='" + settings.getPassword() + "', "
 					+ "host='" + settings.getHost() + "', " + "port='" + settings.getPort() + "' " 
 					+ "WHERE id=" + settings.getId());
 		} catch (Exception e) {
