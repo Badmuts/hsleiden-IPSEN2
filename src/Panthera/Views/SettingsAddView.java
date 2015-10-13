@@ -6,6 +6,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -45,16 +46,18 @@ public class SettingsAddView extends GridPane implements Viewable {
 		add(button, 0, row);
 		row++;
 	}
+
 	public void removeButton() {
 		Button button = new Button("Verwijder");
 		button.setOnAction(event -> removeSettings());
-		add(button, 3, row-1);
+		add(button, 3, row - 1);
 		row++;
 	}
 
 	public void saveSettings() {
 		settingsController.cmdSaveSettings(settings);
 	}
+
 	public void removeSettings() {
 		settingsController.cmdRemoveSettings(settings);
 	}
@@ -71,21 +74,34 @@ public class SettingsAddView extends GridPane implements Viewable {
 		createField("Bedrijfsnaam", settings.bedrijfsnaamProperty());
 		createField("Adres", settings.adresProperty());
 		createField("Telefoon", settings.telefoonProperty());
-		createField("E-mail adres", settings.mailadresProperty());
 		createField("kvk-nummer", settings.kvkProperty());
 		createField("BTW-nummer", settings.BTWNummerProperty());
 		createField("iBan-nummer", settings.iBanProperty());
 		createField("BIC", settings.BICProperty());
+		createField("E-mail adres", settings.mailadresProperty());
+		createField("Wachtwoord", settings.passwordProperty());
+		createField("Host", settings.hostProperty());
+		createField("Port", settings.portProperty());
 	}
 
 	private void createField(String name, Property property) {
-		Label label = new Label(name);
-		TextField textField = new TextField(name);
-		Bindings.bindBidirectional(textField.textProperty(), property);
+		if (name == "Wachtwoord") {
+			Label label = new Label(name);
+			PasswordField passwordField = new PasswordField();
+			Bindings.bindBidirectional(passwordField.textProperty(), property);
 
-		add(label, 0, row);
-		add(textField, 1, row);
-		row++;
+			add(label, 0, row);
+			add(passwordField, 1, row);
+			row++;
+		} else {
+			Label label = new Label(name);
+			TextField textField = new TextField(name);
+			Bindings.bindBidirectional(textField.textProperty(), property);
+
+			add(label, 0, row);
+			add(textField, 1, row);
+			row++;
+		}
 	}
 
 	@Override

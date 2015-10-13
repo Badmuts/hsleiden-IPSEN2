@@ -1,12 +1,7 @@
 package Panthera.DAO;
 
-import Panthera.Controllers.MainController;
-import Panthera.Controllers.SettingsController;
 import Panthera.Models.Settings;
-import Panthera.Views.SettingsListView;
-
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -28,6 +23,9 @@ public class SettingsDAO extends DAO {
 			settings.setBTWNummer(result.getString("btwnummer"));
 			settings.setIban(result.getString("iban"));
 			settings.setBIC(result.getString("bic"));
+			settings.setPassword(result.getString("wachtwoord"));
+			settings.setHost(result.getString("host"));
+			settings.setPort(result.getString("port"));
 		}
 
 		return settings;
@@ -47,7 +45,10 @@ public class SettingsDAO extends DAO {
 					result.getString("kvk"),
 					result.getString("btwnummer"),
 					result.getString("iban"),
-					result.getString("bic")));
+					result.getString("bic"),
+					result.getString("wachtwoord"),
+					result.getString("host"),
+					result.getString("port")));
 		}
 		return settings;
 	}
@@ -56,7 +57,7 @@ public class SettingsDAO extends DAO {
 			updateSettings(settings);
 		}else {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("INSERT INTO settings(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic) " +
+			stmt.executeUpdate("INSERT INTO settings(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic, wachtwoord, host, port) " +
 			"VALUES('" + settings.getBedrijfsnaam() + "', '" +
 					settings.getAdres() + "', '" +
 					settings.getTelefoon() + "', '" +
@@ -64,7 +65,10 @@ public class SettingsDAO extends DAO {
 					settings.getKvK() + "', '" +
 					settings.getBTWNummer() + "', '" +
 					settings.getIban() + "', '" +
-					settings.getBIC() +"')");
+					settings.getBIC() + "', '"+
+					settings.getPassword() + "', '"+
+					settings.getHost() + "', '"+
+					settings.getPort() + "')");
 			
 		}
 	}
@@ -75,8 +79,10 @@ public class SettingsDAO extends DAO {
 			stmt.executeUpdate("UPDATE settings " + "SET bedrijfsnaam='" + settings.getBedrijfsnaam() + "', "
 					+ "adres='" + settings.getAdres() + "', " + "telefoon='" + settings.getTelefoon() + "', "
 					+ "mailadres='" + settings.getMailadres() + "', " + "kvk='" + settings.getKvK() + "',"
-					+ "btwnummer='" + settings.getBTWNummer() + "', " + "iban='" + settings.getIban() + "', " + "bic='"
-					+ settings.getBIC() + "' " + "WHERE id=" + settings.getId());
+					+ "btwnummer='" + settings.getBTWNummer() + "', " + "iban='" + settings.getIban() + "', " 
+					+ "bic='" + settings.getBIC() + "' " + "wachtwoord='" + settings.getPassword() + "', " 
+					+ "host='" + settings.getHost() + "', " + "port='" + settings.getPort() + "' " 
+					+ "WHERE id=" + settings.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

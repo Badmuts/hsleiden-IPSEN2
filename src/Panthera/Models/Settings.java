@@ -19,9 +19,12 @@ public class Settings {
 	private SimpleStringProperty iBan;
 	private SimpleStringProperty BIC;
 	private SimpleStringProperty adres;
+	private SimpleStringProperty password;
+	private SimpleStringProperty host;
+	private SimpleStringProperty port;
 
 	public Settings(int id, String bedrijfsnaam, String adres, String telefoon, String mailadres, String kvk,
-			String BTWNummer, String iBan, String BIC) {
+			String BTWNummer, String iBan, String BIC, String password, String host, String port) {
 		this.id = new SimpleIntegerProperty(id);
 		this.bedrijfsnaam = new SimpleStringProperty(bedrijfsnaam);
 		this.mailadres = new SimpleStringProperty(mailadres);
@@ -31,6 +34,9 @@ public class Settings {
 		this.iBan = new SimpleStringProperty(iBan);
 		this.BIC = new SimpleStringProperty(BIC);
 		this.adres = new SimpleStringProperty(adres);
+		this.password = new SimpleStringProperty(password);
+		this.host = new SimpleStringProperty(host);
+		this.port = new SimpleStringProperty(port);
 	}
 
 	public Settings() {
@@ -43,6 +49,9 @@ public class Settings {
 		this.iBan = new SimpleStringProperty();
 		this.BIC = new SimpleStringProperty();
 		this.adres = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
+		this.host = new SimpleStringProperty();
+		this.port = new SimpleStringProperty();
 	}
 
 	// getters
@@ -81,7 +90,20 @@ public class Settings {
 	public String getAdres() {
 		return this.adres.get();
 	}
-	public boolean hasId(){
+
+	public String getPassword() {
+		return this.password.get();
+	}
+
+	public String getHost() {
+		return this.host.get();
+	}
+
+	public String getPort() {
+		return this.port.get();
+	}
+
+	public boolean hasId() {
 		return (id.get() != 0);
 	}
 
@@ -122,6 +144,17 @@ public class Settings {
 		this.adres.set(adres);
 	}
 
+	public void setPassword(String password) {
+		this.password.set(password);
+	}
+
+	public void setHost(String host) {
+		this.host.set(host);
+	}
+	public void setPort(String port){
+		this.port.set(port);
+	}
+
 	// Properties
 	public SimpleIntegerProperty idProperty() {
 		return id;
@@ -158,5 +191,15 @@ public class Settings {
 	public SimpleStringProperty adresProperty() {
 		return adres;
 	}
+	public SimpleStringProperty passwordProperty() {
+		return password;
+	}
+	public SimpleStringProperty hostProperty() {
+		return host;
+	}
+	public SimpleStringProperty portProperty() {
+		return port;
+	}
+	
 
 }
