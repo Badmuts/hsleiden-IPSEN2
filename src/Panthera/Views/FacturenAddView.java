@@ -11,6 +11,8 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,9 +36,12 @@ public class FacturenAddView extends GridPane implements Viewable {
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private int currentRow = 0;
+    private int columnIndex = 0;
+    private ArrayList<ArrayList<Node>> nodes = new ArrayList<>();
     private Factuur factuur;
     private Bestellijst bestellijst = new Bestellijst();
     private TableView table = new TableView();
+
 
     public FacturenAddView(FacturenController facturenController) throws Exception {
         this.facturenController = facturenController;
@@ -48,13 +53,16 @@ public class FacturenAddView extends GridPane implements Viewable {
         this.facturenController = facturenController;
         this.factuur = factuur;
         setupView();
+        setPadding(new Insets(22));
+        setHgap(10);
+        setVgap(10);
     }
 
     private void setupView() {
         createTitle();
+        createSaveButton();
         createForm();
         createTableView();
-        createSaveButton();
         table.setItems(producten);
         table.setEditable(true);
     }
@@ -68,7 +76,7 @@ public class FacturenAddView extends GridPane implements Viewable {
                 e.printStackTrace();
             }
         });
-        add(button, 0, currentRow);
+        add(button, 3, currentRow);
         currentRow++;
     }
 
@@ -78,10 +86,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     private void createTitle() {
-        Text title = new Text("Factuur toevoegen");
+        Text title = new Text("Nieuwe Factuur");
         title.setFont(Font.font(20));
         add(title, 0, currentRow);
-        currentRow++;
     }
 
     @Override
@@ -97,11 +104,10 @@ public class FacturenAddView extends GridPane implements Viewable {
         datePicker.setOnAction(event -> {
             property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
         });
-
-        add(label, 0, currentRow);
-        add(datePicker, 1, currentRow);
-        currentRow++;
-
+        ArrayList<Node> fields = new ArrayList<>();
+        fields.add(label);
+        fields.add(datePicker);
+        nodes.add(fields);
     }
     private void createDateFieldVervalDatum(String name, Property property) {
         Label label = new Label(name);
@@ -112,10 +118,22 @@ public class FacturenAddView extends GridPane implements Viewable {
             property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
         });
 
-        add(label, 0, currentRow);
-        add(datePicker, 1, currentRow);
-        currentRow++;
+        ArrayList<Node> fields = new ArrayList<>();
+        fields.add(label);
+        fields.add(datePicker);
+        nodes.add(fields);
+    }
 
+    private void addNode(ArrayList<ArrayList<Node>> nodes) {
+        for(ArrayList<Node> node: nodes) {
+            if (columnIndex == 3) {
+                columnIndex = 0;
+                currentRow+=2;
+            }
+            add(node.get(0), columnIndex, currentRow);
+            add(node.get(1), columnIndex, currentRow+1);
+            columnIndex++;
+        }
     }
     private void createForm() {
         createField("Factuurnummer", factuur.factuurnummerProperty(), new IntegerStringConverter());
@@ -124,6 +142,7 @@ public class FacturenAddView extends GridPane implements Viewable {
         createDateFieldVervalDatum("Vervaldatum", factuur.vervaldatumProperty());
         createTextArea("Opmerking", factuur.opmerkingProperty());
         createComboBoxBestellijst("Bestellijst");
+        addNode(nodes);
     }
 
     private void createComboBox(String name) {
@@ -140,9 +159,10 @@ public class FacturenAddView extends GridPane implements Viewable {
 //                if(debiteur.getId() == factuur.getDebiteur().getId())
                 choiceBox.getSelectionModel().select(debiteur);
             }
-            add(label, 0, currentRow);
-            add(choiceBox, 1, currentRow);
-            currentRow++;
+            ArrayList<Node> fields = new ArrayList<>();
+            fields.add(label);
+            fields.add(choiceBox);
+            nodes.add(fields);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,7 +172,6 @@ public class FacturenAddView extends GridPane implements Viewable {
         try {
             Label label = new Label(name);
             ArrayList<Bestellijst> bestellijsten = new BestellijstDAO().allWithProducten();
-            System.out.println("Bestelijlijsten aantal: " + bestellijsten.size());
             ChoiceBox<Bestellijst> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(bestellijsten));
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 bestellijst = newValue;
@@ -163,9 +182,10 @@ public class FacturenAddView extends GridPane implements Viewable {
 
 //            choiceBox.getSelectionModel().select(0);
 
-            add(label, 0, currentRow);
-            add(choiceBox, 1, currentRow);
-            currentRow++;
+            ArrayList<Node> fields = new ArrayList<>();
+            fields.add(label);
+            fields.add(choiceBox);
+            nodes.add(fields);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,8 +235,8 @@ public class FacturenAddView extends GridPane implements Viewable {
         TextField aantalProducten = new TextField();
         table.getColumns().addAll(aantal, productnummer, naam, jaar, prijs, type, land);
 
-        add(table, 1, currentRow);
-        currentRow++;
+        add(table, 2, 8);
+//        currentRow++;
     }
 
     private void createField(String name, Property property, StringConverter stringConverter) {
@@ -224,22 +244,25 @@ public class FacturenAddView extends GridPane implements Viewable {
         TextField textField = new TextField(name);
         Bindings.bindBidirectional(textField.textProperty(), property, stringConverter);
 
-        add(label, 0, currentRow);
-        add(textField, 1, currentRow);
-        currentRow++;
+        ArrayList<Node> fields = new ArrayList<>();
+        fields.add(label);
+        fields.add(textField);
+        nodes.add(fields);
     }
 
     public void createTextArea(String name, Property property) {
         Label label = new Label(name);
         TextArea textArea = new TextArea(name);
         textArea.setMinWidth(50);
+        textArea.setMinHeight(15);
         textArea.setPrefWidth(50);
         textArea.setMaxWidth(400);
         Bindings.bindBidirectional(textArea.textProperty(), property);
 
-        add(label, 0, currentRow);
-        add(textArea, 1, currentRow);
-        currentRow++;
+        ArrayList<Node> fields = new ArrayList<>();
+        fields.add(label);
+        fields.add(textArea);
+        nodes.add(fields);
     }
 
     private void createField(String name, Property property) {
