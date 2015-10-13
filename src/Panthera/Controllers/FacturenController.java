@@ -1,8 +1,10 @@
 package Panthera.Controllers;
 
 import Panthera.DAO.FactuurDAO;
+import Panthera.Models.Email;
 import Panthera.Models.Factuur;
 import Panthera.Models.Factuurregel;
+import Panthera.Services.MailService;
 import Panthera.Views.FacturenAddView;
 import Panthera.Views.FacturenListView;
 import javafx.application.Platform;
@@ -20,6 +22,8 @@ public class FacturenController extends Controller {
     private MainController mainController;
     private ArrayList<Factuur> facturen;
     private FactuurDAO dao;
+    private Email email;
+    private MailService mailService;
 
     public FacturenController(MainController mainController) throws Exception  {
         this.mainController = mainController;
@@ -30,6 +34,8 @@ public class FacturenController extends Controller {
 
     public FacturenController(MainController mainController, Factuur factuur) throws Exception  {
         this.mainController = mainController;
+        this.email = new Email();
+        this.mailService = new MailService();
         this.dao = new FactuurDAO();
 //        this.view = new FacturenListView(this);
         this.facturen = new ArrayList<>();
@@ -66,13 +72,26 @@ public class FacturenController extends Controller {
         }
     }
 
+
     public void cmdSaveFactuur(Factuur factuur) {
-        if(factuur.getStatus().equals("")) {
+        if (factuur.getStatus().equals("")) {
             factuur.setStatus("Concept");
         }
         try {
             dao.save(factuur);
             setView(new FacturenListView(this)).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void cmdUpdateStatus(ObservableList<Factuur> facturen, String status) {
+        try {
+            for (Factuur factuur : facturen) {
+                if (factuur.isChecked()) {
+                    dao.updateStatus(factuur, status);
+                    setView(new FacturenListView(this)).show();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,4 +117,21 @@ public class FacturenController extends Controller {
     public MainController getMainController() {
         return mainController;
     }
+
+    public void cmdSendFactuur(ObservableList<Factuur> facturen) {
+        for(Factuur factuur: facturen) {
+            if (factuur.isChecked()) {
+                email.setTo(factuur.getDebiteur().getEmail());
+                //Wordt straks opgehaald uit de organisatie klasse
+                email.setFrom("brandonvanwijk@gmail.com");
+                email.setSubject("Factuur Benefiet Wijnfestijn");
+                email.setText("Hierbij de factuur in de bijlage");
+                email.addAttachment(factuur.getPdfPath(), factuur.getPdfPath());
+                mailService.send(email);
+            }
+            cmdUpdateStatus(facturen, "Openstaand");
+            setView(new FacturenListView(this)).show();
+        }
+    }
+
 }

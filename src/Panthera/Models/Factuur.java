@@ -1,13 +1,10 @@
 package Panthera.Models;
 
 import Panthera.DAO.FactuurDAO;
-import Panthera.PDF.FirstPDF;
-import com.itextpdf.text.pdf.PdfObject;
+import Panthera.PDFModels.FactuurPdf;
 import javafx.beans.property.*;
-import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -25,9 +22,10 @@ public class Factuur extends Model {
     private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
     private SimpleStringProperty opmerking;
     private SimpleDoubleProperty bedrag;
-    private SimpleObjectProperty<FirstPDF> pdf;
+    private SimpleObjectProperty<FactuurPdf> pdf;
     private SimpleStringProperty pdfPath;
-    //private String notitie;
+    private SimpleBooleanProperty betaald;
+
     //private Organisatie organisatie;
 
 
@@ -44,10 +42,9 @@ public class Factuur extends Model {
         this.opmerking = new SimpleStringProperty(opmerking);
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty();
-       // this.notitie = notitie;
     }
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
 
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
@@ -60,8 +57,8 @@ public class Factuur extends Model {
         this.opmerking = new SimpleStringProperty();
         this.bedrag = new SimpleDoubleProperty();
         this.pdf = new SimpleObjectProperty<>();
-        this.pdfPath = new SimpleStringProperty();
-       // this.notitie = notitie;
+        this.pdfPath = new SimpleStringProperty(pdfpath);
+        this.betaald = new SimpleBooleanProperty(false);
     }
 
     public Factuur() throws Exception {
@@ -79,6 +76,7 @@ public class Factuur extends Model {
         this.pdfPath = new SimpleStringProperty();
 
     }
+
 
     //Getters
     public int getId() {
@@ -115,7 +113,7 @@ public class Factuur extends Model {
 
     public Double getBedrag() { return bedrag.get(); }
 
-    public FirstPDF getPDF() {
+    public FactuurPdf getPDF() {
         return this.pdf.get();
     }
 
@@ -156,7 +154,7 @@ public class Factuur extends Model {
         this.opmerking.set(opmerking);
     }
 
-    public void setPDF(FirstPDF pdf) {
+    public void setPDF(FactuurPdf pdf) {
         this.pdf.set(pdf);
     }
 
@@ -192,6 +190,18 @@ public class Factuur extends Model {
         return vervaldatum;
     }
 
+    public void setBetaald(Boolean betaald) {
+        this.betaald.set(betaald);
+    }
+
+    public Boolean isBetaald() {
+        return this.betaald.get();
+    }
+
+    public SimpleBooleanProperty betaaldProperty() {
+        return this.betaald;
+    }
+
     public SimpleStringProperty statusProperty() {
         return status;
     }
@@ -207,17 +217,9 @@ public class Factuur extends Model {
     public SimpleObjectProperty pdfProperty() { return this.pdf; }
 
 
-//    public String getNotitie() {
-//        return notitie;
-//    }
-
-//    public void setNotitie(String notitie) {
-//        this.notitie = notitie;
-//    }
-
-        public String toString() {
-            return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
-        }
+    public String toString() {
+        return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+    }
 
     public ArrayList<Factuurregel> getFactuurregels() {
         return factuurregels.get();
@@ -234,7 +236,6 @@ public class Factuur extends Model {
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
     }
-
 
 }
 

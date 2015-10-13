@@ -24,6 +24,7 @@ public class QueryUpdater extends DAO{
 	public void update() {
 		String query = getQuery();
 		execute(query);
+		System.out.println(query);
 	}
 	
 	/**
@@ -33,7 +34,7 @@ public class QueryUpdater extends DAO{
 	public void execute(String query) {
 		try {
 			Statement stmt = conn.createStatement();
-			boolean restult = stmt.execute(query);
+			boolean result = stmt.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +51,7 @@ public class QueryUpdater extends DAO{
 		try {
 			Scanner scanner = new Scanner(file);
 			while(scanner.hasNextLine()) {
-				query += scanner.nextLine().toString();
+				query += scanner.nextLine().toString() + " \n";
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

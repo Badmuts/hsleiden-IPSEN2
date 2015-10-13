@@ -13,10 +13,12 @@ hs_err_pid*
 
 .idea/
 *.iml
+*.pdf
 bin/
 out/
 *.pdf
 PDF/
+
 
 *.project
 .classpath

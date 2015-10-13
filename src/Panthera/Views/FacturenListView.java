@@ -1,8 +1,20 @@
 package Panthera.Views;
 
+import java.util.Date;
+
+import Panthera.Panthera;
 import Panthera.Controllers.FacturenController;
+
+
+import Panthera.Factories.CheckBoxCellFactory;
+import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
+import com.itextpdf.text.pdf.PdfDocument;
+
+import Panthera.Controllers.InkoopfactuurController;
+import Panthera.Models.Factuur;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +33,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -34,11 +49,13 @@ public class FacturenListView extends BorderPane implements Viewable {
     private FilteredList<Factuur> filteredData;
     private TextField filterField;
     private HBox topContainer = new HBox(10);
+    private InkoopfactuurController inkoopfactuurController;
 
     public FacturenListView(FacturenController facturenController)  {
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 22, 0));
         this.facturenController = facturenController;
+        this.inkoopfactuurController = new InkoopfactuurController();
         createHeader();
         createTableView();
 
@@ -49,6 +66,7 @@ public class FacturenListView extends BorderPane implements Viewable {
         }).start();
 
     }
+
 
     private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
@@ -83,13 +101,45 @@ public class FacturenListView extends BorderPane implements Viewable {
         createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
+        CreateVerzendFactuurButton();
+        createUpdateFactuurButton();
+        createGenerateInkoopfactuurButton();
+        //createTextField();
+
         setTop(topContainer);
+    }
+    
+    /**
+     * Creates the button to generate an inkoopfactuur.
+     * bit of a long name.
+     * @author Roy
+     */
+    private void createGenerateInkoopfactuurButton() {
+    	System.out.println("test");
+    	Button button = new Button("Inkoopfactuur Opstellen");
+    	button.setOnAction(e -> {
+            inkoopfactuurController.generateInkoopfactuur(facturen);
+        });
+    	topContainer.getChildren().add(button);
     }
 
     private void createRemoveFactuurButton() {
         Button button = new Button("Factuur verwijderen");
         button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
         button.getStyleClass().addAll("btn", "btn-danger");
+        topContainer.getChildren().add(button);
+    }
+
+
+    private void CreateVerzendFactuurButton() {
+        Button button = new Button("Verzend factuur");
+        button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
+        topContainer.getChildren().add(button);
+    }
+
+    private void createUpdateFactuurButton() {
+        Button button = new Button("Update factuur");
+        button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
     }
 
@@ -133,6 +183,39 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         createSelectAllButton();
         setCenter(this.table);
+    }
+
+    private void addClicklistener() {
+        table.setRowFactory( tv -> {
+            TableRow<Factuur> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Factuur rowData = row.getItem();
+
+                    for (int i= 1; i < facturen.size(); i++) {
+                        if (rowData.getId() == facturen.get(i).getId()) {
+                            System.out.println(rowData.getId() + "    " + facturen.get(i).getId());
+                           String pdfFile = facturen.get(i).getPdfPath();
+                            System.out.println(facturen.get(i).getPdfPath());
+
+                            //String pdfFile = "C:\\Users\\Brandon\\Desktop\\20151025-Wijk.pdf";
+
+
+                            System.out.println("pdfpath " + pdfFile);
+                            if (pdfFile.toString().endsWith(".pdf")) {
+                                try {
+                                    Runtime.getRuntime().exec(new String[] {"rundll32", "url.dll,FileProtocolHandler",  pdfFile});
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            i++;
+                        }
+                    }
+                }
+            });
+            return row ;
+        });
     }
 
     public void createSelectAllButton() {

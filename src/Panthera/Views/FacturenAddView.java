@@ -4,7 +4,7 @@ import Panthera.Controllers.FacturenController;
 import Panthera.DAO.BestellijstDAO;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.*;
-import Panthera.PDF.FirstPDF;
+import Panthera.PDFModels.FactuurPdf;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,9 +54,9 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     private void setupView() {
         createTitle();
-        createSaveButton();
         createForm();
         createTableView();
+        createSaveButton();
         table.setItems(producten);
         table.setEditable(true);
     }
@@ -74,7 +75,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     private void saveFactuur() throws Exception {
-        new FirstPDF(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
+        new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
         facturenController.cmdSaveFactuur(factuur);
     }
 
@@ -94,6 +95,21 @@ public class FacturenAddView extends GridPane implements Viewable {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now());
         factuur.setFactuurdatum(java.sql.Date.valueOf(datePicker.getValue()));
+
+        datePicker.setOnAction(event -> {
+            property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
+        });
+
+        add(label, 0, currentRow);
+        add(datePicker, 1, currentRow);
+        currentRow++;
+
+    }
+    private void createDateFieldVervalDatum(String name, Property property) {
+        Label label = new Label(name);
+        DatePicker datePicker = new DatePicker(LocalDate.now().plusDays(30));
+        factuur.setVervaldatum(java.sql.Date.valueOf(datePicker.getValue()));
+
         datePicker.setOnAction(event -> {
             property.setValue(java.sql.Date.valueOf(datePicker.getValue()));
         });
@@ -104,10 +120,10 @@ public class FacturenAddView extends GridPane implements Viewable {
 
     }
     private void createForm() {
-        createField("Factuurnummer", factuur.factuurnummerProperty(), new NumberStringConverter());
-        createComboBox("Debiteur");
+        createField("Factuurnummer", factuur.factuurnummerProperty(), new IntegerStringConverter());
+        createComboBox("Lid");
         createDateField("Factuurdatum", factuur.factuurdatumProperty());
-        createDateField("Vervaldatum", factuur.vervaldatumProperty());
+        createDateFieldVervalDatum("Vervaldatum", factuur.vervaldatumProperty());
         createTextArea("Opmerking", factuur.opmerkingProperty());
         createComboBoxBestellijst("Bestellijst");
     }
