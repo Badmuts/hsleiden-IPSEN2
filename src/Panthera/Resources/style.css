@@ -55,6 +55,15 @@
     -fx-text-fill: #AF000A;
 }
 
+.btn-success {
+    -fx-border-width: 1 1 2 1;
+    -fx-border-color: #2ECC71;
+    /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
+    -fx-effect: null;
+    -fx-background-color: rgba(46, 204, 113, 0.1);
+    -fx-text-fill: #2ECC71;
+}
+
 .subview-container {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #DBD3D3;
