@@ -55,4 +55,14 @@ public class SettingsController extends Controller {
 		return mainController;
 	}
 
+	public void cmdRemoveSettings(Settings settings) {
+		try {
+			dao.removeSettings(settings);
+			mainController.setSubview(new SettingsListView(this));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

@@ -56,7 +56,7 @@ public class SettingsDAO extends DAO {
 			updateSettings(settings);
 		}else {
 			Statement stmt = conn.createStatement();
-			stmt.executeQuery("INSERT INTO settings(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic) " +
+			stmt.executeUpdate("INSERT INTO settings(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic) " +
 			"VALUES('" + settings.getBedrijfsnaam() + "', '" +
 					settings.getAdres() + "', '" +
 					settings.getTelefoon() + "', '" +
@@ -81,6 +81,16 @@ public class SettingsDAO extends DAO {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void removeSettings(Settings settings) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM settings " 
+					+ "WHERE id = " + settings.getId());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
