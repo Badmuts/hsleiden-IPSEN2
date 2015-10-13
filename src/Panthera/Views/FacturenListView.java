@@ -116,7 +116,8 @@ public class FacturenListView extends BorderPane implements Viewable {
      */
     private void createGenerateInkoopfactuurButton() {
     	System.out.println("test");
-    	Button button = new Button("Inkoopfactuur Opstellen");
+    	Button button = new Button("Inkoopfactuur");
+        button.getStyleClass().addAll("btn", "btn-success");
     	button.setOnAction(e -> {
             inkoopfactuurController.generateInkoopfactuur(facturen);
         });
@@ -133,12 +134,14 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void CreateVerzendFactuurButton() {
         Button button = new Button("Verzend factuur");
+        button.getStyleClass().addAll("btn", "btn-success");
         button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
         topContainer.getChildren().add(button);
     }
 
     private void createUpdateFactuurButton() {
-        Button button = new Button("Update factuur");
+        Button button = new Button("Verwerken betaling");
+        button.getStyleClass().addAll("btn", "btn-success");
         button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
     }

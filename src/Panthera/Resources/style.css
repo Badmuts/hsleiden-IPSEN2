@@ -79,7 +79,7 @@
     -fx-fill: #004A95;
 }
 
-.text-field {
+.text-field, .text-area {
     -fx-background-color: -fx-control-inner-background;
     -fx-background-insets: 0;
     -fx-padding: 12 10;
@@ -91,7 +91,7 @@
     -fx-min-width: 216;
 }
 
-.text-field:focused {
+.text-field:focused , .text-area:focused {
     -fx-border-width: 1 1 2 1;
     -fx-border-color: #0065C7;
     -fx-effect: null;
