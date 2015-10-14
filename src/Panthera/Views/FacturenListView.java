@@ -111,7 +111,6 @@ public class FacturenListView extends BorderPane implements Viewable {
      * @author Roy
      */
     private void createGenerateInkoopfactuurButton() {
-    	System.out.println("test");
     	Button button = new Button("Inkoopfactuur");
         button.getStyleClass().addAll("btn", "btn-success");
     	button.setOnAction(e -> {
@@ -131,7 +130,13 @@ public class FacturenListView extends BorderPane implements Viewable {
     private void CreateVerzendFactuurButton() {
         Button button = new Button("Verzend factuur");
         button.getStyleClass().addAll("btn", "btn-success");
-        button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
+        button.setOnAction(event -> {
+            try {
+                facturenController.cmdSendFactuur(facturen);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         topContainer.getChildren().add(button);
     }
 
@@ -200,14 +205,8 @@ public class FacturenListView extends BorderPane implements Viewable {
 
                     for (int i = 1; i < facturen.size(); i++) {
                         if (rowData.getId() == facturen.get(i).getId()) {
-                            System.out.println(rowData.getId() + "    " + facturen.get(i).getId());
                             String pdfFile = facturen.get(i).getPdfPath();
-                            System.out.println(facturen.get(i).getPdfPath());
 
-                            //String pdfFile = "C:\\Users\\Brandon\\Desktop\\20151025-Wijk.pdf";
-
-
-                            System.out.println("pdfpath " + pdfFile);
                             if (pdfFile.toString().endsWith(".pdf")) {
                                 try {
                                     Runtime.getRuntime().exec(new String[]{"rundll32", "url.dll,FileProtocolHandler", pdfFile});

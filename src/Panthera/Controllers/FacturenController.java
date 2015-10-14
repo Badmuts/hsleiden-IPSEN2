@@ -1,9 +1,11 @@
 package Panthera.Controllers;
 
 import Panthera.DAO.FactuurDAO;
+import Panthera.DAO.SettingsDAO;
 import Panthera.Models.Email;
 import Panthera.Models.Factuur;
 import Panthera.Models.Factuurregel;
+import Panthera.Models.Settings;
 import Panthera.Services.MailService;
 import Panthera.Views.FacturenAddView;
 import Panthera.Views.FacturenListView;
@@ -118,7 +120,8 @@ public class FacturenController extends Controller {
         return mainController;
     }
 
-    public void cmdSendFactuur(ObservableList<Factuur> facturen) {
+    public void cmdSendFactuur(ObservableList<Factuur> facturen) throws Exception {
+        Settings settings = new SettingsDAO().getSettings(0);
         for(Factuur factuur: facturen) {
             if (factuur.isChecked()) {
                 email.setTo(factuur.getDebiteur().getEmail());

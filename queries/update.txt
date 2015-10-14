@@ -68,4 +68,4 @@ CREATE TABLE IF NOT EXISTS inkoopproduct
 );
 
 -- Factuur update
-ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
+--ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);

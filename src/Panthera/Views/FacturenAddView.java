@@ -192,6 +192,7 @@ public class FacturenAddView extends GridPane implements Viewable {
                 bestellijst = newValue;
                 //System.out.println(bestellijst.getProducten());
                 producten.setAll(FXCollections.observableArrayList(newValue.getProducten()));
+                System.out.println(newValue.getProducten());
                 table.setItems(producten);
             });
 
