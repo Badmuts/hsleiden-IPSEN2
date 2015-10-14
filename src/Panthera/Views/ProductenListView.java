@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,6 +39,7 @@ public class ProductenListView extends BorderPane implements Viewable {
 
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 10, 0));
+        topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
     /**

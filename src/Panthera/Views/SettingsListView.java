@@ -7,6 +7,7 @@ import Panthera.Models.Settings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -48,12 +49,14 @@ public class SettingsListView extends BorderPane implements Viewable {
 		createTitle();
 		updateButton();
 		setTop(topContainer);
+		topContainer.setAlignment(Pos.CENTER_RIGHT);
 
 	}
 
 	public void createTitle() {
 		Text title = new Text("Lions");
 		title.setFont(Font.font(22));
+		title.getStyleClass().add("h1");
 		topContainer.getChildren().add(title);
 	}
 
@@ -97,6 +100,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 	private void updateButton(){
 		Button button = new Button("Nieuw");
 		button.setOnAction(e -> this.settingsController.getMainController().setSubview(new SettingsAddView(settingsController)));
+		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
 

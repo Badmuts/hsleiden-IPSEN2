@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -104,12 +105,14 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private void removeDebiteurButton() {
 		Button button = new Button("Lid verwijderen");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
+		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
 
 	public void addDebiteurButton(){
 		Button button = new Button("Nieuw Lid");
 		button.setOnAction(e -> this.debiteurenController.getMainController().setSubview((new DebiteurenAddView(this.debiteurenController))));
+		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
 
@@ -180,7 +183,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private void createTitle() {
 		Text title = new Text("Leden");
 		title.setFont(Font.font(22));
+		title.getStyleClass().add("h1");
 		topContainer.getChildren().add(title);
+		topContainer.setAlignment(Pos.CENTER_RIGHT);
 	}
 
     public void show() {
