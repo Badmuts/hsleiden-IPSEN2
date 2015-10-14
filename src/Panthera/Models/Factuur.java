@@ -239,7 +239,6 @@ public class Factuur extends Model {
     }
 
     public void berekenBedrag() {
-        System.out.println(getFactuurregels());
         for(Factuurregel factuurregel: getFactuurregels()) {
             setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());
         }

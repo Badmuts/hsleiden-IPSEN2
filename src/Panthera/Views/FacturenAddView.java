@@ -195,7 +195,7 @@ public class FacturenAddView extends GridPane implements Viewable {
                 table.setItems(producten);
             });
 
-//            choiceBox.getSelectionModel().select(0);
+            choiceBox.getSelectionModel().select(0);
 
             ArrayList<Node> fields = new ArrayList<>();
             fields.add(label);
