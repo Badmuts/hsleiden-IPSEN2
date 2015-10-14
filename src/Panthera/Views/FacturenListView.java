@@ -1,9 +1,7 @@
 package Panthera.Views;
 
-import java.util.Date;
-
-import Panthera.Panthera;
 import Panthera.Controllers.FacturenController;
+
 
 
 import Panthera.Factories.CheckBoxCellFactory;
@@ -15,7 +13,7 @@ import com.itextpdf.text.pdf.PdfDocument;
 
 import Panthera.Controllers.InkoopfactuurController;
 import Panthera.Models.Factuur;
-
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -33,10 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.text.SimpleDateFormat;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -181,6 +177,13 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
+
+        factuurnummer.prefWidthProperty().bind(table.widthProperty().divide(6));
+        factuurdatum.prefWidthProperty().bind(table.widthProperty().divide(6));
+        naam.prefWidthProperty().bind(table.widthProperty().divide(4));
+        bedrag.prefWidthProperty().bind(table.widthProperty().divide(8));
+        status.prefWidthProperty().bind(table.widthProperty().divide(6));
+
         addClicklistener();
         this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, naam, bedrag, status);
 
@@ -208,6 +211,11 @@ public class FacturenListView extends BorderPane implements Viewable {
                             if (pdfFile.toString().endsWith(".pdf")) {
                                 try {
                                     Runtime.getRuntime().exec(new String[]{"rundll32", "url.dll,FileProtocolHandler", pdfFile});
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    Runtime.getRuntime().exec(new String[] {"/usr/bin/open",  pdfFile});
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
