@@ -49,6 +49,12 @@ public class MailListView extends BorderPane implements Viewable {
         button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
         topContainer.getChildren().add(button);
     }
+    
+    private void createHerinneringButton() {
+    	Button button = new Button("Verstuur Herinnering");
+    	button.setOnAction(event -> this.mailController.cmdShowHerinneringView());
+    	topContainer.getChildren().add(button);
+    }
 
     @Override
     public void show() {

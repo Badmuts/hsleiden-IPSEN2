@@ -32,6 +32,10 @@ public class MailController extends Controller {
     public void cmdShowSelectRecipients(String onderwerp, String bericht) {
         this.mainController.setSubview(new MailSelectRecipientsView(this, onderwerp, bericht));
     }
+    public Object cmdShowHerinneringView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     public void cmdSendDankwoord(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
         for (Debiteur debiteur: debiteuren) {
@@ -69,4 +73,5 @@ public class MailController extends Controller {
     public MainController getMainController() {
         return mainController;
     }
+
 }
