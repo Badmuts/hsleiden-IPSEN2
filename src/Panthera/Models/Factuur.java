@@ -172,17 +172,6 @@ public class Factuur extends Model {
         this.bedrag.set(bedrag);
     }
 
-    /*
-    * TODO: bedrag setten vanit factuurregel
-        public void setBedrag() {
-            for(Factuurregel factuurregel: factuurregels) {
-                if(null == null) {
-                    this.bedrag.set(factuurregel.getTotaal());
-                }
-            }
-        }
-    */
-
     //Properties
     public SimpleIntegerProperty idProperty() {
         return id;
