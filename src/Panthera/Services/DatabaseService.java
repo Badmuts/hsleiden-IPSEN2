@@ -43,11 +43,11 @@ public class DatabaseService {
     }
 
     public Connection getConnection() throws SQLException {
-        String URL = "jdbc:postgresql://localhost/panthera";
+        String URL = "jdbc:postgresql://localhost/Lions";
         Properties info = new Properties( );
 
         info.put( "user", "postgres" );
-        info.put( "password", "Welkom#1" );
+        info.put( "password", "" );
 
         Connection conn = DriverManager.getConnection(URL, info);
 
