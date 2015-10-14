@@ -13,7 +13,7 @@
     -fx-effect: dropshadow(gaussian, #003061, 0, 0.0, 0, 2);
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-padding: 8 10;
+    -fx-padding: 12 10;
     -fx-cursor: hand;
 }
 
@@ -39,21 +39,29 @@
 }
 
 .btn-primary {
-    -fx-border-width: 1;
+    -fx-border-width: 1 1 2 1;
     -fx-border-color: #FFD000;
-    /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
     -fx-effect: null;
     -fx-background-color: #FFFCF1;
     -fx-text-fill: #D6AE00;
 }
 
 .btn-danger {
-    -fx-border-width: 1;
+    -fx-border-width: 1 1 2 1;
     -fx-border-color: #D2000D;
     /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
     -fx-effect: null;
     -fx-background-color: #FCF2F3;
     -fx-text-fill: #AF000A;
+}
+
+.btn-success {
+    -fx-border-width: 1 1 2 1;
+    -fx-border-color: #2ECC71;
+    /*-fx-effect: dropshadow(three-pass-box, #FFD000, 0, 0.0, 0, 2);*/
+    -fx-effect: null;
+    -fx-background-color: rgba(46, 204, 113, 0.1);
+    -fx-text-fill: #2ECC71;
 }
 
 .subview-container {
@@ -72,8 +80,10 @@
 }
 
 .text-field {
-    -fx-padding: 8 10;
-    -fx-border-width: 1;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0;
+    -fx-padding: 12 10;
+    -fx-border-width: 1 1 2 1;
     -fx-border-color: #EEEEEE;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
@@ -81,8 +91,8 @@
     -fx-min-width: 216;
 }
 
-.text-field:focused {
-    -fx-border-width: 1;
+.text-field:focused , .text-area:focused {
+    -fx-border-width: 1 1 2 1;
     -fx-border-color: #0065C7;
     -fx-effect: null;
 }
@@ -143,6 +153,7 @@
 .table-view .column-header .label {
     -fx-text-fill: #004A95;
     -fx-text-alignment: left;
+    -fx-alignment: center-left;
 }
 
 .table-view .column-header {
@@ -155,10 +166,20 @@
     -fx-padding: 11;
 }
 
-.table-view > .column-header-background > .column-drag-header {
-    -fx-background-color: red;
-}
-
 .table-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.table-row-cell {
     /*-fx-border-color: #EAEAEA;*/
+}
+
+.table-strong {
+    -fx-font-weight: bold;
+}
+
+.table-text-right {
+    -fx-alignment: CENTER-RIGHT;
+}
+
+.label {
+    -fx-fill: #004A95;
+    -fx-font-weight: bold;
+    -fx-text-fill: #004A95;
 }

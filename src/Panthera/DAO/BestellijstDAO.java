@@ -1,18 +1,19 @@
 package Panthera.DAO;
 
-import java.sql.Date;
+
+import Panthera.Models.Bestellijst;
+import Panthera.Models.Product;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Panthera.Models.Bestellijst;
-import Panthera.Models.Product;
-
 /**
  * 
  * @author Roy
+ * BestellijstDAO fetch bestellijst objects.
  *
  */
 public class BestellijstDAO extends DAO {
@@ -20,6 +21,60 @@ public class BestellijstDAO extends DAO {
 	public BestellijstDAO() throws IllegalAccessException, InstantiationException, SQLException {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Bestellijst get(int id) throws Exception {
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM bestellijst b, product_to_bestellijst pb, product p WHERE b.id=" + id + " AND pb.product_id=p.id");
+		Bestellijst bestellijst = new Bestellijst();
+		while(result.next()) {
+			bestellijst.setId(result.getInt("id"));
+			bestellijst.setDate(result.getDate("date"));
+            bestellijst.setName(result.getString("naam"));
+			bestellijst.addProduct(new Product(
+					result.getInt("id"),
+					result.getInt("productnummer"),
+					result.getString("naam"),
+					result.getInt("jaar"),
+					result.getDouble("prijs"),
+					result.getString("type"),
+					new LandDAO().get(result.getInt("land_id"))));
+		}
+		return bestellijst;
+	}
+
+	public ArrayList<Bestellijst> allWithProducten() throws Exception {
+		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+		Statement stmt = conn.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT b.id AS bid, b.date, b.naam, p.id AS pid, p.productnummer, p.naam, p.jaar, p.prijs, p.type, p.land_id FROM bestellijst b, product_to_bestellijst pb, product p WHERE pb.bestellijst_id=b.id AND pb.product_id=p.id");
+        int lastId = 0;
+        Bestellijst bestellijst = new Bestellijst();
+		while(result.next()) {
+
+            // Als het laatste id niet gelijk is aan het huidige id
+            // leeg dan het bestellijst object.
+            // Anders, blijf het bestellijst object vullen met producten.
+            if (lastId != result.getInt("bid") && lastId != 0) {
+                bestellijsten.add(bestellijst);
+                bestellijst = new Bestellijst();
+            }
+
+            bestellijst.setId(result.getInt("bid"));
+            bestellijst.setDate(result.getDate("date"));
+            bestellijst.setName(result.getString("naam"));
+            bestellijst.addProduct(new Product(
+                    result.getInt("pid"),
+                    result.getInt("productnummer"),
+                    result.getString("naam"),
+                    result.getInt("jaar"),
+                    result.getDouble("prijs"),
+                    result.getString("type"),
+                    new LandDAO().get(result.getInt("land_id"))));
+            lastId = result.getInt("bid");
+
+		}
+        bestellijsten.add(bestellijst);
+		return bestellijsten;
 	}
 
 	public void saveNewBestellijst(List<Product> producten) {
@@ -48,9 +103,8 @@ public class BestellijstDAO extends DAO {
 	 */
 	public void newBestellijst(int bestellijst_id) throws SQLException {
 		Statement stmt = conn.createStatement();
-		String query = ("INSERT INTO bestellijst(name) VALUES(" +
+		String query = ("INSERT INTO bestellijst(naam) VALUES(" +
 				"'bestellijst_" + bestellijst_id + "')");
-		System.out.println(query);
 		stmt.executeUpdate(query);
 	}
 
@@ -78,13 +132,12 @@ public class BestellijstDAO extends DAO {
 		Statement stmt = conn.createStatement();
 		for (Product product : producten) {
 			String query = (
-					"INSERT INTO bestellijst_set(bestellijst_id, product_id)" +
+					"INSERT INTO product_to_bestellijst(bestellijst_id, product_id)" +
 							"VALUES(" +
 							"'" + bestellijst_id + "', " +
 							"'" + product.getId() + "'" +
 
 							")");
-			System.out.println(query);
 			stmt.executeUpdate(query);
 		}
 	}
@@ -112,6 +165,19 @@ public class BestellijstDAO extends DAO {
 		return id;
 	}
 
+	
+//	public List<Bestellijst> all() throws Exception {
+//		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
+//		Statement stmt = conn.createStatement();
+//		String query = "SELECT DISTINCT(id), date FROM bestellijst";
+//		ResultSet result = stmt.executeQuery(query);
+//		while(result.next()) {
+//			bestellijsten.add(new Bestellijst());
+//		}
+//		return bestellijsten;
+//	}
+	
+
 	public List<Bestellijst> all() throws Exception {
 		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
 		Statement stmt = conn.createStatement();
@@ -137,6 +203,34 @@ public class BestellijstDAO extends DAO {
 
 		}
 
+	}
+	
+	/**
+	 * Get the List of Product objects linked to given bestellijst.
+	 * @param bestellijst
+	 * @return
+	 * @throws SQLException 
+	 */
+	public List<Product> getProducten(Bestellijst bestellijst) throws SQLException {
+		List<Product> producten = new ArrayList<>();
+		Statement stmt = conn.createStatement();
+		String query = ("SELECT product.*"
+				+ " FROM product, bestellijst_set, bestellijst"
+				+ " WHERE product.id = bestellijst_set.product_id"
+				+ " AND bestellijst_set.bestellijst_id = bestellijst.id"
+				+ " AND bestellijst.id = "+ bestellijst.getId() +";");
+		ResultSet result = stmt.executeQuery(query);
+		while(result.next()) {
+			Product product = new Product();
+			product.setId(result.getInt("id"));
+			product.setProductnummer(result.getInt("productnummer"));
+			product.setNaam(result.getString("naam"));
+			product.setJaar(result.getInt("jaar"));
+			product.setPrijs(result.getDouble("prijs"));
+			product.setType(result.getString("type"));
+			producten.add(product);
+		}
+		return producten;
 	}
 
 }

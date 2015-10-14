@@ -66,3 +66,6 @@ CREATE TABLE IF NOT EXISTS inkoopproduct
 	product_id integer REFERENCES product (id),
 	aantal integer NOT NULL
 );
+
+-- Factuur update
+ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
