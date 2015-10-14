@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS bestellijst_set
 	product_id integer REFERENCES product (id)
 );
 
-
 CREATE TABLE If NOT EXISTS settings
 (
   id serial NOT NULL,
@@ -69,4 +68,4 @@ CREATE TABLE IF NOT EXISTS inkoopproduct
 );
 
 -- Factuur update
---ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
+ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
