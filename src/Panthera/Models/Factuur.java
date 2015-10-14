@@ -42,6 +42,9 @@ public class Factuur extends Model {
         this.opmerking = new SimpleStringProperty(opmerking);
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
+        berekenBedrag();
+
     }
 
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
@@ -59,6 +62,7 @@ public class Factuur extends Model {
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty(pdfpath);
         this.betaald = new SimpleBooleanProperty(false);
+        berekenBedrag();
     }
 
     public Factuur() throws Exception {
@@ -74,7 +78,8 @@ public class Factuur extends Model {
         this.bedrag = new SimpleDoubleProperty();
         this.pdf = new SimpleObjectProperty<>();
         this.pdfPath = new SimpleStringProperty();
-
+        this.bedrag = new SimpleDoubleProperty();
+        berekenBedrag();
     }
 
 
@@ -111,7 +116,8 @@ public class Factuur extends Model {
         return opmerking.get();
     }
 
-    public Double getBedrag() { return bedrag.get(); }
+    public Double getBedrag() {
+        return bedrag.get(); }
 
     public FactuurPdf getPDF() {
         return this.pdf.get();
@@ -160,6 +166,10 @@ public class Factuur extends Model {
 
     public void setPdfPath(String pdfPath) {
         this.pdfPath.set(pdfPath);
+    }
+
+    public void setBedrag(double bedrag) {
+        this.bedrag.set(bedrag);
     }
 
     /*
@@ -216,6 +226,8 @@ public class Factuur extends Model {
 
     public SimpleObjectProperty pdfProperty() { return this.pdf; }
 
+    public SimpleDoubleProperty bedragProperty() { return this.bedrag; }
+
 
     public String toString() {
         return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
@@ -235,6 +247,13 @@ public class Factuur extends Model {
 
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
+    }
+
+    public void berekenBedrag() {
+        System.out.println(getFactuurregels());
+        for(Factuurregel factuurregel: getFactuurregels()) {
+            setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());
+        }
     }
 
 }

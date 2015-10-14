@@ -53,7 +53,7 @@ public class Debiteur extends Model {
 		this.id = new SimpleIntegerProperty();
 		this.aanhef = new SimpleStringProperty();
 		this.voornaam = new SimpleStringProperty();
-		this.tussenvoegsel = new SimpleStringProperty();
+		this.tussenvoegsel = new SimpleStringProperty("");
 		this.naam = new SimpleStringProperty();
 		this.adres = new SimpleStringProperty();
 		this.woonplaats = new SimpleStringProperty();

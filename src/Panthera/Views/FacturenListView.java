@@ -10,6 +10,7 @@ import Panthera.Factories.CheckBoxCellFactory;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Factuur;
 import Panthera.Panthera;
+
 import com.itextpdf.text.pdf.PdfDocument;
 
 import Panthera.Controllers.InkoopfactuurController;
@@ -66,7 +67,6 @@ public class FacturenListView extends BorderPane implements Viewable {
         }).start();
 
     }
-
 
     private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
@@ -189,16 +189,16 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     private void addClicklistener() {
-        table.setRowFactory( tv -> {
+        table.setRowFactory(tv -> {
             TableRow<Factuur> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Factuur rowData = row.getItem();
 
-                    for (int i= 1; i < facturen.size(); i++) {
+                    for (int i = 1; i < facturen.size(); i++) {
                         if (rowData.getId() == facturen.get(i).getId()) {
                             System.out.println(rowData.getId() + "    " + facturen.get(i).getId());
-                           String pdfFile = facturen.get(i).getPdfPath();
+                            String pdfFile = facturen.get(i).getPdfPath();
                             System.out.println(facturen.get(i).getPdfPath());
 
                             //String pdfFile = "C:\\Users\\Brandon\\Desktop\\20151025-Wijk.pdf";
@@ -207,7 +207,7 @@ public class FacturenListView extends BorderPane implements Viewable {
                             System.out.println("pdfpath " + pdfFile);
                             if (pdfFile.toString().endsWith(".pdf")) {
                                 try {
-                                    Runtime.getRuntime().exec(new String[] {"rundll32", "url.dll,FileProtocolHandler",  pdfFile});
+                                    Runtime.getRuntime().exec(new String[]{"rundll32", "url.dll,FileProtocolHandler", pdfFile});
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -217,7 +217,7 @@ public class FacturenListView extends BorderPane implements Viewable {
                     }
                 }
             });
-            return row ;
+            return row;
         });
     }
 
@@ -231,8 +231,7 @@ public class FacturenListView extends BorderPane implements Viewable {
                     for (Factuur factuur : facturen) {
                         factuur.checkedProperty().set(new_val);
                     }
-                }
-                else {
+                } else {
                     for (Factuur factuur : facturen) {
                         factuur.checkedProperty().set(false);
                     }
