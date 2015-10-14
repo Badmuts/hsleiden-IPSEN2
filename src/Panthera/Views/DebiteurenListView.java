@@ -114,7 +114,6 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	}
 
 
-
 	private void createTableView() {
 		table = new TableView();
 		TableColumn<Debiteur, CheckBox> checkbox = new TableColumn(" ");
