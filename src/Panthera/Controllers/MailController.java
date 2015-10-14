@@ -6,6 +6,7 @@ import Panthera.Services.Decorators.DebiteurParser;
 import Panthera.Services.Decorators.Parser;
 import Panthera.Services.MailService;
 import Panthera.Views.MailDankwoordView;
+import Panthera.Views.MailHerinneringView;
 import Panthera.Views.MailListView;
 import Panthera.Views.MailSelectRecipientsView;
 import Panthera.Views.MailUitnodigingView;
@@ -28,14 +29,15 @@ public class MailController extends Controller {
     public void cmdShowUitnodigingView() {
         this.mainController.setSubview(new MailUitnodigingView(this));
     }
+    
+    public void cmdShowHerinneringView() {
+    	this.mainController.setSubview(new MailHerinneringView(this));
+	}
 
     public void cmdShowSelectRecipients(String onderwerp, String bericht) {
         this.mainController.setSubview(new MailSelectRecipientsView(this, onderwerp, bericht));
     }
-    public Object cmdShowHerinneringView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    
 
     public void cmdSendDankwoord(ObservableList<Debiteur> debiteuren, String onderwerp, String bericht) {
         for (Debiteur debiteur: debiteuren) {

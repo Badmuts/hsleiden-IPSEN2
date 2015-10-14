@@ -21,10 +21,9 @@ public class JavaMailStrategy implements MailStrategy {
     private Session session;
 
     public JavaMailStrategy() {
-        //final String username = "d.rosbergen@gmail.com";
-        //final String password = "ycvkcfjyjfepxjxe";
-        final String username = "victormachadobraz@gmail.com";
-        final String password = "brazuka66";
+        final String username = "d.rosbergen@gmail.com";
+        final String password = "ycvkcfjyjfepxjxe";
+
         // Get system properties
         Properties properties = System.getProperties();
 

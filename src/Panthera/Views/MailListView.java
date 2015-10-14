@@ -30,6 +30,7 @@ public class MailListView extends BorderPane implements Viewable {
         createTitle();
         createDankwoordButton();
         createUitnodigingButton();
+        createHerinneringButton();
         setTop(topContainer);
     }
 

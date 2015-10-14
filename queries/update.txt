@@ -26,7 +26,7 @@ CREATE TABLE If NOT EXISTS settings
   telefoon numeric(11,0) NOT NULL,
   mailadres character varying(255) NOT NULL,
   kvk numeric(25,0),
-  btwnummer numeric(25,0),
+  btwnummer character varying(255),
   iban character varying(255) NOT NULL,
   bic character varying(255) NOT NULL,
   wachtwoord character varying(255) NOT NULL,
