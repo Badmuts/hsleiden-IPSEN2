@@ -2,6 +2,7 @@ package Panthera.Controllers;
 
 import Panthera.Models.Debiteur;
 import Panthera.Models.Email;
+import Panthera.Panthera;
 import Panthera.Services.Decorators.DebiteurParser;
 import Panthera.Services.Decorators.Parser;
 import Panthera.Services.MailService;
@@ -37,7 +38,7 @@ public class MailController extends Controller {
         for (Debiteur debiteur: debiteuren) {
             Email email = new Email();
             email.setSubject(onderwerp);
-            email.setFrom("d.rosbergen@gmail.com");
+            email.setFrom(Panthera.getInstance().getSetting().getMailadres());
             Parser parser = new DebiteurParser(debiteur);
             email.setText(parser.parse(bericht, debiteur));
             if (debiteur.isActive())
