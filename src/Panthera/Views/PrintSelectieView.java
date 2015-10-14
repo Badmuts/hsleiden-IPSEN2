@@ -37,8 +37,11 @@ public class PrintSelectieView extends BorderPane implements Viewable{
 	public void createHeader() {
 		HBox box = new HBox();
 		Button printBtn = new Button("Print");
+		printBtn.getStyleClass().addAll("btn", "btn-primary");
 		Button printAllBtn = new Button("Print allemaal");
+		printAllBtn.getStyleClass().addAll("btn", "btn-primary");
 		Button cancelBtn = new Button("Annuleer");
+		cancelBtn.getStyleClass().addAll("btn", "btn-danger");
 		box.getChildren().addAll(createTitle(), printBtn, printAllBtn, cancelBtn);
 		
 		printBtn.setOnAction(e -> {
@@ -62,6 +65,7 @@ public class PrintSelectieView extends BorderPane implements Viewable{
 	 */
 	public Text createTitle() {
 		Text title = new Text("Selecteer Gasten");
+		title.getStyleClass().add("h1");
 		title.setFont(Font.font(22));
 		return title;		
 	}

@@ -87,7 +87,6 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void createHeader() {
 		createTile();
 		setTop(topContainer);
-		createTerugButton();
 		createAddBestellijstenButton();
 		createVerwijderButton();
 		createPrintButton();
@@ -120,13 +119,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
-	
-	public void createTerugButton() {
-		Button button = new Button("Terug");
-		button.setOnAction(e -> this.bestellijstenController.mainMenu());
-		topContainer.getChildren().add(button);
-	}
-	
+		
 	/**
 	 * Create the AddBestelLijstenButton and add it into topContainer.
 	 */
