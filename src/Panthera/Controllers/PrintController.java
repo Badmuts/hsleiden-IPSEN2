@@ -11,6 +11,7 @@ import Panthera.Models.Bestellijst;
 import Panthera.Models.BestellijstPdf;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Printer;
+import Panthera.Views.BestellijstenSummaryView;
 import Panthera.Views.PrintSelectieView;
 
 /**
@@ -35,7 +36,8 @@ public class PrintController extends Controller {
 		this.debiteurenController = new DebiteurenController(mainController);
 		this.printer = new Printer();
 		this.bestellijstPdf = new BestellijstPdf();
-		setView(new PrintSelectieView(this, debiteurenController.cmdGetDebiteuren())).show();
+		//setView(new PrintSelectieView(this, debiteurenController.cmdGetDebiteuren())).show();
+		mainController.setSubview(new PrintSelectieView(this, debiteurenController.cmdGetDebiteuren()));
 	}
 	
 	/**
@@ -49,6 +51,7 @@ public class PrintController extends Controller {
 		try {
 			String path = generatePdf(bestellijsten, debiteuren);
 			printer.print(path);
+			cancel();
 		} catch (FileNotFoundException | DocumentException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,6 +66,7 @@ public class PrintController extends Controller {
 		try {
 			String path = generatePdf(bestellijsten, debiteuren);
 			printer.print(path);
+			cancel();
 		} catch (FileNotFoundException | DocumentException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,6 +81,13 @@ public class PrintController extends Controller {
 	public String generatePdf(List<Bestellijst> bestellijsten, List<Debiteur> debiteuren) throws FileNotFoundException, DocumentException, SQLException {
 		String  path = bestellijstPdf.create(bestellijsten, debiteuren);
 		return path;
+	}
+	
+	/**
+	 * Cancel printing, return to bestellijstOverview.
+	 */
+	public void cancel() {
+		mainController.setSubview(new BestellijstenSummaryView(new BestellijstenController(mainController), mainController));
 	}
 	
 }
