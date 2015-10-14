@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS inkoopproduct
 );
 
 -- Factuur update
-ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
+--ALTER TABLE factuur ADD COLUMN pdfpath varchar(255);
 
 CREATE TABLE IF NOT EXISTS product_to_bestellijst
 (
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS product_to_bestellijst
   CONSTRAINT product_to_bestellijst_pkey PRIMARY KEY (id),
   CONSTRAINT product_to_bestellijst_bestellijst_id_fkey FOREIGN KEY (bestellijst_id)
       REFERENCES bestellijst (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT product_to_bestellijst_product_id_fkey FOREIGN KEY (product_id)
       REFERENCES product (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE CASCADE

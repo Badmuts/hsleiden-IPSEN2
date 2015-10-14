@@ -214,8 +214,8 @@ public class BestellijstDAO extends DAO {
 	public List<Product> getProducten(Bestellijst bestellijst) throws SQLException {
 		List<Product> producten = new ArrayList<>();
 		Statement stmt = conn.createStatement();
-		String query = ("SELECT product.*"
-				+ " FROM product, bestellijst_set, bestellijst"
+		String query = ("SELECT product.*, p.naam AS pnaam"
+				+ " FROM product p, bestellijst_set, bestellijst"
 				+ " WHERE product.id = bestellijst_set.product_id"
 				+ " AND bestellijst_set.bestellijst_id = bestellijst.id"
 				+ " AND bestellijst.id = "+ bestellijst.getId() +";");
@@ -224,7 +224,7 @@ public class BestellijstDAO extends DAO {
 			Product product = new Product();
 			product.setId(result.getInt("id"));
 			product.setProductnummer(result.getInt("productnummer"));
-			product.setNaam(result.getString("naam"));
+			product.setNaam(result.getString("pnaam"));
 			product.setJaar(result.getInt("jaar"));
 			product.setPrijs(result.getDouble("prijs"));
 			product.setType(result.getString("type"));
