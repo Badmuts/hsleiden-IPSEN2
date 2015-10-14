@@ -17,6 +17,24 @@ CREATE TABLE IF NOT EXISTS bestellijst_set
 	product_id integer REFERENCES product (id)
 );
 
+<<<<<<< HEAD
+CREATE TABLE If NOT EXISTS settings
+(
+  id serial NOT NULL,
+  bedrijfsnaam character varying(255) NOT NULL,
+  adres character varying(255) NOT NULL,
+  telefoon numeric(11,0) NOT NULL,
+  mailadres character varying(255) NOT NULL,
+  kvk numeric(25,0),
+  btwnummer numeric(25,0),
+  iban character varying(255) NOT NULL,
+  bic character varying(255) NOT NULL,
+  wachtwoord character varying(255) NOT NULL,
+  host character varying(255) NOT NULL,
+  port numeric(25,0) NOT NULL,
+  CONSTRAINT settings_pkey PRIMARY KEY (id)
+)
+=======
 --Event table, for a wine event.
 CREATE TABLE IF NOT EXISTS event
 (
@@ -50,3 +68,4 @@ CREATE TABLE IF NOT EXISTS inkoopproduct
 	aantal integer NOT NULL
 );
 
+>>>>>>> refs/remotes/origin/master

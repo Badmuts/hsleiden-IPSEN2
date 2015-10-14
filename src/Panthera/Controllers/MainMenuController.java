@@ -40,5 +40,8 @@ public class MainMenuController extends Controller {
     public Controller cmdCreateMailController() {
         return new MailController(this.mainController);
     }
+    public Controller cmdCreateSettingsController() {
+    	return new SettingsController(this.mainController);
+    }
 }
 
