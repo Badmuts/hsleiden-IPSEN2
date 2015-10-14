@@ -7,6 +7,8 @@ import Panthera.Models.Bestellijst;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -76,7 +78,8 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		name.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("naam"));
 		TableColumn date = new TableColumn("date");
 		date.setCellValueFactory(new PropertyValueFactory<Bestellijst, Date>("date"));
-		
+
+		createSelectAllButton();
 		this.table.getColumns().addAll(id, name, date, checkbox);
 		setCenter(this.table);
 	}
@@ -125,7 +128,36 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
-		
+
+	
+	public void createTerugButton() {
+		Button button = new Button("Terug");
+		button.setOnAction(e -> this.bestellijstenController.mainMenu());
+		topContainer.getChildren().add(button);
+	}
+
+	public void createSelectAllButton() {
+
+		CheckBox cb = new CheckBox("Select all");
+		cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> ov,
+								Boolean old_val, Boolean new_val) {
+				if (new_val) {
+					for (Bestellijst bestellijst : bestellijsten) {
+						bestellijst.activeProperty().set(new_val);
+					}
+				}
+				else {
+					for (Bestellijst bestellijst : bestellijsten) {
+						bestellijst.activeProperty().set(false);
+					}
+				}
+			}
+		});
+
+		topContainer.getChildren().add(cb);
+	}
+
 	/**
 	 * Create the AddBestelLijstenButton and add it into topContainer.
 	 */
