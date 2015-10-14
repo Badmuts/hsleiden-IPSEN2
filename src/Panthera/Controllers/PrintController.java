@@ -30,13 +30,17 @@ public class PrintController extends Controller {
 	 * open debiteurselectie window.
 	 * @param bestellijsten
 	 */
-	public void print(List<Bestellijst> bestellijsten, MainController mainController) {
+	public void print(List<Bestellijst> bestellijsten, MainController mainController) throws Exception {
 		this.bestellijsten = bestellijsten;
 		this.mainController = mainController;
 		this.debiteurenController = new DebiteurenController(mainController);
 		this.printer = new Printer();
 		this.bestellijstPdf = new BestellijstPdf();
 		//setView(new PrintSelectieView(this, debiteurenController.cmdGetDebiteuren())).show();
+		if(bestellijsten.size() < 1) {
+			throw new Exception();
+		}
+		System.out.println(bestellijsten.size());
 		mainController.setSubview(new PrintSelectieView(this, debiteurenController.cmdGetDebiteuren()));
 	}
 	
@@ -45,10 +49,14 @@ public class PrintController extends Controller {
 	 * generate PDF of selected.
 	 * print it
 	 * @param debiteuren
+	 * @throws Exception 
 	 */
-	public void printSelected(List<Debiteur> debiteuren) {
+	public void printSelected(List<Debiteur> debiteuren) throws Exception {
 		debiteuren = debiteurenController.filterUnselected(debiteuren);
 		try {
+			if(debiteuren.size() < 1) {
+				throw new Exception();
+			}
 			String path = generatePdf(bestellijsten, debiteuren);
 			printer.print(path);
 			cancel();
@@ -60,10 +68,14 @@ public class PrintController extends Controller {
 	/**
 	 * generate PDF for all
 	 * Order and print all
+	 * @throws Exception 
 	 */
-	public void printAll(List<Debiteur> debiteuren) {
+	public void printAll(List<Debiteur> debiteuren) throws Exception {
 		debiteuren.sort(new AttributeCompare());
 		try {
+			if(debiteuren.size() < 1) {
+				throw new Exception();
+			}
 			String path = generatePdf(bestellijsten, debiteuren);
 			printer.print(path);
 			cancel();

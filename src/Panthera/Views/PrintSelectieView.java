@@ -45,11 +45,21 @@ public class PrintSelectieView extends BorderPane implements Viewable{
 		box.getChildren().addAll(createTitle(), printBtn, printAllBtn, cancelBtn);
 		
 		printBtn.setOnAction(e -> {
-			printController.printSelected(debiteuren);
+			try {
+				printController.printSelected(debiteuren);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				System.out.println("Nothing selected mate");
+			}
 		});
 		
 		printAllBtn.setOnAction(e -> {
-			printController.printAll(debiteuren);
+			try {
+				printController.printAll(debiteuren);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				System.out.println("Nothing selected mate");
+			}
 		});
 		
 		cancelBtn.setOnAction(e -> {

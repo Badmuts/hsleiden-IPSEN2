@@ -108,7 +108,12 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		button.setOnAction(e -> {
 			//create a new list of bestellijst objects by letting bestellijstenController filter this.bestellijsten.
 			List<Bestellijst> filteredBestellijsten = bestellijstenController.filterUnselectedBestellijsten((List)bestellijsten);
-			this.printController.print(filteredBestellijsten, mainController);
+			try {
+				this.printController.print(filteredBestellijsten, mainController);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				System.out.println("Nothing selected mate");
+			}
 		});
 		topContainer.getChildren().add(button);
 	}
