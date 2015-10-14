@@ -91,7 +91,7 @@ public class FactuurDAO extends DAO {
         for (Factuurregel factuurregel: factuur.getFactuurregels()) {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(""
-                + "INSERT INTO factuurregel (factuur_id, aantal, product_id)"
+                + "INSERT INTO tbl_order (factuur_id, aantal, product_id)"
                 + "VALUES (" +
                 + factuurId + ", " +
                 + factuurregel.getAantal() + ", " +
