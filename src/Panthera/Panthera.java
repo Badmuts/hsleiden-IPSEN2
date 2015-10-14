@@ -1,14 +1,19 @@
 package Panthera;
 
 import Panthera.Controllers.MainController;
+import Panthera.DAO.SettingsDAO;
+import Panthera.Models.Settings;
 import Panthera.Services.QueryUpdater;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Panthera extends Application {
     private static Panthera uniqueInstance;
     private Stage stage;
+    private Settings setting;
 
     /**
      * JavaFX Singleton constructor.
@@ -33,9 +38,15 @@ public class Panthera extends Application {
         this.stage.setTitle("Panthera");
         this.stage.setMinWidth(800);
         this.stage.setMinHeight(600);
+
+        ArrayList<Settings> settings = new SettingsDAO().getAllSettings();
+        int last = settings.size()-1;
+        setting = settings.get(last);
+
         loadFont();
         new MainController().show();
         new QueryUpdater().update();
+
     }
 
     private void loadFont() {
@@ -67,5 +78,9 @@ public class Panthera extends Application {
      */
     public Stage getStage() {
         return stage;
+    }
+
+    public Settings getSetting() {
+        return setting;
     }
 }

@@ -1,6 +1,7 @@
 package Panthera.Services.Strategies.Mail;
 
 import Panthera.Models.Email;
+import Panthera.Panthera;
 import Panthera.Services.Interfaces.MailStrategy;
 
 import javax.activation.DataHandler;
@@ -11,8 +12,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -21,17 +20,17 @@ public class JavaMailStrategy implements MailStrategy {
     private Session session;
 
     public JavaMailStrategy() {
-        final String username = "d.rosbergen@gmail.com";
-        final String password = "ycvkcfjyjfepxjxe";
+        final String username = Panthera.getInstance().getSetting().getMailadres();
+        final String password = Panthera.getInstance().getSetting().getPassword();
+
         // Get system properties
         Properties properties = System.getProperties();
 
         // Setup mail server
-        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.host", Panthera.getInstance().getSetting().getHost());
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.port", Panthera.getInstance().getSetting().getPort());
 
         // Get the default Session object.
         session = Session.getInstance(properties,
