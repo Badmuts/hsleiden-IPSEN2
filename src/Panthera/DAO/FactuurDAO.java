@@ -1,6 +1,7 @@
 package Panthera.DAO;
 
 import Panthera.Models.Factuur;
+import Panthera.Models.Factuurregel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class FactuurDAO extends DAO {
         super();
     }
 
-    public Factuur getFactuur(int id) throws SQLException {
+    public Factuur getFactuur(int id) throws Exception {
         //query om een specifieke factuur op te halen
         Factuur factuur = new Factuur();
         try (Statement stmt = conn.createStatement()) {
@@ -27,6 +28,7 @@ public class FactuurDAO extends DAO {
                 factuur.setFactuurdatum(result.getDate("factuurdatum"));
                 factuur.setVervaldatum(result.getDate("vervaldatum"));
                 factuur.setStatus(result.getString("status"));
+                factuur.setOpmerking(result.getString("opmerking"));
             }
         }
         return factuur;
@@ -47,14 +49,16 @@ public class FactuurDAO extends DAO {
     public ArrayList<Factuur> getAllFacturen() throws Exception {
         ArrayList<Factuur> facturen = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, factuurdatum, vervaldatum, status FROM factuur LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, debiteur_id, factuurdatum, vervaldatum, status, pdfpath, opmerking FROM factuur LIMIT 25");
         while (result.next()) {
             facturen.add(new Factuur(
                     result.getInt("id"),
                     result.getInt("factuurnummer"),
                     result.getDate("factuurdatum"),
                     result.getDate("vervaldatum"),
-                    result.getString("status")));
+                    result.getString("status"),
+                    result.getString("pdfpath"),
+                    new DebiteurDAO().getDebiteur(result.getInt("debiteur_id"))));
 
         }
         return facturen;
@@ -67,20 +71,56 @@ public class FactuurDAO extends DAO {
                 "WHERE id=" + factuur.getId());
         }
 
+    public void save(Factuur factuur) throws Exception {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("" +
+        "INSERT INTO factuur(factuurnummer, debiteur_id, factuurdatum, vervaldatum, opmerking, status, pdfpath)" +
+            "VALUES(" +
+            factuur.getFactuurnummer() + ", " +
+            factuur.getDebiteur().getId() + ", '" +
+            factuur.getFactuurdatum() + "', '" +
+            factuur.getVervaldatum() + "',' " +
+            factuur.getOpmerking() + "',' " +
+            factuur.getStatus() + "','" +
+            factuur.getPdfPath() + "')");
+        saveFactuurregels(factuur);
+    }
+
+    private void saveFactuurregels(Factuur factuur) throws Exception {
+        int factuurId = getLastFactuurId();
+        for (Factuurregel factuurregel: factuur.getFactuurregels()) {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(""
+                + "INSERT INTO tbl_order (factuur_id, aantal, product_id)"
+                + "VALUES (" +
+                + factuurId + ", " +
+                + factuurregel.getAantal() + ", " +
+                + factuurregel.getProduct().getId() + ")");
+        }
+    }
+
+    public int getLastFactuurId() throws Exception {
+        int id = 0;
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT MAX(id) AS id FROM factuur");
+        while (result.next()) {
+            id = result.getInt("id");
+        }
+        return id++;
+    }
+
+    public int getLastFactuurNummer() throws Exception {
+        int factuurnummer = 0;
+
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT MAX(factuurnummer) AS factuurnummer FROM factuur");
+        while(result.next()) {
+            factuurnummer = result.getInt("factuurnummer");
+        }
+        return factuurnummer += 1;
+    }
+
 }
 
-   /* public void saveFactuur(Calendar factuurdatum, Calendar vervaldatum, Debiteur debiteur, OrderRegel orderRegel, String opmerking, String notitie, Organisatie organisatie) throws SQLException {
-        //query om een factuur op te slaan
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery( "INSERT INTO factuur VALUES(" +
-                            factuurdatum + "," +
-                            vervaldatum + "," +
-                            debiteur + "," +
-                            orderRegel + "," +
-                            opmerking + "," +
-                            notitie + "," +
-                            organisatie + ")"
-                            );
-        }
-    } */
+
 

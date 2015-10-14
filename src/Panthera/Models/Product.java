@@ -13,7 +13,8 @@ public class Product extends Model {
     private SimpleStringProperty type;
     private SimpleObjectProperty<Land> land;
     private SimpleBooleanProperty active;
-    
+    private SimpleStringProperty aantal;
+
     public Product(int id, int productnummer, String naam, int jaar, double prijs, String type, Land land) {
         this.id = new SimpleIntegerProperty(id);
         this.productnummer = new SimpleIntegerProperty(productnummer);
@@ -23,6 +24,7 @@ public class Product extends Model {
         this.type = new SimpleStringProperty(type);
         this.land = new SimpleObjectProperty<>(land);
         this.active = new SimpleBooleanProperty(false);
+        this.aantal = new SimpleStringProperty("leeg");
     }
 
     public Product() {
@@ -34,6 +36,7 @@ public class Product extends Model {
         this.type = new SimpleStringProperty();
         this.land = new SimpleObjectProperty<>();
         this.active = new SimpleBooleanProperty();
+        this.aantal = new SimpleStringProperty();
     }
 
     public int getProductnummer() {
@@ -143,5 +146,17 @@ public class Product extends Model {
 
     public void setActive(boolean active) {
         this.active.set(active);
+    }
+
+    public String getAantal() {
+        return aantal.get();
+    }
+
+    public SimpleStringProperty aantalProperty() {
+        return aantal;
+    }
+
+    public void setAantal(String aantal) {
+        this.aantal.set(aantal);
     }
 }

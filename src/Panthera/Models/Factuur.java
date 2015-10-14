@@ -1,84 +1,192 @@
 package Panthera.Models;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
+import Panthera.DAO.FactuurDAO;
+import Panthera.PDFModels.FactuurPdf;
+import javafx.beans.property.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Brandon on 22-Sep-15.
  */
+
 public class Factuur extends Model {
-    private int id;
-    private int factuurnummer;
-    private Date factuurdatum;
-    private Date vervaldatum;
+    private SimpleIntegerProperty id;
+    private SimpleIntegerProperty factuurnummer;
+    private SimpleObjectProperty<Date> factuurdatum;
+    private SimpleObjectProperty<Date> vervaldatum;
     private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
+    private SimpleObjectProperty<Debiteur> debiteur;
+    private SimpleObjectProperty<ArrayList<Factuurregel>> factuurregels;
+    private SimpleStringProperty opmerking;
+    private SimpleDoubleProperty bedrag;
+    private SimpleObjectProperty<FactuurPdf> pdf;
+    private SimpleStringProperty pdfPath;
     private SimpleBooleanProperty betaald;
 
-
-    //private Debiteur debiteur;
-    //private OrderRegel orderRegel;
-    //private String opmerking;
-    //private String notitie;
     //private Organisatie organisatie;
 
 
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur, ArrayList<Factuurregel> factuurregels, String opmerking) {
 
-
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status) {
-        this.id = id;
-        this.factuurnummer = factuurnummer;
-        this.factuurdatum = factuurdatum;
-        this.vervaldatum = vervaldatum;
+        this.id = new SimpleIntegerProperty(id);
+        this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
+        this.factuurdatum = new SimpleObjectProperty<>(factuurdatum);
+        this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
         this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
+        this.debiteur = new SimpleObjectProperty<>(debiteur);
+        this.factuurregels = new SimpleObjectProperty<>(factuurregels);
+        this.opmerking = new SimpleStringProperty(opmerking);
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
+        berekenBedrag();
+
+    }
+
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
+
+        this.id = new SimpleIntegerProperty(id);
+        this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
+        this.factuurdatum = new SimpleObjectProperty<>(factuurdatum);
+        this.vervaldatum = new SimpleObjectProperty<>(vervaldatum);
+        this.status = new SimpleStringProperty(status);
+        this.checked = new SimpleBooleanProperty(false);
+        this.debiteur = new SimpleObjectProperty<>(debiteur);
+        this.factuurregels = new SimpleObjectProperty<>(new ArrayList<>());
+        this.opmerking = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty(pdfpath);
         this.betaald = new SimpleBooleanProperty(false);
-        //this.debiteur = debiteur;
-        //this.orderRegel = orderRegel;
-       // this.opmerking = opmerking;
-       // this.notitie = notitie;
+        berekenBedrag();
     }
 
-    public Factuur() {
+    public Factuur() throws Exception {
+        this.id = new SimpleIntegerProperty();
+        this.factuurnummer = new SimpleIntegerProperty(new FactuurDAO().getLastFactuurNummer());
+        this.factuurdatum = new SimpleObjectProperty<>();
+        this.vervaldatum = new SimpleObjectProperty<>();
+        this.status = new SimpleStringProperty("");
+        this.checked = new SimpleBooleanProperty();
+        this.debiteur = new SimpleObjectProperty<>();
+        this.factuurregels = new SimpleObjectProperty<>(new ArrayList<Factuurregel>());
+        this.opmerking = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
+        this.pdf = new SimpleObjectProperty<>();
+        this.pdfPath = new SimpleStringProperty();
+        this.bedrag = new SimpleDoubleProperty();
+        berekenBedrag();
     }
 
+
+    //Getters
     public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        return id.get();
     }
 
     public int getFactuurnummer() {
-        return factuurnummer;
-    }
-
-    public void setFactuurnummer(int factuurnummer) {
-        this.factuurnummer = factuurnummer;
+        return factuurnummer.get();
     }
 
     public Date getFactuurdatum() {
-        return factuurdatum;
-    }
-    public void setFactuurdatum(Date factuurdatum) {
-        this.factuurdatum = factuurdatum;
+        return factuurdatum.get();
     }
 
     public Date getVervaldatum() {
-        return vervaldatum;
-    }
-    public void setVervaldatum(Date vervaldatum) {
-        this.vervaldatum = vervaldatum;
+        return vervaldatum.get();
     }
 
     public String getStatus() {
         return status.get();
     }
+
+    public Boolean isChecked() {
+        return this.checked.get();
+    }
+
+    public Debiteur getDebiteur() {
+        return debiteur.get();
+    }
+
+    public String getOpmerking() {
+        return opmerking.get();
+    }
+
+    public Double getBedrag() {
+        return bedrag.get(); }
+
+    public FactuurPdf getPDF() {
+        return this.pdf.get();
+    }
+
+    public String getPdfPath() {
+        return this.pdfPath.get();
+    }
+
+
+    //Setters
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public void setFactuurnummer(int factuurnummer) {
+        this.factuurnummer.set(factuurnummer);
+    }
+
+    public void setFactuurdatum(Date factuurdatum) {
+        this.factuurdatum.set(factuurdatum);
+    }
+
     public void setStatus(String status) {
         this.status.set(status);
+    }
+
+
+    public void setVervaldatum(Date vervaldatum) {
+        this.vervaldatum.set(vervaldatum);
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked.set(checked);
+    }
+
+    public void setDebiteur(Debiteur debiteur) { this.debiteur.set(debiteur);}
+
+    public void setOpmerking(String opmerking) {
+        this.opmerking.set(opmerking);
+    }
+
+    public void setPDF(FactuurPdf pdf) {
+        this.pdf.set(pdf);
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath.set(pdfPath);
+    }
+
+    public void setBedrag(double bedrag) {
+        this.bedrag.set(bedrag);
+    }
+
+    //Properties
+    public SimpleIntegerProperty idProperty() {
+        return id;
+    }
+
+    public SimpleIntegerProperty factuurnummerProperty() {
+        return factuurnummer;
+    }
+
+    public SimpleObjectProperty factuurdatumProperty() {
+        return factuurdatum;
+    }
+
+    public SimpleObjectProperty vervaldatumProperty() {
+        return vervaldatum;
     }
 
     public void setBetaald(Boolean betaald) {
@@ -94,48 +202,47 @@ public class Factuur extends Model {
     }
 
     public SimpleStringProperty statusProperty() {
-        return this.status;
+        return status;
     }
 
     public SimpleBooleanProperty checkedProperty() {
         return this.checked;
     }
 
-    public Boolean isChecked() {
-        return this.checked.get();
+    public SimpleObjectProperty debiteurProperty() { return this.debiteur; }
+
+    public SimpleStringProperty opmerkingProperty() { return this.opmerking; }
+
+    public SimpleObjectProperty pdfProperty() { return this.pdf; }
+
+    public SimpleDoubleProperty bedragProperty() { return this.bedrag; }
+
+
+    public String toString() {
+        return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
     }
 
-    public void setChecked(Boolean checked) {
-        this.checked.set(checked);
+    public ArrayList<Factuurregel> getFactuurregels() {
+        return factuurregels.get();
     }
 
-//    public OrderRegel getOrderRegel() {
-//        return orderRegel;
-//    }
-//
-//    public Organisatie getOrganisatie() {
-//        return organisatie;
-//    }
-//
-//    public String getOpmerking() {
-//        return opmerking;
-//    }
-//
-//    public String getNotitie() {
-//        return notitie;
-//    }
-//
-//    public void setOpmerking(String opmerking) {
-//        this.opmerking = opmerking;
-//    }
-//
-//    public void setNotitie(String notitie) {
-//        this.notitie = notitie;
-//    }
+    public SimpleObjectProperty<ArrayList<Factuurregel>> factuurregelsProperty() {
+        return factuurregels;
+    }
 
-        public String toString() {
-            return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
+    public void setFactuurregels(ArrayList<Factuurregel> factuurregels) {
+        this.factuurregels.set(factuurregels);
+    }
+
+    public void addFactuurregel(Factuurregel factuurregel) {
+        this.factuurregels.get().add(factuurregel);
+    }
+
+    public void berekenBedrag() {
+        for(Factuurregel factuurregel: getFactuurregels()) {
+            setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());
         }
+    }
 
 }
 

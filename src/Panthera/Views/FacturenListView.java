@@ -1,11 +1,19 @@
 package Panthera.Views;
 
-import java.util.Date;
-
-import Panthera.Panthera;
 import Panthera.Controllers.FacturenController;
+
+
+
+import Panthera.Factories.CheckBoxCellFactory;
+import Panthera.Models.Debiteur;
+import Panthera.Models.Factuur;
+import Panthera.Panthera;
+
+import com.itextpdf.text.pdf.PdfDocument;
+
 import Panthera.Controllers.InkoopfactuurController;
 import Panthera.Models.Factuur;
+import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -16,16 +24,15 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -52,12 +59,12 @@ public class FacturenListView extends BorderPane implements Viewable {
         new Thread(() -> {
             this.facturen = this.facturenController.cmdGetFacturen();
             table.setItems(facturen);
-            FilterFacturen();
+            filterFacturen();
         }).start();
 
     }
 
-    private void FilterFacturen() {
+    private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
 
         this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -67,6 +74,12 @@ public class FacturenListView extends BorderPane implements Viewable {
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
                 if (factuur.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (factuur.getDebiteur().getVoornaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (factuur.getDebiteur().getNaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (Integer.toString(factuur.getFactuurnummer()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
@@ -84,9 +97,11 @@ public class FacturenListView extends BorderPane implements Viewable {
         createTextField();
         createAddFactuurButton();
         createRemoveFactuurButton();
+        CreateVerzendFactuurButton();
         createUpdateFactuurButton();
         createGenerateInkoopfactuurButton();
-        createTextField();
+        //createTextField();
+
         setTop(topContainer);
     }
     
@@ -97,11 +112,12 @@ public class FacturenListView extends BorderPane implements Viewable {
      */
     private void createGenerateInkoopfactuurButton() {
     	System.out.println("test");
-    	Button button = new Button("Inkoopfactuur Opstellen");
-        button.setOnAction(e -> {
+    	Button button = new Button("Inkoopfactuur");
+        button.getStyleClass().addAll("btn", "btn-success");
+    	button.setOnAction(e -> {
             inkoopfactuurController.generateInkoopfactuur(facturen);
         });
-        topContainer.getChildren().add(button);
+    	topContainer.getChildren().add(button);
     }
 
     private void createRemoveFactuurButton() {
@@ -111,15 +127,23 @@ public class FacturenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
+
+    private void CreateVerzendFactuurButton() {
+        Button button = new Button("Verzend factuur");
+        button.getStyleClass().addAll("btn", "btn-success");
+        button.setOnAction(event -> facturenController.cmdSendFactuur(facturen));
+        topContainer.getChildren().add(button);
+    }
+
     private void createUpdateFactuurButton() {
-        Button button = new Button("Update factuur");
+        Button button = new Button("Verwerken betaling");
+        button.getStyleClass().addAll("btn", "btn-success");
         button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
     }
 
     private void createTableView() {
         this.table = new TableView<>();
-//        this.table.setColumnResizePolicy(param -> true);
         TableColumn<Factuur, CheckBox> checkbox = new TableColumn(" ");
         checkbox.setCellValueFactory(param -> {
                        CheckBox checkBox = new CheckBox();
@@ -129,30 +153,80 @@ public class FacturenListView extends BorderPane implements Viewable {
 
         TableColumn factuurnummer = new TableColumn("Factuurnummer");
         factuurnummer.setCellValueFactory(new PropertyValueFactory<Factuur, Integer>("factuurnummer"));
-        TableColumn factuurdatum = new TableColumn("Factuurdatum");
-        factuurdatum.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("factuurdatum"));
-        TableColumn factuurexpdate = new TableColumn("Vervaldatum");
-        factuurexpdate.setCellValueFactory(new PropertyValueFactory<Factuur, Date>("vervaldatum"));
+
+        TableColumn<Factuur, String> naam = new TableColumn<>("Naam");
+        naam.setCellValueFactory(param -> {
+            String fullName = param.getValue().getDebiteur().getVoornaam()
+                + " " + param.getValue().getDebiteur().getTussenvoegsel()
+                + " " + param.getValue().getDebiteur().getNaam();
+            return new SimpleObjectProperty<String>(fullName);
+        });
+        naam.getStyleClass().add("table-strong");
+
+        TableColumn<Factuur, String> factuurdatum = new TableColumn("Factuurdatum");
+        factuurdatum.setCellValueFactory(param -> {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM y");
+            java.util.Date date = new java.util.Date(param.getValue().getFactuurdatum().getTime());
+            String finalDate = dateFormat.format(date);
+            return new SimpleObjectProperty<String>(finalDate);
+        });
+
+        TableColumn<Factuur, Double> bedrag = new TableColumn("Bedrag");
+        bedrag.setCellValueFactory(new PropertyValueFactory<Factuur, Double>("bedrag"));
+        bedrag.getStyleClass().addAll("table-strong", "table-text-right");
+
         TableColumn status = new TableColumn("Status");
         status.setCellValueFactory(new PropertyValueFactory<Factuur, String>("status"));
 
-        TableColumn<Factuur, CheckBox> checkboxBetaald = new TableColumn("Betaald");
-        checkboxBetaald.setCellValueFactory(param -> {
-            CheckBox checkBox = new CheckBox();
-            Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().betaaldProperty());
-            return new SimpleObjectProperty<>(checkBox);
-        });
+        factuurnummer.prefWidthProperty().bind(table.widthProperty().divide(6));
+        factuurdatum.prefWidthProperty().bind(table.widthProperty().divide(6));
+        naam.prefWidthProperty().bind(table.widthProperty().divide(4));
+        bedrag.prefWidthProperty().bind(table.widthProperty().divide(8));
+        status.prefWidthProperty().bind(table.widthProperty().divide(6));
 
-
-
-        this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, factuurexpdate, status, checkboxBetaald);
-
-
+        addClicklistener();
+        this.table.getColumns().addAll(checkbox, factuurnummer, factuurdatum, naam, bedrag, status);
 
         createSelectAllButton();
         setCenter(this.table);
+    }
+
+    private void addClicklistener() {
+        table.setRowFactory(tv -> {
+            TableRow<Factuur> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Factuur rowData = row.getItem();
+
+                    for (int i = 1; i < facturen.size(); i++) {
+                        if (rowData.getId() == facturen.get(i).getId()) {
+                            System.out.println(rowData.getId() + "    " + facturen.get(i).getId());
+                            String pdfFile = facturen.get(i).getPdfPath();
+                            System.out.println(facturen.get(i).getPdfPath());
+
+                            //String pdfFile = "C:\\Users\\Brandon\\Desktop\\20151025-Wijk.pdf";
 
 
+                            System.out.println("pdfpath " + pdfFile);
+                            if (pdfFile.toString().endsWith(".pdf")) {
+                                try {
+                                    Runtime.getRuntime().exec(new String[]{"rundll32", "url.dll,FileProtocolHandler", pdfFile});
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    Runtime.getRuntime().exec(new String[] {"/usr/bin/open",  pdfFile});
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            i++;
+                        }
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     public void createSelectAllButton() {
@@ -165,8 +239,7 @@ public class FacturenListView extends BorderPane implements Viewable {
                     for (Factuur factuur : facturen) {
                         factuur.checkedProperty().set(new_val);
                     }
-                }
-                else {
+                } else {
                     for (Factuur factuur : facturen) {
                         factuur.checkedProperty().set(false);
                     }
@@ -192,7 +265,13 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     private void createAddFactuurButton() {
         Button button = new Button("Factuur toevoegen");
-        button.setOnAction(e -> this.facturenController.getMainController().setSubview(new FacturenAddView()));
+        button.setOnAction(event -> {
+            try {
+                this.facturenController.cmdShowFactuurAddView();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         button.getStyleClass().addAll("btn", "btn-primary");
         topContainer.getChildren().add(button);
     }
@@ -200,7 +279,6 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     @Override
     public void show() {
-
 //        this.stage.setScene(new Scene(this, 800, 600));
 //        this.stage.show();
     }
