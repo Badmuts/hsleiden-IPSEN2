@@ -86,10 +86,10 @@ public class ProductenListView extends BorderPane implements Viewable {
         naam.prefWidthProperty().bind(table.widthProperty().divide(6));
         TableColumn<Product, Integer> jaar = new TableColumn("Jaar");
         jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
-        jaar.prefWidthProperty().bind(table.widthProperty().divide(6));
+        jaar.prefWidthProperty().bind(table.widthProperty().divide(8));
         TableColumn<Product, Double> prijs = new TableColumn("Prijs");
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
-        prijs.prefWidthProperty().bind(table.widthProperty().divide(6));
+        prijs.prefWidthProperty().bind(table.widthProperty().divide(8));
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         type.prefWidthProperty().bind(table.widthProperty().divide(6));
