@@ -49,9 +49,8 @@ public class BestellijstDAO extends DAO {
 	 */
 	public void newBestellijst(int bestellijst_id) throws SQLException {
 		Statement stmt = conn.createStatement();
-		String query = ("INSERT INTO bestellijst(name) VALUES(" +
+		String query = ("INSERT INTO bestellijst(naam) VALUES(" +
 				"'bestellijst_" + bestellijst_id + "')");
-		System.out.println(query);
 		stmt.executeUpdate(query);
 	}
 
@@ -85,7 +84,6 @@ public class BestellijstDAO extends DAO {
 							"'" + product.getId() + "'" +
 
 							")");
-			System.out.println(query);
 			stmt.executeUpdate(query);
 		}
 	}

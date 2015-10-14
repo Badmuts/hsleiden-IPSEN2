@@ -105,6 +105,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	
 	public void createPrintButton() {
 		Button button = new Button("Print");
+		button.getStyleClass().addAll("btn", "btn-success");
 		button.setOnAction(e -> {
 			//create a new list of bestellijst objects by letting bestellijstenController filter this.bestellijsten.
 			List<Bestellijst> filteredBestellijsten = bestellijstenController.filterUnselectedBestellijsten((List)bestellijsten);
