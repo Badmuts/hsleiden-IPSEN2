@@ -9,6 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -97,8 +98,10 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	 */
 	public void createTile() {
 		Text title = new Text("Bestellijsten overzicht");
+		title.getStyleClass().add("h1");
 		title.setFont(Font.font(22));
 		topContainer.getChildren().add(title);
+		topContainer.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
 	public void createPrintButton() {
@@ -114,6 +117,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void createVerwijderButton() {
 		Button button = new Button("Verwijder");
 		button.setOnAction(e -> this.bestellijstenController.verwijder(bestellijsten));
+		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
 	
@@ -129,6 +133,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void createAddBestellijstenButton() {
 		Button button = new Button("Bestellijst toevoegen");
 		button.setOnAction(e -> this.bestellijstenController.getMainController().setSubview(bestellijstenController.openBestellijstenAddView()));
+		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
 
