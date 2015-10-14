@@ -15,6 +15,7 @@ public class Factuur extends Model {
     private Date vervaldatum;
     private SimpleStringProperty status;
     private SimpleBooleanProperty checked;
+    private SimpleBooleanProperty betaald;
 
 
     //private Debiteur debiteur;
@@ -33,6 +34,7 @@ public class Factuur extends Model {
         this.vervaldatum = vervaldatum;
         this.status = new SimpleStringProperty(status);
         this.checked = new SimpleBooleanProperty(false);
+        this.betaald = new SimpleBooleanProperty(false);
         //this.debiteur = debiteur;
         //this.orderRegel = orderRegel;
        // this.opmerking = opmerking;
@@ -77,6 +79,18 @@ public class Factuur extends Model {
     }
     public void setStatus(String status) {
         this.status.set(status);
+    }
+
+    public void setBetaald(Boolean betaald) {
+        this.betaald.set(betaald);
+    }
+
+    public Boolean isBetaald() {
+        return this.betaald.get();
+    }
+
+    public SimpleBooleanProperty betaaldProperty() {
+        return this.betaald;
     }
 
     public SimpleStringProperty statusProperty() {
