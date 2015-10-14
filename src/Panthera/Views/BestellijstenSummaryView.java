@@ -1,6 +1,7 @@
 package Panthera.Views;
 
 import Panthera.Controllers.BestellijstenController;
+import Panthera.Controllers.MainController;
 import Panthera.Controllers.PrintController;
 import Panthera.Models.Bestellijst;
 import Panthera.Panthera;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Bestellijst view,
@@ -35,12 +37,14 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	private HBox topContainer = new HBox(10);
 	private TableView<Bestellijst> table;
 	private ObservableList<Bestellijst> bestellijsten;
+	private MainController mainController;
 	
-	public BestellijstenSummaryView(BestellijstenController bestellijstenController) {
+	public BestellijstenSummaryView(BestellijstenController bestellijstenController, MainController mainController) {
 		this.bestellijstenController = bestellijstenController;
 		this.printController = new PrintController();
 		this.stage = Panthera.getInstance().getStage();
 		this.bestellijsten = bestellijstenController.cmdGetBestellijsten();
+		this.mainController = mainController;
 		createHeader();
 		createTableView();
 		table.setItems(bestellijsten);
@@ -99,7 +103,11 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	
 	public void createPrintButton() {
 		Button button = new Button("Print");
-		button.setOnAction(e -> this.printController.print(bestellijsten));
+		button.setOnAction(e -> {
+			//create a new list of bestellijst objects by letting bestellijstenController filter this.bestellijsten.
+			List<Bestellijst> filteredBestellijsten = bestellijstenController.filterUnselectedBestellijsten((List)bestellijsten);
+			this.printController.print(filteredBestellijsten, mainController);
+		});
 		topContainer.getChildren().add(button);
 	}
 	

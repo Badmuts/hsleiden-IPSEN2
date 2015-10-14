@@ -12,9 +12,18 @@ import java.io.IOException;
 public class Printer {
 	private Desktop desktop;
 	
+	/**
+	 * @deprecated
+	 * @param debiteur
+	 */
 	public void print(Debiteur debiteur) {
 		System.out.println("Printing " + debiteur.getNaam());
 		File file = new File("pdf/example.pdf");
+		sendPrinter(file);
+	}
+	
+	public void print(String filePath) {
+		File file = new File(filePath);
 		sendPrinter(file);
 	}
 	
