@@ -1,6 +1,5 @@
 package Panthera.Models;
 
-import Panthera.DAO.DebiteurDAO;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -54,7 +53,7 @@ public class Debiteur extends Model {
 		this.id = new SimpleIntegerProperty();
 		this.aanhef = new SimpleStringProperty();
 		this.voornaam = new SimpleStringProperty();
-		this.tussenvoegsel = new SimpleStringProperty();
+		this.tussenvoegsel = new SimpleStringProperty("");
 		this.naam = new SimpleStringProperty();
 		this.adres = new SimpleStringProperty();
 		this.woonplaats = new SimpleStringProperty();
@@ -194,7 +193,11 @@ public class Debiteur extends Model {
 	public SimpleBooleanProperty activeProperty() {
 		return active;
 	}
-	
+
+    @Override public String toString() {
+        return voornaam.get() + " " + tussenvoegsel.get() + " " + naam.get() ;
+    }
+
 	public SimpleBooleanProperty isPresent() {
 		return present;
 	}
@@ -203,4 +206,5 @@ public class Debiteur extends Model {
 		boolean p = present.getValue();
 		return p;
 	}
+
 }

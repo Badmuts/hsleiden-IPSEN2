@@ -51,7 +51,7 @@ public class BestellijstenController extends Controller {
 	}
 	
 	public BestellijstenSummaryView openBestellijstenSummaryView() {
-		return new BestellijstenSummaryView(this);
+		return new BestellijstenSummaryView(this, mainController);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class BestellijstenController extends Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setView(new BestellijstenSummaryView(this)).show();
+		setView(new BestellijstenSummaryView(this, mainController)).show();
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class BestellijstenController extends Controller {
 	public void opslaanBestellijst(List<Product> producten) {
 		producten = filterUnselected(producten);
 		dao.saveNewBestellijst(producten);
-		mainController.setSubview(new BestellijstenSummaryView(this));
+		mainController.setSubview(new BestellijstenSummaryView(this, mainController));
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class BestellijstenController extends Controller {
 
 	@Override
 	public void show() {
-		this.mainController.setSubview(new BestellijstenSummaryView(this));
+		this.mainController.setSubview(new BestellijstenSummaryView(this, mainController));
 	}
 
     public MainController getMainController() {
