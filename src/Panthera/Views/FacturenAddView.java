@@ -11,6 +11,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -22,7 +23,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.time.LocalDate;
@@ -80,7 +80,8 @@ public class FacturenAddView extends GridPane implements Viewable {
                 e.printStackTrace();
             }
         });
-        add(button, 3, currentRow);
+        setHalignment(button, HPos.RIGHT);
+        add(button, 2, currentRow);
         currentRow++;
     }
 
@@ -103,7 +104,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createDateField(String name, Property property) {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now());
+        datePicker.setMaxWidth(Double.MAX_VALUE);
         setHgrow(datePicker, Priority.ALWAYS);
+
         factuur.setFactuurdatum(java.sql.Date.valueOf(datePicker.getValue()));
 
         datePicker.setOnAction(event -> {
@@ -117,6 +120,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void createDateFieldVervalDatum(String name, Property property) {
         Label label = new Label(name);
         DatePicker datePicker = new DatePicker(LocalDate.now().plusDays(30));
+        datePicker.setMaxWidth(Double.MAX_VALUE);
         setHgrow(datePicker, Priority.ALWAYS);
         factuur.setVervaldatum(java.sql.Date.valueOf(datePicker.getValue()));
 
@@ -143,11 +147,11 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
     private void createForm() {
         createField("Factuurnummer", factuur.factuurnummerProperty(), new IntegerStringConverter());
-        createComboBox("Lid");
         createDateField("Factuurdatum", factuur.factuurdatumProperty());
         createDateFieldVervalDatum("Vervaldatum", factuur.vervaldatumProperty());
-        createTextArea("Opmerking", factuur.opmerkingProperty());
+        createComboBox("Lid");
         createComboBoxBestellijst("Bestellijst");
+        createTextArea("Opmerking", factuur.opmerkingProperty());
         addNode(nodes);
     }
 
@@ -156,6 +160,7 @@ public class FacturenAddView extends GridPane implements Viewable {
             Label label = new Label(name);
             ArrayList<Debiteur> debiteuren = new DebiteurDAO().getAllDebiteuren();
             ChoiceBox<Debiteur> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(debiteuren));
+            choiceBox.setMaxWidth(Double.MAX_VALUE);
             setHgrow(choiceBox, Priority.ALWAYS);
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 factuur.setDebiteur(newValue);
@@ -180,6 +185,7 @@ public class FacturenAddView extends GridPane implements Viewable {
             Label label = new Label(name);
             ArrayList<Bestellijst> bestellijsten = new BestellijstDAO().allWithProducten();
             ChoiceBox<Bestellijst> choiceBox = new ChoiceBox<>(FXCollections.observableArrayList(bestellijsten));
+            choiceBox.setMaxWidth(Double.MAX_VALUE);
             setHgrow(choiceBox, Priority.ALWAYS);
             choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 bestellijst = newValue;
