@@ -1,12 +1,15 @@
 package Panthera.Views;
 
 import Panthera.Controllers.BestellijstenController;
+import Panthera.Controllers.MainController;
+import Panthera.Controllers.PrintController;
 import Panthera.Models.Bestellijst;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -20,6 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Bestellijst view,
@@ -29,15 +33,19 @@ import java.util.Date;
  */
 public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	private BestellijstenController bestellijstenController;
+	private PrintController printController;
 	private Stage stage;
 	private HBox topContainer = new HBox(10);
 	private TableView<Bestellijst> table;
 	private ObservableList<Bestellijst> bestellijsten;
+	private MainController mainController;
 	
-	public BestellijstenSummaryView(BestellijstenController bestellijstenController) {
+	public BestellijstenSummaryView(BestellijstenController bestellijstenController, MainController mainController) {
 		this.bestellijstenController = bestellijstenController;
+		this.printController = new PrintController();
 		this.stage = Panthera.getInstance().getStage();
 		this.bestellijsten = bestellijstenController.cmdGetBestellijsten();
+		this.mainController = mainController;
 		createHeader();
 		createTableView();
 		table.setItems(bestellijsten);
@@ -79,9 +87,9 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	public void createHeader() {
 		createTile();
 		setTop(topContainer);
-		createTerugButton();
 		createAddBestellijstenButton();
 		createVerwijderButton();
+		createPrintButton();
 	}
 	
 	/**
@@ -89,34 +97,42 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 	 */
 	public void createTile() {
 		Text title = new Text("Bestellijsten overzicht");
+		title.getStyleClass().add("h1");
 		title.setFont(Font.font(22));
 		topContainer.getChildren().add(title);
+		topContainer.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
 	public void createPrintButton() {
 		Button button = new Button("Print");
-		button.setOnAction(e -> this.bestellijstenController.print(bestellijsten));
+		button.getStyleClass().addAll("btn", "btn-success");
+		button.setOnAction(e -> {
+			//create a new list of bestellijst objects by letting bestellijstenController filter this.bestellijsten.
+			List<Bestellijst> filteredBestellijsten = bestellijstenController.filterUnselectedBestellijsten((List)bestellijsten);
+			try {
+				this.printController.print(filteredBestellijsten, mainController);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				System.out.println("Nothing selected mate");
+			}
+		});
 		topContainer.getChildren().add(button);
 	}
 	
 	public void createVerwijderButton() {
 		Button button = new Button("Verwijder");
 		button.setOnAction(e -> this.bestellijstenController.verwijder(bestellijsten));
+		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
-	
-	public void createTerugButton() {
-		Button button = new Button("Terug");
-		button.setOnAction(e -> this.bestellijstenController.mainMenu());
-		topContainer.getChildren().add(button);
-	}
-	
+		
 	/**
 	 * Create the AddBestelLijstenButton and add it into topContainer.
 	 */
 	public void createAddBestellijstenButton() {
 		Button button = new Button("Bestellijst toevoegen");
 		button.setOnAction(e -> this.bestellijstenController.getMainController().setSubview(bestellijstenController.openBestellijstenAddView()));
+		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
 

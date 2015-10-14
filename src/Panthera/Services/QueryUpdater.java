@@ -24,7 +24,6 @@ public class QueryUpdater extends DAO{
 	public void update() {
 		String query = getQuery();
 		execute(query);
-		System.out.println(query);
 	}
 	
 	/**
