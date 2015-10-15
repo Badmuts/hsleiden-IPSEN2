@@ -17,7 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class InkoopfactuurPdf {
 	
 	public void create(List<InkoopfactuurRegel> regels) throws FileNotFoundException, DocumentException {
-		final String result = "pdf/inkoopfactuur.pdf";
+		final String result = "C:/Users/Brandon/Desktop/LiondsPdfFiles/Inkoopfactuur/inkoopfactuur.pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(result));
 		document.open();
