@@ -77,7 +77,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 				e.printStackTrace();
 			}
 		});
-		button.getStyleClass().addAll("btn", "btn-danger");
+		button.getStyleClass().addAll("btn", "btn-success");
 		topContainer.getChildren().add(button);
 	}
 
