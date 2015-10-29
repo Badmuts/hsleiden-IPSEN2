@@ -52,6 +52,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     private void createSaveButton() {
         Button button = new Button("Opslaan");
         button.setOnAction(event -> saveProduct());
+        button.getStyleClass().addAll("btn", "btn-primary");
         add(button, 0, currentRow);
         currentRow++;
     }
