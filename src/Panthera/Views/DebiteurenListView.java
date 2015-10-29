@@ -1,5 +1,6 @@
 package Panthera.Views;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -80,7 +82,14 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	}
 
 	public void importeerLeden() throws Exception {
-		FileInputStream fstream = new FileInputStream("C://Users/Brandon/Desktop//Excel//klantenlijst.xls");
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Bookmark Files", "*.xls"));
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		FileInputStream fstream = new FileInputStream(selectedFile);
 
 		//Instantiating a Workbook object
 		Workbook workbook = new Workbook(fstream);
@@ -90,9 +99,6 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 		//Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
 		Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,10);
-
-
-
 
 		for (int i = 0 ; i < dataTable.length ; i++)
 		{
