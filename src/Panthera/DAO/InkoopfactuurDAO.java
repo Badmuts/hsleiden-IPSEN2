@@ -35,7 +35,7 @@ public class InkoopfactuurDAO extends DAO {
 			newInkoopfactuur = conn.prepareStatement("INSERT INTO inkoopfactuur(factuurnummer, vervaldatum, status) VALUES(?,?,?);");
 			getInkoopfactuur = conn.prepareStatement("SELECT * FROM inkoopfactuur WHERE id = ( SELECT MAX(id) AS id FROM inkoopfactuur );");
 			linkProduct = conn.prepareStatement("INSERT INTO inkoopproduct (factuur_id, product_id, aantal) VALUES(?, ?, ?);");
-			getPendingProducts = conn.prepareStatement("SELECT product.naam, product.id, SUM(aantal) AS aantal FROM tbl_order, product, factuur WHERE product.id = tbl_order.product_id AND factuur.id = tbl_order.factuur_id AND factuur.status = 'pending' GROUP BY product.naam, product.id;");
+			getPendingProducts = conn.prepareStatement("SELECT product.naam, product.id, SUM(aantal) AS aantal FROM tbl_order, product, factuur WHERE product.id = tbl_order.product_id AND factuur.id = tbl_order.factuur_id AND factuur.status = ' Concept' OR factuur.status = 'Openstaand' GROUP BY product.naam, product.id;");
 			getInkoopfactuurRegels = conn.prepareStatement("SELECT inkoopfactuur.id AS factuur_id, product.id AS product_id, product.naam, inkoopproduct.aantal, product.prijs FROM inkoopproduct, product, inkoopfactuur WHERE inkoopproduct.product_id = product.id AND inkoopfactuur.id = inkoopproduct.factuur_id AND inkoopfactuur.id = ( SELECT MAX(id) FROM inkoopfactuur );");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
