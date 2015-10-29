@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 public class ProductenListView extends BorderPane implements Viewable {
@@ -51,27 +50,8 @@ public class ProductenListView extends BorderPane implements Viewable {
         topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
-    /**
-     * Creates header with title and buttons.
-     *
-     * TODO: Extract to Header class for reuse.
-     *
-     * @author Daan Rosbergen
-     */
-    private void createHeader() {
-        createTitle();
-        createAddProductButton();
-        createRemoveProductButton();
-        try {
-            createImportButton();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        setTop(topContainer);
-    }
-
     private void createImportButton() throws Exception {
-        Button button = new Button("Importeer leden");
+        Button button = new Button("Importeer wijnen");
         button.setOnAction(event -> {
             try {
                 importeerWijnen();
@@ -83,8 +63,7 @@ public class ProductenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
-    public void importeerWijnen()  {
-        try {
+    public void importeerWijnen() throws Exception {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -92,10 +71,7 @@ public class ProductenListView extends BorderPane implements Viewable {
                 new FileChooser.ExtensionFilter("Bookmark Files", "*.xls"));
         File selectedFile = fileChooser.showOpenDialog(stage);
 
-        FileInputStream fstream = null;
-
-            fstream = new FileInputStream(selectedFile);
-
+        FileInputStream fstream = new FileInputStream(selectedFile);
 
         //Instantiating a Workbook object
         Workbook workbook = new Workbook(fstream);
@@ -119,11 +95,28 @@ public class ProductenListView extends BorderPane implements Viewable {
 //        for(Product product: products) {
 //            this.productenController.cmdSaveProduct(product);
 //        }
+    }
 
+
+    /**
+     * Creates header with title and buttons.
+     *
+     * TODO: Extract to Header class for reuse.
+     *
+     * @author Daan Rosbergen
+     */
+    private void createHeader() {
+        createTitle();
+        createAddProductButton();
+        createRemoveProductButton();
+        try {
+            createImportButton();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setTop(topContainer);
     }
+
 
 
 
