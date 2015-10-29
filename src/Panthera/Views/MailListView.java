@@ -33,12 +33,9 @@ public class MailListView extends BorderPane implements Viewable {
 
     private void createHeader() {
         createTitle();
-<<<<<<< HEAD
         createDankwoordButton();
         createUitnodigingButton();
         createHerinneringButton();
-=======
->>>>>>> refs/remotes/origin/master
         setTop(topContainer);
     }
     
@@ -46,8 +43,6 @@ public class MailListView extends BorderPane implements Viewable {
     	setCenter(body);
     	setBottom(footer);
     	createExplainText();
-    	createDankwoordButton();
-        createUitnodigingButton();
     }
     
     private void createExplainText() {
@@ -79,7 +74,8 @@ public class MailListView extends BorderPane implements Viewable {
     private void createHerinneringButton() {
     	Button button = new Button("Verstuur Herinnering");
     	button.setOnAction(event -> this.mailController.cmdShowHerinneringView());
-    	topContainer.getChildren().add(button);
+    	button.getStyleClass().addAll("btn", "btn-primary");
+        footer.getChildren().add(button);
     }
 
     @Override
