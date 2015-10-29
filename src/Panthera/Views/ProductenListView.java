@@ -1,8 +1,11 @@
 package Panthera.Views;
 
 import Panthera.Controllers.ProductenController;
+import Panthera.Models.Land;
 import Panthera.Models.Product;
 import Panthera.Panthera;
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,7 +19,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 public class ProductenListView extends BorderPane implements Viewable {
 
@@ -53,8 +62,70 @@ public class ProductenListView extends BorderPane implements Viewable {
         createTitle();
         createAddProductButton();
         createRemoveProductButton();
+        try {
+            createImportButton();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setTop(topContainer);
     }
+
+    private void createImportButton() throws Exception {
+        Button button = new Button("Importeer leden");
+        button.setOnAction(event -> {
+            try {
+                importeerWijnen();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        button.getStyleClass().addAll("btn", "btn-success");
+        topContainer.getChildren().add(button);
+    }
+
+    public void importeerWijnen()  {
+        try {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Bookmark Files", "*.xls"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        FileInputStream fstream = null;
+
+            fstream = new FileInputStream(selectedFile);
+
+
+        //Instantiating a Workbook object
+        Workbook workbook = new Workbook(fstream);
+
+        //Accessing the first worksheet in the Excel file
+        Worksheet worksheet = workbook.getWorksheets().get(0);
+
+        //Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
+        Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,6);
+
+        for (int i = 0 ; i < dataTable.length ; i++)
+        {
+            System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
+            //products.add(new Product((Integer) dataTable[i][0], (String) dataTable[i][1],(Integer) dataTable[i][2], (Double) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5]));
+        }
+        //Closing the file stream to free all resources
+        fstream.close();
+
+
+
+//        for(Product product: products) {
+//            this.productenController.cmdSaveProduct(product);
+//        }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void createRemoveProductButton() {
         Button button = new Button("Wijnen verwijderen");

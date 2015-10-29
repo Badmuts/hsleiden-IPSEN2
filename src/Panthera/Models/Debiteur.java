@@ -44,10 +44,6 @@ public class Debiteur extends Model {
 		this.present = new SimpleBooleanProperty(false);
 	}
 
-
-
-
-
 	public Debiteur(){
 
 		this.id = new SimpleIntegerProperty();
