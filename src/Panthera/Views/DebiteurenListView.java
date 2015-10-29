@@ -1,16 +1,20 @@
 package Panthera.Views;
 
+import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import Panthera.Panthera;
-import Panthera.Panthera;
-import Panthera.Controllers.DebiteurenController;
 import Panthera.Controllers.DebiteurenController;
 import Panthera.DAO.EventDAO;
 import Panthera.Models.Debiteur;
-import Panthera.Models.Debiteur;
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -43,7 +47,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 	private EventDAO eventDao;
 
-	public DebiteurenListView(DebiteurenController debiteurenController){
+	public DebiteurenListView(DebiteurenController debiteurenController) {
       setPadding(new Insets(22));
       topContainer.setPadding(new Insets(0, 0, 10, 0));
 		this.debiteurenController = debiteurenController;
@@ -60,6 +64,44 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		table.setItems(debiteuren);
 		filterDebiteuren();
 	}
+
+	private void createImportButton() throws Exception {
+		Button button = new Button("Importeer leden");
+		button.setOnAction(event -> {
+			try {
+				importeerLeden();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		button.getStyleClass().addAll("btn", "btn-danger");
+		topContainer.getChildren().add(button);
+	}
+
+	public void importeerLeden() throws Exception {
+		FileInputStream fstream = new FileInputStream("C://Users/Brandon/Desktop//Excel//klantenlijst.xls");
+
+		//Instantiating a Workbook object
+		Workbook workbook = new Workbook(fstream);
+
+		//Accessing the first worksheet in the Excel file
+		Worksheet worksheet = workbook.getWorksheets().get(0);
+
+		//Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
+		Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,9);
+
+
+
+
+		for (int i = 0 ; i < dataTable.length ; i++)
+		{
+			System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
+			debiteuren.add(new Debiteur((String) dataTable[i][0], (String) dataTable[i][1],(String) dataTable[i][2], (String) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5], (String) dataTable[i][6],(String) dataTable[i][7], (String) dataTable[i][8]));
+		}
+		//Closing the file stream to free all resources
+		fstream.close();
+	}
+
 
 	private void filterDebiteuren() {
 
@@ -94,10 +136,15 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	}
 
-	public void createHeader() {
+	public void createHeader()  {
 		createTitle();;
 		addDebiteurButton();
 		removeDebiteurButton();
+		try {
+			createImportButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		createFilterField();
 		setTop(topContainer);
 	}

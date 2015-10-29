@@ -12,13 +12,17 @@ public class ExportFromExcel {
 
 
 
-        public static void main(String[] args) throws Exception
+        public static void main(String[] args)
         {
+            Workbook workbook = null;
+            try {
             //Creating a file stream containing the Excel file to be opened
-            FileInputStream fstream = new FileInputStream("data/workbook.xls");
+            FileInputStream fstream = new FileInputStream("C://Users/Brandon/Desktop//Excel//klantenlijst.xls");
 
             //Instantiating a Workbook object
-            Workbook workbook = new Workbook(fstream);
+
+                workbook = new Workbook(fstream);
+
 
             //Accessing the first worksheet in the Excel file
             Worksheet worksheet = workbook.getWorksheets().get(0);
@@ -32,6 +36,10 @@ public class ExportFromExcel {
             }
             //Closing the file stream to free all resources
             fstream.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

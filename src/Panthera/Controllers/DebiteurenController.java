@@ -171,7 +171,7 @@ public class DebiteurenController extends Controller {
 	}
 
 	@Override
-	public void show() {
+	public void show()  {
 		this.mainController.setSubview(new DebiteurenListView(this));
 	}
 
