@@ -2,6 +2,7 @@ package Panthera.Controllers;
 
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
+import Panthera.Views.Alerts.WijnVerwijderenAlert;
 import Panthera.Views.ProductenListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ public class ProductenController extends Controller {
 
     private final MainController mainController;
     private ProductDAO dao;
+    private ObservableList<Product> products;
 
     public ProductenController(MainController mainController) throws Exception {
         dao = new ProductDAO();
@@ -45,7 +47,7 @@ public class ProductenController extends Controller {
         }
     }
 
-    public void cmdDeleteProduct(ObservableList<Product> products) {
+    public void cmdDeleteProduct() {
         try {
             for(Product product: products) {
                 if (product.isActive()) {
@@ -58,6 +60,10 @@ public class ProductenController extends Controller {
         }
     }
 
+    public void cmdShowVerwijderenAlert() {
+        new WijnVerwijderenAlert(this).open();
+    }
+
     @Override
     public void show() {
         this.mainController.setSubview(new ProductenListView(this));
@@ -65,5 +71,9 @@ public class ProductenController extends Controller {
 
     public MainController getMainController() {
         return mainController;
+    }
+
+    public void setProducts(ObservableList<Product> products) {
+        this.products = products;
     }
 }
