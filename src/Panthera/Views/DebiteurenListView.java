@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import Panthera.Models.Land;
 import Panthera.Panthera;
 import Panthera.Controllers.DebiteurenController;
 import Panthera.DAO.EventDAO;
@@ -88,7 +89,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		Worksheet worksheet = workbook.getWorksheets().get(0);
 
 		//Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
-		Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,9);
+		Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,10);
 
 
 
@@ -96,10 +97,14 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		for (int i = 0 ; i < dataTable.length ; i++)
 		{
 			System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
-			debiteuren.add(new Debiteur((String) dataTable[i][0], (String) dataTable[i][1],(String) dataTable[i][2], (String) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5], (String) dataTable[i][6],(String) dataTable[i][7], (String) dataTable[i][8]));
+			debiteuren.add(new Debiteur((String) dataTable[i][0], (String) dataTable[i][1],(String) dataTable[i][2], (String) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5], (String) dataTable[i][6],(String) dataTable[i][7], (String) dataTable[i][8], new Land(3, "Nederland")));
 		}
 		//Closing the file stream to free all resources
 		fstream.close();
+
+		for(Debiteur debiteur: debiteuren) {
+			this.debiteurenController.cmdAddDebiteur(debiteur);
+		}
 	}
 
 

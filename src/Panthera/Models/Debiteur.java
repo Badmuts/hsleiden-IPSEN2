@@ -43,7 +43,8 @@ public class Debiteur extends Model {
 		this.present = new SimpleBooleanProperty(false);
 	}
 
-	public Debiteur(String aanhef, String voornaam, String tussenvoegsel, String naam, String adres, String woonplaats, String postcode, String email, String telefoon){
+	public Debiteur(String aanhef, String voornaam, String tussenvoegsel, String naam, String adres, String woonplaats, String postcode, String email, String telefoon, Land land){
+		this.id = new SimpleIntegerProperty();
 		this.aanhef = new SimpleStringProperty(aanhef);
 		this.voornaam = new SimpleStringProperty(voornaam);
 		this.tussenvoegsel = new SimpleStringProperty(tussenvoegsel);
@@ -53,6 +54,7 @@ public class Debiteur extends Model {
 		this.postcode = new SimpleStringProperty(postcode);
 		this.email = new SimpleStringProperty(email);
 		this.telefoon = new SimpleStringProperty(telefoon);
+		this.land = new SimpleObjectProperty<>(land);
 		this.active = new SimpleBooleanProperty(false);
 		this.present = new SimpleBooleanProperty(false);
 	}
