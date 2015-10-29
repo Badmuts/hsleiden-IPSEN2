@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,7 +38,6 @@ public class ProductenListView extends BorderPane implements Viewable {
 
         setPadding(new Insets(22));
         topContainer.setPadding(new Insets(0, 0, 10, 0));
-        topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
     /**
@@ -80,22 +78,16 @@ public class ProductenListView extends BorderPane implements Viewable {
         });
         TableColumn<Product, Integer> productnummer = new TableColumn("Productnummer");
         productnummer.setCellValueFactory(new PropertyValueFactory<>("productnummer"));
-        productnummer.prefWidthProperty().bind(table.widthProperty().divide(8));
         TableColumn<Product, String> naam = new TableColumn("Naam");
         naam.setCellValueFactory(new PropertyValueFactory<>("naam"));
-        naam.prefWidthProperty().bind(table.widthProperty().divide(6));
         TableColumn<Product, Integer> jaar = new TableColumn("Jaar");
         jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
-        jaar.prefWidthProperty().bind(table.widthProperty().divide(8));
         TableColumn<Product, Double> prijs = new TableColumn("Prijs");
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
-        prijs.prefWidthProperty().bind(table.widthProperty().divide(8));
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
-        type.prefWidthProperty().bind(table.widthProperty().divide(6));
         TableColumn<Product, String> land = new TableColumn("Land");
         land.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLand().getNaam()));
-        land.prefWidthProperty().bind(table.widthProperty().divide(6));
         addClicklistener();
         table.getColumns().addAll(checkbox, productnummer, naam, jaar, prijs, type, land);
         setCenter(table);

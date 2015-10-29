@@ -74,9 +74,9 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		
 		TableColumn id = new TableColumn("id");
 		id.setCellValueFactory(new PropertyValueFactory<Bestellijst, Integer>("id"));
-		TableColumn name = new TableColumn("naam");
+		TableColumn name = new TableColumn("name");
 		name.setCellValueFactory(new PropertyValueFactory<Bestellijst, String>("naam"));
-		TableColumn date = new TableColumn("datum");
+		TableColumn date = new TableColumn("date");
 		date.setCellValueFactory(new PropertyValueFactory<Bestellijst, Date>("date"));
 
 		createSelectAllButton();
