@@ -2,10 +2,12 @@ package Panthera.Controllers;
 
 import Panthera.DAO.ProductDAO;
 import Panthera.Models.Product;
+import Panthera.Services.Validators.ProductValidator;
 import Panthera.Views.ProductenListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class ProductenController extends Controller {
 
     private final MainController mainController;
     private ProductDAO dao;
+    private String[] requiredFields = {"Productnummer", "Naam", "Jaar", "Prijs", "Type", "Land"};
 
     public ProductenController(MainController mainController) throws Exception {
         dao = new ProductDAO();
@@ -38,9 +41,11 @@ public class ProductenController extends Controller {
 
     public void cmdSaveProduct(Product product) {
         try {
+            new ProductValidator(product).validate();
             dao.save(product);
             mainController.setSubview(new ProductenListView(this));
         } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
     }
