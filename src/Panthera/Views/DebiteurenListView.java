@@ -3,12 +3,10 @@ package Panthera.Views;
 import java.sql.SQLException;
 
 import Panthera.Panthera;
-import Panthera.Panthera;
-import Panthera.Controllers.DebiteurenController;
 import Panthera.Controllers.DebiteurenController;
 import Panthera.DAO.EventDAO;
 import Panthera.Models.Debiteur;
-import Panthera.Models.Debiteur;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

@@ -1,9 +1,13 @@
 package Panthera.Views;
 
-import Panthera.Controllers.ProductenController;
-import Panthera.Models.Land;
-import Panthera.Models.Product;
 import Panthera.Panthera;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Arrays;
+
+import Panthera.Controllers.ProductenController;
+import Panthera.Models.Product;
+
 import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 import javafx.beans.binding.Bindings;
@@ -22,9 +26,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Arrays;
 
 public class ProductenListView extends BorderPane implements Viewable {
 
