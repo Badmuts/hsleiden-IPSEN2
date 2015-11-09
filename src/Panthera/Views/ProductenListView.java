@@ -1,11 +1,14 @@
 package Panthera.Views;
 
 import Panthera.Controllers.ProductenController;
+import Panthera.Models.Factuur;
 import Panthera.Models.Product;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,6 +56,7 @@ public class ProductenListView extends BorderPane implements Viewable {
         createTitle();
         createAddProductButton();
         createRemoveProductButton();
+        createSelectAllButton();
         setTop(topContainer);
     }
 
@@ -115,6 +119,27 @@ public class ProductenListView extends BorderPane implements Viewable {
             });
             return row ;
         });
+    }
+
+    public void createSelectAllButton() {
+
+        CheckBox cb = new CheckBox("Select all");
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if (new_val) {
+                    for (Product product : products) {
+                        product.activeProperty().set(new_val);
+                    }
+                } else {
+                    for (Product product : products) {
+                        product.activeProperty().set(false);
+                    }
+                }
+            }
+        });
+
+        topContainer.getChildren().add(cb);
     }
 
     /**

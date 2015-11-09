@@ -39,7 +39,7 @@ public class FactuurPdf {
         this.debiteur = debiteur;
 
         try {
-                FILE = "C:\\Users\\Brandon\\Desktop\\LionsPdfFiles\\" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
+                FILE = "" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
                 factuur.setPDF(this);
                 String pdfPath = FILE;
 
