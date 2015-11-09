@@ -2,24 +2,27 @@ package Panthera.Controllers;
 
 import Panthera.Models.Factuur;
 
-import Panthera.Models.Factuur;
-import Panthera.Views.MainMenuView;
-import Panthera.Views.MainView;
-
 /**
+ * Controller used for delagating menu actions.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 22-Sep-15.
  */
 public class MainMenuController extends Controller {
 
     private MainController mainController;
 
+    /**
+     * Creates a new MainMenuController and saves a instance of MainController.
+     *
+     * @param mainController    MainController  MainController.
+     */
     public MainMenuController(MainController mainController) {
         this.mainController = mainController;
-//        mainController.setSubview(new MainView(this));
     }
 
     /**
-     * Returns a new ProductenController
+     * Returns a new ProductenController.
      *
      * @author Daan Rosbergen
      * @return ProductenController
@@ -29,21 +32,49 @@ public class MainMenuController extends Controller {
         return new ProductenController(this.mainController);
     }
 
+    /**
+     * Returns a new FacturenController.
+     *
+     * @return FacturenController
+     * @throws Exception
+     */
     public Controller cmdCreateFacturenController() throws Exception {
         return new FacturenController(this.mainController, new Factuur());
     }
-    
+
+    /**
+     * Returns a new BesetelijstenController.
+     *
+     * @return  BesetelijstenController
+     * @throws  Exception
+     */
     public Controller cmdCreateBestellijstenController() throws Exception {
     	return new BestellijstenController(this.mainController);
     }
 
+    /**
+     * Returns a new DebiteurenController.
+     *
+     * @return  DebiteurenController
+     */
     public Controller cmdCreateDebiteurenController() {
         return new DebiteurenController(this.mainController);
     }
 
+    /**
+     * Returns a new MailController.
+     *
+     * @return  MailController
+     */
     public Controller cmdCreateMailController() {
         return new MailController(this.mainController);
     }
+
+    /**
+     * Returns a new SettingsController.
+     *
+     * @return
+     */
     public Controller cmdCreateSettingsController() {
     	return new SettingsController(this.mainController);
     }
