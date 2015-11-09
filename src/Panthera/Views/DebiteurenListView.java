@@ -41,10 +41,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 /**
  * Deze klasse zorgt voor de leden venster van de applicatie.
  * @author Victor
- *
+ * @author Brandon
+ * 
  */
 
 public class DebiteurenListView extends BorderPane implements Viewable {

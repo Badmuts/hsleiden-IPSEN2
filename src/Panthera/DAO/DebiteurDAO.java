@@ -10,6 +10,7 @@ import Panthera.Models.Event;
 /**
  * In deze klasse zijn de queries om met de database te communiceren
  * @author Victor
+ * @author Brandon
  *
  */
 public class DebiteurDAO extends DAO {

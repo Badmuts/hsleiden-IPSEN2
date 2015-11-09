@@ -24,6 +24,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author Victor
+ * @author Brandon
  * 
  */
 public class DebiteurenAddView extends GridPane implements Viewable {
