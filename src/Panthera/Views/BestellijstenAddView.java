@@ -59,8 +59,8 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	 */
 	public void createHeader() {
 		createTitle();
-		createAnnuleerButton();
 		createOpslaanButton();
+		createAnnuleerButton();
 		setTop(topContainer);
 	}
 	
