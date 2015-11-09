@@ -4,6 +4,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
+ * Model representing a country.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 27-Sep-15.
  */
 public class Land extends Model {
@@ -21,26 +24,56 @@ public class Land extends Model {
         this.naam = new SimpleStringProperty(naam);
     }
 
+    /**
+     * Get the id of the corresponding land in the DB.
+     *
+     * @return
+     */
     public int getId() {
         return id.get();
     }
 
+    /**
+     * Id property used to observe the id value.
+     *
+     * @return
+     */
     public SimpleIntegerProperty idProperty() {
         return id;
     }
 
+    /**
+     * Set id.
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id.set(id);
     }
 
+    /**
+     * Get name of land.
+     *
+     * @return
+     */
     public String getNaam() {
         return naam.get();
     }
 
+    /**
+     * Name property used to observe its value.
+     *
+     * @return
+     */
     public SimpleStringProperty naamProperty() {
         return naam;
     }
 
+    /**
+     * Set name.
+     *
+     * @param naam
+     */
     public void setNaam(String naam) {
         this.naam.set(naam);
     }

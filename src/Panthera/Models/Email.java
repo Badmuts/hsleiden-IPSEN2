@@ -160,7 +160,7 @@ public class Email extends Model {
 
     /**
      * Get subject of the email.
-     * 
+     *
      * @return
      */
     public String getSubject() {
