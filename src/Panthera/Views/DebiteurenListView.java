@@ -147,12 +147,14 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	private void createFilterField() {
 		this.filterField = new TextField();
+		filterField.promptTextProperty().setValue("Zoeken...");
 		topContainer.getChildren().add(this.filterField);
 
 	}
 
 	public void createHeader()  {
-		createTitle();;
+		createTitle();
+		createFilterField();
 		addDebiteurButton();
 		removeDebiteurButton();
 		try {
@@ -160,12 +162,12 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		createFilterField();
+
 		setTop(topContainer);
 	}
 	
 	private void removeDebiteurButton() {
-		Button button = new Button("Lid verwijderen");
+		Button button = new Button("Verwijder lid");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
 		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
@@ -243,7 +245,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	public void createSelectAllButton() {
 
-		CheckBox cb = new CheckBox("Select all");
+		CheckBox cb = new CheckBox("Selecteer alles");
 		cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			public void changed(ObservableValue<? extends Boolean> ov,
 								Boolean old_val, Boolean new_val) {
