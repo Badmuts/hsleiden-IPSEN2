@@ -2,6 +2,7 @@ package Panthera.Views;
 
 import java.sql.SQLException;
 
+import Panthera.Models.Product;
 import Panthera.Panthera;
 import Panthera.Panthera;
 import Panthera.Controllers.DebiteurenController;
@@ -11,6 +12,8 @@ import Panthera.Models.Debiteur;
 import Panthera.Models.Debiteur;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -99,6 +102,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		addDebiteurButton();
 		removeDebiteurButton();
 		createFilterField();
+		createSelectAllButton();
 		setTop(topContainer);
 	}
 	
@@ -189,6 +193,28 @@ public class DebiteurenListView extends BorderPane implements Viewable {
             return row ;
         });
     }
+
+	public void createSelectAllButton() {
+
+		CheckBox cb = new CheckBox("Select all");
+		cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> ov,
+								Boolean old_val, Boolean new_val) {
+				if (new_val) {
+					for (Debiteur debiteur : debiteuren) {
+						debiteur.activeProperty().set(new_val);
+					}
+				} else {
+					for (Debiteur debiteur : debiteuren) {
+						debiteur.activeProperty().set(false);
+					}
+				}
+			}
+		});
+
+		topContainer.getChildren().add(cb);
+	}
+
 
 	private void createTitle() {
 		Text title = new Text("Leden");
