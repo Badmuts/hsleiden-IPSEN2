@@ -24,6 +24,11 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.util.ArrayList;
 
+/**
+ * View used to add or edit a product.
+ *
+ * @author Daan Rosbergen
+ */
 public class ProductenAddView extends GridPane implements Viewable {
 
     private ProductenController productenController;
@@ -31,6 +36,11 @@ public class ProductenAddView extends GridPane implements Viewable {
     private int currentRow = 0;
     private Product product;
 
+    /**
+     * Creates a view to add a product.
+     *
+     * @param productenController
+     */
     public ProductenAddView(ProductenController productenController) {
         this.productenController = productenController;
         this.product = new Product();
@@ -40,6 +50,12 @@ public class ProductenAddView extends GridPane implements Viewable {
         createSaveButton();
     }
 
+    /**
+     * Creates a view to edit a product.
+     *
+     * @param productenController
+     * @param product
+     */
     public ProductenAddView(ProductenController productenController, Product product) {
         this.productenController = productenController;
         this.product = product;
@@ -49,6 +65,9 @@ public class ProductenAddView extends GridPane implements Viewable {
         createSaveButton();
     }
 
+    /**
+     * Creates save button.
+     */
     private void createSaveButton() {
         Button button = new Button("Opslaan");
         button.setOnAction(event -> saveProduct());
@@ -57,10 +76,16 @@ public class ProductenAddView extends GridPane implements Viewable {
         currentRow++;
     }
 
+    /**
+     * Save product to DB.
+     */
     private void saveProduct() {
         productenController.cmdSaveProduct(product);
     }
 
+    /**
+     * Create view title.
+     */
     private void createTitle() {
         Text title = new Text("Wijn toevoegen");
         title.getStyleClass().add("h1");
@@ -74,6 +99,9 @@ public class ProductenAddView extends GridPane implements Viewable {
         this.stage.show();
     }
 
+    /**
+     * Create form to edit or add a product.
+     */
     private void createForm() {
         createField("Wijnnummer", product.productnummerProperty(), new NumberStringConverter());
         createField("Naam", product.naamProperty());
@@ -83,6 +111,11 @@ public class ProductenAddView extends GridPane implements Viewable {
         createComboBox("Land");
     }
 
+    /**
+     * Create a combobox to select a country.
+     *
+     * @param name
+     */
     private void createComboBox(String name) {
         try {
             Label label = new Label(name);
@@ -92,11 +125,8 @@ public class ProductenAddView extends GridPane implements Viewable {
                 product.setLand(newValue);
             });
             // TODO: Better fix this.
-//            int i = 0;
             for (Land land: landen) {
-//                if (land.getId() == product.getLand().getId())
                   choiceBox.getSelectionModel().select(land);
-//                i++;
                 }
 
             add(label, 0, currentRow);
@@ -107,6 +137,13 @@ public class ProductenAddView extends GridPane implements Viewable {
         }
     }
 
+    /**
+     * Create a field (label and textfield) with converter.
+     *
+     * @param name
+     * @param property
+     * @param converter
+     */
     private void createField(String name, Property property, StringConverter converter) {
         Label label = new Label(name);
         TextField textField = new TextField(name);
@@ -117,6 +154,12 @@ public class ProductenAddView extends GridPane implements Viewable {
         currentRow++;
     }
 
+    /**
+     * Create a field (label and textfield)
+     *
+     * @param name
+     * @param property
+     */
     private void createField(String name, Property property) {
         Label label = new Label(name);
         TextField textField = new TextField(name);
@@ -126,12 +169,4 @@ public class ProductenAddView extends GridPane implements Viewable {
         add(textField, 1, currentRow);
         currentRow++;
     }
-
-//    public ArrayList<String> getFormData() {
-//        ArrayList<String> formData = new ArrayList<>();
-//        for (TextField text: getChildren()) {
-//            formData.add(text.toString());
-//        }
-//        return formData;
-//    }
 }
