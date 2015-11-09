@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Classe used to retrieve, manipulate and remove product models from the DB.
+ * Class used to retrieve, manipulate and remove product models from the DB.
  *
  * @author Daan Rosbergen
  */
