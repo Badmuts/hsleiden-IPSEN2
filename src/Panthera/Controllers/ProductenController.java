@@ -13,14 +13,24 @@ import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
+/**
+ * Controller used to create, edit and delete products.
+ *
+ * @author Daan Rosbergen
+ */
 public class ProductenController extends Controller {
 
     private final MainController mainController;
     private ProductDAO dao;
     private ObservableList<Product> products;
-    private String[] requiredFields = {"Productnummer", "Naam", "Jaar", "Prijs", "Type", "Land"};
 
-
+    /**
+     * Creates a ProducDAO to retrieve product records in the DB as Models and saves the
+     * MainController.
+     *
+     * @param mainController    MainController     The MainController.
+     * @throws Exception        Exception          Database Error.
+     */
     public ProductenController(MainController mainController) throws Exception {
         dao = new ProductDAO();
         this.mainController = mainController;
@@ -44,6 +54,11 @@ public class ProductenController extends Controller {
         return FXCollections.observableArrayList(products);
     }
 
+    /**
+     * Save a Product model to the DB via the ProductDAO.
+     *
+     * @param product Product   A product model.
+     */
     public void cmdSaveProduct(Product product) {
         try {
             new ProductValidator(product).validate();
@@ -59,6 +74,9 @@ public class ProductenController extends Controller {
         }
     }
 
+    /**
+     * Removes selected products in the list (products which are marked active) from the DB.
+     */
     public void cmdDeleteProduct() {
         try {
             for(Product product: products) {
@@ -73,19 +91,35 @@ public class ProductenController extends Controller {
         }
     }
 
+    /**
+     * Show popup message to confirm the removal of selected products.
+     */
     public void cmdShowVerwijderenAlert() {
         new WijnVerwijderenAlert(this).open();
     }
 
+    /**
+     * Shows the default view: ProductenListView.
+     */
     @Override
     public void show() {
         this.mainController.setSubview(new ProductenListView(this));
     }
 
+    /**
+     * Retrieve the MainController.
+     *
+     * @return MainController   The MainController.
+     */
     public MainController getMainController() {
         return mainController;
     }
 
+    /**
+     * Set a ObservableList to the controller, used to check if products are marked as active.
+     *
+     * @param products ObservableList<Product>  List of observable product.
+     */
     public void setProducts(ObservableList<Product> products) {
         this.products = products;
     }
