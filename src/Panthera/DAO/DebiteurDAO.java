@@ -10,6 +10,7 @@ import Panthera.Models.Event;
 /**
  * 
  * @author Victor
+ * @author Brandon
  *
  */
 public class DebiteurDAO extends DAO {

@@ -249,7 +249,7 @@ public class Factuur extends Model {
     public ArrayList<Factuurregel> getFactuurregels() {
         return factuurregels.get();
     }
-    
+
     public SimpleObjectProperty<ArrayList<Factuurregel>> factuurregelsProperty() {
         return factuurregels;
     }

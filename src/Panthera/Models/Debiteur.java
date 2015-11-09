@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * @author Victor
+ * @author Brandon
  * Created on 24-Sep-15.
  */
 public class Debiteur extends Model {
