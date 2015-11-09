@@ -27,6 +27,18 @@ public class Product extends Model {
         this.aantal = new SimpleStringProperty("leeg");
     }
 
+    public Product(int productnummer, String naam, int jaar, double prijs, String type, Land land) {
+        this.id = new SimpleIntegerProperty();
+        this.productnummer = new SimpleIntegerProperty(productnummer);
+        this.naam = new SimpleStringProperty(naam);
+        this.jaar = new SimpleIntegerProperty(jaar);
+        this.prijs = new SimpleDoubleProperty(prijs);
+        this.type = new SimpleStringProperty(type);
+        this.land = new SimpleObjectProperty<>(land);
+        this.active = new SimpleBooleanProperty(false);
+        this.aantal = new SimpleStringProperty("leeg");
+    }
+
     public Product() {
         this.id = new SimpleIntegerProperty();
         this.productnummer = new SimpleIntegerProperty();

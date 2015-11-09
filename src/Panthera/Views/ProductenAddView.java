@@ -52,7 +52,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     private void createSaveButton() {
         Button button = new Button("Opslaan");
         button.setOnAction(event -> saveProduct());
-        button.getStyleClass().addAll("btn", "btn-primary");
+        button.getStyleClass().addAll("btn", "btn-success");
         add(button, 0, currentRow);
         currentRow++;
     }
@@ -62,7 +62,8 @@ public class ProductenAddView extends GridPane implements Viewable {
     }
 
     private void createTitle() {
-        Text title = new Text("Product toevoegen");
+        Text title = new Text("Wijn toevoegen");
+        title.getStyleClass().add("h1");
         title.setFont(Font.font(20));
         add(title, 0, currentRow);
         currentRow++;
@@ -74,7 +75,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     }
 
     private void createForm() {
-        createField("Productnummer", product.productnummerProperty(), new NumberStringConverter());
+        createField("Wijnnummer", product.productnummerProperty(), new NumberStringConverter());
         createField("Naam", product.naamProperty());
         createField("Jaar", product.jaarProperty(), new NumberStringConverter());
         createField("Prijs", product.prijsProperty(), new DoubleStringConverter());

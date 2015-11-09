@@ -2,9 +2,11 @@ package Panthera.PDFModels;
 
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import Panthera.DAO.SettingsDAO;
 import Panthera.Models.Debiteur;
@@ -39,7 +41,7 @@ public class FactuurPdf {
         this.debiteur = debiteur;
 
         try {
-                FILE = "C:\\Users\\Brandon\\Desktop\\LionsPdfFiles\\" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
+                FILE = "" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
                 factuur.setPDF(this);
                 String pdfPath = FILE;
 
@@ -68,7 +70,7 @@ public class FactuurPdf {
         preface.add(new Paragraph("Vervaldatum: " + df.format(factuur.getVervaldatum())));
         preface.add(new Paragraph(String.valueOf("Lidnnummer: " + debiteur.getId())));
         addEmptyLine(preface, 3);
-        preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 22 september 2013"));
+        preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 01 november 2015"));
         addEmptyLine(preface, 2);
         document.add(preface);
         createTable();
@@ -86,13 +88,15 @@ public class FactuurPdf {
     private void createTable() throws Exception {
         PdfPTable table = new PdfPTable(4);
         createHeader(table);
-        char symbol = '€';
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         for(Factuurregel factuurregel: factuurregels) {
-            DecimalFormat df = new DecimalFormat("0.00");
+            table.addCell(String.valueOf(factuurregel.getAantal()));
             table.addCell(String.valueOf(factuurregel.getProduct().getProductnummer()));
             table.addCell(factuurregel.getProduct().getNaam());
-            table.addCell(String.valueOf(factuurregel.getAantal()));
-            table.addCell(symbol +""+String.valueOf(df.format(calculatePrice(factuurregel))));
+            table.addCell("\u20ac " + String.valueOf(df.format(calculatePrice(factuurregel))));
         }
         table.setWidthPercentage(100);
         createFooter(table, this.factuurregels);
@@ -100,11 +104,11 @@ public class FactuurPdf {
     }
 
     public void createFooter(PdfPTable table, ArrayList<Factuurregel> factuurregels) {
-        char symbol = '€';
+        char symbol = '\u20ac';
         table.addCell("");
         table.addCell("");
         table.addCell("");
-        table.addCell(symbol +""+String.valueOf(calculateTotalPrice(factuurregels)));
+        table.addCell(symbol + " " + calculateTotalPrice(factuurregels));
     }
 
     public double calculatePrice(Factuurregel regel) {
@@ -112,23 +116,25 @@ public class FactuurPdf {
         prijs = regel.getAantal() * regel.getPrijs();
         DecimalFormat df = new DecimalFormat("0.00");
         df.format(prijs);
-        return  prijs;
-    }
-
-    public double calculateTotalPrice(ArrayList<Factuurregel> factuurregels) {
-        DecimalFormat df = new DecimalFormat("0.00");
-        double prijs = 0.0;
-            for(Factuurregel factuurregel: factuurregels) {
-                prijs += factuurregel.getPrijs() * factuurregel .getAantal();
-            }
-        df.format(prijs);
         return prijs;
     }
 
+    public String calculateTotalPrice(ArrayList<Factuurregel> factuurregels) {
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+        double prijs = 0.00;
+            for(Factuurregel factuurregel: factuurregels) {
+                prijs += factuurregel.getPrijs() * factuurregel .getAantal();
+            }
+        return df.format(prijs);
+    }
+
     public void createHeader(PdfPTable table) {
+        table.addCell("Aantal");
         table.addCell("Productnummer");
         table.addCell("Product");
-        table.addCell("Aantal");
         table.addCell("Prijs");
     }
 

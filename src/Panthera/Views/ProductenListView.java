@@ -1,8 +1,18 @@
 package Panthera.Views;
 
+import Panthera.Panthera;
+import java.io.File;
+import java.io.FileInputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
+import java.util.Locale;
+
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
-import Panthera.Panthera;
+
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,7 +26,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 
 public class ProductenListView extends BorderPane implements Viewable {
 
@@ -42,6 +54,54 @@ public class ProductenListView extends BorderPane implements Viewable {
         topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
+    private void createImportButton() throws Exception {
+        Button button = new Button("Importeer wijn");
+        button.setOnAction(event -> {
+            try {
+                importeerWijnen();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        button.getStyleClass().addAll("btn", "btn-success");
+        topContainer.getChildren().add(button);
+    }
+
+    public void importeerWijnen() throws Exception {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Bookmark Files", "*.xls"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        FileInputStream fstream = new FileInputStream(selectedFile);
+
+        //Instantiating a Workbook object
+        Workbook workbook = new Workbook(fstream);
+
+        //Accessing the first worksheet in the Excel file
+        Worksheet worksheet = workbook.getWorksheets().get(0);
+
+        //Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
+        Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,6);
+
+        for (int i = 0 ; i < dataTable.length ; i++)
+        {
+            System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
+            //products.add(new Product((Integer) dataTable[i][0], (String) dataTable[i][1],(Integer) dataTable[i][2], (Double) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5]));
+        }
+        //Closing the file stream to free all resources
+        fstream.close();
+
+
+
+//        for(Product product: products) {
+//            this.productenController.cmdSaveProduct(product);
+//        }
+    }
+
+
     /**
      * Creates header with title and buttons.
      *
@@ -53,11 +113,19 @@ public class ProductenListView extends BorderPane implements Viewable {
         createTitle();
         createAddProductButton();
         createRemoveProductButton();
+        try {
+            createImportButton();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setTop(topContainer);
     }
 
+
+
+
     private void createRemoveProductButton() {
-        Button button = new Button("Wijnen verwijderen");
+        Button button = new Button("Verwijder wijn");
         button.setOnAction(event -> {
             productenController.setProducts(products);
             productenController.cmdShowVerwijderenAlert();
@@ -90,9 +158,17 @@ public class ProductenListView extends BorderPane implements Viewable {
         TableColumn<Product, Integer> jaar = new TableColumn("Jaar");
         jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
         jaar.prefWidthProperty().bind(table.widthProperty().divide(8));
-        TableColumn<Product, Double> prijs = new TableColumn("Prijs");
-        prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
+
+        TableColumn<Product, String> prijs = new TableColumn("Prijs");
+        prijs.setCellValueFactory(param -> {
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+            otherSymbols.setDecimalSeparator(',');
+            otherSymbols.setGroupingSeparator('.');
+            DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+            return new SimpleObjectProperty<String>("\u20ac " + df.format(param.getValue().getPrijs()));
+        });
         prijs.prefWidthProperty().bind(table.widthProperty().divide(8));
+
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         type.prefWidthProperty().bind(table.widthProperty().divide(6));

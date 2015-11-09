@@ -1,16 +1,26 @@
 package Panthera.Views;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
+import Panthera.Models.Factuur;
+import Panthera.Models.Land;
 import Panthera.Panthera;
-import Panthera.Panthera;
-import Panthera.Controllers.DebiteurenController;
 import Panthera.Controllers.DebiteurenController;
 import Panthera.DAO.EventDAO;
 import Panthera.Models.Debiteur;
-import Panthera.Models.Debiteur;
+
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -29,6 +39,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -43,7 +54,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 	private EventDAO eventDao;
 
-	public DebiteurenListView(DebiteurenController debiteurenController){
+	public DebiteurenListView(DebiteurenController debiteurenController) {
       setPadding(new Insets(22));
       topContainer.setPadding(new Insets(0, 0, 10, 0));
 		this.debiteurenController = debiteurenController;
@@ -60,6 +71,52 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		table.setItems(debiteuren);
 		filterDebiteuren();
 	}
+
+	private void createImportButton() throws Exception {
+		Button button = new Button("Importeer leden");
+		button.setOnAction(event -> {
+			try {
+				importeerLeden();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		button.getStyleClass().addAll("btn", "btn-success");
+		topContainer.getChildren().add(button);
+	}
+
+	public void importeerLeden() throws Exception {
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Bookmark Files", "*.xls"));
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		FileInputStream fstream = new FileInputStream(selectedFile);
+
+		//Instantiating a Workbook object
+		Workbook workbook = new Workbook(fstream);
+
+		//Accessing the first worksheet in the Excel file
+		Worksheet worksheet = workbook.getWorksheets().get(0);
+
+		//Exporting the contents of 7 rows and 2 columns starting from 1st cell to Array.
+		Object dataTable [][] =  worksheet.getCells().exportArray(4,0,7,10);
+
+		for (int i = 0 ; i < dataTable.length ; i++)
+		{
+			System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
+			debiteuren.add(new Debiteur((String) dataTable[i][0], (String) dataTable[i][1],(String) dataTable[i][2], (String) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5], (String) dataTable[i][6],(String) dataTable[i][7], (String) dataTable[i][8], new Land(3, "Nederland")));
+		}
+		//Closing the file stream to free all resources
+		fstream.close();
+
+		for(Debiteur debiteur: debiteuren) {
+			this.debiteurenController.cmdAddDebiteur(debiteur);
+		}
+	}
+
 
 	private void filterDebiteuren() {
 
@@ -90,20 +147,27 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	private void createFilterField() {
 		this.filterField = new TextField();
+		filterField.promptTextProperty().setValue("Zoeken...");
 		topContainer.getChildren().add(this.filterField);
 
 	}
 
-	public void createHeader() {
-		createTitle();;
+	public void createHeader()  {
+		createTitle();
+		createFilterField();
 		addDebiteurButton();
 		removeDebiteurButton();
-		createFilterField();
+		try {
+			createImportButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		setTop(topContainer);
 	}
 	
 	private void removeDebiteurButton() {
-		Button button = new Button("Lid verwijderen");
+		Button button = new Button("Verwijder lid");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
 		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
@@ -174,7 +238,30 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		
 		addClicklistener();
 		table.getColumns().addAll(checkbox, aanhef, voornaam, tussenvoegsel, naam, adres, woonplaats, postcode, telefoon, land, checkbox2);
+
+		createSelectAllButton();
 		setCenter(table);
+	}
+
+	public void createSelectAllButton() {
+
+		CheckBox cb = new CheckBox("Selecteer alles");
+		cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> ov,
+								Boolean old_val, Boolean new_val) {
+				if (new_val) {
+					for (Debiteur debiteur : debiteuren) {
+						debiteur.activeProperty().set(new_val);
+					}
+				} else {
+					for (Debiteur debiteur : debiteuren) {
+						debiteur.activeProperty().set(false);
+					}
+				}
+			}
+		});
+
+		topContainer.getChildren().add(cb);
 	}
 
     private void addClicklistener() {

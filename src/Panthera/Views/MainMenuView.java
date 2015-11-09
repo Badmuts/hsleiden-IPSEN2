@@ -60,7 +60,7 @@ public class MainMenuView extends BorderPane implements Viewable {
             buttons.add(createButton("Bestellijsten", mainMenuController.cmdCreateBestellijstenController()));
             buttons.add(createButton("E-mail", mainMenuController.cmdCreateMailController()));
             buttons.add(createButton("Leden", mainMenuController.cmdCreateDebiteurenController()));
-            buttons.add(createButton("Lions", mainMenuController.cmdCreateSettingsController()));
+            buttons.add(createButton("Instellingen", mainMenuController.cmdCreateSettingsController()));
 //            buttons.get(0).getStyleClass().add("active"); // temp
         } catch (Exception e) {
             e.printStackTrace();

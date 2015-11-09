@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -44,6 +45,7 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	
 	public BestellijstenAddView(BestellijstenController bestellijstenController, ProductenController productenController) {
 		this.stage = Panthera.getInstance().getStage();
+		setPadding(new Insets(10));
 		this.bestellijstenController = bestellijstenController;
 		this.productenController = productenController;
 		this.producten = this.productenController.cmdGetProducten();
@@ -57,8 +59,8 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	 */
 	public void createHeader() {
 		createTitle();
-		createAnnuleerButton();
 		createOpslaanButton();
+		createAnnuleerButton();
 		setTop(topContainer);
 	}
 	
@@ -67,18 +69,21 @@ public class BestellijstenAddView extends BorderPane implements Viewable {
 	 */
 	public void createTitle() {
 		Text title = new Text("Bestellijst maken");
-		title.setFont(Font.font(22));
+		title.getStyleClass().add("h1");
+		//title.setFont(Font.font(22));
 		topContainer.getChildren().add(title);
 	}
 	
 	public void createAnnuleerButton() {
 		Button button = new Button("Annuleer");
+		button.getStyleClass().addAll("btn", "btn-danger");
 		button.setOnAction(e -> this.bestellijstenController.setView(bestellijstenController.openBestellijstenSummaryView()).show());
 		topContainer.getChildren().add(button);
 	}
 	
 	public void createOpslaanButton() {
 		Button button = new Button("Opslaan");
+		button.getStyleClass().addAll("btn", "btn-success");
 		button.setOnAction(e -> this.bestellijstenController.opslaanBestellijst(producten));
 		topContainer.getChildren().add(button);
 	}

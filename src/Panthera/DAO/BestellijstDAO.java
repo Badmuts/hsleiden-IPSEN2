@@ -46,7 +46,7 @@ public class BestellijstDAO extends DAO {
 	public ArrayList<Bestellijst> allWithProducten() throws Exception {
 		ArrayList<Bestellijst> bestellijsten = new ArrayList<>();
 		Statement stmt = conn.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT b.id AS bid, b.date, b.naam, p.id AS pid, p.productnummer, p.naam, p.jaar, p.prijs, p.type, p.land_id FROM bestellijst b, product_to_bestellijst pb, product p WHERE pb.bestellijst_id=b.id AND pb.product_id=p.id");
+		ResultSet result = stmt.executeQuery("SELECT b.id AS bid, b.date, b.naam, p.id AS pid, p.productnummer, p.naam AS pnaam, p.jaar, p.prijs, p.type, p.land_id FROM bestellijst b, product_to_bestellijst pb, product p WHERE pb.bestellijst_id=b.id AND pb.product_id=p.id");
         int lastId = 0;
         Bestellijst bestellijst = new Bestellijst();
 		while(result.next()) {
@@ -65,7 +65,7 @@ public class BestellijstDAO extends DAO {
             bestellijst.addProduct(new Product(
                     result.getInt("pid"),
                     result.getInt("productnummer"),
-                    result.getString("naam"),
+                    result.getString("pnaam"),
                     result.getInt("jaar"),
                     result.getDouble("prijs"),
                     result.getString("type"),
