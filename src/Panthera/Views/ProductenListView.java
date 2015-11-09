@@ -122,7 +122,7 @@ public class ProductenListView extends BorderPane implements Viewable {
 
 
     private void createRemoveProductButton() {
-        Button button = new Button("Wijnen verwijderen");
+        Button button = new Button("Verwijder wijn");
         button.setOnAction(event -> {
             productenController.setProducts(products);
             productenController.cmdShowVerwijderenAlert();
