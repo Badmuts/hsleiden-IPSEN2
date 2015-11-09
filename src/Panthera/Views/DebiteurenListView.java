@@ -42,6 +42,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * @author Brandon
+ */
 
 public class DebiteurenListView extends BorderPane implements Viewable {
 	
