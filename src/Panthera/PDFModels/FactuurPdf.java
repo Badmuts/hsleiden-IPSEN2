@@ -23,7 +23,9 @@ import org.omg.IOP.Encoding;
 
 
 public class FactuurPdf {
-
+    /**
+     * attributen
+     */
     private Factuur factuur;
     private ArrayList<Factuurregel> factuurregels = new ArrayList<>();
     private Debiteur debiteur;
@@ -35,6 +37,13 @@ public class FactuurPdf {
     private Rectangle rect;
     private ArrayList<Settings> settings = new ArrayList<>();
 
+
+    /**
+     * constructors
+     * @param factuur
+     * @param factuurregels
+     * @param debiteur
+     */
     public FactuurPdf(Factuur factuur, ArrayList<Factuurregel> factuurregels, Debiteur debiteur) {
         this.factuur = factuur;
         this.factuurregels = factuurregels;
@@ -44,7 +53,6 @@ public class FactuurPdf {
                 FILE = "" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
                 factuur.setPDF(this);
                 String pdfPath = FILE;
-
                 factuur.setPdfPath(FILE);
                 this.document = new Document();
                 this.writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
@@ -58,6 +66,11 @@ public class FactuurPdf {
         }
     }
 
+    /**
+     * deze methode maakt de titelpagina aan hierin staan de gegevens van het lid dat producten heeft besteld
+     * @param document
+     * @throws Exception
+     */
     private void addTitlePage(Document document) throws Exception {
         preface = new Paragraph();
         addEmptyLine(preface, 1);
@@ -78,6 +91,12 @@ public class FactuurPdf {
         onEndPage();
     }
 
+
+    /**
+     * Deze methode laat de opmerking zien die is ingevuld bij het aanmaken van een factuur
+
+     * @throws Exception
+     */
     public void showOpmerking() throws  Exception {
         Paragraph opmerking = new Paragraph();
         addEmptyLine(opmerking, 2);
@@ -85,6 +104,10 @@ public class FactuurPdf {
         document.add(opmerking);
     }
 
+    /**
+     * Deze methode maakt een table aan en vult deze met de properties uit het model dat je wilt weergeven
+     * @throws Exception
+     */
     private void createTable() throws Exception {
         PdfPTable table = new PdfPTable(4);
         createHeader(table);
@@ -103,6 +126,11 @@ public class FactuurPdf {
         document.add(table);
     }
 
+    /**
+     * deze methode maakt de footer aan waarin het totaalbedrag van de factuur staat
+     * @param table
+     * @param factuurregels
+     */
     public void createFooter(PdfPTable table, ArrayList<Factuurregel> factuurregels) {
         char symbol = '\u20ac';
         table.addCell("");
@@ -111,6 +139,13 @@ public class FactuurPdf {
         table.addCell(symbol + " " + calculateTotalPrice(factuurregels));
     }
 
+
+
+    /**
+     * deze methode berekent per wijn op de factuur de prijs die daar bij hoort
+     * @param regel
+     * @return
+     */
     public double calculatePrice(Factuurregel regel) {
         double prijs;
         prijs = regel.getAantal() * regel.getPrijs();
@@ -119,6 +154,11 @@ public class FactuurPdf {
         return prijs;
     }
 
+    /**
+     * deze methode berekend de totaalprijs van alle producten op de factuur
+     * @param factuurregels
+     * @return
+     */
     public String calculateTotalPrice(ArrayList<Factuurregel> factuurregels) {
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
         otherSymbols.setDecimalSeparator(',');
@@ -131,6 +171,10 @@ public class FactuurPdf {
         return df.format(prijs);
     }
 
+    /**
+     * deze methode maakt de header aan van de tabel waarin de factuurregels staan
+     * @param table
+     */
     public void createHeader(PdfPTable table) {
         table.addCell("Aantal");
         table.addCell("Productnummer");
@@ -138,6 +182,11 @@ public class FactuurPdf {
         table.addCell("Prijs");
     }
 
+
+    /**
+     * deze methode maakt de footer van de pdf aan
+     * @throws Exception
+     */
     public void onEndPage() throws Exception {
         this.settings = new SettingsDAO().getAllSettings();
         LineSeparator ls = new LineSeparator();
@@ -153,6 +202,11 @@ public class FactuurPdf {
         }
     }
 
+    /**
+     * deze methode is er om gemakkelijk een enter toe te voegen in het pdfdocument
+     * @param paragraph
+     * @param number
+     */
     private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
