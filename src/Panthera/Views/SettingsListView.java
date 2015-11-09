@@ -36,7 +36,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 
 	public SettingsListView(SettingsController settingsController) {
 		topContainer.setPadding(new Insets(0, 0, 10, 0));
-		;
+		setPadding(new Insets(10));
 		this.settingsController = settingsController;
 		this.settings = this.settingsController.cmdGetSettings();
 
@@ -54,7 +54,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 	}
 
 	public void createTitle() {
-		Text title = new Text("Lions");
+		Text title = new Text("Instellingen");
 		title.setFont(Font.font(22));
 		title.getStyleClass().add("h1");
 		topContainer.getChildren().add(title);
