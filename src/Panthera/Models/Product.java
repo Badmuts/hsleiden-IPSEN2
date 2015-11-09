@@ -2,7 +2,11 @@ package Panthera.Models;
 
 import javafx.beans.property.*;
 
-
+/**
+ * Model representing a product.
+ *
+ * @author Daan Rosbergen
+ */
 public class Product extends Model {
 
     private SimpleIntegerProperty id;
@@ -51,18 +55,37 @@ public class Product extends Model {
         this.aantal = new SimpleStringProperty();
     }
 
+    /**
+     * Retrieve productnumber.
+     *
+     * @return
+     */
     public int getProductnummer() {
         return productnummer.get();
     }
 
+    /**
+     * Productnumber property used to observe its value.
+     *
+     * @return
+     */
     public SimpleIntegerProperty productnummerProperty() {
         return productnummer;
     }
 
+    /**
+     * Set productnumber.
+     *
+     * @param productnummer
+     */
     public void setProductnummer(int productnummer) {
         this.productnummer.set(productnummer);
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getNaam() {
         return naam.get();
     }
