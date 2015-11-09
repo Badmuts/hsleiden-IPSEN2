@@ -41,25 +41,49 @@ public class FactuurDAO extends DAO {
         }
 
     /**
-     * Returns a list with Factuur models with a limit of 25.
+     * Returns a list with Factuur models.
      *
      * @return ArrayList<Factuur> List with product models.
      * @throws Exception
      */
     public ArrayList<Factuur> getAllFacturen() throws Exception {
         ArrayList<Factuur> facturen = new ArrayList<>();
+        ArrayList<Factuurregel> factuurregels = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT id, factuurnummer, debiteur_id, factuurdatum, vervaldatum, status, pdfpath, opmerking FROM factuur LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT f.id AS factuur_id,\n" +
+                "  f.factuurnummer,\n" +
+                "  f.debiteur_id,\n" +
+                "  f.factuurdatum,\n" +
+                "  f.vervaldatum,\n" +
+                "  f.status,\n" +
+                "  f.pdfpath,\n" +
+                "  f.opmerking,\n" +
+                "  o.aantal,\n" +
+                "  p.id AS product_id,\n" +
+                "  p.land_id\n" +
+                "FROM factuur f,\n" +
+                "  tbl_order o,\n" +
+                "  product p\n" +
+                "WHERE f.id = o.factuur_id\n" +
+                "AND o.product_id = p.id;");
+        int currFactuurId = 0;
+        int prevFactuurId = currFactuurId;
         while (result.next()) {
-            facturen.add(new Factuur(
-                    result.getInt("id"),
-                    result.getInt("factuurnummer"),
-                    result.getDate("factuurdatum"),
-                    result.getDate("vervaldatum"),
-                    result.getString("status"),
-                    result.getString("pdfpath"),
-                    new DebiteurDAO().getDebiteur(result.getInt("debiteur_id"))));
-
+            currFactuurId = result.getInt("factuur_id");
+            factuurregels.add(new Factuurregel(result.getInt("aantal"), new ProductDAO().get(result.getInt("product_id"))));
+            if (currFactuurId != prevFactuurId) {
+                facturen.add(new Factuur(
+                        result.getInt("factuur_id"),
+                        result.getInt("factuurnummer"),
+                        result.getDate("factuurdatum"),
+                        result.getDate("vervaldatum"),
+                        result.getString("status"),
+                        result.getString("pdfpath"),
+                        new DebiteurDAO().getDebiteur(result.getInt("debiteur_id")),
+                        factuurregels,
+                        result.getString("opmerking")));
+                prevFactuurId = result.getInt("factuur_id");
+            }
         }
         return facturen;
     }

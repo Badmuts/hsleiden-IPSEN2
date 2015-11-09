@@ -53,6 +53,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 
 	public void addButton(){
 		Button button = new Button("Opslaan");
+		button.getStyleClass().addAll("btn", "btn-success");
 		button.setOnAction(event -> addDebiteur());
 		add(button, 0,row);
 		row++;
@@ -63,7 +64,8 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 	}
 
 	private void createTitle() {
-		Text title = new Text("Toevoegen Klant");
+		Text title = new Text("Toevoegen Lid");
+		title.getStyleClass().addAll("h1");
 		title.setFont(Font.font(20));
 		add(title, 0, row);
 		row++;

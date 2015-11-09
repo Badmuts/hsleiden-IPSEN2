@@ -30,9 +30,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by Brandon on 23-Sep-15.
@@ -100,8 +104,6 @@ public class FacturenListView extends BorderPane implements Viewable {
         CreateVerzendFactuurButton();
         createUpdateFactuurButton();
         createGenerateInkoopfactuurButton();
-        //createTextField();
-
         setTop(topContainer);
     }
     
@@ -121,7 +123,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     private void createRemoveFactuurButton() {
-        Button button = new Button("Factuur verwijderen");
+        Button button = new Button("Verwijder factuur");
         button.setOnAction(event -> facturenController.cmcDeleteFactuur(facturen));
         button.getStyleClass().addAll("btn", "btn-danger");
         topContainer.getChildren().add(button);
@@ -136,7 +138,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     private void createUpdateFactuurButton() {
-        Button button = new Button("Verwerken betaling");
+        Button button = new Button("Verwerk betaling");
         button.getStyleClass().addAll("btn", "btn-success");
         button.setOnAction(event -> facturenController.cmdUpdateStatus(facturen, "Betaald"));
         topContainer.getChildren().add(button);
@@ -171,8 +173,14 @@ public class FacturenListView extends BorderPane implements Viewable {
             return new SimpleObjectProperty<String>(finalDate);
         });
 
-        TableColumn<Factuur, Double> bedrag = new TableColumn("Bedrag");
-        bedrag.setCellValueFactory(new PropertyValueFactory<Factuur, Double>("bedrag"));
+        TableColumn<Factuur, String> bedrag = new TableColumn("Bedrag");
+        bedrag.setCellValueFactory(param -> {
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+            otherSymbols.setDecimalSeparator(',');
+            otherSymbols.setGroupingSeparator('.');
+            DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+            return new SimpleObjectProperty<String>("\u20ac " + df.format(param.getValue().getBedrag()));
+        });
         bedrag.getStyleClass().addAll("table-strong", "table-text-right");
 
         TableColumn status = new TableColumn("Status");
@@ -231,7 +239,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     public void createSelectAllButton() {
 
-        CheckBox cb = new CheckBox("Select all");
+        CheckBox cb = new CheckBox("Selecteer alles");
         cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
@@ -264,7 +272,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     private void createAddFactuurButton() {
-        Button button = new Button("Factuur toevoegen");
+        Button button = new Button("Nieuwe factuur");
         button.setOnAction(event -> {
             try {
                 this.facturenController.cmdShowFactuurAddView();

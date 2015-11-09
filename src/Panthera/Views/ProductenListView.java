@@ -52,7 +52,7 @@ public class ProductenListView extends BorderPane implements Viewable {
     }
 
     private void createImportButton() throws Exception {
-        Button button = new Button("Importeer wijnen");
+        Button button = new Button("Importeer wijn");
         button.setOnAction(event -> {
             try {
                 importeerWijnen();
