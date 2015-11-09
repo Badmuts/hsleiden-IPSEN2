@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Classe used to retrieve, manipulate and remove product models from the DB.
+ *
+ * @author Daan Rosbergen
+ */
 public class ProductDAO extends DAO {
 
     public ProductDAO() throws Exception {
@@ -35,7 +40,7 @@ public class ProductDAO extends DAO {
     }
 
     /**
-     * Returns a list with Product models with a limit of 25.
+     * Returns a list with Product models.
      *
      * @return ArrayList<Product> List with product models.
      * @throws Exception
@@ -43,7 +48,7 @@ public class ProductDAO extends DAO {
     public ArrayList<Product> all() throws Exception {
         ArrayList<Product> products = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM product LIMIT 25");
+        ResultSet result = stmt.executeQuery("SELECT * FROM product");
         while (result.next()) {
             products.add(new Product(
                 result.getInt("id"),
@@ -57,10 +62,12 @@ public class ProductDAO extends DAO {
         return products;
     }
 
-    @Override public String toString() {
-        return "ProductDAO{}";
-    }
-
+    /**
+     * Saves a product model to the DB.
+     *
+     * @param product       Product model.
+     * @throws Exception    Database error.
+     */
     public void save(Product product) throws Exception {
         if (product.hasId()) {
             update(product);
@@ -78,6 +85,11 @@ public class ProductDAO extends DAO {
         }
     }
 
+    /**
+     * Updates product in DB according to Model passed in as argument.
+     *
+     * @param product Product model.
+     */
     public void update(Product product) {
         try {
             Statement stmt = conn.createStatement();
@@ -94,6 +106,12 @@ public class ProductDAO extends DAO {
         }
     }
 
+    /**
+     * Remove product form DB according to Model passed in as argument.
+     *
+     * @param product       Product model.
+     * @throws Exception    Database error.
+     */
     public void delete(Product product) throws Exception {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("DELETE FROM product " +
