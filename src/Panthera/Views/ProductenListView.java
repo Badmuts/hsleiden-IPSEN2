@@ -3,7 +3,10 @@ package Panthera.Views;
 import Panthera.Panthera;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
+import java.util.Locale;
 
 import Panthera.Controllers.ProductenController;
 import Panthera.Models.Product;
@@ -155,9 +158,17 @@ public class ProductenListView extends BorderPane implements Viewable {
         TableColumn<Product, Integer> jaar = new TableColumn("Jaar");
         jaar.setCellValueFactory(new PropertyValueFactory<>("jaar"));
         jaar.prefWidthProperty().bind(table.widthProperty().divide(8));
-        TableColumn<Product, Double> prijs = new TableColumn("Prijs");
-        prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
+
+        TableColumn<Product, String> prijs = new TableColumn("Prijs");
+        prijs.setCellValueFactory(param -> {
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+            otherSymbols.setDecimalSeparator(',');
+            otherSymbols.setGroupingSeparator('.');
+            DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+            return new SimpleObjectProperty<String>("\u20ac " + df.format(param.getValue().getPrijs()));
+        });
         prijs.prefWidthProperty().bind(table.widthProperty().divide(8));
+
         TableColumn<Product, String> type = new TableColumn("Type");
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         type.prefWidthProperty().bind(table.widthProperty().divide(6));

@@ -65,7 +65,8 @@ public class FactuurDAO extends DAO {
                 "  tbl_order o,\n" +
                 "  product p\n" +
                 "WHERE f.id = o.factuur_id\n" +
-                "AND o.product_id = p.id;");
+                "AND o.product_id = p.id\n" +
+                "ORDER BY f.id;");
         int currFactuurId = 0;
         int prevFactuurId = currFactuurId;
         while (result.next()) {
