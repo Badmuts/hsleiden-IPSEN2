@@ -64,14 +64,8 @@ public class DebiteurenController extends Controller {
 	}
 	public void cmdAddDebiteur(Debiteur debiteur) {
 		try {
-			if(debiteur.getTussenvoegsel().isEmpty() || debiteur.getTussenvoegsel().isEmpty()) {
-				debiteur.setTussenvoegsel("");
-				debiteur.setTelefoon("");
 				dao.addDebiteur(debiteur);
-			} else {
-				dao.addDebiteur(debiteur);
-			}
-			mainController.setSubview(new DebiteurenListView(this));
+				mainController.setSubview(new DebiteurenListView(this));
 		} catch (Exception e){
 			e.printStackTrace();
 		}
