@@ -3,7 +3,6 @@ package Panthera.Views;
 import Panthera.Controllers.MailController;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.Debiteur;
-import Panthera.Models.Factuur;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
@@ -20,10 +19,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * View used to select recipients of the email.
+ *
+ * @author Daan Rosbergen
+ */
 public class MailSelectRecipientsView extends BorderPane implements Viewable {
     private String bericht;
     private String onderwerp;
@@ -34,6 +37,13 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
     private HBox topContainer = new HBox(10);
     private TextField filterField;
 
+    /**
+     *
+     *
+     * @param mailController    MailController  Controller used for the view.
+     * @param onderwerp         String          Subject of the email.
+     * @param bericht           String          Message of the email.
+     */
     public MailSelectRecipientsView(MailController mailController, String onderwerp, String bericht) {
         this.mailController = mailController;
         this.onderwerp = onderwerp;
@@ -60,18 +70,27 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         }
     }
 
+    /**
+     * Create header.
+     */
     private void createHeader() {
         createTitle();
         createSearchField();
         setTop(topContainer);
     }
 
+    /**
+     * Create searchfield.
+     */
     private void createSearchField() {
         filterField = new TextField();
         filterField.promptTextProperty().setValue("Zoeken...");
         topContainer.getChildren().addAll(filterField);
     }
 
+    /**
+     * Create title.
+     */
     private void createTitle() {
         Text title = new Text("Selecteer ontvangers");
         title.getStyleClass().add("h1");
@@ -79,6 +98,9 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
+    /**
+     * Filter list according to value form the searchfield.
+     */
     private void filterList() {
         FilteredList<Debiteur> filteredData = new FilteredList<Debiteur>(this.debiteuren, p -> true);
 
@@ -120,6 +142,9 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         setBottom(button);
     }
 
+    /**
+     * Create tableview.
+     */
     private void createTableView() {
         table = new TableView();
         TableColumn<Debiteur, CheckBox> checkbox = new TableColumn(" ");
@@ -154,6 +179,9 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     }
 
+    /**
+     * Create select all button.
+     */
     public void createSelectAllButton() {
 
         CheckBox cb = new CheckBox("Selecteer alles");

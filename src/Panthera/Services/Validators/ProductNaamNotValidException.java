@@ -1,5 +1,10 @@
 package Panthera.Services.Validators;
 
+/**
+ * Exception when a product name is not valid.
+ *
+ * @author Daan Rosbergen
+ */
 public class ProductNaamNotValidException extends Exception {
     public ProductNaamNotValidException() {
     }

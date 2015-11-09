@@ -9,16 +9,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * Sendgrid MailStrategy. Used when emails should be send via SendGrid. The SendGrid api key is
+ * stored in this class.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 30-Sep-15.
  */
 public class SendgridMailStrategy implements MailStrategy {
 
     private final SendGrid sendgrid;
 
+    /**
+     * Creates a instance of the SendGrid api with a api key.
+     */
     public SendgridMailStrategy() {
         sendgrid = new SendGrid("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");
     }
 
+    /**
+     * Sends a email via SendGrid.
+     *
+     * @param email
+     */
     @Override
     public void send(Email email) {
         SendGrid.Email sendgridEmail = new SendGrid.Email();

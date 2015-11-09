@@ -1,7 +1,6 @@
 package Panthera.DAO;
 
 import Panthera.Models.Land;
-import Panthera.Models.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
+ * Class used to retrieve, manipulate and remove Land models from the DB.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 27-Sep-15.
  */
 public class LandDAO extends DAO {
