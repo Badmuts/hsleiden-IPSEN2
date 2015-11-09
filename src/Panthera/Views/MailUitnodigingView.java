@@ -32,8 +32,9 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     private TextField onderwerp;
 
     /**
+     * Creates a view to send a 'Uitnodiging'.
      *
-     * @param mailController
+     * @param mailController    MailController  MailController used to control email and its views.
      */
     public MailUitnodigingView(MailController mailController) {
         this.mailController = mailController;
@@ -59,6 +60,11 @@ public class MailUitnodigingView extends GridPane implements Viewable {
         }
     }
 
+    /**
+     * Creates a field (label and textfield).
+     *
+     * @param name  String  Name of field.
+     */
     private void createField(String name) {
         Label label = new Label(name);
         onderwerp = new TextField();

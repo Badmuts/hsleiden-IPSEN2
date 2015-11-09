@@ -14,6 +14,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
+ * Main view to send emails. The user can select one of the two options to send a email:
+ *
+ *  - Danwoord email
+ *  - Uitnodiging email
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 30-Sep-15.
  */
 public class MailListView extends BorderPane implements Viewable {
@@ -23,6 +29,11 @@ public class MailListView extends BorderPane implements Viewable {
     private HBox body = new HBox(30);
     private HBox footer = new HBox(30);
 
+    /**
+     * Creates a new MailListView.
+     *
+     * @param mailController
+     */
     public MailListView(MailController mailController) {
         this.mailController = mailController;
 
@@ -31,11 +42,17 @@ public class MailListView extends BorderPane implements Viewable {
         createBody();
     }
 
+    /**
+     * Create header of the view.
+     */
     private void createHeader() {
         createTitle();
         setTop(topContainer);
     }
-    
+
+    /**
+     * Create body of the view.
+     */
     private void createBody() {
     	setCenter(body);
     	setBottom(footer);
@@ -43,12 +60,18 @@ public class MailListView extends BorderPane implements Viewable {
     	createDankwoordButton();
         createUitnodigingButton();
     }
-    
+
+    /**
+     * Display explain text.
+     */
     private void createExplainText() {
-    	Text explain = new Text("Verstuur een email naar alle gasten.\n");
+    	Text explain = new Text("Verstuur een email naar alle gasten.");
     	body.getChildren().add(explain);
     }
 
+    /**
+     * Create title of the view.
+     */
     private void createTitle() {
         Text title = new Text("Email");
         title.setFont(Font.font(22));
@@ -56,6 +79,10 @@ public class MailListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(title);
         topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
+
+    /**
+     * Create button for uitnodingen view.
+     */
     private void createUitnodigingButton() {
         Button button = new Button("Verstuur uitnodiging");
         button.setOnAction(event -> this.mailController.cmdShowUitnodigingView());
@@ -63,6 +90,9 @@ public class MailListView extends BorderPane implements Viewable {
         footer.getChildren().add(button);
     }
 
+    /**
+     * Create button for dankwoord view.
+     */
     private void createDankwoordButton() {
         Button button = new Button("Verstuur dankwoord");
         button.setOnAction(event -> this.mailController.cmdShowDankwoordView());
@@ -70,6 +100,9 @@ public class MailListView extends BorderPane implements Viewable {
         footer.getChildren().add(button);
     }
 
+    /**
+     * Show the view.
+     */
     @Override
     public void show() {
         this.stage.setScene(new Scene(this));
