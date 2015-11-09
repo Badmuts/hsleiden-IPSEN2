@@ -14,11 +14,19 @@ import java.util.ArrayList;
  */
 public class FactuurDAO extends DAO {
 
+    /** constructor
+     *
+     * @throws IllegalAccessException
+     * @throws SQLException
+     * @throws InstantiationException
+     */
     public FactuurDAO() throws IllegalAccessException, SQLException, InstantiationException {
         super();
     }
-
-    public Factuur getFactuur(int id) throws Exception {
+    /**
+     *Methode om een enkele factuur op te halen uit de database aan de hand van een id
+    */
+     public Factuur getFactuur(int id) throws Exception {
         //query om een specifieke factuur op te halen
         Factuur factuur = new Factuur();
         try (Statement stmt = conn.createStatement()) {
@@ -34,7 +42,13 @@ public class FactuurDAO extends DAO {
         return factuur;
     }
 
-        public void updateStatus(Factuur factuur , String status) throws Exception {
+    /**
+     * methode om de status van een factuur te updaten in de database
+     * @param factuur
+     * @param status
+     * @throws Exception
+     */
+    public void updateStatus(Factuur factuur , String status) throws Exception {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("UPDATE factuur " +
                     "SET status='"+ status +"' WHERE id=" + factuur.getId());
@@ -42,7 +56,7 @@ public class FactuurDAO extends DAO {
 
     /**
      * Returns a list with Factuur models.
-     *
+     *  //Deze methode returned een arraylist met alle facturen aan de database
      * @return ArrayList<Factuur> List with product models.
      * @throws Exception
      */
@@ -89,6 +103,13 @@ public class FactuurDAO extends DAO {
         return facturen;
     }
 
+
+
+    /**
+     * Deze methode verwijderd de betreffende factuur uit de database.
+     * @param factuur
+     * @throws SQLException
+     */
     public void deleteFactuur(Factuur factuur) throws SQLException {
         //query om een factuur te verwijderen
        Statement stmt = conn.createStatement();
@@ -96,6 +117,11 @@ public class FactuurDAO extends DAO {
                 "WHERE id=" + factuur.getId());
         }
 
+    /**
+     * Deze methode slaat een factuur en factuuregels op in de database
+     * @param factuur
+     * @throws Exception
+     */
     public void save(Factuur factuur) throws Exception {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("" +
@@ -111,6 +137,11 @@ public class FactuurDAO extends DAO {
         saveFactuurregels(factuur);
     }
 
+    /**
+     * deze methode vult de kopeltabel tussen factuur en product
+     * @param factuur
+     * @throws Exception
+     */
     private void saveFactuurregels(Factuur factuur) throws Exception {
         int factuurId = getLastFactuurId();
         for (Factuurregel factuurregel: factuur.getFactuurregels()) {
@@ -124,6 +155,11 @@ public class FactuurDAO extends DAO {
         }
     }
 
+    /**
+     * deze methode haalt het laatste factuur id op dat er in de database is bij gekomen
+     * @return
+     * @throws Exception
+     */
     public int getLastFactuurId() throws Exception {
         int id = 0;
         Statement stmt = conn.createStatement();
@@ -134,6 +170,11 @@ public class FactuurDAO extends DAO {
         return id++;
     }
 
+    /**
+     * Deze methode haalt het laastte factuurnummer op uit de database om deze te laten zien bij het aanmaken bij een factuur als voorbeeld
+     * @return
+     * @throws Exception
+     */
     public int getLastFactuurNummer() throws Exception {
         int factuurnummer = 0;
 

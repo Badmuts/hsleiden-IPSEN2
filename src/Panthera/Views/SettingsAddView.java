@@ -36,6 +36,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 	public SettingsAddView(SettingsController settingsController, Settings settings) {
 		this.settingsController = settingsController;
 		this.settings = settings;
+		setPadding(new Insets(10));
 		createTitle();
 		createForm();
 		saveButton();

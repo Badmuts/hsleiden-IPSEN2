@@ -19,25 +19,35 @@ import java.util.ArrayList;
  */
 public class FacturenController extends Controller {
 
+    //attributen
     private MainController mainController;
     private ArrayList<Factuur> facturen;
     private FactuurDAO dao;
     private Email email;
     private MailService mailService;
 
+    /**
+     *
+     * @param mainController
+     * @throws Exception
+     */
     public FacturenController(MainController mainController) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = dao.getAllFacturen();
     }
 
+    /**
+     *
+     * @param mainController
+     * @param factuur
+     * @throws Exception
+     */
     public FacturenController(MainController mainController, Factuur factuur) throws Exception  {
         this.mainController = mainController;
         this.email = new Email();
         this.mailService = new MailService();
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = new ArrayList<>();
         this.facturen.add(factuur);
     }
@@ -45,10 +55,13 @@ public class FacturenController extends Controller {
     public FacturenController(MainController mainController, ArrayList<Factuur> facturen) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = facturen;
     }
 
+    /**
+     * deze methode delegeert naar het dao om alle facturen op te halen uit de database
+     * @return
+     */
     public ObservableList<Factuur> cmdGetFacturen() {
         ArrayList<Factuur> facturen = new ArrayList<>();
         try {
@@ -59,6 +72,13 @@ public class FacturenController extends Controller {
         return FXCollections.observableArrayList(facturen);
     }
 
+
+
+    /**
+     * deze methode delegeert naar de dao om een factuur uit de database te verwijderen
+     * er wordt eerst gekeken of de factuur wel is aangevinkt.
+     * @param facturen
+     */
     public void cmcDeleteFactuur(ObservableList<Factuur> facturen) {
         try {
             for(Factuur factuur: facturen) {
@@ -73,6 +93,13 @@ public class FacturenController extends Controller {
     }
 
 
+
+    /**
+     *
+     * deze methode delegeert naar het dao om een factuur op te slaan
+     * en vervolgens terug te keren naar het facturenoverzicht
+     * @param factuur
+     */
     public void cmdSaveFactuur(Factuur factuur) {
         if (factuur.getStatus().equals("")) {
             factuur.setStatus("Concept");
@@ -84,6 +111,13 @@ public class FacturenController extends Controller {
             e.printStackTrace();
         }
     }
+
+    /**
+     * deze methode doet een update op de facturen die een nieuwe statu hebben gekregen
+     *
+     * @param facturen
+     * @param status
+     */
     public void cmdUpdateStatus(ObservableList<Factuur> facturen, String status) {
         try {
             for (Factuur factuur : facturen) {
@@ -97,6 +131,10 @@ public class FacturenController extends Controller {
         }
     }
 
+    /**
+     * deze methode opent de subview om facturen toe te voegen
+     * @throws Exception
+     */
     public void cmdShowFactuurAddView() throws Exception{
         mainController.setSubview(new FacturenAddView(this, new Factuur()));
     }
@@ -118,6 +156,11 @@ public class FacturenController extends Controller {
         return mainController;
     }
 
+
+    /**
+     *deze methode verzend de factuur naar het lid
+     * @param facturen
+     */
     public void cmdSendFactuur(ObservableList<Factuur> facturen) {
         for(Factuur factuur: facturen) {
             if (factuur.isChecked()) {
