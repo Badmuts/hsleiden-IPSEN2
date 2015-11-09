@@ -6,6 +6,7 @@ import Panthera.Services.Decorators.DebiteurParser;
 import Panthera.Services.Decorators.Parser;
 import Panthera.Services.MailService;
 import Panthera.Views.MailDankwoordView;
+import Panthera.Views.MailHerinneringView;
 import Panthera.Views.MailListView;
 import Panthera.Views.MailSelectRecipientsView;
 import Panthera.Views.MailUitnodigingView;
@@ -45,6 +46,10 @@ public class MailController extends Controller {
     public void cmdShowUitnodigingView() {
         this.mainController.setSubview(new MailUitnodigingView(this));
     }
+    
+    public void cmdShowHerinneringView() {
+    	this.mainController.setSubview(new MailHerinneringView(this));
+	}
 
     /**
      * Sets subview to MailSelectRecipientsView and passes the current mail subject and mail body.
@@ -55,6 +60,7 @@ public class MailController extends Controller {
     public void cmdShowSelectRecipients(String onderwerp, String bericht) {
         this.mainController.setSubview(new MailSelectRecipientsView(this, onderwerp, bericht));
     }
+    
 
     /**
      * Send a 'Dankwoord' to a list of debitors with a custom subject and mail body.
@@ -114,4 +120,5 @@ public class MailController extends Controller {
     public MainController getMainController() {
         return mainController;
     }
+
 }

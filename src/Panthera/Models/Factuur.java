@@ -27,9 +27,19 @@ public class Factuur extends Model {
     private SimpleStringProperty pdfPath;
     private SimpleBooleanProperty betaald;
 
-    //private Organisatie organisatie;
 
-
+    /**
+     *
+     * @param id
+     * @param factuurnummer
+     * @param factuurdatum
+     * @param vervaldatum
+     * @param status
+     * @param pdfpath
+     * @param debiteur
+     * @param factuurregels
+     * @param opmerking
+     */
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur, ArrayList<Factuurregel> factuurregels, String opmerking) {
 
         this.id = new SimpleIntegerProperty(id);
@@ -48,6 +58,16 @@ public class Factuur extends Model {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param factuurnummer
+     * @param factuurdatum
+     * @param vervaldatum
+     * @param status
+     * @param pdfpath
+     * @param debiteur
+     */
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
 
         this.id = new SimpleIntegerProperty(id);
@@ -66,6 +86,10 @@ public class Factuur extends Model {
         berekenBedrag();
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     public Factuur() throws Exception {
         this.id = new SimpleIntegerProperty();
         this.factuurnummer = new SimpleIntegerProperty(new FactuurDAO().getLastFactuurNummer());
@@ -145,7 +169,6 @@ public class Factuur extends Model {
     public void setStatus(String status) {
         this.status.set(status);
     }
-
 
     public void setVervaldatum(Date vervaldatum) {
         this.vervaldatum.set(vervaldatum);
@@ -239,6 +262,10 @@ public class Factuur extends Model {
         this.factuurregels.get().add(factuurregel);
     }
 
+
+    /**
+     * deze methode berekent het totaalbedrag van een factuur om te kunnen tonen in het factuuroverzicht
+     */
     public void berekenBedrag() {
         for(Factuurregel factuurregel: factuurregels.getValue()) {
             setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());

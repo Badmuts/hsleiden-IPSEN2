@@ -4,11 +4,23 @@ import Panthera.Models.Settings;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+/**
+ * In deze klasse zijn de queries om met de database te communiceren
+ * De SettingsDAO maakt
+ * @author Victor
+ *
+ */
 public class SettingsDAO extends DAO {
 	public SettingsDAO() throws Exception {
 		super();
 	}
+	/**
+	 * geeft een Settings object terug waarvan de id overeenkomt met de param id.
+	 * 
+	 * @param id	een id van de desbetreffende setting als een integer
+	 * @return settings
+	 * @throws Exception
+	 */
 
 	public Settings getSettings(int id) throws Exception {
 		Settings settings = new Settings();
@@ -31,6 +43,12 @@ public class SettingsDAO extends DAO {
 		return settings;
 
 	}
+	/**
+	 * Returns een arraylist bestaand uit alle opgeslagen Settings objecten.
+	 * 
+	 * @return settings arraylist met alle settings die opgeslagen zijn in de database.
+	 * @throws Exception
+	 */
 
 	public ArrayList<Settings> getAllSettings() throws Exception {
 		ArrayList<Settings> settings = new ArrayList<>();
@@ -52,6 +70,13 @@ public class SettingsDAO extends DAO {
 		}
 		return settings;
 	}
+	/**
+	 * Slaat nieuw settings op in de database.
+	 * 
+	 * @param settings	nieuw settings object.
+	 * @throws Exception
+	 */
+	
 	public void saveSettings(Settings settings) throws Exception{
 		if (settings.hasId()) {
 			updateSettings(settings);
@@ -72,6 +97,11 @@ public class SettingsDAO extends DAO {
 			
 		}
 	}
+	/**
+	 * Werkt opgeslagen settings in de database bij aan de hand van een gewijzigde settings object.
+	 * 
+	 * @param settings	gewijzigde settings.
+	 */
 
 	public void updateSettings(Settings settings) {
 		try {
@@ -88,6 +118,10 @@ public class SettingsDAO extends DAO {
 		}
 
 	}
+	/**
+	 * Verwijdert setting uit de database aan de hand van een settings object.
+	 * @param settings	settings object die in de database voorkomt.
+	 */
 
 	public void removeSettings(Settings settings) {
 		try {

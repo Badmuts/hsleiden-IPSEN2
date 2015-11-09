@@ -44,14 +44,21 @@ public class SettingsListView extends BorderPane implements Viewable {
 		createTableView();
 		table.setItems(settings);
 	}
+	
+	/**
+	 * Maakt header aan en voegt titel en de knop "Nieuw" eraan toe.
+	 */
 
 	public void createHeader() {
 		createTitle();
-		updateButton();
+		addButton();
 		setTop(topContainer);
 		topContainer.setAlignment(Pos.CENTER_RIGHT);
 
 	}
+	/**
+	 * Maakt titel aan.
+	 */
 
 	public void createTitle() {
 		Text title = new Text("Instellingen");
@@ -59,6 +66,9 @@ public class SettingsListView extends BorderPane implements Viewable {
 		title.getStyleClass().add("h1");
 		topContainer.getChildren().add(title);
 	}
+	/**
+	 * Maakt een tabel aan.
+	 */
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void createTableView() {
@@ -91,6 +101,11 @@ public class SettingsListView extends BorderPane implements Viewable {
 		table.getColumns().addAll(bedrijfsnaam, adres, telefoon, mailadres, kvk, btwnummer, iban, bic);
 		setCenter(table);
 	}
+	/**
+	 * Voegt een dubbleclick listener toe aan de rijen van de tabel. 
+	 * De dubbelklik zorgt ervoor dat de SettingsAddView voor de desbetreffende settings aangeroepen wordt.
+	 * 
+	 */
 
 	private void addClicklistener() {
 		table.setRowFactory(tv -> {
@@ -104,13 +119,20 @@ public class SettingsListView extends BorderPane implements Viewable {
 			return row;
 		});
 	}
+	/**
+	 * Maakt knop "Nieuw" aan en voegt listerner eraan toe. 
+	 * Als de knop geklikt wordt, zorgt de listener ervoor dat de SettingsAddView aangeroepen wordt. 
+	 */
 	
-	private void updateButton(){
+	private void addButton(){
 		Button button = new Button("Nieuw");
 		button.setOnAction(e -> this.settingsController.getMainController().setSubview(new SettingsAddView(settingsController)));
 		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
+	/**
+	 * Toont de view.
+	 */
 
 	public void show() {
 		this.stage.setScene(new Scene(this, 800, 600));

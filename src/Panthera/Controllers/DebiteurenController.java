@@ -37,7 +37,10 @@ public class DebiteurenController extends Controller {
           e.printStackTrace();
       }
 	}
-	
+	/**
+	 * Haalt alle debiteuren op uit de database mbv de methode getAllDebiteuren in de DebiteurenDAO
+	 * @return debiteuren observableList
+	 */
 	public ObservableList<Debiteur> cmdGetDebiteuren() {
 		ArrayList<Debiteur> debiteuren = new ArrayList<>();
 		try {
@@ -48,6 +51,11 @@ public class DebiteurenController extends Controller {
 		}
 		return FXCollections.observableArrayList(debiteuren);
 	}
+	/**
+	 * Geeft alle debiteuren een voor een door aan de methode deleteDebiteur in de DebiteurDAO
+	 * zodat deze dan verwijderd worden uit de database.
+	 * @param debiteuren
+	 */
 	public void cmdDeleteDebiteur(ObservableList<Debiteur> debiteuren) {
 		try {
 			for(Debiteur debiteur: debiteuren) {
@@ -62,6 +70,10 @@ public class DebiteurenController extends Controller {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Geeft een nieuw object debiteur door aan de methode addDebiteur in de DebiteurDAO.
+	 * @param debiteur
+	 */
 	public void cmdAddDebiteur(Debiteur debiteur) {
 		try {
 			try {
@@ -87,7 +99,7 @@ public class DebiteurenController extends Controller {
 	
 	/**
 	 * Delete unselected,
-	 * return lexicographically.
+	 * @return lexicographically.
 	 */
 	public List<Debiteur> filterUnselected(List<Debiteur> debiteuren) {
 		List<Debiteur> filtered = new ArrayList<>();
@@ -178,10 +190,6 @@ public class DebiteurenController extends Controller {
 			}
 		}
 		return filtered;
-	}
-	
-	public void test() {
-		System.out.println("test");
 	}
 
 	@Override

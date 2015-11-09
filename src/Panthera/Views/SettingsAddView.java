@@ -36,11 +36,16 @@ public class SettingsAddView extends GridPane implements Viewable {
 	public SettingsAddView(SettingsController settingsController, Settings settings) {
 		this.settingsController = settingsController;
 		this.settings = settings;
+		setPadding(new Insets(10));
 		createTitle();
 		createForm();
 		saveButton();
 		removeButton();
 	}
+	/**
+	 * Maakt opslaanknop aan en voegt listener eraan toe.
+	 * Listener zorgt ervoor dat saveSettings() aangeroepen wordt.
+	 */
 
 	public void saveButton() {
 		Button button = new Button("Opslaan");
@@ -49,6 +54,10 @@ public class SettingsAddView extends GridPane implements Viewable {
 		add(button, 0, row);
 		row++;
 	}
+	/**
+	 * Maakt verwijderknop aan en voegt listener eraan toe.
+	 * Listener zorgt ervoor dat removeSettings() aangeroepen wordt
+	 */
 
 	public void removeButton() {
 		Button button = new Button("Verwijder");
@@ -57,14 +66,23 @@ public class SettingsAddView extends GridPane implements Viewable {
 		add(button, 3, row - 1);
 		row++;
 	}
+	/**
+	 * Roept de methode cmdSaveSettings in de settingsController aan en geeft het object settings mee.
+	 */
 
 	public void saveSettings() {
 		settingsController.cmdSaveSettings(settings);
 	}
+	/**
+	 * Roept de methode cmdRemoveSettings in de settingsController aan en geeft het object settings mee.
+	 */
 
 	public void removeSettings() {
 		settingsController.cmdRemoveSettings(settings);
 	}
+	/**
+	 * Maakt titel aan.
+	 */
 
 	private void createTitle() {
 		Text title = new Text("Wijzigen Instellingen");
@@ -73,6 +91,9 @@ public class SettingsAddView extends GridPane implements Viewable {
 		add(title, 0, row);
 		row++;
 	}
+	/**
+	 * Maakt overzicht van gegevens aan.
+	 */
 
 	public void createForm() {
 
@@ -88,6 +109,11 @@ public class SettingsAddView extends GridPane implements Viewable {
 		createField("Host", settings.hostProperty());
 		createField("Port", settings.portProperty());
 	}
+	/**
+	 * Maakt velden voor de overzicht aan met een label en textfield met een property
+	 * @param name	naam van de label
+	 * @param property	property van het object
+	 */
 
 	private void createField(String name, Property property) {
 		if (name == "Wachtwoord") {
@@ -108,6 +134,9 @@ public class SettingsAddView extends GridPane implements Viewable {
 			row++;
 		}
 	}
+	/**
+	 * Toont view.
+	 */
 
 	@Override
 	public void show() {

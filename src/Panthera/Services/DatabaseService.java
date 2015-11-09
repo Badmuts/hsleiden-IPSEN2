@@ -11,10 +11,16 @@ import java.util.Properties;
 
 public class DatabaseService {
 
+    /**
+     *  dit attribuut zorgt er voor dat er maar 1 thread is van connectionInstance
+     */
     private volatile static DatabaseService connectionInstance;
 
+    /**
+     * private constructor zodat er geen instantie aangemaakt kan worden
+     */
     private DatabaseService()  {
-
+        //Hier wordt de driver gespecificeerd
         try {
             Class.forName("org.postgresql.Driver").newInstance();
         } catch (ClassNotFoundException ex) {
@@ -31,6 +37,13 @@ public class DatabaseService {
                 }
             }
 
+
+    /**
+     * deze methode is om de instantie op te halen van de connectie die je wilt gebruiken in de DAO klassen
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static DatabaseService getInstance() throws InstantiationException, IllegalAccessException {
         if(connectionInstance == null) {
             synchronized (DatabaseService.class) {
@@ -42,6 +55,11 @@ public class DatabaseService {
         return connectionInstance;
     }
 
+    /**
+     * deze methode haalt daadwerkelijk de connectie om op queries op uit te voeren in de DAO klassen
+     * @return
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         String URL = "jdbc:postgresql://localhost/Lions";
         Properties info = new Properties( );
