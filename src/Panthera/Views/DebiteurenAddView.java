@@ -33,7 +33,10 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 	private int row = 0;
 	private Debiteur debiteur;
 
-	
+	/**
+	 * Maakt een nieuw DebiteurenAddView aan en voegt een debiteurenController eraan toe.
+	 * @param debiteurenController
+	 */
 	public DebiteurenAddView(DebiteurenController debiteurenController){
       setPadding(new Insets(10));
 		this.debiteurenController = debiteurenController;
@@ -42,7 +45,12 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		createForm();
 		addButton();
 	}
-
+	/**
+	 * Maakt een nieuw DebiteurenAddView aan voor een bestaande debiteur en voegt een debiteurenController eraan toe.
+	 * 
+	 * @param debiteurenController
+	 * @param rowData
+	 */
 	public DebiteurenAddView(DebiteurenController debiteurenController, Debiteur rowData) {
 		this.debiteurenController = debiteurenController;
 		this.debiteur = rowData;
@@ -50,7 +58,10 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		createForm();
 		addButton();
 	}
-
+	/**
+	 * Maakt de knop Opslaan en voegt een listener eraan toe.
+	 * listener roept de methode addDebiteur() aan.
+	 */
 	public void addButton(){
 		Button button = new Button("Opslaan");
 		button.getStyleClass().addAll("btn", "btn-success");
@@ -58,11 +69,15 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		add(button, 0,row);
 		row++;
 	}
-
+	/**
+	 * Roept cmdAddDebiteur() in DebiteurenController aan en geeft de variabele debiteur mee.
+	 */
 	public void addDebiteur(){
 		debiteurenController.cmdAddDebiteur(debiteur);
 	}
-
+	/**
+	 * Maakt titel aan.
+	 */
 	private void createTitle() {
 		Text title = new Text("Toevoegen Lid");
 		title.getStyleClass().addAll("h1");
@@ -70,8 +85,10 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		add(title, 0, row);
 		row++;
 	}
-
-
+	/**
+	 * 
+	 * Maakt overzicht van gegevens aan.
+	 */
 	public void createForm(){
 		createField("Aanhef", debiteur.aanhefProperty());
 		createField("Voornaam", debiteur.voornaamProperty());
@@ -84,7 +101,10 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		createField("Telefoon", debiteur.telefoonProperty());
 		createComboBox("Land");
 	}
-
+	/**
+	 * Maakt een combobox aan van landen mbv LandDAO
+	 * @param name
+	 */
 	private void createComboBox(String name) {
 		try {
 			Label label = new Label(name);
@@ -105,17 +125,11 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 			e.printStackTrace();
 		}
 	}
-
-//	private void createField(String name, Property property, StringConverter converter) {
-//		Label label = new Label(name);
-//		TextField textField = new TextField(name);
-//		Bindings.bindBidirectional(textField.textProperty(), property, converter);
-//
-//		add(label, 0,row);
-//		add(textField, 1, row);
-//		row++;
-//	}
-
+	/**
+	 * Maakt velden voor de overzicht aan met een label en textfield met een property
+	 * @param name	naam van de label
+	 * @param property	property van het object
+	 */
 	private void createField(String name, Property property) {
 		Label label = new Label(name);
 		TextField textField = new TextField(name);
@@ -125,8 +139,9 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		add(textField, 1, row);
 		row++;
 	}
-
-
+	/**
+	 * Toont view
+	 */
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub

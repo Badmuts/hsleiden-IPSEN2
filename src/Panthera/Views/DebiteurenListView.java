@@ -41,7 +41,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+/**
+ * Deze klasse zorgt voor de leden venster van de applicatie.
+ * @author Victor
+ *
+ */
 
 public class DebiteurenListView extends BorderPane implements Viewable {
 	
@@ -53,7 +57,11 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private TextField filterField;
 	private HBox topContainer = new HBox(10);
 	private EventDAO eventDao;
-
+	/**
+	 * De contructor maakt een nieuw DebiteurenListView object aan
+	 * en voegt een debiteurenController eraan toe.
+	 * @param debiteurenController
+	 */
 	public DebiteurenListView(DebiteurenController debiteurenController) {
       setPadding(new Insets(22));
       topContainer.setPadding(new Insets(0, 0, 10, 0));
@@ -71,7 +79,11 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		table.setItems(debiteuren);
 		filterDebiteuren();
 	}
-
+	/**
+	 * Maakt een knop aan om leden te kunnen importeren en voegt een listener aan de knop toe
+	 * de listener roept de methode importeerLeden() aan.
+	 * @throws Exception
+	 */
 	private void createImportButton() throws Exception {
 		Button button = new Button("Importeer leden");
 		button.setOnAction(event -> {
@@ -84,7 +96,10 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		button.getStyleClass().addAll("btn", "btn-success");
 		topContainer.getChildren().add(button);
 	}
-
+	/**
+	 * Zorgt voor het importeren van een ledenlijst
+	 * @throws Exception
+	 */
 	public void importeerLeden() throws Exception {
 
 		FileChooser fileChooser = new FileChooser();
@@ -116,8 +131,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 			this.debiteurenController.cmdAddDebiteur(debiteur);
 		}
 	}
-
-
+	/**
+	 * Zoekt debiteuren.
+	 */
 	private void filterDebiteuren() {
 
 		this.filteredData = new FilteredList<Debiteur>(this.debiteuren, p -> true);
@@ -143,7 +159,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 		this.table.setItems(sortedData);
 	}
-
+	/**
+	 * Maakt zoekveld aan.
+	 */
 
 	private void createFilterField() {
 		this.filterField = new TextField();
@@ -151,7 +169,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(this.filterField);
 
 	}
-
+	/**
+	 * Maakt header aan. Voegt titel, zoekveld en knoppen eraan toe.
+	 */
 	public void createHeader()  {
 		createTitle();
 		createFilterField();
@@ -165,22 +185,28 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 		setTop(topContainer);
 	}
-	
+	/**
+	 * Maakt de knop verwijder lid aan.
+	 */
 	private void removeDebiteurButton() {
 		Button button = new Button("Verwijder lid");
 		button.setOnAction(event -> debiteurenController.cmdDeleteDebiteur(debiteuren));
 		button.getStyleClass().addAll("btn", "btn-danger");
 		topContainer.getChildren().add(button);
 	}
-
+	/**
+	 * Maakt de knop Nieuw lid aan.
+	 */
 	public void addDebiteurButton(){
-		Button button = new Button("Nieuw Lid");
+		Button button = new Button("Nieuw lid");
 		button.setOnAction(e -> this.debiteurenController.getMainController().setSubview((new DebiteurenAddView(this.debiteurenController))));
 		button.getStyleClass().addAll("btn", "btn-primary");
 		topContainer.getChildren().add(button);
 	}
-
-
+	/**
+	 * Maakt ledenoverzicht aan.
+	 * Roept de methode addClickListener aan. 
+	 */
 	private void createTableView() {
 		table = new TableView();
 		TableColumn<Debiteur, CheckBox> checkbox = new TableColumn(" ");
@@ -242,7 +268,11 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		createSelectAllButton();
 		setCenter(table);
 	}
-
+	/**
+	 * Maakt de checkbox Selecteer alles aan.
+	 * Voegt listener eraan toe.
+	 * De listener verandert de status van debiteur.activeProperty 
+	 */
 	public void createSelectAllButton() {
 
 		CheckBox cb = new CheckBox("Selecteer alles");
@@ -263,7 +293,10 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 		topContainer.getChildren().add(cb);
 	}
-
+	/**
+	 * Voegt listener toe aan elke rij in de tabel.
+	 * Listener roept DebiteurenAddView aan.
+	 */
     private void addClicklistener() {
         table.setRowFactory( tv -> {
             TableRow<Debiteur> row = new TableRow<>();
@@ -276,6 +309,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
             return row ;
         });
     }
+    /**
+     * Maakt titel aan.
+     */
 
 	private void createTitle() {
 		Text title = new Text("Leden");
@@ -284,7 +320,9 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(title);
 		topContainer.setAlignment(Pos.CENTER_RIGHT);
 	}
-
+	/**
+	 * Toont view.
+	 */
     public void show() {
         this.stage.setScene(new Scene(this, 800, 600));
         this.stage.show();

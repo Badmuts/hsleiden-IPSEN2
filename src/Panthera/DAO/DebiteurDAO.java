@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import Panthera.Models.Debiteur;
 import Panthera.Models.Event;
 /**
- * 
+ * In deze klasse zijn de queries om met de database te communiceren
  * @author Victor
  *
  */
@@ -17,7 +17,12 @@ public class DebiteurDAO extends DAO {
 	public DebiteurDAO() throws Exception {
 		super();
 	}
-
+	/**
+	 * 
+	 * @param id
+	 * @return debiteur
+	 * @throws Exception
+	 */
 
 	public Debiteur getDebiteur(int id) throws Exception {
 		Debiteur debiteur = new Debiteur();
@@ -38,6 +43,11 @@ public class DebiteurDAO extends DAO {
 
 		return debiteur;
 	}
+	/**
+	 * Geeft alle debiteuren terug die in de database staan.
+	 * @return debiteuren arrayList met alle debiteuren opgeslagen in de database
+	 * @throws Exception
+	 */
 
 	public ArrayList<Debiteur> getAllDebiteuren() throws Exception {
 		ArrayList<Debiteur> debiteuren = new ArrayList<>();
@@ -61,11 +71,21 @@ public class DebiteurDAO extends DAO {
 			return debiteuren;
 
 	}
+	/**
+	 * Verwijdert alle gegevens uit de database van een bepaalde debiteur.
+	 * @param debiteur
+	 * @throws Exception
+	 */
 	public void deleteDebiteur(Debiteur debiteur) throws Exception {
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate("DELETE FROM debiteur " +
 			"WHERE id=" + debiteur.getId());
 	}
+	/**
+	 * Voegt een nieuw debiteur toe aan de database aan de hand van een debiteur object.
+	 * @param debiteur
+	 * @throws Exception
+	 */
 	public void addDebiteur(Debiteur debiteur) throws Exception {
 		if(debiteur.hasId()) {
 			updateDebiteur(debiteur);
@@ -86,6 +106,11 @@ public class DebiteurDAO extends DAO {
 			}
 		}
 	}
+	/**
+	 * Werkt gegevens van een debiteur bij in de database
+	 * aan de hand van de desbetreffende debieur object met nieuw gegevens
+	 * @param debiteur
+	 */
 	public void updateDebiteur(Debiteur debiteur)  {
 		try {
 			Statement stmt = conn.createStatement();
