@@ -3,6 +3,7 @@ package Panthera.Views;
 import Panthera.Controllers.MailController;
 import Panthera.DAO.DebiteurDAO;
 import Panthera.Models.Debiteur;
+import Panthera.Models.Factuur;
 import Panthera.Panthera;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,15 +11,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MailSelectRecipientsView extends BorderPane implements Viewable {
@@ -28,7 +31,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
     private MailController mailController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView table;
-    private VBox topContainer = new VBox(10);
+    private HBox topContainer = new HBox(10);
+    private TextField filterField;
 
     public MailSelectRecipientsView(MailController mailController, String onderwerp, String bericht) {
         this.mailController = mailController;
@@ -39,7 +43,7 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        createHeader();
         createTableView();
 
         setPadding(new Insets(10));
@@ -47,12 +51,60 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         createButton("Verstuur", event -> mailController.cmdSendDankwoord(debiteuren, onderwerp, bericht));
         setTop(topContainer);
         table.setItems(debiteuren);
+        filterList();
 
         for (Debiteur debiteur: debiteuren) {
             debiteur.activeProperty().addListener((observable, oldValue, newValue) -> {
                 debiteur.setActive(newValue);
             });
         }
+    }
+
+    private void createHeader() {
+        createTitle();
+        createSearchField();
+        setTop(topContainer);
+    }
+
+    private void createSearchField() {
+        filterField = new TextField();
+        filterField.promptTextProperty().setValue("Zoeken...");
+        topContainer.getChildren().addAll(filterField);
+    }
+
+    private void createTitle() {
+        Text title = new Text("Selecteer ontvangers");
+        title.getStyleClass().add("h1");
+        topContainer.getChildren().add(title);
+        topContainer.setAlignment(Pos.CENTER_RIGHT);
+    }
+
+    private void filterList() {
+        FilteredList<Debiteur> filteredData = new FilteredList<Debiteur>(this.debiteuren, p -> true);
+
+        this.filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(debiteur -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (debiteur.getNaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (debiteur.getVoornaam().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (debiteur.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (debiteur.getWoonplaats().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<Debiteur> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(this.table.comparatorProperty());
+
+        this.table.setItems(sortedData);
     }
 
     /**
@@ -63,6 +115,7 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
      */
     private void createButton(String name, javafx.event.EventHandler eventhandler) {
         Button button = new Button(name);
+        button.getStyleClass().addAll("btn", "btn-success");
         button.setOnAction(eventhandler);
         setBottom(button);
     }
@@ -100,9 +153,10 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
         setCenter(table);
 
     }
+
     public void createSelectAllButton() {
 
-        CheckBox cb = new CheckBox("Select all");
+        CheckBox cb = new CheckBox("Selecteer alles");
         cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {

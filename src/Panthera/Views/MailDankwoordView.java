@@ -10,10 +10,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -28,6 +32,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     private Stage stage = Panthera.getInstance().getStage();
     private int currentRow = 0;
     private TextArea bericht;
+    private VBox topContainer = new VBox(10);
     private Email email;
     private TextField onderwerp;
 
@@ -38,6 +43,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     public MailDankwoordView(MailController mailController) {
         this.mailController = mailController;
         this.email = new Email();
+        createHeader();
         createForm();
         setPadding();
     }
@@ -66,6 +72,19 @@ public class MailDankwoordView extends GridPane implements Viewable {
             this.email.setSubject(newValue);
         });
         addToForm(label, onderwerp);
+    }
+
+    private void createHeader() {
+        createTitle();
+        add(topContainer,0, currentRow);
+        currentRow++;
+    }
+
+    private void createTitle() {
+        Text title = new Text("Verstuur dankwoord");
+        title.getStyleClass().add("h1");
+        topContainer.getChildren().add(title);
+        topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
     /**
@@ -131,6 +150,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
      */
     private void createButton(String name, EventHandler eventhandler) {
         Button button = new Button(name);
+        button.getStyleClass().addAll("btn", "btn-primary");
         button.setOnAction(eventhandler);
         addToForm(button);
     }

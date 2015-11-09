@@ -5,6 +5,7 @@ import Panthera.PDFModels.FactuurPdf;
 import javafx.beans.property.*;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class Factuur extends Model {
     //private Organisatie organisatie;
 
 
-    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, Debiteur debiteur, ArrayList<Factuurregel> factuurregels, String opmerking) {
+    public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur, ArrayList<Factuurregel> factuurregels, String opmerking) {
 
         this.id = new SimpleIntegerProperty(id);
         this.factuurnummer = new SimpleIntegerProperty(factuurnummer);
@@ -41,7 +42,7 @@ public class Factuur extends Model {
         this.factuurregels = new SimpleObjectProperty<>(factuurregels);
         this.opmerking = new SimpleStringProperty(opmerking);
         this.pdf = new SimpleObjectProperty<>();
-        this.pdfPath = new SimpleStringProperty();
+        this.pdfPath = new SimpleStringProperty(pdfpath);
         this.bedrag = new SimpleDoubleProperty();
         berekenBedrag();
 
@@ -239,7 +240,7 @@ public class Factuur extends Model {
     }
 
     public void berekenBedrag() {
-        for(Factuurregel factuurregel: getFactuurregels()) {
+        for(Factuurregel factuurregel: factuurregels.getValue()) {
             setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());
         }
     }

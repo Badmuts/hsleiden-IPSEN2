@@ -64,8 +64,22 @@ public class DebiteurenController extends Controller {
 	}
 	public void cmdAddDebiteur(Debiteur debiteur) {
 		try {
-			dao.addDebiteur(debiteur);
-			mainController.setSubview(new DebiteurenListView(this));
+			try {
+				if (debiteur.getTussenvoegsel().isEmpty()) {
+
+				}
+			} catch (NullPointerException e) {
+				debiteur.setTussenvoegsel("");
+			}
+			try {
+				if(debiteur.getTelefoon().isEmpty()) {
+
+				}
+			} catch (NullPointerException e) {
+				debiteur.setTelefoon("");
+			}
+				dao.addDebiteur(debiteur);
+				mainController.setSubview(new DebiteurenListView(this));
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -171,7 +185,7 @@ public class DebiteurenController extends Controller {
 	}
 
 	@Override
-	public void show() {
+	public void show()  {
 		this.mainController.setSubview(new DebiteurenListView(this));
 	}
 

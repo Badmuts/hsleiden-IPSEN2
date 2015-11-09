@@ -22,13 +22,14 @@ public class ProductDAO extends DAO {
     public Product get(int id) throws Exception {
         Product product = new Product();
         Statement stmt = conn.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT productnummer, naam, jaar, prijs, type FROM product WHERE id =" + id);
+        ResultSet result = stmt.executeQuery("SELECT productnummer, naam, jaar, prijs, type, land_id FROM product WHERE id =" + id);
         while (result.next()) {
             product.setProductnummer(result.getInt("productnummer"));
             product.setNaam(result.getString("naam"));
             product.setJaar(result.getInt("jaar"));
             product.setPrijs(result.getDouble("prijs"));
             product.setType(result.getString("type"));
+            product.setLand(new LandDAO().get(result.getInt("land_id")));
         }
         return product;
     }

@@ -4,6 +4,7 @@ import Panthera.Controllers.SettingsController;
 import Panthera.Models.Settings;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -26,6 +27,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 	public SettingsAddView(SettingsController settingsController) {
 		this.settingsController = settingsController;
 		this.settings = new Settings();
+		setPadding(new Insets(10));
 		createTitle();
 		createForm();
 		saveButton();
@@ -42,6 +44,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 
 	public void saveButton() {
 		Button button = new Button("Opslaan");
+		button.getStyleClass().addAll("btn", "btn-success");
 		button.setOnAction(event -> saveSettings());
 		add(button, 0, row);
 		row++;
@@ -49,6 +52,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 
 	public void removeButton() {
 		Button button = new Button("Verwijder");
+		button.getStyleClass().addAll("btn", "btn-danger");
 		button.setOnAction(event -> removeSettings());
 		add(button, 3, row - 1);
 		row++;
@@ -64,6 +68,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 
 	private void createTitle() {
 		Text title = new Text("Wijzigen Instellingen");
+		title.getStyleClass().addAll("h1");
 		title.setFont(Font.font(20));
 		add(title, 0, row);
 		row++;
