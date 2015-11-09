@@ -1,7 +1,6 @@
 package Panthera.Views;
 
 import Panthera.Controllers.Controller;
-import Panthera.Controllers.MailController;
 import Panthera.Controllers.MainMenuController;
 import Panthera.Panthera;
 import javafx.geometry.Insets;
@@ -15,6 +14,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
+ * View containing menu buttons.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 22-Sep-15.
  */
 public class MainMenuView extends BorderPane implements Viewable {

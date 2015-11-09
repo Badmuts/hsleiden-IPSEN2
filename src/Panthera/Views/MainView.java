@@ -11,6 +11,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * The main view of the app containing of a menu and a subview.
+ *
+ * @author Daan Rosbergen
+ */
 public class MainView extends BorderPane implements Viewable {
 
     private Stage stage = Panthera.getInstance().getStage();
@@ -18,6 +23,11 @@ public class MainView extends BorderPane implements Viewable {
     private StackPane headerContainer;
     private StackPane subviewContainer;
 
+    /**
+     * Creates a new main view.
+     *
+     * @param mainMenuController    MainMenuController  Controller for menu items.
+     */
     public MainView(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
         headerContainer = new StackPane();
@@ -25,6 +35,9 @@ public class MainView extends BorderPane implements Viewable {
         setupView();
     }
 
+    /**
+     * Setup view (background, logo, subview container and menu).
+     */
     private void setupView() {
         createBackground();
         createSubviewContainer();
@@ -32,11 +45,19 @@ public class MainView extends BorderPane implements Viewable {
         setTop(headerContainer);
     }
 
+    /**
+     * Creates header of the view:
+     *  - Menu
+     *  - Logo
+     */
     private void createHeader() {
         addMenu();
         addLogo();
     }
 
+    /**
+     * Create subview container stackpane where other views will be shown.
+     */
     private void createSubviewContainer() {
         subviewContainer = new StackPane();
         subviewContainer.getStyleClass().add("subview-container");
@@ -49,6 +70,9 @@ public class MainView extends BorderPane implements Viewable {
         }
     }
 
+    /**
+     * Load logo and add it to the header.
+     */
     private void addLogo() {
         ImageView logo = new ImageView("Panthera/Resources/lions-app.png");
         logo.setFitWidth(90);
@@ -58,12 +82,18 @@ public class MainView extends BorderPane implements Viewable {
         StackPane.setMargin(logo, new Insets(16, 10, 22, 84));
     }
 
+    /**
+     * Create new menu and add it to the view.
+     */
     private void addMenu() {
         MainMenuView mainMenuView = new MainMenuView(this.mainMenuController);
         headerContainer.getChildren().addAll(mainMenuView);
         StackPane.setMargin(mainMenuView, new Insets(25, 84, 0, 0));
     }
 
+    /**
+     * Create blue background rectangle.
+     */
     private void createBackground() {
         Rectangle rectangle = new Rectangle(stage.widthProperty().get(), 200);
         stage.widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -74,6 +104,10 @@ public class MainView extends BorderPane implements Viewable {
         StackPane.setAlignment(rectangle, Pos.TOP_CENTER);
     }
 
+    /**
+     * Retrieve the subviewcontainer to manipulate it.
+     * @return
+     */
     public StackPane getSubviewContainer() {
         return subviewContainer;
     }
