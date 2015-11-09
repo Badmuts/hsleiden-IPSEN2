@@ -5,6 +5,8 @@ import Panthera.Views.Viewable;
 /**
  * Main controller which implements a simple show method. Every Controller
  * should extend from this class.
+ *
+ * @author Daan Rosbergen
  */
 public class Controller {
 
@@ -18,7 +20,7 @@ public class Controller {
     }
 
     /**
-     * Set view and return itself for method chaning.
+     * Set view and return itself for methodchaning.
      *
      * @author  Daan Rosbergen
      * @param   view        new view.
@@ -29,6 +31,11 @@ public class Controller {
         return this;
     }
 
+    /**
+     * Returns the current view.
+     *
+     * @return Viewable Viewable object (most likely a JavaFX node).
+     */
     public Viewable getView() {
         return this.view;
     }
