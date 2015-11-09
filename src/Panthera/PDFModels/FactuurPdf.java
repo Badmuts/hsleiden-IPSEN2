@@ -39,7 +39,7 @@ public class FactuurPdf {
         this.debiteur = debiteur;
 
         try {
-                FILE = "C:\\Users\\Brandon\\Desktop\\LionsPdfFiles\\" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
+                FILE = "" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
                 factuur.setPDF(this);
                 String pdfPath = FILE;
 
@@ -68,7 +68,7 @@ public class FactuurPdf {
         preface.add(new Paragraph("Vervaldatum: " + df.format(factuur.getVervaldatum())));
         preface.add(new Paragraph(String.valueOf("Lidnnummer: " + debiteur.getId())));
         addEmptyLine(preface, 3);
-        preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 22 september 2013"));
+        preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 01 november 2015"));
         addEmptyLine(preface, 2);
         document.add(preface);
         createTable();

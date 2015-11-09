@@ -2,6 +2,7 @@ package Panthera.Models;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.itextpdf.text.Document;
@@ -17,7 +18,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class InkoopfactuurPdf {
 	
 	public void create(List<InkoopfactuurRegel> regels) throws FileNotFoundException, DocumentException {
-		final String result = "C:/Users/Brandon/Desktop/LiondsPdfFiles/Inkoopfactuur/inkoopfactuur.pdf";
+		final String result = "inkoopfactuur.pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(result));
 		document.open();
@@ -26,13 +27,14 @@ public class InkoopfactuurPdf {
 	}
 	
 	public PdfPTable createTable(List<InkoopfactuurRegel> regels) {
+		DecimalFormat df = new DecimalFormat("0.00");
 		PdfPTable table = new PdfPTable(4);
 		createHeader(table);
 		for(InkoopfactuurRegel regel : regels) {
 			table.addCell(String.valueOf(regel.getProduct_id()));
 			table.addCell(regel.getProductnaam());
 			table.addCell(String.valueOf(regel.getAantal()));
-			table.addCell(String.valueOf(calculatePrice(regel)));
+			table.addCell(String.valueOf(df.format(calculatePrice(regel))));
 		}
 		createFooter(table, regels);
 		return table;
@@ -46,10 +48,11 @@ public class InkoopfactuurPdf {
 	}
 	
 	public void createFooter(PdfPTable table, List<InkoopfactuurRegel> regels) {
+		DecimalFormat df = new DecimalFormat("0.00");
 		table.addCell("");
 		table.addCell("");
 		table.addCell("");
-		table.addCell(String.valueOf(calculateTotalPrice(regels)));
+		table.addCell(String.valueOf(df.format(calculateTotalPrice(regels))));
 	}
 	
 	public double calculatePrice(InkoopfactuurRegel regel) {
