@@ -25,6 +25,13 @@ public class FacturenController extends Controller {
     private Email email;
     private MailService mailService;
 
+    /**
+     * @author Brandon van Wijk
+     * Deze constructor wordt gebruikt bij het aanmaken van de subview FacturenListView.
+     * Hij krijgt de maincontroller mee omdat die de subviews regelt.
+     * @param mainController
+     * @throws Exception
+     */
     public FacturenController(MainController mainController) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
@@ -32,6 +39,15 @@ public class FacturenController extends Controller {
         this.facturen = dao.getAllFacturen();
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze constructor wordt gebrukt bij het aanmaken van deze controller in
+     * De maincontroller klasse. Hij krijgt ook een factuur object mee
+     * Zodat die toegevoegd kan worden aan de facturen lijst in de controller.
+     * @param mainController
+     * @param factuur
+     * @throws Exception
+     */
     public FacturenController(MainController mainController, Factuur factuur) throws Exception  {
         this.mainController = mainController;
         this.email = new Email();
@@ -49,6 +65,13 @@ public class FacturenController extends Controller {
         this.facturen = facturen;
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode haalt alle facturen uit de database
+     * Doormiddel van het FactuurDAO en stopt deze in een
+     * ObservableList die gebruikt wordt in de factuurviews
+     * @return Collectie van factuurobjecten
+     */
     public ObservableList<Factuur> cmdGetFacturen() {
         ArrayList<Factuur> facturen = new ArrayList<>();
         try {
@@ -59,6 +82,13 @@ public class FacturenController extends Controller {
         return FXCollections.observableArrayList(facturen);
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode krijgt een lijst mee met een factuur of meerdere
+     * En kijkt vervolgens of deze aangevinkt staan in de view
+     * Zo ja, verwijderd hij deze uit de database via het DAO.
+     * @param facturen
+     */
     public void cmcDeleteFactuur(ObservableList<Factuur> facturen) {
         try {
             for(Factuur factuur: facturen) {
@@ -72,7 +102,12 @@ public class FacturenController extends Controller {
         }
     }
 
-
+    /**
+     * @author Brandon van Wijk
+     * Deze methode krijgt een factuur object binnen en slaat deze vervolgens op
+     * Via het DAO. Daarna zet hij een nieuwe view zodat je terugkeert naar het factuuroverzicht.
+     * @param factuur
+     */
     public void cmdSaveFactuur(Factuur factuur) {
         if (factuur.getStatus().equals("")) {
             factuur.setStatus("Concept");
@@ -84,6 +119,16 @@ public class FacturenController extends Controller {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @author Brandon van Wijk
+     * Deze methode krijgt 1 of meerdere facturen mee en de status
+     * Waarnaar de factuur geupdatat moet worden. Er wordt wel eerst
+     * Gekeken of de factuur is aangevinkt in het overzicht om te voorkomen dat
+     * De status van alle facturen wordt aangepast.
+     * @param facturen
+     * @param status
+     */
     public void cmdUpdateStatus(ObservableList<Factuur> facturen, String status) {
         try {
             for (Factuur factuur : facturen) {
@@ -97,18 +142,28 @@ public class FacturenController extends Controller {
         }
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode zet simpelweg de subview om een factuur toe te kunnen voegen
+     * @throws Exception
+     */
     public void cmdShowFactuurAddView() throws Exception{
         mainController.setSubview(new FacturenAddView(this, new Factuur()));
     }
 
-    public void cmdShowFactuurAddView(Factuur factuur) {
-        mainController.setSubview(new FacturenAddView(this, factuur));
-    }
+//    public void cmdShowFactuurAddView(Factuur factuur) {
+//        mainController.setSubview(new FacturenAddView(this, factuur));
+//    }
+//
+//    public void cmdAddFactuurregel(Factuurregel factuurregel) {
+//
+//    }
 
-    public void cmdAddFactuurregel(Factuurregel factuurregel) {
 
-    }
-
+    /**
+     * @author Brandon van Wijk
+     * Deze methode zet de subview naar het factuuroverzicht.
+     */
     @Override
     public void show() {
         this.mainController.setSubview(new FacturenListView(this));
@@ -118,6 +173,12 @@ public class FacturenController extends Controller {
         return mainController;
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode verstuurd de aangevinkte facturen in het overzicht
+     * Naar de bijbehorende leden met de factuur als bijlage.
+     * @param facturen
+     */
     public void cmdSendFactuur(ObservableList<Factuur> facturen) {
         for(Factuur factuur: facturen) {
             if (factuur.isChecked()) {
