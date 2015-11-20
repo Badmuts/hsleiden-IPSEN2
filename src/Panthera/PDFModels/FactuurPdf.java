@@ -21,6 +21,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import org.omg.IOP.Encoding;
 
+/**
+ * @author Brandon van Wijk
+ * Deze klasse maakt een pdf aan van de factuur die opgeslagen wordt in het
+ * Factuuroverzicht. Ook staan de gevens van het lid erop en de informatie die
+ * Het lid nodig heeft om te kunnen betalen.
+ */
 
 public class FactuurPdf {
 
@@ -35,6 +41,13 @@ public class FactuurPdf {
     private Rectangle rect;
     private ArrayList<Settings> settings = new ArrayList<>();
 
+    /**
+     * @author Brandon van Wijk
+     * De constructor maakt een factuur file aan en vult deze met de benodigde informatie
+     * @param factuur
+     * @param factuurregels
+     * @param debiteur
+     */
     public FactuurPdf(Factuur factuur, ArrayList<Factuurregel> factuurregels, Debiteur debiteur) {
         this.factuur = factuur;
         this.factuurregels = factuurregels;
@@ -58,6 +71,13 @@ public class FactuurPdf {
         }
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode vult de pdf met alle benodigde info
+     * De gegevens van het lid en de gegevens van de bestelling.
+     * @param document
+     * @throws Exception
+     */
     private void addTitlePage(Document document) throws Exception {
         preface = new Paragraph();
         addEmptyLine(preface, 1);
@@ -78,6 +98,11 @@ public class FactuurPdf {
         onEndPage();
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode voegt de opmerking die ingevuld is bij
+     * Het aanmaken van de factuur toe aan het pdf document
+     */
     public void showOpmerking() throws  Exception {
         Paragraph opmerking = new Paragraph();
         addEmptyLine(opmerking, 2);
@@ -85,6 +110,13 @@ public class FactuurPdf {
         document.add(opmerking);
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode maakt de table in waar alle orderegels instaan
+     * Zoals de producten die zijn besteld, het aantal ervan, de prijs
+     * Per product en het uiteindelijke edrag van de hele bestelling
+     * @throws Exception
+     */
     private void createTable() throws Exception {
         PdfPTable table = new PdfPTable(4);
         createHeader(table);
@@ -103,6 +135,13 @@ public class FactuurPdf {
         document.add(table);
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode maakt de footer aan van de tabel met factuurregels
+     * Hier staat het totaalbedrag in van de bestelling.
+     * @param table
+     * @param factuurregels
+     */
     public void createFooter(PdfPTable table, ArrayList<Factuurregel> factuurregels) {
         char symbol = '\u20ac';
         table.addCell("");
@@ -111,6 +150,13 @@ public class FactuurPdf {
         table.addCell(symbol + " " + calculateTotalPrice(factuurregels));
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode berekend de prijs van een bestelde wijn
+     * Doormiddel van de prijs van het product en het aantal dat daarbij hoort.
+     * @param regel
+     * @return de totaalprijs per wijn
+     */
     public double calculatePrice(Factuurregel regel) {
         double prijs;
         prijs = regel.getAantal() * regel.getPrijs();
@@ -119,6 +165,14 @@ public class FactuurPdf {
         return prijs;
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode berekend de totaalprijs van de bestelling die
+     * Het lid heeft gedaan. Hij loopt langs alle factuurregels en
+     * telt de prijs per product en aantal op bij de totaalprijs.
+     * @param factuurregels
+     * @return totaalprijs van bestelling
+     */
     public String calculateTotalPrice(ArrayList<Factuurregel> factuurregels) {
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
         otherSymbols.setDecimalSeparator(',');
@@ -131,6 +185,11 @@ public class FactuurPdf {
         return df.format(prijs);
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode maakt de header aan van de tabel met factuurregels
+     * @param table
+     */
     public void createHeader(PdfPTable table) {
         table.addCell("Aantal");
         table.addCell("Productnummer");
@@ -138,6 +197,13 @@ public class FactuurPdf {
         table.addCell("Prijs");
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode maakt de footer aan van het document
+     * Hier staan een aantal belangrijke gegevens in die nodig zijn
+     * Zodat een lid zijn bestelling kan betalen.
+     * @throws Exception
+     */
     public void onEndPage() throws Exception {
         this.settings = new SettingsDAO().getAllSettings();
         LineSeparator ls = new LineSeparator();
@@ -153,6 +219,14 @@ public class FactuurPdf {
         }
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode kun je aanroepen als je een of meerdere witregels
+     * Wilt toevoegen aan het document. Het aantal witregels dat gewenst is
+     * Kan je simpel meegeven als parameter bij de aanroep van de methode.
+     * @param paragraph
+     * @param number
+     */
     private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
