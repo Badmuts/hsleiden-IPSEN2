@@ -13,6 +13,12 @@ public class DatabaseService {
 
     private volatile static DatabaseService connectionInstance;
 
+    /**
+     * @author Brandon van Wijk
+     * Dit is de constructor die de driver class van de database laadt.
+     * De constructor is private omdat deze klasse een singleton is
+     * Dit wil zeggen dat er maar 1 instantie van kan zijn
+     */
     private DatabaseService()  {
 
         try {
@@ -31,6 +37,13 @@ public class DatabaseService {
                 }
             }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode wordt gebruikt om de instantie van de database service op te halen.
+     * @return DatabaseService
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static DatabaseService getInstance() throws InstantiationException, IllegalAccessException {
         if(connectionInstance == null) {
             synchronized (DatabaseService.class) {
@@ -42,6 +55,13 @@ public class DatabaseService {
         return connectionInstance;
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode wordt gebruikt in de
+     * DAO's om met de database te communiceren
+     * @return Connection
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         String URL = "jdbc:postgresql://localhost/Lions";
         Properties info = new Properties( );
