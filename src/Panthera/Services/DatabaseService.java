@@ -11,6 +11,9 @@ import java.util.Properties;
 
 public class DatabaseService {
 
+    /**
+     *  dit attribuut zorgt er voor dat er maar 1 thread is van connectionInstance
+     */
     private volatile static DatabaseService connectionInstance;
 
     /**
@@ -20,7 +23,7 @@ public class DatabaseService {
      * Dit wil zeggen dat er maar 1 instantie van kan zijn
      */
     private DatabaseService()  {
-
+        //Hier wordt de driver gespecificeerd
         try {
             Class.forName("org.postgresql.Driver").newInstance();
         } catch (ClassNotFoundException ex) {

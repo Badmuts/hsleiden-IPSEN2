@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class FacturenController extends Controller {
 
+    //attributen
     private MainController mainController;
     private ArrayList<Factuur> facturen;
     private FactuurDAO dao;
@@ -29,13 +30,10 @@ public class FacturenController extends Controller {
      * @author Brandon van Wijk
      * Deze constructor wordt gebruikt bij het aanmaken van de subview FacturenListView.
      * Hij krijgt de maincontroller mee omdat die de subviews regelt.
-     * @param mainController
-     * @throws Exception
      */
     public FacturenController(MainController mainController) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = dao.getAllFacturen();
     }
 
@@ -44,16 +42,12 @@ public class FacturenController extends Controller {
      * Deze constructor wordt gebrukt bij het aanmaken van deze controller in
      * De maincontroller klasse. Hij krijgt ook een factuur object mee
      * Zodat die toegevoegd kan worden aan de facturen lijst in de controller.
-     * @param mainController
-     * @param factuur
-     * @throws Exception
      */
     public FacturenController(MainController mainController, Factuur factuur) throws Exception  {
         this.mainController = mainController;
         this.email = new Email();
         this.mailService = new MailService();
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = new ArrayList<>();
         this.facturen.add(factuur);
     }
@@ -61,7 +55,6 @@ public class FacturenController extends Controller {
     public FacturenController(MainController mainController, ArrayList<Factuur> facturen) throws Exception  {
         this.mainController = mainController;
         this.dao = new FactuurDAO();
-//        this.view = new FacturenListView(this);
         this.facturen = facturen;
     }
 
@@ -172,6 +165,7 @@ public class FacturenController extends Controller {
     public MainController getMainController() {
         return mainController;
     }
+
 
     /**
      * @author Brandon van Wijk

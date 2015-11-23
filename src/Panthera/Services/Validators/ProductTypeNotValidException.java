@@ -1,5 +1,10 @@
 package Panthera.Services.Validators;
 
+/**
+ * Exception when there is no valid product type.
+ *
+ * @author Daan Rosbergen
+ */
 public class ProductTypeNotValidException extends Exception {
     public ProductTypeNotValidException() {
     }

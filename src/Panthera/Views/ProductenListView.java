@@ -29,7 +29,13 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
+/**
+ * View used to display a summary (list) of products known in the app. The user can edit or add a
+ * new product via this view.
+ *
+ * @author Daan Rosbergen
+ *
+ */
 public class ProductenListView extends BorderPane implements Viewable {
 
     private ProductenController productenController;
@@ -38,6 +44,11 @@ public class ProductenListView extends BorderPane implements Viewable {
     private ObservableList<Product> products;
     private HBox topContainer = new HBox(10);
 
+    /**
+     * Creates the view and setup styling.
+     *
+     * @param productenController
+     */
     public ProductenListView(ProductenController productenController) {
         this.productenController = productenController;
         createHeader();
@@ -54,6 +65,11 @@ public class ProductenListView extends BorderPane implements Viewable {
         topContainer.setAlignment(Pos.CENTER_RIGHT);
     }
 
+    /**
+     * Create button to import products.
+     *
+     * @throws Exception
+     */
     private void createImportButton() throws Exception {
         Button button = new Button("Importeer wijn");
         button.setOnAction(event -> {
@@ -67,6 +83,11 @@ public class ProductenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
+    /**
+     * Choose file to import.
+     *
+     * @throws Exception
+     */
     public void importeerWijnen() throws Exception {
 
         FileChooser fileChooser = new FileChooser();
@@ -89,16 +110,9 @@ public class ProductenListView extends BorderPane implements Viewable {
         for (int i = 0 ; i < dataTable.length ; i++)
         {
             System.out.println("["+ i +"]: "+ Arrays.toString(dataTable[i]));
-            //products.add(new Product((Integer) dataTable[i][0], (String) dataTable[i][1],(Integer) dataTable[i][2], (Double) dataTable[i][3],  (String) dataTable[i][4],  (String) dataTable[i][5]));
         }
         //Closing the file stream to free all resources
         fstream.close();
-
-
-
-//        for(Product product: products) {
-//            this.productenController.cmdSaveProduct(product);
-//        }
     }
 
 
@@ -121,9 +135,9 @@ public class ProductenListView extends BorderPane implements Viewable {
         setTop(topContainer);
     }
 
-
-
-
+    /**
+     * Create button to remove products.
+     */
     private void createRemoveProductButton() {
         Button button = new Button("Verwijder wijn");
         button.setOnAction(event -> {
@@ -180,6 +194,10 @@ public class ProductenListView extends BorderPane implements Viewable {
         setCenter(table);
     }
 
+    /**
+     * Add click lisitiner to table view. When the user double clicks on a table row the product add
+     * view will be loaded.
+     */
     private void addClicklistener() {
         table.setRowFactory( tv -> {
             TableRow<Product> row = new TableRow<>();

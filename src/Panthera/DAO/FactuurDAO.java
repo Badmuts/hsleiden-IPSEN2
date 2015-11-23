@@ -28,6 +28,7 @@ public class FactuurDAO extends DAO {
         super();
     }
 
+
     /**
      * @author Brandon van Wijk
      * Deze methode haalt 1 specifieke factuur op uit de database aan de hand van het id
@@ -37,7 +38,8 @@ public class FactuurDAO extends DAO {
      * @return
      * @throws Exception
      */
-    public Factuur getFactuur(int id) throws Exception {
+     public Factuur getFactuur(int id) throws Exception {
+
         //query om een specifieke factuur op te halen
         Factuur factuur = new Factuur();
         try (Statement stmt = conn.createStatement()) {
@@ -121,6 +123,7 @@ public class FactuurDAO extends DAO {
         }
         return facturen;
     }
+
 
     /**
      * @author Brandon van Wijk
@@ -206,7 +209,7 @@ public class FactuurDAO extends DAO {
      * Deze methode haalt het laatste factuurnummer op uit de database
      * En telt er 1 bij op dit doen we omdat we zo een default factuurnummer
      * kunnen laten zien bij het aanmaken van een factuur in de applicatie
-     * @return
+     * @return factuurnummer
      * @throws Exception
      */
     public int getLastFactuurNummer() throws Exception {

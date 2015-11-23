@@ -29,7 +29,9 @@ import org.omg.IOP.Encoding;
  */
 
 public class FactuurPdf {
-
+    /**
+     * attributen
+     */
     private Factuur factuur;
     private ArrayList<Factuurregel> factuurregels = new ArrayList<>();
     private Debiteur debiteur;
@@ -57,7 +59,6 @@ public class FactuurPdf {
                 FILE = "" + factuur.getFactuurnummer()+"-"+ debiteur.getNaam() +".pdf";
                 factuur.setPDF(this);
                 String pdfPath = FILE;
-
                 factuur.setPdfPath(FILE);
                 this.document = new Document();
                 this.writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
@@ -102,6 +103,7 @@ public class FactuurPdf {
      * @author Brandon van Wijk
      * Deze methode voegt de opmerking die ingevuld is bij
      * Het aanmaken van de factuur toe aan het pdf document
+     * @throws Exception
      */
     public void showOpmerking() throws  Exception {
         Paragraph opmerking = new Paragraph();

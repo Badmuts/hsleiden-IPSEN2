@@ -29,7 +29,6 @@ public class Factuur extends Model {
     private SimpleStringProperty pdfPath;
     private SimpleBooleanProperty betaald;
 
-    //private Organisatie organisatie;
 
     /**
      * @author Brandon van Wijk
@@ -63,6 +62,16 @@ public class Factuur extends Model {
 
     }
 
+    /**
+     * @author Brandon van Wijk
+     * @param id
+     * @param factuurnummer
+     * @param factuurdatum
+     * @param vervaldatum
+     * @param status
+     * @param pdfpath
+     * @param debiteur
+     */
     public Factuur(int id, int factuurnummer, Date factuurdatum, Date vervaldatum, String status, String pdfpath, Debiteur debiteur) {
 
         this.id = new SimpleIntegerProperty(id);
@@ -182,7 +191,6 @@ public class Factuur extends Model {
         this.status.set(status);
     }
 
-
     public void setVervaldatum(Date vervaldatum) {
         this.vervaldatum.set(vervaldatum);
     }
@@ -278,6 +286,7 @@ public class Factuur extends Model {
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
     }
+
 
     /**
      * @author Brandon van Wijk

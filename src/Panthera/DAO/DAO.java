@@ -12,6 +12,9 @@ import java.sql.SQLException;
  */
 public class DAO {
 
+    /** deze connectie wordt gebruikt in alle DAO klassen
+     * die extenden van dao
+     */
     protected Connection conn;
 
     /**

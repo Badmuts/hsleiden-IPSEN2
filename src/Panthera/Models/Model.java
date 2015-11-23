@@ -1,5 +1,10 @@
 package Panthera.Models;
 
+/**
+ * Super class of all Models. Used for decorator (hack) pattern.
+ *
+ * @author Daan Rosbergen
+ */
 public class Model {
 
     /**

@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * @author Brandon van Wijk
- *
  * Dit object reprensenteert een factuurregel. Een factuurregel bestaat uit
  * een product en een aantal.
  *
@@ -16,6 +15,9 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class Factuurregel extends Model {
 
+    /**
+     * attributen
+     */
     private SimpleIntegerProperty aantal;
     private SimpleObjectProperty<Product> product;
     private SimpleDoubleProperty subtotaal = new SimpleDoubleProperty(0.0);
@@ -54,11 +56,16 @@ public class Factuurregel extends Model {
         setSubtotaal(totaalprijs / getBtw() * 100);
     }
 
-    public double getPrijs() {
-        return getProduct().getPrijs();
-    }
+    /**
+     * deze methode berekent het btw bedrag van de producten om de factuur
+     */
     public void berekenBTW() {
         setBtw((this.totaalprijs / getBtwPercentage()) * 21);
+    }
+
+    //get methodes
+    public double getPrijs() {
+        return getProduct().getPrijs();
     }
     public double getTotaal() {
         return this.totaalprijs;
@@ -69,48 +76,41 @@ public class Factuurregel extends Model {
     public int getAantal() {
         return aantal.get();
     }
-
-    public SimpleIntegerProperty aantalProperty() {
-        return aantal;
-    }
-
-    public void setAantal(int aantal) {
-        this.aantal.set(aantal);
-    }
-
     public Product getProduct() {
         return product.get();
     }
-
-    public SimpleObjectProperty<Product> productProperty() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product.set(product);
-    }
-
     public double getSubtotaal() {
         return subtotaal.get();
     }
-
-    public SimpleDoubleProperty subtotaalProperty() {
-        return subtotaal;
-    }
-
-    public void setSubtotaal(double subtotaal) {
-        this.subtotaal.set(subtotaal);
-    }
-
     public double getBtw() {
         return btw.get();
     }
-
+    //set methodes
+    public void setBtw(double btw) {
+        this.btw.set(btw);
+    }
+    public void setSubtotaal(double subtotaal) {
+        this.subtotaal.set(subtotaal);
+    }
+    public void setProduct(Product product) {
+        this.product.set(product);
+    }
+    public void setAantal(int aantal) {
+        this.aantal.set(aantal);
+    }
+    //properties
+    public SimpleIntegerProperty aantalProperty() {
+        return aantal;
+    }
+    public SimpleObjectProperty<Product> productProperty() {
+        return product;
+    }
+    public SimpleDoubleProperty subtotaalProperty() {
+        return subtotaal;
+    }
     public SimpleDoubleProperty btwProperty() {
         return btw;
     }
 
-    public void setBtw(double btw) {
-        this.btw.set(btw);
-    }
+
 }

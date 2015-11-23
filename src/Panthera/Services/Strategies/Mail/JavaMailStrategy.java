@@ -11,18 +11,26 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Standard Java mail strategy, uses a predefined smtp server to send a Email object. Uses the javax
+ * mail library.
+ *
+ * @author Daan Rosbergen
+ */
 public class JavaMailStrategy implements MailStrategy {
 
     private Session session;
 
+    /**
+     * Sets smtp server and connects to it.
+     */
     public JavaMailStrategy() {
         final String username = "d.rosbergen@gmail.com";
         final String password = "ycvkcfjyjfepxjxe";
+
         // Get system properties
         Properties properties = System.getProperties();
 
@@ -42,6 +50,11 @@ public class JavaMailStrategy implements MailStrategy {
                 });
     }
 
+    /**
+     * Send a email via this strategy.
+     *
+     * @param email
+     */
     @Override public void send(Email email) {
         try{
             // Create a default MimeMessage object.

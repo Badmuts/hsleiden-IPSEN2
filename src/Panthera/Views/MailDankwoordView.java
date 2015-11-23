@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -65,6 +64,11 @@ public class MailDankwoordView extends GridPane implements Viewable {
         }
     }
 
+    /**
+     * Creates a form field.
+     *
+     * @param name  String  Name of the field.
+     */
     private void createField(String name) {
         Label label = new Label(name);
         onderwerp = new TextField();
@@ -74,12 +78,18 @@ public class MailDankwoordView extends GridPane implements Viewable {
         addToForm(label, onderwerp);
     }
 
+    /**
+     * Create header of the view.
+     */
     private void createHeader() {
         createTitle();
         add(topContainer,0, currentRow);
         currentRow++;
     }
 
+    /**
+     * Create title of the view.
+     */
     private void createTitle() {
         Text title = new Text("Verstuur dankwoord");
         title.getStyleClass().add("h1");

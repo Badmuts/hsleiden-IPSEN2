@@ -43,6 +43,10 @@ import java.util.Locale;
  */
 public class FacturenListView extends BorderPane implements Viewable {
 
+
+    /**
+     * attributen
+     */
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
     private TableView<Factuur> table;
@@ -51,6 +55,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     private TextField filterField;
     private HBox topContainer = new HBox(10);
     private InkoopfactuurController inkoopfactuurController;
+
 
     /**
      * @author Brandon van Wijk

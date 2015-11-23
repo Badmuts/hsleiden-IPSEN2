@@ -34,6 +34,9 @@ import java.util.ArrayList;
  */
 public class FacturenAddView extends GridPane implements Viewable {
 
+    /**
+     * attributen
+     */
     private ObservableList<Product> producten = FXCollections.observableArrayList();
     private FacturenController facturenController;
     private Stage stage = Panthera.getInstance().getStage();
@@ -44,7 +47,11 @@ public class FacturenAddView extends GridPane implements Viewable {
     private Bestellijst bestellijst = new Bestellijst();
     private TableView table = new TableView();
 
-
+    /**
+     * @author Brandon van Wijk
+     * @param facturenController
+     * @throws Exception
+     */
     public FacturenAddView(FacturenController facturenController) throws Exception {
         this.facturenController = facturenController;
         this.factuur = new Factuur();
@@ -114,7 +121,6 @@ public class FacturenAddView extends GridPane implements Viewable {
     private void saveFactuur() throws Exception {
         new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
         facturenController.cmdSaveFactuur(factuur);
-        System.out.println(factuur.getFactuurregels());
         factuur.setFactuurregels(factuur.getFactuurregels());
     }
 
@@ -290,12 +296,7 @@ public class FacturenAddView extends GridPane implements Viewable {
      */
     private void createTableView() {
         table = new TableView();
-//        TableColumn<Product, CheckBox> checkbox = new TableColumn(" ");
-//        checkbox.setCellValueFactory(param -> {
-//            CheckBox checkBox = new CheckBox();
-//            Bindings.bindBidirectional(checkBox.selectedProperty(), param.getValue().activeProperty());
-//            return new SimpleObjectProperty<>(checkBox);
-//        });
+
         TableColumn<Product, Integer> productnummer = new TableColumn("Productnummer");
         productnummer.setCellValueFactory(new PropertyValueFactory<>("productnummer"));
         TableColumn<Product, String> naam = new TableColumn("Naam");
@@ -305,9 +306,6 @@ public class FacturenAddView extends GridPane implements Viewable {
         TableColumn<Product, Double> prijs = new TableColumn("Prijs");
         prijs.setCellValueFactory(new PropertyValueFactory<>("prijs"));
 
-        /*
-        * TODO: aantal producten * prijs laten zien
-        */
         TableColumn<Factuurregel, Double> totaal = new TableColumn("Totaal");
         totaal.setCellValueFactory(new PropertyValueFactory<Factuurregel, Double>("subtotaal"));
 
