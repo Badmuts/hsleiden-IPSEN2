@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Brandon on 22-Sep-15.
+ * Dit is de model klasse van Factuur
+ * Deze klasse wordt gebruikt om factuur objecten te kunnen maken
  */
 
 public class Factuur extends Model {
@@ -29,7 +31,9 @@ public class Factuur extends Model {
 
 
     /**
-     *
+     * @author Brandon van Wijk
+     * Deze constructor wordt gebruikt bij de pagina die een factuur aanmaakt.
+     * Alle velden die in de applicatie worden ingevuld komen hier binnen in de constructor
      * @param id
      * @param factuurnummer
      * @param factuurdatum
@@ -59,7 +63,7 @@ public class Factuur extends Model {
     }
 
     /**
-     *
+     * @author Brandon van Wijk
      * @param id
      * @param factuurnummer
      * @param factuurdatum
@@ -87,7 +91,10 @@ public class Factuur extends Model {
     }
 
     /**
-     *
+     * @author Brandon van Wijk
+     * Dit is de standaard constructor om een factuur object aan te maken
+     * Er hoeven hier geen parameters te worden meegegeven
+     * Wel vult hij alle attributen om nullpointer exceptions te voorkomen
      * @throws Exception
      */
     public Factuur() throws Exception {
@@ -108,7 +115,13 @@ public class Factuur extends Model {
     }
 
 
-    //Getters
+    /**
+     * @author Brandon van Wijk
+     * Hieronder staan alle get methodes
+     * Deze worden gebruikt in deze en/of andere klasses om
+     * De private atributen te kunnen bereiken en gebruiken
+     * @return
+     */
     public int getId() {
         return id.get();
     }
@@ -153,7 +166,15 @@ public class Factuur extends Model {
     }
 
 
-    //Setters
+    public ArrayList<Factuurregel> getFactuurregels() {
+        return factuurregels.get();
+    }
+
+    /**
+     * @author Brandon van Wijk
+     * Hieronder alle set methodes
+     * Deze worden gebruikt om de attributen te kunnen aanpassen
+     */
     public void setId(int id) {
         this.id.set(id);
     }
@@ -196,7 +217,21 @@ public class Factuur extends Model {
         this.bedrag.set(bedrag);
     }
 
-    //Properties
+    public void setFactuurregels(ArrayList<Factuurregel> factuurregels) {
+        this.factuurregels.set(factuurregels);
+    }
+
+    public void setBetaald(Boolean betaald) {
+        this.betaald.set(betaald);
+    }
+
+
+    /**
+     * @author Brandon van Wijk
+     * Hieronder staan alle property methodes
+     * Deze worden gebruikt in de tableviews in de applicatie
+     * @return
+     */
     public SimpleIntegerProperty idProperty() {
         return id;
     }
@@ -211,10 +246,6 @@ public class Factuur extends Model {
 
     public SimpleObjectProperty vervaldatumProperty() {
         return vervaldatum;
-    }
-
-    public void setBetaald(Boolean betaald) {
-        this.betaald.set(betaald);
     }
 
     public Boolean isBetaald() {
@@ -241,35 +272,41 @@ public class Factuur extends Model {
 
     public SimpleDoubleProperty bedragProperty() { return this.bedrag; }
 
-
-    public String toString() {
-        return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
-    }
-
-    public ArrayList<Factuurregel> getFactuurregels() {
-        return factuurregels.get();
-    }
-
     public SimpleObjectProperty<ArrayList<Factuurregel>> factuurregelsProperty() {
         return factuurregels;
     }
 
-    public void setFactuurregels(ArrayList<Factuurregel> factuurregels) {
-        this.factuurregels.set(factuurregels);
-    }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode wordt gebruikt bij het aanmaken van een factuur
+     * Er wordt dan ook gelijk een factuuregel toegevoegd
+     * @param factuurregel
+     */
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.get().add(factuurregel);
     }
 
 
     /**
-     * deze methode berekent het totaalbedrag van een factuur om te kunnen tonen in het factuuroverzicht
+     * @author Brandon van Wijk
+     * Deze methode loopt door de lijst van factuurregels heen
+     * En zet het totale bedrag van de factuur
+     * Dit bedrag wordt vervolgens opgehaald in het factuuroverzicht
      */
     public void berekenBedrag() {
         for(Factuurregel factuurregel: factuurregels.getValue()) {
             setBedrag(factuurregel.getAantal() * factuurregel.getPrijs());
         }
+    }
+
+    /**
+     * @author Brandon van Wijk
+     * Deze methode returned een string met factuurdata
+     * @return String
+     */
+    public String toString() {
+        return "Factuur: " + this.factuurnummer + " " + this.factuurdatum + " " + this.vervaldatum + " " + this.status;
     }
 
 }

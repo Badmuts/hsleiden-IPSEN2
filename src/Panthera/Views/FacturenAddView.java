@@ -29,7 +29,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Created by Brandon on 24-Sep-15.
+ * @author Brandon van Wijk
+ * Deze klasse representeert de view waarin er facturen aangemaakt kunnen worden.
  */
 public class FacturenAddView extends GridPane implements Viewable {
 
@@ -47,7 +48,7 @@ public class FacturenAddView extends GridPane implements Viewable {
     private TableView table = new TableView();
 
     /**
-     *
+     * @author Brandon van Wijk
      * @param facturenController
      * @throws Exception
      */
@@ -59,7 +60,10 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     *
+     * @author Brandon van Wijk
+     * Deze methode krijgt de facturencontroller mee om zo te delegeren naar de
+     * Controller methods. Ook komt er een factuur object mee die het factuur attribuut
+     * In deze view zet om er vervolgens mee te kunnen werken.
      * @param facturenController
      * @param factuur
      */
@@ -73,9 +77,10 @@ public class FacturenAddView extends GridPane implements Viewable {
         getStyleClass().addAll("factuur-gridpane");
     }
 
-
     /**
-     * deze methode maakt de header aan op de pagina
+     * @author Brandon van Wijk
+     * Deze methode roept alle methodes aan die nodig zijn om de view op te bouwen
+     * En te representeren.
      */
     private void setupView() {
         createTitle();
@@ -87,7 +92,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     *  deze methode delegeert naar de savefactuur methode in deze klasse
+     * @author Brandon van Wijk
+     * Deze methode maakt de opslaan button aan. Vervolgens wordt er een actionEvent
+     * Afgevangen wanneer er op deze button geklikt wordt en wordt de saveFactuur method aangeroepen.
      */
     private void createSaveButton() {
         Button button = new Button("Opslaan");
@@ -104,9 +111,11 @@ public class FacturenAddView extends GridPane implements Viewable {
         currentRow++;
     }
 
-
     /**
-     * deze methode maakt een nieuwe factuur pdf aan en slaat de factuur en factuurrgels op in de database
+     * @author Brandon van Wijk
+     * Deze methode maakt van alle waardes die zijn ingevuld bij het maken
+     * Van de factuur direct een pdf document aan. Vervolgens wordt er gedelegeert
+     * Naar de opslaan merhode in de factuurcontroller. Deze delegeert vervolgens weer naar het DAO.
      * @throws Exception
      */
     private void saveFactuur() throws Exception {
@@ -116,8 +125,8 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode maakt de titel aan
-
+     * @author Brandon van Wijk
+     * Deze methode maakt de titel aan voor de view.
      */
     private void createTitle() {
         Text title = new Text("Nieuwe Factuur");
@@ -125,6 +134,10 @@ public class FacturenAddView extends GridPane implements Viewable {
         add(title, 0, currentRow, 2, 1);
     }
 
+    /**
+     * @author Brandon van Wijk
+     * Deze methode zet de nieuwe scene en roept daar de show method op aan.
+     */
     @Override
     public void show() {
         this.stage.setScene(new Scene(this, 1024, 768));
@@ -132,7 +145,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode maakt het datumveld aan voor factuurdatum dat gebruikt wordt als je een factuur gaat toevoegen
+     * @author Brandon van Wijk
+     * Deze methode krijgt een naam en property binnen zodat het datefield weet
+     * Welke vorm hij moet aannemen. Dit veld wordt vervolgens opgeslagen in de fields lijst.
      * @param name
      * @param property
      */
@@ -153,9 +168,10 @@ public class FacturenAddView extends GridPane implements Viewable {
         nodes.add(fields);
     }
 
-
     /**
-     * deze methode maakt het datumveld aan voor vervaldatum dat gebruikt wordt als je een factuur gaat toevoegen
+     * @author Brandon van Wijk
+     * Deze methode maakt een veld aan voor de vervaldatum van een factuur.
+     * En voegt deze toe aan de fields lijst.
      * @param name
      * @param property
      */
@@ -177,7 +193,10 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode is om alle inputfields netjes op een rij te zetten op de toevoegen pagina
+     * @author Brandon van Wijk && Daan Rosbergen
+     * Deze methode zorgt ervoor dat alle nodes in de goede
+     * Rij en Kolom komen te staan zodat de representatie op het scherm overeenkomt
+     * Met het design.
      * @param nodes
      */
     private void addNode(ArrayList<ArrayList<Node>> nodes) {
@@ -192,9 +211,11 @@ public class FacturenAddView extends GridPane implements Viewable {
         }
     }
 
-
     /**
-     * deze methode maakt het formulier aan dat ingevuld moet wworden bij het aanmaken van een factuur
+     * @author Brandon van Wijk
+     * Deze methode maakt het formulier aan dat nodig is om de gegevens
+     * In te vullen bij het aanmaken van een factuur.
+     * Vervolgens ordt de metode addNode aangeroepen en worden alle losse velden meegegeven.
      */
     private void createForm() {
         createField("Factuurnummer", factuur.factuurnummerProperty(), new IntegerStringConverter());
@@ -207,7 +228,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode maakt de combobox aan waar je een debiteur mee selecteert
+     * @author Brandon van Wijk
+     * Deze methode maakt een combobox aan waaruit de gebruiker kan selecteren
+     * Welk lid er bij de factuur hoort.
      * @param name
      */
     private void createComboBox(String name) {
@@ -236,7 +259,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     *deze methode maakt een combobo aan om een bestellijst te kunnen selecteren
+     * @author Brandon van Wijk
+     * Deze methode maakt een combobox aan voor de gebruiker om een bestellijst
+     * Te kunnen kiezen tijdens het aanmaken van een factuur.
      * @param name
      */
     private void createComboBoxBestellijst(String name) {
@@ -265,7 +290,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode maakt de tabel aan die de producten laat zien die bij de gekozen bestellijst horen
+     * @author Brandon van Wijk
+     * Deze methode maakt de tableview aan waarin de gebruiker kan aangeven
+     * Welke wijnen hij heeft besteld aan de hand van de gekozen bestellijst.
      */
     private void createTableView() {
         table = new TableView();
@@ -308,8 +335,9 @@ public class FacturenAddView extends GridPane implements Viewable {
     }
 
     /**
-     * deze methode is om een veld aan te maken dat ingevuld kan worden. bijv factuurnummer
-
+     * @author Brandon van Wijk
+     * Deze methode maakt een veld aan. Aan de hand van de parameters wordt er gekeken
+     * Om wat voor veld het gaat.
      * @param name
      * @param property
      * @param stringConverter
@@ -326,9 +354,10 @@ public class FacturenAddView extends GridPane implements Viewable {
         nodes.add(fields);
     }
 
-
     /**
-     * deze methode maakt een textarea aan dei gebruikt wordt om een opmerking in te vullen bij een factuur
+     * @author Brandon van Wijk
+     * Deze methode maakt een texarea aan zodat de gebruiker een
+     * Opmerking kan plaatsen bij het aanmaken van een factuur.
      * @param name
      * @param property
      */

@@ -58,7 +58,10 @@ public class FacturenListView extends BorderPane implements Viewable {
 
 
     /**
-     *
+     * @author Brandon van Wijk
+     * Dit is de constructor. Deze zet de facturencontroller om te kunnen delegeren
+     * Naar de controller. Ook wordt de header en table aangeroepen.
+     * Vervolgens wordt in een aparte thread de tabel gevuld met alle facturen.
      * @param facturenController
      */
     public FacturenListView(FacturenController facturenController)  {
@@ -77,9 +80,10 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     }
 
-
     /**
-     * deze methode is om te kunnen zoeken in het facturenoverzicht
+     * @author Brandon van Wijk
+     * Deze methode zorgt ervoor dat je in het zoekveld kan zoeken
+     * Op bepaalde zoektermen zoals: Voornaam, Achternaam en factuurnummer.
      */
     private void filterFacturen() {
         this.filteredData = new FilteredList<Factuur>(this.facturen, p -> true);
@@ -110,7 +114,8 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     * deze methode maakt de header aan met alle knoppen
+     * @author Brandon van Wijk
+     * Deze methode roept alle methods aan om de header van het overzicht te maken.
      */
     private void createHeader() {
         createTitle();
@@ -139,7 +144,10 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     * deze methode roept op de controller de delete methode aan
+     * @author Brandon van Wijk
+     * Deze methode maakt de verwijder button aan. Als er op deze
+     * Button wordt geklikt dan wordt er gedelegeert naar de delete methode in
+     * De controller.
      */
     private void createRemoveFactuurButton() {
         Button button = new Button("Verwijder factuur");
@@ -148,9 +156,10 @@ public class FacturenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
-
     /**
-     * deze methode roept de verzend methode aan is de facturencontroller
+     * @author Brandon van Wijk
+     * Deze methode maakt de verzend button aan om een factuur te kunnen versturen
+     * Het event delegeert weer naar de controller die het verder afhandeld.
      */
     private void CreateVerzendFactuurButton() {
         Button button = new Button("Verzend factuur");
@@ -160,7 +169,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     *  deze methode roept de update methode aan in de facturencontroller
+     * @author Brandon van Wijk
+     * Deze methode maakt de update button aan zodat de gebruiker de status van een
+     * Factuur kan updaten. Het event delegeert weer naar de controller die het verder afhandeld.
      */
     private void createUpdateFactuurButton() {
         Button button = new Button("Verwerk betaling");
@@ -169,9 +180,12 @@ public class FacturenListView extends BorderPane implements Viewable {
         topContainer.getChildren().add(button);
     }
 
-
     /**
-     * deze methode maakt de tableview om het facturenoverzicht te laten zien aan de hand van properties uit het factuurmodel
+     * @author Brandon van Wijk
+     * Deze methode maakt de table aan die alle facturen laat zien in het overzicht.
+     * De tablecolumns worden gevuld met properties die de get methode gebruikt
+     * Van de modelklasse die gerepresenteerd wordt in de tableview.
+     * In dit geval Factuur.
      */
     private void createTableView() {
         this.table = new TableView<>();
@@ -229,7 +243,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     * met deze methode kun je een factuur inien door dubbel te klikken op de factuur in het overzicht
+     * @author Brandon van Wijk && Daan Rosbergen
+     * Deze methode zorgt ervoor dat als je dubbelklikt op een factuur in het overzicht
+     * De bijbehorende pdf dan geopend wordt zodat je de factuur kan inkijken.
      */
     private void addClicklistener() {
         table.setRowFactory(tv -> {
@@ -269,9 +285,11 @@ public class FacturenListView extends BorderPane implements Viewable {
         });
     }
 
-
     /**
-     * deze methode zorgt ervoor dat je alle facturen met 1 checkbox kan selecteren
+     * @author Brandon van Wijk
+     * Deze methode zorgt ervoor dat je met 1 select all checkbox alle
+     * specifieke checkboxes die bij een factuur hoort kan aanvinken.
+     * Zo kan je gemakkelijk alles in 1 keer selecteren.
      */
     public void createSelectAllButton() {
 
@@ -295,7 +313,8 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     * deze methode maakt het textfield aan waarin je kunt zoeken op facturen
+     * @author Brandon van Wijk
+     * Deze methode maakt het texveld aan dat gebruikt wordt met zoeken.
      */
     private void createTextField() {
         this.filterField = new TextField();
@@ -305,7 +324,8 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     * deze methode maakt de titel aan voor in het overzicht
+     * @author Brandon van Wijk
+     * Deze methode maakt de titel aan voor het overzicht.
      */
     private void createTitle() {
         Text title = new Text("Facturen");
@@ -315,7 +335,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
-     *  deze methode roept de methode om de addview te openenen aan in de controller
+     * @author Brandon van Wijk
+     * Deze methode maakt de nieuwe factuur button aan.
+     * Het event delegeert naar de controller die het verder afhandeld.
      */
     private void createAddFactuurButton() {
         Button button = new Button("Nieuwe factuur");

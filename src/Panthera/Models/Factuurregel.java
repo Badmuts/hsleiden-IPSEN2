@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
- * @Author Brandon van Wijk
+ * @author Brandon van Wijk
  * Dit object reprensenteert een factuurregel. Een factuurregel bestaat uit
  * een product en een aantal.
  *
@@ -30,7 +30,9 @@ public class Factuurregel extends Model {
     }
 
     /**
-     *
+     * @author Brandon van Wijk
+     * Deze constructor instantiert de attributen en berekent het
+     * subtotaal van de factuurregel
      * @param aantal
      * @param product
      */
@@ -43,9 +45,11 @@ public class Factuurregel extends Model {
         berekenBTW();
     }
 
-
     /**
-     * deze methode berekend het subtotaal dat op de factuur staat
+     * @author Brandon van Wijk
+     * Deze methode berekend het subtotaal aan de hand van
+     * De producten in de factuuregel en de bijbehordende aantallen per product
+     * Ook wordt de btw meegerekend.
      */
     public void berekenSubtotaal() {
         this.totaalprijs = getAantal() * getProduct().getPrijs();

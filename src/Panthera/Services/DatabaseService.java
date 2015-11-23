@@ -17,7 +17,10 @@ public class DatabaseService {
     private volatile static DatabaseService connectionInstance;
 
     /**
-     * private constructor zodat er geen instantie aangemaakt kan worden
+     * @author Brandon van Wijk
+     * Dit is de constructor die de driver class van de database laadt.
+     * De constructor is private omdat deze klasse een singleton is
+     * Dit wil zeggen dat er maar 1 instantie van kan zijn
      */
     private DatabaseService()  {
         //Hier wordt de driver gespecificeerd
@@ -37,10 +40,10 @@ public class DatabaseService {
                 }
             }
 
-
     /**
-     * deze methode is om de instantie op te halen van de connectie die je wilt gebruiken in de DAO klassen
-     * @return
+     * @author Brandon van Wijk
+     * Deze methode wordt gebruikt om de instantie van de database service op te halen.
+     * @return DatabaseService
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
@@ -56,8 +59,10 @@ public class DatabaseService {
     }
 
     /**
-     * deze methode haalt daadwerkelijk de connectie om op queries op uit te voeren in de DAO klassen
-     * @return
+     * @author Brandon van Wijk
+     * Deze methode wordt gebruikt in de
+     * DAO's om met de database te communiceren
+     * @return Connection
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {
