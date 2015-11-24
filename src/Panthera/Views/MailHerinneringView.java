@@ -40,11 +40,12 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	private TextArea bericht;
 	private Email email;
 	private TextField onderwerp;
+
 	/**
-	 * 
+	 *
+	 * @author Daan Rosbergen
 	 * @param mailController
 	 */
-
 	public MailHerinneringView(MailController mailController) {
 		this.mailController = mailController;
 		this.email = new Email();
@@ -55,7 +56,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	 * Maakt een form met een onderwerp veld, template choicebox,
 	 * tekstveld en een knop met een listener om ontvangers te selecteren.
 	 * De listener roept de methode cmdShowSelectRecipients() van de mailController aan.
-	 * 
+	 *
+	 * @author Daan Rosbergen
 	 */
 	public void createForm() {
 		try {
@@ -71,6 +73,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	}
 	/**
 	 * Maakt velden aan, aan de hand van een naam
+	 *
+	 * @author Daan Rosbergen
 	 * @param name
 	 */
 	private void createField(String name) {
@@ -82,6 +86,9 @@ public class MailHerinneringView extends GridPane implements Viewable {
 		addToForm(label, onderwerp);
 	}
 
+	/**
+	 * @author Daan Rosbergen
+	 */
 	private void setPadding() {
 		setHgap(5);
 		setVgap(5);
@@ -89,6 +96,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	}
 	/**
 	 * Maakt een choicebox voor mailtemplates.
+	 *
+	 * @author Daan Rosbergen
 	 * @param name
 	 * @param mails
 	 * @param changeListener
@@ -102,6 +111,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	}
 	/**
 	 * Vult berichtveld aan met template
+	 *
+	 * @author Daan Rosbergen
 	 * @param observable
 	 * @param oldValue
 	 * @param newValue
@@ -113,6 +124,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	}
 	/**
 	 * Maakt een textveld aan
+	 *
+	 * @author Daan Rosbergen
 	 * @param name
 	 */
 	private void createTextAreaField(String name) {
@@ -122,6 +135,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
 	}
 	/**
 	 * Maakt knoppen aan de hand van een naam
+	 *
+	 * @author Daan Rosbergen
 	 * @param name
 	 * @param eventhandler
 	 */
@@ -132,6 +147,8 @@ public class MailHerinneringView extends GridPane implements Viewable {
     }
 	/**
 	 * Voegt nodes toe aan de form
+	 * @author Daan Rosbergen
+	 *
 	 * @param label
 	 * @param textArea
 	 */
@@ -142,14 +159,19 @@ public class MailHerinneringView extends GridPane implements Viewable {
     }
 	/**
 	 * Voegt een node toe aan de form
+	 *
+	 * @author Daan Rosbergen
 	 * @param node
 	 */
 	private void addToForm(Node node) {
         add(node, 1, currentRow);
         currentRow++;
     }
+
 	/**
 	 * Toont view
+	 *
+	 * @author Daan Rosbergen
 	 */
 	@Override
 	public void show() {

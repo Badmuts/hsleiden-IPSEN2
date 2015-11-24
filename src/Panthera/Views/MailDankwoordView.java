@@ -37,6 +37,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
 
     /**
      *
+     * @author Daan Rosbergen
      * @param mailController
      */
     public MailDankwoordView(MailController mailController) {
@@ -67,6 +68,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     /**
      * Creates a form field.
      *
+     * @author Daan Rosbergen
      * @param name  String  Name of the field.
      */
     private void createField(String name) {
@@ -80,6 +82,8 @@ public class MailDankwoordView extends GridPane implements Viewable {
 
     /**
      * Create header of the view.
+     *
+     * @author Daan Rosbergen
      */
     private void createHeader() {
         createTitle();
@@ -89,6 +93,8 @@ public class MailDankwoordView extends GridPane implements Viewable {
 
     /**
      * Create title of the view.
+     *
+     * @author Daan Rosbergen
      */
     private void createTitle() {
         Text title = new Text("Verstuur dankwoord");
@@ -155,6 +161,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     /**
      * Creates a Button and binds it to a method in the Controller.
      *
+     * @author Daan Rosbergen
      * @param name          Name of the button.
      * @param eventhandler  EventHandler for button action.
      */
@@ -168,6 +175,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     /**
      * Adds 2 nodes to the view in the same row.
      *
+     * @author Daan Rosbergen
      * @param label
      * @param textArea
      */
@@ -180,6 +188,7 @@ public class MailDankwoordView extends GridPane implements Viewable {
     /**
      * Adds a single Node to the right of the view.
      *
+     * @author Daan Rosbergen
      * @param node
      */
     private void addToForm(Node node) {
@@ -189,6 +198,8 @@ public class MailDankwoordView extends GridPane implements Viewable {
 
     /**
      * Viewable method shows this view.
+     *
+     * @author Daan Rosbergen
      */
     @Override public void show() {
         this.stage.setScene(new Scene(this));

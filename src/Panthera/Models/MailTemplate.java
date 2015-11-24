@@ -34,6 +34,7 @@ public class MailTemplate extends Model {
     /**
      * Returns the mail template id.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public int getId() {
@@ -43,6 +44,7 @@ public class MailTemplate extends Model {
     /**
      * Property used to observe the value of id.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleIntegerProperty idProperty() {
@@ -52,6 +54,7 @@ public class MailTemplate extends Model {
     /**
      * Set id.
      *
+     * @author Daan Rosbergen
      * @param id
      */
     public void setId(int id) {
@@ -61,6 +64,7 @@ public class MailTemplate extends Model {
     /**
      * Get name.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getName() {
@@ -70,6 +74,7 @@ public class MailTemplate extends Model {
     /**
      * Property used to observe name.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty nameProperty() {
@@ -79,6 +84,7 @@ public class MailTemplate extends Model {
     /**
      * Set name.
      *
+     * @author Daan Rosbergen
      * @param name
      */
     public void setName(String name) {
@@ -88,6 +94,7 @@ public class MailTemplate extends Model {
     /**
      * Return the content of the mailtemplate.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getContent() {
@@ -97,6 +104,7 @@ public class MailTemplate extends Model {
     /**
      * Property used to observe content.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty contentProperty() {
@@ -106,6 +114,7 @@ public class MailTemplate extends Model {
     /**
      * Set content of mail template.
      *
+     * @author Daan Rosbergen
      * @param content
      */
     public void setContent(String content) {
@@ -115,6 +124,7 @@ public class MailTemplate extends Model {
     /**
      * Get active state.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public boolean getActive() {
@@ -124,6 +134,7 @@ public class MailTemplate extends Model {
     /**
      * Get active property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleBooleanProperty activeProperty() {
@@ -133,12 +144,17 @@ public class MailTemplate extends Model {
     /**
      * Set template active.
      *
+     * @author Daan Rosbergen
      * @param active
      */
     public void setActive(boolean active) {
         this.active.set(active);
     }
 
+    /**
+     * @author Daan Rosbergen
+     * @return
+     */
     @Override public String toString() {
         return name.get();
     }

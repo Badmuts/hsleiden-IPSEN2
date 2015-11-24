@@ -14,6 +14,8 @@ public class Controller {
 
     /**
      * Calls the show method on a Viewable.
+     *
+     * @author Daan Rosbergen
      */
     public void show() {
         this.view.show();
@@ -34,6 +36,7 @@ public class Controller {
     /**
      * Returns the current view.
      *
+     * @author Daan Rosbergen
      * @return Viewable Viewable object (most likely a JavaFX node).
      */
     public Viewable getView() {

@@ -9,6 +9,8 @@ public interface Viewable {
 
     /**
      * This method should set the view to the current stage.
+     *
+     * @author Daan Rosbergen
      */
     void show();
 

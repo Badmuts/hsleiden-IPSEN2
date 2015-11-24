@@ -18,6 +18,8 @@ public class Email extends Model {
 
     /**
      * Contstructor sets sane defaults.
+     *
+     * @author Daan Rosbergen
      */
     public Email() {
         this.recipients = new ArrayList<>();
@@ -28,6 +30,7 @@ public class Email extends Model {
     /**
      * Set recipients via a List.
      *
+     * @author Daan Rosbergen
      * @param recipients
      */
     public void setTo(ArrayList<String> recipients) {
@@ -37,6 +40,7 @@ public class Email extends Model {
     /**
      * Set recipient.
      *
+     * @author Daan Rosbergen
      * @param to
      */
     public void setTo(String to) {
@@ -47,6 +51,7 @@ public class Email extends Model {
     /**
      * Add recipient to list of recipients.
      *
+     * @author Daan Rosbergen
      * @param to
      */
     public void addTo(String to) {
@@ -56,6 +61,7 @@ public class Email extends Model {
     /**
      * Add list of recipients to list of recipients.
      *
+     * @author Daan Rosbergen
      * @param recipients
      */
     public void addTo(ArrayList<String> recipients) {
@@ -65,6 +71,7 @@ public class Email extends Model {
     /**
      * Set from.
      *
+     * @author Daan Rosbergen
      * @param from
      */
     public void setFrom(String from) {
@@ -74,6 +81,7 @@ public class Email extends Model {
     /**
      * Set message text.
      *
+     * @author Daan Rosbergen
      * @param text
      */
     public void setText(String text) {
@@ -83,6 +91,7 @@ public class Email extends Model {
     /**
      * Set content and its type to the email. This makes sending HTML emails possible.
      *
+     * @author Daan Rosbergen
      * @param content   String  Content (plain text or HTML etc.).
      * @param type      String  Valid MIME type.
      */
@@ -94,6 +103,7 @@ public class Email extends Model {
     /**
      * Add attachment to list of attachments via filelocation and filename used in the email.
      *
+     * @author Daan Rosbergen
      * @param filelocation
      * @param filename
      */
@@ -107,6 +117,7 @@ public class Email extends Model {
     /**
      * Set subject of the email.
      *
+     * @author Daan Rosbergen
      * @param subject
      */
     public void setSubject(String subject) {
@@ -116,6 +127,7 @@ public class Email extends Model {
     /**
      * Retrieve recipients.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public ArrayList<String> getRecipients() {
@@ -125,6 +137,7 @@ public class Email extends Model {
     /**
      * Get from.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getFrom() {
@@ -134,6 +147,7 @@ public class Email extends Model {
     /**
      * Get content of the email.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getContent() {
@@ -143,6 +157,7 @@ public class Email extends Model {
     /**
      * Get all attachments of the email.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public ArrayList<ArrayList<String>> getAttachments() {
@@ -152,6 +167,7 @@ public class Email extends Model {
     /**
      * Get content type of the email.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getContentType() {
@@ -161,6 +177,7 @@ public class Email extends Model {
     /**
      * Get subject of the email.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getSubject() {

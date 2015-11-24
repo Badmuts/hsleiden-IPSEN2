@@ -116,6 +116,11 @@ public class BestellijstenController extends Controller {
 		return FXCollections.observableArrayList(bestellijsten);
 	}
 
+	/**
+	 * Shows the default view: BestellijstenSummaryView.
+	 * 
+	 * @author Daan Rosbergen
+	 */
 	@Override
 	public void show() {
 		this.mainController.setSubview(new BestellijstenSummaryView(this, mainController));

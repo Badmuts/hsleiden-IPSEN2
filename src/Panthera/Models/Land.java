@@ -27,6 +27,7 @@ public class Land extends Model {
     /**
      * Get the id of the corresponding land in the DB.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public int getId() {
@@ -36,6 +37,7 @@ public class Land extends Model {
     /**
      * Id property used to observe the id value.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleIntegerProperty idProperty() {
@@ -45,6 +47,7 @@ public class Land extends Model {
     /**
      * Set id.
      *
+     * @author Daan Rosbergen
      * @param id
      */
     public void setId(int id) {
@@ -54,6 +57,7 @@ public class Land extends Model {
     /**
      * Get name of land.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getNaam() {
@@ -63,6 +67,7 @@ public class Land extends Model {
     /**
      * Name property used to observe its value.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty naamProperty() {
@@ -72,17 +77,27 @@ public class Land extends Model {
     /**
      * Set name.
      *
+     * @author Daan Rosbergen
      * @param naam
      */
     public void setNaam(String naam) {
         this.naam.set(naam);
     }
 
+    /**
+     * @author Daan Rosbergen
+     * @return
+     */
     @Override
     public String toString() {
         return naam.get();
     }
 
+    /**
+     * @author Daan Rosbergen
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +110,10 @@ public class Land extends Model {
 
     }
 
+    /**
+     * @author Daan Rosbergen
+     * @return
+     */
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;

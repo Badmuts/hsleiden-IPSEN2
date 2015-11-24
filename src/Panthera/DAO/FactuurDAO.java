@@ -142,6 +142,7 @@ public class FactuurDAO extends DAO {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode slaat een factuur op in de database
      * Er komt een factuur object binnen als parameter
      * Om zo de data uit het object op te kunnen halen
@@ -165,6 +166,7 @@ public class FactuurDAO extends DAO {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode slaat de factuurregels van een object op
      * Zoals het factuur id, het aantal aangegeven wijnen op de factuur en het product id
      * De methode krijgt een factuur object binnen om de benodigde data te kunnen vragen

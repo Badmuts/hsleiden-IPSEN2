@@ -21,6 +21,7 @@ public class MailTemplatesDAO extends DAO {
     /**
      * Retrieve a MailTemplate Model by id from the DB.
      *
+     * @author Daan Rosbergen
      * @param id            MailTemplate id in DB.
      * @return              MailTemplate model.
      * @throws Exception    Database error.
@@ -41,6 +42,7 @@ public class MailTemplatesDAO extends DAO {
     /**
      * Retrieve all MailTemplate Model from the DB in a ArrayList.
      *
+     * @author Daan Rosbergen
      * @return              ArrayList containing MailTemplate models.
      * @throws Exception    Database error.
      */

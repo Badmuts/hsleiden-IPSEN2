@@ -39,6 +39,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     /**
      * Creates a view to add a product.
      *
+     * @author Daan Rosbergen
      * @param productenController
      */
     public ProductenAddView(ProductenController productenController) {
@@ -53,6 +54,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     /**
      * Creates a view to edit a product.
      *
+     * @author Daan Rosbergen
      * @param productenController
      * @param product
      */
@@ -67,6 +69,8 @@ public class ProductenAddView extends GridPane implements Viewable {
 
     /**
      * Creates save button.
+     *
+     * @author Daan Rosbergen
      */
     private void createSaveButton() {
         Button button = new Button("Opslaan");
@@ -78,6 +82,8 @@ public class ProductenAddView extends GridPane implements Viewable {
 
     /**
      * Save product to DB.
+     *
+     * @author Daan Rosbergen
      */
     private void saveProduct() {
         productenController.cmdSaveProduct(product);
@@ -85,6 +91,8 @@ public class ProductenAddView extends GridPane implements Viewable {
 
     /**
      * Create view title.
+     *
+     * @author Daan Rosbergen
      */
     private void createTitle() {
         Text title = new Text("Wijn toevoegen");
@@ -94,6 +102,9 @@ public class ProductenAddView extends GridPane implements Viewable {
         currentRow++;
     }
 
+    /**
+     * @author Daan Rosbergen
+     */
     @Override public void show() {
         this.stage.setScene(new Scene(this));
         this.stage.show();
@@ -101,6 +112,8 @@ public class ProductenAddView extends GridPane implements Viewable {
 
     /**
      * Create form to edit or add a product.
+     *
+     * @author Daan Rosbergen
      */
     private void createForm() {
         createField("Wijnnummer", product.productnummerProperty(), new NumberStringConverter());
@@ -114,6 +127,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     /**
      * Create a combobox to select a country.
      *
+     * @author Daan Rosbergen
      * @param name
      */
     private void createComboBox(String name) {
@@ -140,6 +154,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     /**
      * Create a field (label and textfield) with converter.
      *
+     * @author Daan Rosbergen
      * @param name
      * @param property
      * @param converter
@@ -157,6 +172,7 @@ public class ProductenAddView extends GridPane implements Viewable {
     /**
      * Create a field (label and textfield)
      *
+     * @author Daan Rosbergen
      * @param name
      * @param property
      */

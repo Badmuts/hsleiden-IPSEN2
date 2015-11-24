@@ -10,6 +10,7 @@ public class Model {
     /**
      * Method used by decorators.
      *
+     * @author Daan Rosbergen
      * @param text  String to parse.
      * @param data
      * @return      Parsed string.

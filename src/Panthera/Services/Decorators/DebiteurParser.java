@@ -25,6 +25,7 @@ public class DebiteurParser extends Parser {
      * Parse replace codes for debiteur.
      *  - {LID}: Example: Daan Rosbergen or Brandon van Wijk.
      *
+     * @author Daan Rosbergen
      * @param text
      * @param data
      * @return
@@ -38,6 +39,7 @@ public class DebiteurParser extends Parser {
     /**
      * Checks if tussenvoegsel is null and parses it accordingly.
      *
+     * @author Daan Rosbergen
      * @return
      */
     private String parseTussenvoegsel() {

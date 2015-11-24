@@ -28,6 +28,7 @@ public class ProductenController extends Controller {
      * Creates a ProducDAO to retrieve product records in the DB as Models and saves the
      * MainController.
      *
+     * @author Daan Rosbergen
      * @param mainController    MainController     The MainController.
      * @throws Exception        Exception          Database Error.
      */
@@ -57,6 +58,7 @@ public class ProductenController extends Controller {
     /**
      * Save a Product model to the DB via the ProductDAO.
      *
+     * @author Daan Rosbergen
      * @param product Product   A product model.
      */
     public void cmdSaveProduct(Product product) {
@@ -76,6 +78,8 @@ public class ProductenController extends Controller {
 
     /**
      * Removes selected products in the list (products which are marked active) from the DB.
+     *
+     * @author Daan Rosbergen
      */
     public void cmdDeleteProduct() {
         try {
@@ -93,6 +97,8 @@ public class ProductenController extends Controller {
 
     /**
      * Show popup message to confirm the removal of selected products.
+     *
+     * @author Daan Rosbergen
      */
     public void cmdShowVerwijderenAlert() {
         new WijnVerwijderenAlert(this).open();
@@ -100,6 +106,8 @@ public class ProductenController extends Controller {
 
     /**
      * Shows the default view: ProductenListView.
+     *
+     * @author Daan Rosbergen
      */
     @Override
     public void show() {
@@ -109,6 +117,7 @@ public class ProductenController extends Controller {
     /**
      * Retrieve the MainController.
      *
+     * @author Daan Rosbergen
      * @return MainController   The MainController.
      */
     public MainController getMainController() {
@@ -118,6 +127,7 @@ public class ProductenController extends Controller {
     /**
      * Set a ObservableList to the controller, used to check if products are marked as active.
      *
+     * @author Daan Rosbergen
      * @param products ObservableList<Product>  List of observable product.
      */
     public void setProducts(ObservableList<Product> products) {

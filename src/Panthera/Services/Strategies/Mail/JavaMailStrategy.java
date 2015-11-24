@@ -26,6 +26,8 @@ public class JavaMailStrategy implements MailStrategy {
 
     /**
      * Sets smtp server and connects to it.
+     *
+     * @author Daan Rosbergen
      */
     public JavaMailStrategy() {
         final String username = "d.rosbergen@gmail.com";
@@ -53,6 +55,7 @@ public class JavaMailStrategy implements MailStrategy {
     /**
      * Send a email via this strategy.
      *
+     * @author Daan Rosbergen
      * @param email
      */
     @Override public void send(Email email) {

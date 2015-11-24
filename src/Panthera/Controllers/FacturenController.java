@@ -137,6 +137,7 @@ public class FacturenController extends Controller {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode zet simpelweg de subview om een factuur toe te kunnen voegen
      * @throws Exception
      */
@@ -155,6 +156,7 @@ public class FacturenController extends Controller {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode zet de subview naar het factuuroverzicht.
      */
     @Override
