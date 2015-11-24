@@ -47,6 +47,7 @@ public class ProductenListView extends BorderPane implements Viewable {
     /**
      * Creates the view and setup styling.
      *
+     * @author Daan Rosbergen
      * @param productenController
      */
     public ProductenListView(ProductenController productenController) {
@@ -68,6 +69,7 @@ public class ProductenListView extends BorderPane implements Viewable {
     /**
      * Create button to import products.
      *
+     * @author Daan Rosbergen
      * @throws Exception
      */
     private void createImportButton() throws Exception {
@@ -86,6 +88,7 @@ public class ProductenListView extends BorderPane implements Viewable {
     /**
      * Choose file to import.
      *
+     * @author Daan Rosbergen
      * @throws Exception
      */
     public void importeerWijnen() throws Exception {
@@ -137,6 +140,8 @@ public class ProductenListView extends BorderPane implements Viewable {
 
     /**
      * Create button to remove products.
+     *
+     * @author Daan Rosbergen
      */
     private void createRemoveProductButton() {
         Button button = new Button("Verwijder wijn");
@@ -197,6 +202,8 @@ public class ProductenListView extends BorderPane implements Viewable {
     /**
      * Add click lisitiner to table view. When the user double clicks on a table row the product add
      * view will be loaded.
+     *
+     * @author Daan Rosbergen
      */
     private void addClicklistener() {
         table.setRowFactory( tv -> {

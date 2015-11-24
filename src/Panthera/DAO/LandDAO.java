@@ -21,6 +21,7 @@ public class LandDAO extends DAO {
     /**
      * Returns a list with Land models.
      *
+     * @author Daan Rosbergen
      * @return ArrayList<Product> List with product models.
      * @throws Exception
      */
@@ -40,6 +41,7 @@ public class LandDAO extends DAO {
     /**
      * Get a Land model by id with values from the DB.
      *
+     * @author Daan Rosbergen
      * @param id id of record in database.
      * @return Land Land model.
      * @throws Exception

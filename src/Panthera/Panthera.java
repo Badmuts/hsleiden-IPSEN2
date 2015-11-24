@@ -12,6 +12,8 @@ public class Panthera extends Application {
 
     /**
      * JavaFX Singleton constructor.
+     *
+     * @author Daan Rosbergen
      */
     public Panthera() {
         super();
@@ -25,6 +27,7 @@ public class Panthera extends Application {
     /**
      * This method bootstraps the JavaFX application.
      *
+     * @author Daan Rosbergen
      * @param primaryStage JavaFX stage.
      * @throws Exception
      */
@@ -38,6 +41,11 @@ public class Panthera extends Application {
         new QueryUpdater().update();
     }
 
+    /**
+     * Loads external fonts and makes them available in the application.
+     *
+     * @author Daan Rosbergen
+     */
     private void loadFont() {
         Font.loadFont(getClass().getResourceAsStream("Panthera/Resources/avenir-next.ttc"), 12);
     }
@@ -45,6 +53,7 @@ public class Panthera extends Application {
     /**
      * Default main method which delegates to its super class.
      *
+     * @author Daan Rosbergen
      * @param args Some commandline parameters.
      */
     public static void main(String args[]) {
@@ -54,6 +63,7 @@ public class Panthera extends Application {
     /**
      * Returns the instance of this (Panthera) object (because it is a Singleton).
      *
+     * @author Daan Rosbergen
      * @return Panthera.Panthera Singleton Panthera.Panthera object.
      */
     public static Panthera getInstance() {
@@ -63,6 +73,7 @@ public class Panthera extends Application {
     /**
      * Returns the JavaFX stage.
      *
+     * @author Daan Rosbergen
      * @return Stage The actual stage used.
      */
     public Stage getStage() {

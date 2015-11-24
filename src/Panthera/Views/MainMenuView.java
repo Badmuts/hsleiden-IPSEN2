@@ -91,6 +91,9 @@ public class MainMenuView extends BorderPane implements Viewable {
         return button;
     }
 
+    /**
+     * @author Daan Rosbergen
+     */
     @Override public void show() {
         this.stage.setScene(new Scene(this));
         this.stage.show();

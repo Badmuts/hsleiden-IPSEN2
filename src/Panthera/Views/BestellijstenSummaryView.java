@@ -53,7 +53,7 @@ public class BestellijstenSummaryView extends BorderPane implements Viewable{
 		table.setItems(bestellijsten);
 		setPadding(new Insets(22));
 	}
-	
+
 	@Override
 	public void show() {
 		this.stage.setScene(new Scene(this, 800, 600));

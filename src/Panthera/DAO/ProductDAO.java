@@ -20,6 +20,7 @@ public class ProductDAO extends DAO {
     /**
      * Get a Product model by id with values from the DB.
      *
+     * @author Daan Rosbergen
      * @param id id of record in database.
      * @return Product Product model.
      * @throws Exception
@@ -42,6 +43,7 @@ public class ProductDAO extends DAO {
     /**
      * Returns a list with Product models.
      *
+     * @author Daan Rosbergen
      * @return ArrayList<Product> List with product models.
      * @throws Exception
      */
@@ -65,6 +67,7 @@ public class ProductDAO extends DAO {
     /**
      * Saves a product model to the DB.
      *
+     * @author Daan Rosbergen
      * @param product       Product model.
      * @throws Exception    Database error.
      */
@@ -88,6 +91,7 @@ public class ProductDAO extends DAO {
     /**
      * Updates product in DB according to Model passed in as argument.
      *
+     * @author Daan Rosbergen
      * @param product Product model.
      */
     public void update(Product product) {
@@ -109,6 +113,7 @@ public class ProductDAO extends DAO {
     /**
      * Remove product form DB according to Model passed in as argument.
      *
+     * @author Daan Rosbergen
      * @param product       Product model.
      * @throws Exception    Database error.
      */

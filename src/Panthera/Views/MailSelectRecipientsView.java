@@ -39,7 +39,7 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      *
-     *
+     * @author Daan Rosbergen
      * @param mailController    MailController  Controller used for the view.
      * @param onderwerp         String          Subject of the email.
      * @param bericht           String          Message of the email.
@@ -72,6 +72,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Create header.
+     *
+     * @author Daan Rosbergen
      */
     private void createHeader() {
         createTitle();
@@ -81,6 +83,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Create searchfield.
+     *
+     * @author Daan Rosbergen
      */
     private void createSearchField() {
         filterField = new TextField();
@@ -90,6 +94,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Create title.
+     *
+     * @author Daan Rosbergen
      */
     private void createTitle() {
         Text title = new Text("Selecteer ontvangers");
@@ -100,6 +106,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Filter list according to value form the searchfield.
+     *
+     * @author Daan Rosbergen
      */
     private void filterList() {
         FilteredList<Debiteur> filteredData = new FilteredList<Debiteur>(this.debiteuren, p -> true);
@@ -132,6 +140,7 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
     /**
      * Creates a Button and binds it to a method in the Controller.
      *
+     * @author Daan Rosbergen
      * @param name          Name of the button.
      * @param eventhandler  EventHandler for button action.
      */
@@ -144,6 +153,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Create tableview.
+     *
+     * @author Daan Rosbergen
      */
     private void createTableView() {
         table = new TableView();
@@ -181,6 +192,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Create select all button.
+     *
+     * @author Daan Rosbergen
      */
     public void createSelectAllButton() {
 
@@ -206,6 +219,8 @@ public class MailSelectRecipientsView extends BorderPane implements Viewable {
 
     /**
      * Viewable method shows this view.
+     *
+     * @author Daan Rosbergen
      */
     @Override public void show() {
         this.stage.setScene(new Scene(this));

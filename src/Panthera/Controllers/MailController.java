@@ -26,6 +26,7 @@ public class MailController extends Controller {
     /**
      * Creates a MailService object used to send mail.
      *
+     * @author Daan Rosbergen
      * @param mainController MainController used to set its subview.
      */
     public MailController(MainController mainController) {
@@ -35,6 +36,8 @@ public class MailController extends Controller {
 
     /**
      * Sets subview to MailDankwoordView.
+     *
+     * @author Daan Rosbergen
      */
     public void cmdShowDankwoordView() {
         this.mainController.setSubview(new MailDankwoordView(this));
@@ -42,11 +45,18 @@ public class MailController extends Controller {
 
     /**
      * Sets subview to MailUitnodigingView.
+     *
+     * @author Daan Rosbergen
      */
     public void cmdShowUitnodigingView() {
         this.mainController.setSubview(new MailUitnodigingView(this));
     }
-    
+
+    /**
+     * Sets subview to MailHerinneringView.
+     *
+     * @author Daan Rosbergen
+     */
     public void cmdShowHerinneringView() {
     	this.mainController.setSubview(new MailHerinneringView(this));
 	}
@@ -54,6 +64,7 @@ public class MailController extends Controller {
     /**
      * Sets subview to MailSelectRecipientsView and passes the current mail subject and mail body.
      *
+     * @author Daan Rosbergen
      * @param onderwerp String  Mail subject.
      * @param bericht   String  Mail message.
      */
@@ -65,6 +76,7 @@ public class MailController extends Controller {
     /**
      * Send a 'Dankwoord' to a list of debitors with a custom subject and mail body.
      *
+     * @author Daan Rosbergen
      * @param debiteuren    ObservableList<Debiteur> List with debitors.
      * @param onderwerp     String                   Mail subject.
      * @param bericht       String                   Mail message.
@@ -86,6 +98,7 @@ public class MailController extends Controller {
     /**
      * Send a 'Uitnodging' to a list of debitors with a custom subject and mail body.
      *
+     * @author Daan Rosbergen
      * @param debiteuren    ObservableList<Debiteur> List with debitors.
      * @param onderwerp     String                   Mail subject.
      * @param bericht       String                   Mail message.
@@ -106,6 +119,8 @@ public class MailController extends Controller {
 
     /**
      * Set default MailListView to the controller.
+     *
+     * @author Daan Rosbergen
      */
     @Override
     public void show() {
@@ -115,6 +130,7 @@ public class MailController extends Controller {
     /**
      * Retrieve the MainController.
      *
+     * @author Daan Rosbergen
      * @return MainController MainController.
      */
     public MainController getMainController() {

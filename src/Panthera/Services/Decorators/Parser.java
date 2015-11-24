@@ -8,6 +8,12 @@ import Panthera.Models.Model;
  */
 public abstract class Parser extends Model {
 
+    /**
+     * @author Daan Rosbergen
+     * @param text  String to parse.
+     * @param data
+     * @return
+     */
     public abstract String parse(String text, Model data);
 
 }

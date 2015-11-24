@@ -17,6 +17,8 @@ public class MailService {
 
     /**
      * Creates a MailService with the standard JavaMailStrategy.
+     *
+     * @author Daan Rosbergen
      */
     public MailService() {
         this.mailStrategy = new JavaMailStrategy();
@@ -25,6 +27,7 @@ public class MailService {
     /**
      * Creates a MailService object to send mail via a MailStrategy of your choice.
      *
+     * @author Daan Rosbergen
      * @param mailStrategy  MailStrategy    Strategy used to send mail.
      */
     public MailService(MailStrategy mailStrategy) {
@@ -34,6 +37,7 @@ public class MailService {
     /**
      * Set new MailStrategy.
      *
+     * @author Daan Rosbergen
      * @param mailStrategy  MailStrategy    New MailStrategy.
      */
     public void setMailStrategy(MailStrategy mailStrategy) {
@@ -43,6 +47,7 @@ public class MailService {
     /**
      * Send mail via strategy.
      *
+     * @author Daan Rosbergen
      * @param email
      */
     public void send(Email email) {

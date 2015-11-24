@@ -58,6 +58,7 @@ public class Product extends Model {
     /**
      * Retrieve productnumber.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public int getProductnummer() {
@@ -67,6 +68,7 @@ public class Product extends Model {
     /**
      * Productnumber property used to observe its value.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleIntegerProperty productnummerProperty() {
@@ -76,6 +78,7 @@ public class Product extends Model {
     /**
      * Set productnumber.
      *
+     * @author Daan Rosbergen
      * @param productnummer
      */
     public void setProductnummer(int productnummer) {
@@ -84,6 +87,8 @@ public class Product extends Model {
 
     /**
      * Get name of product.
+     *
+     * @author Daan Rosbergen
      * @return
      */
     public String getNaam() {
@@ -93,6 +98,7 @@ public class Product extends Model {
     /**
      * Get name property to observe its value.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty naamProperty() {
@@ -102,6 +108,7 @@ public class Product extends Model {
     /**
      * Set productnaam.
      *
+     * @author Daan Rosbergen
      * @param naam
      */
     public void setNaam(String naam) {
@@ -111,6 +118,7 @@ public class Product extends Model {
     /**
      * Get product year (wine year).
      *
+     * @author Daan Rosbergen
      * @return
      */
     public int getJaar() {
@@ -120,6 +128,7 @@ public class Product extends Model {
     /**
      * Product year property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleIntegerProperty jaarProperty() {
@@ -130,6 +139,7 @@ public class Product extends Model {
     /**
      * Set product year (wine year).
      *
+     * @author Daan Rosbergen
      * @param jaar
      */
     public void setJaar(int jaar) {
@@ -139,6 +149,7 @@ public class Product extends Model {
     /**
      * Get product price.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public double getPrijs() {
@@ -148,6 +159,7 @@ public class Product extends Model {
     /**
      * Product price property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleDoubleProperty prijsProperty() {
@@ -157,6 +169,7 @@ public class Product extends Model {
     /**
      * Set product price.
      *
+     * @author Daan Rosbergen
      * @param prijs
      */
     public void setPrijs(double prijs) {
@@ -166,6 +179,7 @@ public class Product extends Model {
     /**
      * Get product type (White, Red or Rose wine).
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getType() {
@@ -175,6 +189,7 @@ public class Product extends Model {
     /**
      * Product type property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty typeProperty() {
@@ -183,7 +198,7 @@ public class Product extends Model {
 
     /**
      * Set product type.
-     *
+     * @author Daan Rosbergen
      * @param type
      */
     public void setType(String type) {
@@ -193,6 +208,7 @@ public class Product extends Model {
     /**
      * Get product id.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public int getId() {
@@ -202,6 +218,7 @@ public class Product extends Model {
     /**
      * Id property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleIntegerProperty idProperty() {
@@ -211,6 +228,7 @@ public class Product extends Model {
     /**
      * Set product id.
      *
+     * @author Daan Rosbergen
      * @param id
      */
     public void setId(int id) {
@@ -220,6 +238,7 @@ public class Product extends Model {
     /**
      * Return land model of product.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public Land getLand() {
@@ -228,6 +247,8 @@ public class Product extends Model {
 
     /**
      * Land property.
+     *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleObjectProperty<Land> landProperty() {
@@ -237,12 +258,17 @@ public class Product extends Model {
     /**
      * Set land model to product.
      *
+     * @author Daan Rosbergen
      * @param land
      */
     public void setLand(Land land) {
         this.land.set(land);
     }
 
+    /**
+     * @author Daan Rosbergen
+     * @return
+     */
     @Override public String toString() {
         return "Product: \n"
             + "Nummer: " + productnummer + "\n"
@@ -255,6 +281,7 @@ public class Product extends Model {
     /**
      * Used to determine if product has an id.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public boolean hasId() {
@@ -264,6 +291,7 @@ public class Product extends Model {
     /**
      * Used to determine if product is active in a list.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public boolean isActive() {
@@ -273,6 +301,7 @@ public class Product extends Model {
     /**
      * Active boolean property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleBooleanProperty activeProperty() {
@@ -282,6 +311,7 @@ public class Product extends Model {
     /**
      * Set product active.
      *
+     * @author Daan Rosbergen
      * @param active
      */
     public void setActive(boolean active) {
@@ -291,6 +321,7 @@ public class Product extends Model {
     /**
      * Get product amount.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public String getAantal() {
@@ -300,6 +331,7 @@ public class Product extends Model {
     /**
      * Product aantal property.
      *
+     * @author Daan Rosbergen
      * @return
      */
     public SimpleStringProperty aantalProperty() {
@@ -309,6 +341,7 @@ public class Product extends Model {
     /**
      * Set product amount.
      *
+     * @author Daan Rosbergen
      * @param aantal
      */
     public void setAantal(String aantal) {

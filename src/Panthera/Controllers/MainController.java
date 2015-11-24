@@ -18,6 +18,8 @@ public class MainController extends Controller {
 
     /**
      * Creates a new MainView and loads the FacturenListView.
+     *
+     * @author Daan Rosbergen
      */
     public MainController() {
     	  this.mainMenuController = new MainMenuController(this);
@@ -34,6 +36,7 @@ public class MainController extends Controller {
     /**
      * Set the current subview.
      *
+     * @author Daan Rosbergen
      * @param newView   Node    New subview to be displayed.
      */
     public void setSubview(Node newView) {

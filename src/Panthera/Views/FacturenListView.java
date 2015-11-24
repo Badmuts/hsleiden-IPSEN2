@@ -59,6 +59,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Dit is de constructor. Deze zet de facturencontroller om te kunnen delegeren
      * Naar de controller. Ook wordt de header en table aangeroepen.
      * Vervolgens wordt in een aparte thread de tabel gevuld met alle facturen.
@@ -82,6 +83,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode zorgt ervoor dat je in het zoekveld kan zoeken
      * Op bepaalde zoektermen zoals: Voornaam, Achternaam en factuurnummer.
      */
@@ -115,6 +117,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode roept alle methods aan om de header van het overzicht te maken.
      */
     private void createHeader() {
@@ -182,6 +185,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode maakt de table aan die alle facturen laat zien in het overzicht.
      * De tablecolumns worden gevuld met properties die de get methode gebruikt
      * Van de modelklasse die gerepresenteerd wordt in de tableview.
@@ -243,6 +247,7 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
     /**
+     * @author Daan Rosbergen
      * @author Brandon van Wijk && Daan Rosbergen
      * Deze methode zorgt ervoor dat als je dubbelklikt op een factuur in het overzicht
      * De bijbehorende pdf dan geopend wordt zodat je de factuur kan inkijken.
@@ -314,6 +319,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode maakt het texveld aan dat gebruikt wordt met zoeken.
      */
     private void createTextField() {
@@ -325,6 +331,7 @@ public class FacturenListView extends BorderPane implements Viewable {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode maakt de titel aan voor het overzicht.
      */
     private void createTitle() {
@@ -353,6 +360,9 @@ public class FacturenListView extends BorderPane implements Viewable {
     }
 
 
+    /**
+     * @author Daan Rosbergen
+     */
     @Override
     public void show() {
 //        this.stage.setScene(new Scene(this, 800, 600));

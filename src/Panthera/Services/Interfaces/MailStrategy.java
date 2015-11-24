@@ -12,6 +12,7 @@ public interface MailStrategy {
     /**
      * Method used to send a Email object.
      *
+     * @author Daan Rosbergen
      * @param email
      */
     public void send(Email email);

@@ -42,6 +42,7 @@ public class DatabaseService {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode wordt gebruikt om de instantie van de database service op te halen.
      * @return DatabaseService
      * @throws InstantiationException
@@ -60,13 +61,14 @@ public class DatabaseService {
 
     /**
      * @author Brandon van Wijk
+     * @author Daan Rosbergen
      * Deze methode wordt gebruikt in de
      * DAO's om met de database te communiceren
      * @return Connection
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {
-        String URL = "jdbc:postgresql://localhost/Lions";
+        String URL = "jdbc:postgresql://localhost/panthera_test";
         Properties info = new Properties( );
 
         info.put( "user", "postgres" );

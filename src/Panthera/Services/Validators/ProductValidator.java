@@ -19,6 +19,7 @@ public class ProductValidator {
      * Validates the required fields of a product and throws an exception when these fields are
      * incorrect.
      *
+     * @author Daan Rosbergen
      * @return
      * @throws ProductNaamNotValidException
      * @throws ProductTypeNotValidException

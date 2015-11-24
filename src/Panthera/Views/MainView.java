@@ -26,6 +26,7 @@ public class MainView extends BorderPane implements Viewable {
     /**
      * Creates a new main view.
      *
+     * @author Daan Rosbergen
      * @param mainMenuController    MainMenuController  Controller for menu items.
      */
     public MainView(MainMenuController mainMenuController) {
@@ -37,6 +38,8 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Setup view (background, logo, subview container and menu).
+     *
+     * @author Daan Rosbergen
      */
     private void setupView() {
         createBackground();
@@ -49,6 +52,8 @@ public class MainView extends BorderPane implements Viewable {
      * Creates header of the view:
      *  - Menu
      *  - Logo
+     *
+     *  @author Daan Rosbergen
      */
     private void createHeader() {
         addMenu();
@@ -57,6 +62,8 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Create subview container stackpane where other views will be shown.
+     *
+     * @author Daan Rosbergen
      */
     private void createSubviewContainer() {
         subviewContainer = new StackPane();
@@ -72,6 +79,8 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Load logo and add it to the header.
+     *
+     * @author Daan Rosbergen
      */
     private void addLogo() {
         ImageView logo = new ImageView("Panthera/Resources/lions-app.png");
@@ -84,6 +93,8 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Create new menu and add it to the view.
+     *
+     * @author Daan Rosbergen
      */
     private void addMenu() {
         MainMenuView mainMenuView = new MainMenuView(this.mainMenuController);
@@ -93,6 +104,8 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Create blue background rectangle.
+     *
+     * @author Daan Rosbergen
      */
     private void createBackground() {
         Rectangle rectangle = new Rectangle(stage.widthProperty().get(), 200);
@@ -106,12 +119,17 @@ public class MainView extends BorderPane implements Viewable {
 
     /**
      * Retrieve the subviewcontainer to manipulate it.
+     *
+     * @author Daan Rosbergen
      * @return
      */
     public StackPane getSubviewContainer() {
         return subviewContainer;
     }
 
+    /**
+     * @author Daan Rosbergen
+     */
     @Override public void show() {
         Scene scene = new Scene(this);
         this.stage.setScene(scene);

@@ -32,6 +32,7 @@ public class MailListView extends BorderPane implements Viewable {
     /**
      * Creates a new MailListView.
      *
+     * @author Daan Rosbergen
      * @param mailController
      */
     public MailListView(MailController mailController) {
@@ -44,6 +45,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Create header of the view.
+     *
+     * @author Daan Rosbergen
      */
     private void createHeader() {
         createTitle();
@@ -55,6 +58,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Create body of the view.
+     *
+     * @author Daan Rosbergen
      */
     private void createBody() {
     	setCenter(body);
@@ -64,6 +69,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Display explain text.
+     *
+     * @author Daan Rosbergen
      */
     private void createExplainText() {
     	Text explain = new Text("Verstuur een email naar alle gasten.");
@@ -72,6 +79,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Create title of the view.
+     *
+     * @author Daan Rosbergen
      */
     private void createTitle() {
         Text title = new Text("Email");
@@ -83,6 +92,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Create button for uitnodingen view.
+     *
+     * @author Daan Rosbergen
      */
     private void createUitnodigingButton() {
         Button button = new Button("Verstuur uitnodiging");
@@ -93,6 +104,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Create button for dankwoord view.
+     *
+     * @author Daan Rosbergen
      */
     private void createDankwoordButton() {
         Button button = new Button("Verstuur dankwoord");
@@ -100,7 +113,10 @@ public class MailListView extends BorderPane implements Viewable {
         button.getStyleClass().addAll("btn", "btn-primary");
         footer.getChildren().add(button);
     }
-    
+
+    /**
+     * @author Daan Rosbergen
+     */
     private void createHerinneringButton() {
     	Button button = new Button("Verstuur Herinnering");
     	button.setOnAction(event -> this.mailController.cmdShowHerinneringView());
@@ -110,6 +126,8 @@ public class MailListView extends BorderPane implements Viewable {
 
     /**
      * Show the view.
+     *
+     * @author Daan Rosbergen
      */
     @Override
     public void show() {

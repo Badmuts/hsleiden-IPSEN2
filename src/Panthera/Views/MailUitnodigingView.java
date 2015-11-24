@@ -34,6 +34,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Creates a view to send a 'Uitnodiging'.
      *
+     * @author Daan Rosbergen
      * @param mailController    MailController  MailController used to control email and its views.
      */
     public MailUitnodigingView(MailController mailController) {
@@ -46,6 +47,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * This methods creates the views form.
      *
+     * @author Daan Rosbergen
      * @author Daan Rosbergen
      */
     private void createForm() {
@@ -63,6 +65,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Creates a field (label and textfield).
      *
+     * @author Daan Rosbergen
      * @param name  String  Name of field.
      */
     private void createField(String name) {
@@ -77,6 +80,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Sets padding to view and its rows.
      *
+     * @author Daan Rosbergen
      * @author Daan Rosbergen
      */
     private void setPadding() {
@@ -132,6 +136,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Creates a Button and binds it to a method in the Controller.
      *
+     * @author Daan Rosbergen
      * @param name          Name of the button.
      * @param eventhandler  EventHandler for button action.
      */
@@ -144,6 +149,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Adds 2 nodes to the view in the same row.
      *
+     * @author Daan Rosbergen
      * @param label
      * @param textArea
      */
@@ -156,6 +162,7 @@ public class MailUitnodigingView extends GridPane implements Viewable {
     /**
      * Adds a single Node to the right of the view.
      *
+     * @author Daan Rosbergen
      * @param node
      */
     private void addToForm(Node node) {
@@ -165,6 +172,8 @@ public class MailUitnodigingView extends GridPane implements Viewable {
 
     /**
      * Viewable method shows this view.
+     *
+     * @author Daan Rosbergen
      */
     @Override public void show() {
         this.stage.setScene(new Scene(this));

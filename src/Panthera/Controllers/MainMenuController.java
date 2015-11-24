@@ -64,6 +64,7 @@ public class MainMenuController extends Controller {
     /**
      * Returns a new MailController.
      *
+     * @author Daan Rosbergen
      * @return  MailController
      */
     public Controller cmdCreateMailController() {

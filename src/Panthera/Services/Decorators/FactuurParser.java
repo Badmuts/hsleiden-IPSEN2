@@ -24,6 +24,7 @@ public class FactuurParser extends Parser {
      * Parse replace codes for factuur.
      *  - `{FACTUURNUMMER}`: Displays invoicenumber.
      *
+     * @author Daan Rosbergen
      * @param text
      * @param data
      * @return
