@@ -15,6 +15,7 @@ public class SettingsDAO extends DAO {
 		super();
 	}
 	/**
+	 * @author Victor
 	 * geeft een Settings object terug waarvan de id overeenkomt met de param id.
 	 * 
 	 * @param id	een id van de desbetreffende setting als een integer
@@ -44,6 +45,7 @@ public class SettingsDAO extends DAO {
 
 	}
 	/**
+	 * @author Victor
 	 * Returns een arraylist bestaand uit alle opgeslagen Settings objecten.
 	 * 
 	 * @return settings arraylist met alle settings die opgeslagen zijn in de database.
@@ -71,6 +73,7 @@ public class SettingsDAO extends DAO {
 		return settings;
 	}
 	/**
+	 * @author Victor
 	 * Slaat nieuw settings op in de database.
 	 * 
 	 * @param settings	nieuw settings object.
@@ -98,6 +101,7 @@ public class SettingsDAO extends DAO {
 		}
 	}
 	/**
+	 * @author Victor
 	 * Werkt opgeslagen settings in de database bij aan de hand van een gewijzigde settings object.
 	 * 
 	 * @param settings	gewijzigde settings.
@@ -119,6 +123,7 @@ public class SettingsDAO extends DAO {
 
 	}
 	/**
+	 * @author Victor
 	 * Verwijdert setting uit de database aan de hand van een settings object.
 	 * @param settings	settings object die in de database voorkomt.
 	 */

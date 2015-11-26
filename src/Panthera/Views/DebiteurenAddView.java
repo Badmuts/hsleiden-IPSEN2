@@ -35,6 +35,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 	private Debiteur debiteur;
 
 	/**
+	 * @author Victor
 	 * Maakt een nieuw DebiteurenAddView aan en voegt een debiteurenController eraan toe.
 	 * @param debiteurenController
 	 */
@@ -47,6 +48,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		addButton();
 	}
 	/**
+	 * @author Victor
 	 * Maakt een nieuw DebiteurenAddView aan voor een bestaande debiteur en voegt een debiteurenController eraan toe.
 	 * 
 	 * @param debiteurenController
@@ -60,6 +62,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		addButton();
 	}
 	/**
+	 * @author Victor
 	 * Maakt de knop Opslaan en voegt een listener eraan toe.
 	 * listener roept de methode addDebiteur() aan.
 	 */
@@ -71,12 +74,14 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		row++;
 	}
 	/**
+	 * @author Victor
 	 * Roept cmdAddDebiteur() in DebiteurenController aan en geeft de variabele debiteur mee.
 	 */
 	public void addDebiteur(){
 		debiteurenController.cmdAddDebiteur(debiteur);
 	}
 	/**
+	 * @author Victor
 	 * Maakt titel aan.
 	 */
 	private void createTitle() {
@@ -87,7 +92,8 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		row++;
 	}
 	/**
-	 * 
+	 * @author Victor
+	 * @author Brandon
 	 * Maakt overzicht van gegevens aan.
 	 */
 	public void createForm(){
@@ -103,6 +109,7 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		createComboBox("Land");
 	}
 	/**
+	 * 
 	 * Maakt een combobox aan van landen mbv LandDAO
 	 * @param name
 	 */
@@ -127,6 +134,8 @@ public class DebiteurenAddView extends GridPane implements Viewable {
 		}
 	}
 	/**
+	 * @author Victor
+	 * @author Brandon
 	 * Maakt velden voor de overzicht aan met een label en textfield met een property
 	 * @param name	naam van de label
 	 * @param property	property van het object

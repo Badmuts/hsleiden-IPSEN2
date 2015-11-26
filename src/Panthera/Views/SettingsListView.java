@@ -46,6 +46,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 	}
 	
 	/**
+	 * @author Victor
 	 * Maakt header aan en voegt titel en de knop "Nieuw" eraan toe.
 	 */
 
@@ -57,6 +58,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 
 	}
 	/**
+	 * @author Victor
 	 * Maakt titel aan.
 	 */
 
@@ -67,6 +69,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(title);
 	}
 	/**
+	 * @author Victor
 	 * Maakt een tabel aan.
 	 */
 
@@ -102,6 +105,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 		setCenter(table);
 	}
 	/**
+	 * @author Victor
 	 * Voegt een dubbleclick listener toe aan de rijen van de tabel. 
 	 * De dubbelklik zorgt ervoor dat de SettingsAddView voor de desbetreffende settings aangeroepen wordt.
 	 * 
@@ -120,6 +124,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 		});
 	}
 	/**
+	 * @author Victor
 	 * Maakt knop "Nieuw" aan en voegt listerner eraan toe. 
 	 * Als de knop geklikt wordt, zorgt de listener ervoor dat de SettingsAddView aangeroepen wordt. 
 	 */
@@ -131,6 +136,7 @@ public class SettingsListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(button);
 	}
 	/**
+	 * @author Victor
 	 * Toont de view.
 	 */
 

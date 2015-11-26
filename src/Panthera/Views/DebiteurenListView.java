@@ -60,6 +60,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 	private HBox topContainer = new HBox(10);
 	private EventDAO eventDao;
 	/**
+	 * @author Victor
 	 * De contructor maakt een nieuw DebiteurenListView object aan
 	 * en voegt een debiteurenController eraan toe.
 	 * @param debiteurenController
@@ -82,6 +83,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		filterDebiteuren();
 	}
 	/**
+	 * @author Brandon
 	 * Maakt een knop aan om leden te kunnen importeren en voegt een listener aan de knop toe
 	 * de listener roept de methode importeerLeden() aan.
 	 * @throws Exception
@@ -99,6 +101,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(button);
 	}
 	/**
+	 * @author Brandon
 	 * Zorgt voor het importeren van een ledenlijst
 	 * @throws Exception
 	 */
@@ -134,6 +137,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		}
 	}
 	/**
+	 * @author Victor
 	 * Zoekt debiteuren.
 	 */
 	private void filterDebiteuren() {
@@ -162,6 +166,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		this.table.setItems(sortedData);
 	}
 	/**
+	 * @author Victor
 	 * Maakt zoekveld aan.
 	 */
 
@@ -172,6 +177,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 
 	}
 	/**
+	 * @author Victor
 	 * Maakt header aan. Voegt titel, zoekveld en knoppen eraan toe.
 	 */
 	public void createHeader()  {
@@ -188,6 +194,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		setTop(topContainer);
 	}
 	/**
+	 * @author Victor
 	 * Maakt de knop verwijder lid aan.
 	 */
 	private void removeDebiteurButton() {
@@ -197,6 +204,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(button);
 	}
 	/**
+	 * @author Victor
 	 * Maakt de knop Nieuw lid aan.
 	 */
 	public void addDebiteurButton(){
@@ -206,6 +214,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(button);
 	}
 	/**
+	 * @author Victor
 	 * Maakt ledenoverzicht aan.
 	 * Roept de methode addClickListener aan. 
 	 */
@@ -271,6 +280,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		setCenter(table);
 	}
 	/**
+	 * @author Victor
 	 * Maakt de checkbox Selecteer alles aan.
 	 * Voegt listener eraan toe.
 	 * De listener verandert de status van debiteur.activeProperty 
@@ -296,6 +306,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.getChildren().add(cb);
 	}
 	/**
+	 * @author Victor
 	 * Voegt listener toe aan elke rij in de tabel.
 	 * Listener roept DebiteurenAddView aan.
 	 */
@@ -312,6 +323,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
         });
     }
     /**
+     * @author Victor
      * Maakt titel aan.
      */
 
@@ -323,6 +335,7 @@ public class DebiteurenListView extends BorderPane implements Viewable {
 		topContainer.setAlignment(Pos.CENTER_RIGHT);
 	}
 	/**
+	 * 
 	 * Toont view.
 	 */
     public void show() {

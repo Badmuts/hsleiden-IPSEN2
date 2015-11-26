@@ -23,6 +23,10 @@ public class SettingsAddView extends GridPane implements Viewable {
 	private SettingsController settingsController;
 	private int row = 0;
 	private Settings settings;
+	/**
+	 * @author Victor
+	 * @param settingsController
+	 */
 
 	public SettingsAddView(SettingsController settingsController) {
 		this.settingsController = settingsController;
@@ -32,6 +36,11 @@ public class SettingsAddView extends GridPane implements Viewable {
 		createForm();
 		saveButton();
 	}
+	/**
+	 * @author Victor
+	 * @param settingsController
+	 * @param settings
+	 */
 
 	public SettingsAddView(SettingsController settingsController, Settings settings) {
 		this.settingsController = settingsController;
@@ -43,6 +52,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		removeButton();
 	}
 	/**
+	 * @author Victor
 	 * Maakt opslaanknop aan en voegt listener eraan toe.
 	 * Listener zorgt ervoor dat saveSettings() aangeroepen wordt.
 	 */
@@ -55,6 +65,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		row++;
 	}
 	/**
+	 * @author Victor
 	 * Maakt verwijderknop aan en voegt listener eraan toe.
 	 * Listener zorgt ervoor dat removeSettings() aangeroepen wordt
 	 */
@@ -67,6 +78,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		row++;
 	}
 	/**
+	 * @author Victor
 	 * Roept de methode cmdSaveSettings in de settingsController aan en geeft het object settings mee.
 	 */
 
@@ -74,6 +86,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		settingsController.cmdSaveSettings(settings);
 	}
 	/**
+	 * @author Victor
 	 * Roept de methode cmdRemoveSettings in de settingsController aan en geeft het object settings mee.
 	 */
 
@@ -81,6 +94,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		settingsController.cmdRemoveSettings(settings);
 	}
 	/**
+	 * @author Victor
 	 * Maakt titel aan.
 	 */
 
@@ -92,6 +106,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		row++;
 	}
 	/**
+	 * @author Victor
 	 * Maakt overzicht van gegevens aan.
 	 */
 
@@ -110,6 +125,7 @@ public class SettingsAddView extends GridPane implements Viewable {
 		createField("Port", settings.portProperty());
 	}
 	/**
+	 * @author Victor
 	 * Maakt velden voor de overzicht aan met een label en textfield met een property
 	 * @param name	naam van de label
 	 * @param property	property van het object

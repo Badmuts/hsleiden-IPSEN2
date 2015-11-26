@@ -29,6 +29,8 @@ public class Debiteur extends Model {
 	private SimpleBooleanProperty present;
 	
 	/**
+	 * @author Victor
+	 * @author Brandon
 	 * Debiteur constructor.
 	 * Set alle variabelen.
 	 * @param id
@@ -60,6 +62,8 @@ public class Debiteur extends Model {
 		this.present = new SimpleBooleanProperty(false);
 	}
 	/**
+	 * @author Victor
+	 * @author Brandon
 	 * Debiteur constructor.
 	 * Set alle variabelen van een nieuw lid.
 	 * @param aanhef
@@ -90,6 +94,8 @@ public class Debiteur extends Model {
 		this.present = new SimpleBooleanProperty(false);
 	}
 	/**
+	 * @author Victor
+	 * @author Brandon
 	 * Debiteur constructor.
 	 * Maakt nieuw properties.
 	 */
@@ -111,91 +117,91 @@ public class Debiteur extends Model {
 	}
 	//getters
 	/**
-	 * 
+	 * @author Victor
 	 * @return id
 	 */
 	public int getId(){
 		return this.id.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return aanhef
 	 */
 	public String getAanhef(){
 		return this.aanhef.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return voornaam
 	 */
 	public String getVoornaam(){
 		return this.voornaam.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return tussenvoegsel
 	 */
 	public String getTussenvoegsel(){
 		return this.tussenvoegsel.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return naam
 	 */
 	public String getNaam(){
 		return this.naam.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return adres
 	 */
 	public String getAdres(){
 		return this.adres.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return woonplaats
 	 */
 	public String getWoonplaats(){
 		return this.woonplaats.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return postcode
 	 */
 	public String getPostcode(){
 		return this.postcode.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return email
 	 */
 	public String getEmail(){
 		return this.email.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return telefoon
 	 */
 	public String getTelefoon(){
 		return this.telefoon.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return land
 	 */
 	public Land getLand(){
 		return this.land.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return boolean isActive
 	 */
 	public boolean isActive() {
 		return active.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return boolean hasId
 	 */
 	public boolean hasId() {
@@ -204,91 +210,91 @@ public class Debiteur extends Model {
 
 	//setters
 	/**
-	 * 
+	 * @author Victor
 	 * @param id
 	 */
 	public void setId(int id){
 		this.id.set(id);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param aanhef
 	 */
 	public void setAanhef(String aanhef){
 		this.aanhef.set(aanhef);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param voornaam
 	 */
 	public void setVoornaam(String voornaam){
 		this.voornaam.set(voornaam);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param tussenvoegsel
 	 */
 	public void setTussenvoegsel(String tussenvoegsel){
 		this.tussenvoegsel.set(tussenvoegsel);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param naam
 	 */
 	public void setNaam(String naam){
 		this.naam.set(naam);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param adres
 	 */
 	public void setAdres(String adres){
 		this.adres.set(adres);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param woonplaats
 	 */
 	public void setWoonplaats(String woonplaats){
 		this.woonplaats.set(woonplaats);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param postcode
 	 */
 	public void setPostcode(String postcode){
 		this.postcode.set(postcode);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param present
 	 */
 	public void setPresent(SimpleBooleanProperty present) {
 		this.present = present;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param email
 	 */
 	public void setEmail(String email){
 		this.email.set(email);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param telefoon
 	 */
 	public void setTelefoon(String telefoon){
 		this.telefoon.set(telefoon);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param land
 	 */
 	public void setLand(Land land){
 		this.land.set(land);
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @param active
 	 */
 	public void setActive(boolean active) {

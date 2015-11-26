@@ -38,6 +38,7 @@ public class DebiteurenController extends Controller {
       }
 	}
 	/**
+	 * @author Victor
 	 * Haalt alle debiteuren op uit de database mbv de methode getAllDebiteuren in de DebiteurenDAO
 	 * @return debiteuren observableList
 	 */
@@ -52,6 +53,7 @@ public class DebiteurenController extends Controller {
 		return FXCollections.observableArrayList(debiteuren);
 	}
 	/**
+	 * @author Victor
 	 * Geeft alle debiteuren een voor een door aan de methode deleteDebiteur in de DebiteurDAO
 	 * zodat deze dan verwijderd worden uit de database.
 	 * @param debiteuren
@@ -71,6 +73,7 @@ public class DebiteurenController extends Controller {
 		}
 	}
 	/**
+	 * @author Victor
 	 * Geeft een nieuw object debiteur door aan de methode addDebiteur in de DebiteurDAO.
 	 * @param debiteur
 	 */

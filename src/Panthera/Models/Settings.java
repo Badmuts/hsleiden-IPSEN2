@@ -23,6 +23,7 @@ public class Settings {
 	private SimpleStringProperty host;
 	private SimpleStringProperty port;
 	/**
+	 * @author Victor
 	 * Settings constructor. 
 	 * Set alle variabelen van een nieuw setting.
 	 * @param id
@@ -55,6 +56,7 @@ public class Settings {
 		this.port = new SimpleStringProperty(port);
 	}
 	/**
+	 * @author Victor
 	 * Settings constructor. 
 	 * Maakt nieuwe properties.
 	 */
@@ -75,14 +77,14 @@ public class Settings {
 
 	// getters
 	/**
-	 * 
+	 * @author Victor
 	 * @return id
 	 */
 	public int getId() {
 		return this.id.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return bedrijfsnaam
 	 */
 
@@ -90,7 +92,7 @@ public class Settings {
 		return this.bedrijfsnaam.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return mailadres
 	 */
 
@@ -98,7 +100,7 @@ public class Settings {
 		return this.mailadres.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return telefoon
 	 */
 
@@ -106,7 +108,7 @@ public class Settings {
 		return this.telefoon.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return kvk
 	 */
 
@@ -114,7 +116,7 @@ public class Settings {
 		return this.kvk.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return BTWNummer
 	 */
 
@@ -122,7 +124,7 @@ public class Settings {
 		return this.BTWNummer.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return iBan
 	 */
 
@@ -130,7 +132,7 @@ public class Settings {
 		return this.iBan.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return BIC
 	 */
 
@@ -138,7 +140,7 @@ public class Settings {
 		return this.BIC.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return adres
 	 */
 
@@ -146,7 +148,7 @@ public class Settings {
 		return this.adres.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return password
 	 */
 
@@ -154,7 +156,7 @@ public class Settings {
 		return this.password.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return host
 	 */
 
@@ -162,7 +164,7 @@ public class Settings {
 		return this.host.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return port
 	 */
 
@@ -170,7 +172,7 @@ public class Settings {
 		return this.port.get();
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return boolean hasId
 	 */
 
@@ -180,6 +182,7 @@ public class Settings {
 
 	// setters
 	/**
+	 * @author Victor
 	 * set id
 	 * @param id
 	 */
@@ -187,6 +190,7 @@ public class Settings {
 		this.id.set(id);
 	}
 	/**
+	 * @author Victor
 	 * set bedrijfsnaam
 	 * @param bedrijfsnaam
 	 */
@@ -194,6 +198,7 @@ public class Settings {
 		this.bedrijfsnaam.set(bedrijfsnaam);
 	}
 	/**
+	 * @author Victor
 	 * set mailadres
 	 * @param mailadres
 	 */
@@ -201,6 +206,7 @@ public class Settings {
 		this.mailadres.set(mailadres);
 	}
 	/**
+	 * @author Victor
 	 * set telefoon
 	 * @param telefoon
 	 */
@@ -208,6 +214,7 @@ public class Settings {
 		this.telefoon.set(telefoon);
 	}
 	/**
+	 * @author Victor
 	 * set kvk
 	 * @param kvk
 	 */
@@ -215,6 +222,7 @@ public class Settings {
 		this.kvk.set(kvk);
 	}
 	/**
+	 * @author Victor
 	 * set BTWNummer
 	 * @param btw
 	 */
@@ -222,6 +230,7 @@ public class Settings {
 		this.BTWNummer.set(btw);
 	}
 	/**
+	 * @author Victor
 	 * set iBan
 	 * @param iBan
 	 */
@@ -229,6 +238,7 @@ public class Settings {
 		this.iBan.set(iBan);
 	}
 	/**
+	 * @author Victor
 	 * set BIC
 	 * @param BIC
 	 */
@@ -236,6 +246,7 @@ public class Settings {
 		this.BIC.set(BIC);
 	}
 	/**
+	 * @author Victor
 	 * set adres
 	 * @param adres
 	 */
@@ -243,6 +254,7 @@ public class Settings {
 		this.adres.set(adres);
 	}
 	/**
+	 * @author Victor
 	 * set passwoord
 	 * @param password
 	 */
@@ -250,6 +262,7 @@ public class Settings {
 		this.password.set(password);
 	}
 	/**
+	 * @author Victor
 	 * set host
 	 * @param host
 	 */
@@ -257,6 +270,7 @@ public class Settings {
 		this.host.set(host);
 	}
 	/**
+	 * @author Victor
 	 * set port
 	 * @param port
 	 */
@@ -266,84 +280,84 @@ public class Settings {
 
 	// Properties
 	/**
-	 * 
+	 * @author Victor
 	 * @return id property
 	 */
 	public SimpleIntegerProperty idProperty() {
 		return id;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return bedrijfnaam property
 	 */
 	public SimpleStringProperty bedrijfsnaamProperty() {
 		return bedrijfsnaam;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return mailadres property
 	 */
 	public SimpleStringProperty mailadresProperty() {
 		return mailadres;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return telefoon property
 	 */
 	public SimpleStringProperty telefoonProperty() {
 		return telefoon;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return kvk property
 	 */
 	public SimpleStringProperty kvkProperty() {
 		return kvk;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return BTWNummer property
 	 */
 	public SimpleStringProperty BTWNummerProperty() {
 		return BTWNummer;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return iBan property
 	 */
 	public SimpleStringProperty iBanProperty() {
 		return iBan;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return BIC  property
 	 */
 	public SimpleStringProperty BICProperty() {
 		return BIC;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return adres property
 	 */
 	public SimpleStringProperty adresProperty() {
 		return adres;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return password property
 	 */
 	public SimpleStringProperty passwordProperty() {
 		return password;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return host property
 	 */
 	public SimpleStringProperty hostProperty() {
 		return host;
 	}
 	/**
-	 * 
+	 * @author Victor
 	 * @return port property
 	 */
 	public SimpleStringProperty portProperty() {

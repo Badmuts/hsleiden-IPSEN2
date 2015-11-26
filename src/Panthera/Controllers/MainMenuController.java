@@ -54,7 +54,7 @@ public class MainMenuController extends Controller {
 
     /**
      * Returns a new DebiteurenController.
-     *
+     * @author Victor
      * @return  DebiteurenController
      */
     public Controller cmdCreateDebiteurenController() {
@@ -73,7 +73,7 @@ public class MainMenuController extends Controller {
 
     /**
      * Returns a new SettingsController.
-     *
+     * @author Victor
      * @return
      */
     public Controller cmdCreateSettingsController() {
