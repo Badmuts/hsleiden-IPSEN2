@@ -30,8 +30,8 @@ public class JavaMailStrategy implements MailStrategy {
      * @author Daan Rosbergen
      */
     public JavaMailStrategy() {
-        final String username = "d.rosbergen@gmail.com";
-        final String password = "ycvkcfjyjfepxjxe";
+        final String username = "USERNAME";
+        final String password = "PASSWORD";
 
         // Get system properties
         Properties properties = System.getProperties();
