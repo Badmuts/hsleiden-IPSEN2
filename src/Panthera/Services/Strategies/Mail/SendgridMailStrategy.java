@@ -25,7 +25,7 @@ public class SendgridMailStrategy implements MailStrategy {
      * @author Daan Rosbergen
      */
     public SendgridMailStrategy() {
-        sendgrid = new SendGrid("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");
+        sendgrid = new SendGrid("API_KEY");
     }
 
     /**
