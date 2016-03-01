@@ -1,5 +1,5 @@
 # IPSEN2
-Project Panthera.Panthera, een ordersysteem voor het wijnfestijn van de Lions Club. Panthera.Panthera is het Latijnse woord voor leeuw.
+Project Panthera, een ordersysteem voor het wijnfestijn van de Lions Club. Panthera is het Latijnse woord voor leeuw.
 
 ## Setup database
 
